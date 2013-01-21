@@ -568,6 +568,6 @@
         <!-- button class="btn btn-primary btn-mini">Save changes</button -->
     </div>
 </div>
-<!-- 엑셀작업 필요 합니다요. -->
+<!-- 교정이 시급합니다. -->
 </body>
 </html>
