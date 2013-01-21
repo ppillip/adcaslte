@@ -1,4 +1,3 @@
-
 function scrollX() {
     document.all.divTopRight.scrollLeft = document.all.divBottomRight.scrollLeft;
     document.all.divMiddleRight.scrollLeft = document.all.divBottomRight.scrollLeft;
@@ -40,9 +39,9 @@ $(document).ready(function(){
             $('#datepicker02').datepicker('hide');
         });
 
-/*===============================================================================
-* For GRAPH
-*==============================================================================*/
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
     $("#cqiModal input[name=cqiFlag]").click(function(){
         $("#cqiPDFContainer").hide();
         $("#cqiCDFContainer").hide();
@@ -155,13 +154,13 @@ $(document).ready(function(){
         window.open("downLinkByNMSStatsGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1000,height=700');
     });
 
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -220,13 +219,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * End For EXCEL
+     *==============================================================================*/
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function() {
 
         if(!$("#SEARCHTYPE").val()) {
@@ -305,24 +304,24 @@ $(document).ready(function(){
                 $("<tr name='" + row.ROWIDX + "'>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
-                        if(Number(value) && eval(value+sign+critical)) {
-                            return "<span style='color:red'>"+value+"</span>";
-                        } else {
-                            return value;
-                        }
-                      })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues.DL_RRU_VAL1)
+                    if(Number(value) && critical != null && eval(value+sign+critical)) {
+                        return "<span style='color:red'>"+value+"</span>";
+                    } else {
+                        return value;
+                    }
+                })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
                     +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
-                          if(Number(value) && eval(value+sign+critical)) {
-                              return "<span style='color:red'>"+value+"</span>";
-                          } else {
-                              return value;
-                          }
-                      })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues.PRB_USG_VAL1)
+                    if(Number(value) && critical != null && eval(value+sign+critical)) {
+                        return "<span style='color:red'>"+value+"</span>";
+                    } else {
+                        return value;
+                    }
+                })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
                     +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI        )+"</td>"  /*SS*/
@@ -408,13 +407,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
 
-/*===============================================================================
-* For 조회대상
-*==============================================================================*/
+    /*===============================================================================
+     * For 조회대상
+     *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
         event.preventDefault();
@@ -514,9 +513,9 @@ $(document).ready(function(){
         setLeft(2);
 
     });
-/*===============================================================================
- * End For 조회대상
- *==============================================================================*/
+    /*===============================================================================
+     * End For 조회대상
+     *==============================================================================*/
 
 });
 

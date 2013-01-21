@@ -34,7 +34,9 @@
     </div>
     <div id="web_container">
         <div id="header">
-            <%--<div id="popup_title">QCAS</div>--%>
+            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
+                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
+            </div>
             <div id="popup_desc">LTE 용량분석 > LTE NMS 기반 섹터 TP > DownLink 통계</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
         </div>
@@ -48,30 +50,30 @@
                     </tr>
                     <tr>
                         <td background="/adcaslte/common/bootstrap/img/searchbox_center1.png" style="width:6px;">&nbsp;</td>
-                    <td>
-                        <table width="1240" height="110" cellspacing="0" cellpadding="0" border="0">
-                            <tr>
-                                <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                    <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
+                        <td>
+                            <table width="1240" height="110" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
 
-                                    <div name="divSearch" ID="divSearch" style="width:1210px;vertical-align:middle;">
-                                        <table border="0">
-                                            <colgroup>
-                                                <col width="60px">
-                                                <col width="400px">
-                                                <col width="60px">
-                                                <col width="300px">
-                                                <col width="60px">
-                                                <col width="300px">
-                                            </colgroup>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <button class="btn btn-xmini btn-inverse" name="search"><i class="icon-search icon-white"></i>&nbsp;조 회</button>
-                                                    <button class="btn btn-xmini btn-inverse" name="excelDownload" id="excelDownload"><i class="icon-file icon-white"></i>&nbsp;EXCEL</button>
+                                        <div name="divSearch" ID="divSearch" style="width:1210px;vertical-align:middle;">
+                                            <table border="0">
+                                                <colgroup>
+                                                    <col width="60px">
+                                                    <col width="400px">
+                                                    <col width="60px">
+                                                    <col width="300px">
+                                                    <col width="60px">
+                                                    <col width="300px">
+                                                </colgroup>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <button class="btn btn-xmini btn-inverse" name="search"><i class="icon-search icon-white"></i>&nbsp;조 회</button>
+                                                        <button class="btn btn-xmini btn-inverse" name="excelDownload" id="excelDownload"><i class="icon-file icon-white"></i>&nbsp;EXCEL</button>
                                                     <span class="dropdown" id="graphDropDown">
                                                         <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
@@ -85,25 +87,25 @@
                                                                 <li  name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>
                                                             </ul>
                                                     </span>
-                                                </td>
-                                                <td><b>통계주기</b></td>
-                                                <td>
-                                                    <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
-                                                </td>
-                                                <td><b>최번기준</b></td>
-                                                <td>
-                                                    <select name="MBTYPE">
-                                                        <option value="R3" selected>PRB최번(Cell기준)</option>
-                                                        <option value="R5"  >Data최번(Cell기준)</option>
-                                                        <option value="R15" >동접자최번(Cell기준)</option>
-                                                        <option value="R3D" >PRB최번(DU기준)</option>
-                                                        <option value="R5D" >Data최번(DU기준)</option>
-                                                        <option value="R15D">동접자최번(DU기준)</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
+                                                    </td>
+                                                    <td><b>통계주기</b></td>
+                                                    <td>
+                                                        <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
+                                                    </td>
+                                                    <td><b>최번기준</b></td>
+                                                    <td>
+                                                        <select name="MBTYPE">
+                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
+                                                            <option value="R5"  >Data최번(Cell기준)</option>
+                                                            <option value="R15" >동접자최번(Cell기준)</option>
+                                                            <option value="R3D" >PRB최번(DU기준)</option>
+                                                            <option value="R5D" >Data최번(DU기준)</option>
+                                                            <option value="R15D">동접자최번(DU기준)</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
                                                     <span class="dropdown" id="searchDropDown">
                                                         <button class="dropdown-toggle btn btn-mini" id="drop2" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> 조회대상 <b class="caret"></b> </button>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
@@ -125,41 +127,41 @@
                                                         <span   group="searchSelect" id="uniLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">시/군/구</span>
                                                         <select group="searchSelect" name="CITY" id="CITY" style="display:none"></select>
                                                     </span>
-                                                </td>
-                                                <td><b>시간대</b></td>
-                                                <td>
-                                                    <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
-                                                    <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
-                                                </td>
-                                                <td><b>주파수</b></td>
-                                                <td>
-                                                    <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
-                                                    <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
-                                                    <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>기간</b></td>
-                                                <td>
-                                                    <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text" name="FROMYMD" id="datepicker01"/>-
-                                                    <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text"  name="TOYMD" id="datepicker02"/>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><b>보기방식</b></td>
-                                                <td>
-                                                    <input type="radio" name="VIEWTYPE" value="" checked="true"> 추세
-                                                    <input type="radio" name="VIEWTYPE" value="AVG"> 평균
-                                                </td>
-                                            </tr>
-                                        </table>
+                                                    </td>
+                                                    <td><b>시간대</b></td>
+                                                    <td>
+                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
+                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
+                                                    </td>
+                                                    <td><b>주파수</b></td>
+                                                    <td>
+                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
+                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
+                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>기간</b></td>
+                                                    <td>
+                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text" name="FROMYMD" id="datepicker01"/>-
+                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text"  name="TOYMD" id="datepicker02"/>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><b>보기방식</b></td>
+                                                    <td>
+                                                        <input type="radio" name="VIEWTYPE" value="" checked="true"> 추세
+                                                        <input type="radio" name="VIEWTYPE" value="AVG"> 평균
+                                                    </td>
+                                                </tr>
+                                            </table>
 
-                                    </div>
+                                        </div>
 
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                         <td background="/adcaslte/common/bootstrap/img/searchbox_center2.png" style="width:8px;">&nbsp;</td>
                     </tr>
                     <tr>
