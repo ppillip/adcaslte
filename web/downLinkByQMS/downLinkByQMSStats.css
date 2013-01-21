@@ -1,0 +1,24 @@
+#wrap {width:100%;height:100%;}
+#web_container{width:100%;}
+#header {position:relative;height:70px;background:url('/adcaslte/common/bootstrap/img/bg_header.png');}
+#header #popup_title {float:left;font-size:20px;font-weight:bold;margin-left:40px;padding-top:20px;}
+#header #popup_desc {float:left;padding-top:22px;padding-left:30px;}
+#header #quickmenu_trigger {position:absolute;right:0px;top:31px;cursor:pointer;}
+#quickmenu_container {position:absolute;top:0px;left:0px;width:100%;height:300px;border:1px solid;display:none;z-index:999;background-color:#4a4543;border-bottom:3px #ff713a solid;}
+#search_table {width:1270px;padding:10px;padding-top:5px;padding-left:3px;margin:0px;}
+
+div[name=divDailyDataPad] {/*width:1279px;*/height:500px;margin-left: 3px;}
+div[name=divDailyDataPad] tr.info td {text-align: center;}
+div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
+
+div[name=divTopLeft]     {}
+div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:690px; /*변경시 setLeft 함수도 수정*/}
+
+div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:220px; /*width:501px;*/ /*col00 변경시 수정*/}
+div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:706px;   height:220px;                                                            }
+
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:690px;}
+
+.col01 {width:70px;}
+
+select {height:23px; width:140px;font-size:11px; margin: 0px;}

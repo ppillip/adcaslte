@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+
+    <constant name="struts.i18n.encoding" value="euc-kr" />
+
+    <constant name="struts.multipart.parser" value="jakarta"/>
+    <constant name="struts.multipart.saveDir" value="C:\Temp"/>
+    <constant name="struts.multipart.maxSize" value="10000000"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+
+        <default-action-ref name="index" />
+
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+
+    </package>
+
+    <!-- Add packages here -->
+    <include file="struts-adcaslte.xml"/>
+
+</struts>

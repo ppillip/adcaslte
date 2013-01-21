@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="adcasConf.properties"/>
+    <environments default="adcasdb">
+        <environment id="lte">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${DB_DRIVER}" />
+                <property name="url" value="${DB_URL}" />
+                <property name="username" value="${DB_USERNAME}" />
+                <property name="password" value="${DB_PASSWORD}" />
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--
+         declare for query files
+         ibatis(SqlMap) VS myBatis(mapper)
+     -->
+    <mappers>
+        <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkByNMS.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkByNMSStats.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkBySTD.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkBySTDStats.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/Workgroup.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/Environment.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/User.xml" />
+    </mappers>
+</configuration>

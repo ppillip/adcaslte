@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menus>
+    <menu name="WCDMA">
+        <menu name="NMS기반 섹터 TP">  222
+            <menu name="DownLink" url="/adcas/nmsmx/main.jsp" target="NmsMx"/>
+            <menu name="DownLink통계" url="/adcas/dnNmsAddr/main.jsp" target="dnNmsAddr"/>
+            <menu name="UpLink" url="/adcas/qcenterup/main.jsp" target="QcenterUp"/>
+            <menu name="UpLink통계" url="/adcas/upQcenterAddr/main.jsp" target="upQcenterAddr"/>
+            <menu name="DownLink 전후비교" url="/adcas/nmsmxCompare/main.jsp" target="NmsMxCompare"/>
+            <menu name="DownLink통계 전후비교" url="/adcas/dnNmsAddrCompare/main.jsp" target="dnNmsAddrCompare"/>
+            <menu name="UpLink 전후비교" url="/adcas/qcenterupCompare/main.jsp" target="qcenterupCompare"/>
+            <menu name="UpLink통계 전후비교" url="/adcas/upQcenterAddrCompare/main.jsp" target="upQcenterAddrCompare"/>
+        </menu>
+        <menu name="QMS기반 섹터 TP">
+            <menu name="DownLink" url="/adcas/nodebmx/main.jsp" target="NodebMx"/>
+            <menu name="DownLink통계" url="/adcas/dnQmsAddr/main.jsp" target="dnQmsAddr"/>
+            <menu name="UpLink" url="/adcas/nodebup/main.jsp" target="NodebUp"/>
+            <menu name="UpLink통계" url="/adcas/upQmsAddr/main.jsp" target="upQmsAddr"/>
+        </menu>
+
+        <menu name="기준 용량분석">
+            <menu name="DownLink 기준 용량분석" url="/adcas/downlinkcap/main.jsp" target="downlinkcap"/>
+            <menu name="DownLink 기준 용량분석 통계" url="/adcas/stdDownlinkcapstats/main.jsp" target="stdDownlinkcapstats"/>
+            <menu name="UpLink 분기 용량분석" url="/adcas/uplinkcap/main.jsp" target="uplinkcap"/>
+            <menu name="UpLink 분기 용량분석 통계" url="/adcas/stuNmsAddr/main.jsp" target="stuNmsAddr"/>
+
+            <menu name="DownLink 기준 전후비교" url="/adcas/downlinkcapCompare/main.jsp" target="downlinkcapCompare"/>
+            <menu name="DownLink 기준 통계 전후비교" url="/adcas/stdDownlinkcapstatsCompare/main.jsp" target="stdDownlinkcapstatsCompare"/>
+        </menu>
+
+        <menu name="MAP">
+            <menu name="MAP" url="/adcas/ah03/ah03_010.jsp?NET_TYPE=2" target="WCDMA_MAP"/>
+        </menu>
+        <menu name="관리자 환경변수">
+            <menu name="지역별 단말 Category 비율" url="/adcas/citycat/main.jsp" target="CityCat"/>
+            <menu name="POISSION 임계치" url="/adcas/poission/main.jsp" target="ErlangbVar"/>
+            <menu name="RNC Measurement power offset" url="/adcas/cqimpornc/main.jsp" target="CqiMpoRnc"/>
+            <menu name="기준 용량 downlink 임계치 설정" url="/adcas/stdthrp/main.jsp" target="DownLinkAdjCell"/>
+            <menu name="분기 용량 uplink 임계치 설정" url="/adcas/stdupthrp/main.jsp" target="UpLinkAdjCell"/>
+            <menu name="인접셀 loading 용량감소율 설정" url="/adcas/adjcell/main.jsp" target="LoadingAdjCell"/>
+            <menu name="DOWNLINK LOADING 환산계수" url="/adcas/loading/main.jsp" target="LoadingVar"/>
+            <menu name="DOWNLINK 음성환산계수" url="/adcas/voicevar/main.jsp" target="DownlinkVoiceVar"/>
+            <menu name="CQI vs Throughput Table" url="/adcas/ah04/ah04_010.jsp" target="CQITable"/>
+            <menu name="RSCP vs Throughput Table" url="/adcas/rscptable/main.jsp" target="RscpTable"/>
+            <menu name="UPLINK 멀티셀계수" url="/adcas/multicellcoe/main.jsp" target="MultCellcoe"/>
+            <menu name="UPLINK LOADING 환산계수" url="/adcas/uloading/main.jsp" target="Uloading"/>
+            <menu name="UPLINK 음성환산계수" url="/adcas/uvoicevar/main.jsp" target="UpllinkVoiceVar"/>
+            <menu name="HSUPA Input Mapping Table 보정계수" url="/adcas/imtable/main.jsp" target="InputMappingTable_wcdma"/>
+        </menu>
+        <menu name="사용자 환경변수">
+            <menu name="WorkGroup 관리" url="/adcas/ah05/ah05_110.jsp?NET_TYPE=2" target="WorkGroup_WCDMA"/>
+            <menu name="임계값 설정" url="/adcas/criticalValue/main.jsp" target="criticalValue"/>
+        </menu>
+        <menu name="도움말">
+            <menu name="도움말 보기" url="/adcas/helpReading/main.html" target="helpReading"/>
+            <menu name="Download" url="/adcas/download.jsp?file=adcas_help_ver3.0.zip" target=""/>
+        </menu>
+    </menu>
+</menus>

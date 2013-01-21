@@ -1,0 +1,30 @@
+#wrap {width:100%;height:100%;}
+#web_container{width:100%;}
+#header {position:relative;height:70px;background:url('/adcaslte/common/bootstrap/img/bg_header.png');}
+#header #popup_title {float:left;font-size:20px;font-weight:bold;margin-left:40px;padding-top:20px;}
+#header #popup_desc {float:left;padding-top:22px;padding-left:30px;}
+#header #quickmenu_trigger {position:absolute;right:0px;top:31px;cursor:pointer;}
+#quickmenu_container {position:absolute;top:0px;left:0px;width:100%;height:300px;border:1px solid;display:none;z-index:999;background-color:#4a4543;border-bottom:3px #ff713a solid;}
+/*#search_table {width:1270px;padding:10px;padding-top:5px;padding-left:3px;margin:0px;}*/
+
+select {height:25px; width:160px;font-size:11px;margin: 0 0 0 0;}
+input[type=text] {text-align: center;padding:0 0 0 0; margin: 0 0 0 0; height:24px;font-size:11px;}
+.divWorkgroupList, .divDuList  {height:430px; overflow-x:hidden ;overflow-y: auto; }
+.divTabTree {height:405px; overflow-y: auto;}
+.divSearchDu {height:300px; overflow-x:hidden ;overflow-y: auto;}
+.scroll-y {overflow-x:hidden ;overflow-y: auto;}
+.col01 {width:250px;}
+.col02 {width:100px;}
+.success td {text-align: center; font-weight: bold;}
+.floatLeft {float:left;}
+.floatRight {float:right;}
+.clearBoth {clear:both;}
+.hide {display:none;}
+.vAlignCenter {vertical-align: middle!important;}
+.alignCenter {text-align: center!important;}
+.alignLeft {text-align: left!important;}
+.alignRight {text-align: right!important;}
+
+.MFC00001 {color : blue}
+.MFC00002 {color : red}
+.MFC00014 {color : #009999}
