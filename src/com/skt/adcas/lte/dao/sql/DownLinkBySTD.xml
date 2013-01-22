@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+
+    <sql id="DownLinkBySTD.selectCellTrafficORG">
+        SELECT /*+ no_merge */
+        YMD
+        ,INGR_ERP_CD
+        ,C_UID
+        ,CELL_ID
+        ,MCID
+        ,FREQ_KIND
+        ,round( ${MBTYPE + "_DL_THRP       "}   ,1) AS DL_THRP
+        ,round( ${MBTYPE + "_THROUGHPUT    "}   ,1) AS THROUGHPUT
+        ,round( ${MBTYPE + "_CQI_AVERAGE   "}   ,1) AS CQI_AVERAGE
+        ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
+        ,round( ${MBTYPE + "_RI_RATE       "}   ,1) AS RI_RATE
+        ,round( ${MBTYPE + "_DL_PRB_RATE   "}   ,1) AS DL_PRB_RATE
+        ,round( NVL(${MBTYPE +"_RSSI"},${MBTYPE +"_PUCCH_AVG"}),1) AS RSSI0_PUCCH
+        ,round( NVL(R2_RSSI,R2_PUCCH_AVG),1)       AS RSSI1_PUCCH
+        ,round( ${MBTYPE + "_PUSCH_AVG   "}   ,1)   AS RSSI0_PUSCH
+        ,round( R2_PUCCH_AVG,1)                    AS RSSI1_PUSCH
+        ,round( ${MBTYPE + "_LICENSE_FAIL   "}   ,1) AS LICENSE_FAIL
+        ,round( ${MBTYPE + "_CQI_PDF_00    "}*100   ,1) AS CQI_PDF_00
+        ,round( ${MBTYPE + "_CQI_PDF_01    "}*100   ,1) AS CQI_PDF_01
+        ,round( ${MBTYPE + "_CQI_PDF_02    "}*100   ,1) AS CQI_PDF_02
+        ,round( ${MBTYPE + "_CQI_PDF_03    "}*100   ,1) AS CQI_PDF_03
+        ,round( ${MBTYPE + "_CQI_PDF_04    "}*100   ,1) AS CQI_PDF_04
+        ,round( ${MBTYPE + "_CQI_PDF_05    "}*100   ,1) AS CQI_PDF_05
+        ,round( ${MBTYPE + "_CQI_PDF_06    "}*100   ,1) AS CQI_PDF_06
+        ,round( ${MBTYPE + "_CQI_PDF_07    "}*100   ,1) AS CQI_PDF_07
+        ,round( ${MBTYPE + "_CQI_PDF_08    "}*100   ,1) AS CQI_PDF_08
+        ,round( ${MBTYPE + "_CQI_PDF_09    "}*100   ,1) AS CQI_PDF_09
+        ,round( ${MBTYPE + "_CQI_PDF_10    "}*100   ,1) AS CQI_PDF_10
+        ,round( ${MBTYPE + "_CQI_PDF_11    "}*100   ,1) AS CQI_PDF_11
+        ,round( ${MBTYPE + "_CQI_PDF_12    "}*100   ,1) AS CQI_PDF_12
+        ,round( ${MBTYPE + "_CQI_PDF_13    "}*100   ,1) AS CQI_PDF_13
+        ,round( ${MBTYPE + "_CQI_PDF_14    "}*100   ,1) AS CQI_PDF_14
+        ,round( ${MBTYPE + "_CQI_PDF_15    "}*100   ,1) AS CQI_PDF_15
+        ,round( ${MBTYPE + "_CQI_TOTAL     "}*100   ,1) AS CQI_TOTAL
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ,3) * 100  AS CQI_CDF_00
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ,3) * 100  AS CQI_CDF_01
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ,3) * 100  AS CQI_CDF_02
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ,3) * 100  AS CQI_CDF_03
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ,3) * 100  AS CQI_CDF_04
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                                                            ,3) * 100  AS CQI_CDF_05
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0)                                                                                                                                                                                                                                                                                                                                                                                   ,3) * 100  AS CQI_CDF_06
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0)                                                                                                                                                                                                                                                                                                                                          ,3) * 100  AS CQI_CDF_07
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0)                                                                                                                                                                                                                                                                                                 ,3) * 100  AS CQI_CDF_08
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0)                                                                                                                                                                                                                                                        ,3) * 100  AS CQI_CDF_09
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0)                                                                                                                                                                                                               ,3) * 100  AS CQI_CDF_10
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0)                                                                                                                                                                      ,3) * 100  AS CQI_CDF_11
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0)                                                                                                                             ,3) * 100  AS CQI_CDF_12
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0)                                                                                    ,3) * 100  AS CQI_CDF_13
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0)                                           ,3) * 100  AS CQI_CDF_14
+        ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_15    "} ,0)  ,3) * 100  AS CQI_CDF_15
+        FROM LTE_CELL_INDEX_STD_WK
+        WHERE YMD BETWEEN #{FROMYMD}
+                        AND #{TOYMD} <if test="TOYMD.length() == 6">||'31'</if>
+          AND DAYTIME_SEQ = #{DAYTIME_SEQ}
+        <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
+            AND FREQ_KIND = #{FREQ_KIND}
+        </if>
+        <choose>
+            <when test="CELLGROUP_YN.equalsIgnoreCase('Y')">
+                AND (C_UID,INGR_ERP_CD,CELL_ID,MCID) IN
+                <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
+                    <![CDATA[
+                          (
+                           split(#{item},1,'_')
+                          ,split(#{item},2,'_')
+                          ,split(#{item},3,'_')
+                          ,split(#{item},4,'_')
+                          )
+                        ]]>
+                </foreach>
+            </when>
+            <otherwise>
+                AND (C_UID,INGR_ERP_CD) IN
+                <choose>
+                    <when test="WORKGROUP_YN.equalsIgnoreCase('Y')">
+                        (
+                        SELECT C_UID , INGR_ERP_CD
+                        FROM LTE_WORK_GROUP_DU
+                        WHERE WORKGROUP_ID = #{WORKGROUP_ID}
+                        /*AND USER_ID = 'qcas'*/
+                        )
+                    </when>
+                    <when test="WORKGROUP_YN.equalsIgnoreCase('N')">
+                        <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
+                            <![CDATA[
+                          (
+                           split(#{item},1,'_')
+                          ,split(#{item},2,'_')
+                          )
+                        ]]>
+                        </foreach>
+                    </when>
+                    <otherwise>
+                        (select null as C_UID ,null as INGR_ERP_CD from dual)
+                    </otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+
+    </sql>
+
+    <sql id="DownLinkBySTD.sqlFromPartAVG">
+        ,round(avg(ORG.DL_THRP        )  ,3)  AS DL_THRP
+        ,round(avg(ORG.THROUGHPUT     )  ,3)  AS THROUGHPUT
+        ,round(avg(ORG.CQI_AVERAGE    )  ,3)  AS CQI_AVERAGE
+        ,round(avg(ORG.CQI0_RATE      )  ,3)  AS CQI0_RATE
+        ,round(avg(ORG.RI_RATE        )  ,3)  AS RI_RATE
+        ,round(avg(ORG.DL_PRB_RATE    )  ,3)  AS DL_PRB_RATE
+        ,round(avg(ORG.RSSI0_PUCCH    )  ,3)  AS RSSI0_PUCCH
+        ,round(avg(ORG.RSSI1_PUCCH    )  ,3)  AS RSSI1_PUCCH
+        ,round(avg(ORG.RSSI0_PUSCH    )  ,3)  AS RSSI0_PUSCH
+        ,round(avg(ORG.RSSI1_PUSCH    )  ,3)  AS RSSI1_PUSCH
+        ,round(avg(ORG.LICENSE_FAIL   )  ,3)  AS LICENSE_FAIL
+        ,round(avg(ORG.CQI_PDF_00     )  ,1)  AS CQI_PDF_00
+        ,round(avg(ORG.CQI_PDF_01     )  ,1)  AS CQI_PDF_01
+        ,round(avg(ORG.CQI_PDF_02     )  ,1)  AS CQI_PDF_02
+        ,round(avg(ORG.CQI_PDF_03     )  ,1)  AS CQI_PDF_03
+        ,round(avg(ORG.CQI_PDF_04     )  ,1)  AS CQI_PDF_04
+        ,round(avg(ORG.CQI_PDF_05     )  ,1)  AS CQI_PDF_05
+        ,round(avg(ORG.CQI_PDF_06     )  ,1)  AS CQI_PDF_06
+        ,round(avg(ORG.CQI_PDF_07     )  ,1)  AS CQI_PDF_07
+        ,round(avg(ORG.CQI_PDF_08     )  ,1)  AS CQI_PDF_08
+        ,round(avg(ORG.CQI_PDF_09     )  ,1)  AS CQI_PDF_09
+        ,round(avg(ORG.CQI_PDF_10     )  ,1)  AS CQI_PDF_10
+        ,round(avg(ORG.CQI_PDF_11     )  ,1)  AS CQI_PDF_11
+        ,round(avg(ORG.CQI_PDF_12     )  ,1)  AS CQI_PDF_12
+        ,round(avg(ORG.CQI_PDF_13     )  ,1)  AS CQI_PDF_13
+        ,round(avg(ORG.CQI_PDF_14     )  ,1)  AS CQI_PDF_14
+        ,round(avg(ORG.CQI_PDF_15     )  ,1)  AS CQI_PDF_15
+        ,round(avg(ORG.CQI_TOTAL      )  ,1)  AS CQI_TOTAL
+        ,round(avg(ORG.CQI_CDF_00     )  ,1)  AS CQI_CDF_00
+        ,round(avg(ORG.CQI_CDF_01     )  ,1)  AS CQI_CDF_01
+        ,round(avg(ORG.CQI_CDF_02     )  ,1)  AS CQI_CDF_02
+        ,round(avg(ORG.CQI_CDF_03     )  ,1)  AS CQI_CDF_03
+        ,round(avg(ORG.CQI_CDF_04     )  ,1)  AS CQI_CDF_04
+        ,round(avg(ORG.CQI_CDF_05     )  ,1)  AS CQI_CDF_05
+        ,round(avg(ORG.CQI_CDF_06     )  ,1)  AS CQI_CDF_06
+        ,round(avg(ORG.CQI_CDF_07     )  ,1)  AS CQI_CDF_07
+        ,round(avg(ORG.CQI_CDF_08     )  ,1)  AS CQI_CDF_08
+        ,round(avg(ORG.CQI_CDF_09     )  ,1)  AS CQI_CDF_09
+        ,round(avg(ORG.CQI_CDF_10     )  ,1)  AS CQI_CDF_10
+        ,round(avg(ORG.CQI_CDF_11     )  ,1)  AS CQI_CDF_11
+        ,round(avg(ORG.CQI_CDF_12     )  ,1)  AS CQI_CDF_12
+        ,round(avg(ORG.CQI_CDF_13     )  ,1)  AS CQI_CDF_13
+        ,round(avg(ORG.CQI_CDF_14     )  ,1)  AS CQI_CDF_14
+        ,round(avg(ORG.CQI_CDF_15     )  ,1)  AS CQI_CDF_15
+    </sql>
+
+    <select id="DownLinkBySTD.selectCellTrafficWK" parameterType="hashmap" resultType="hashmap">
+        SELECT ROWNUM AS ROWIDX
+                ,du.BTS_NM             AS BTS_NM
+                ,cell.CELL_NM          AS CELL_NM
+                ,data.*
+          FROM (<include refid="DownLinkBySTD.selectCellTrafficORG"/>) data ,
+                LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+         WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
+           AND data.C_UID        = du.C_UID
+           AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
+           AND data.C_UID        = cell.C_UID
+           AND data.CELL_ID      = cell.CELL_ID
+         ORDER BY data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </select>
+
+    <select id="DownLinkBySTD.selectCellTrafficWKAVG" parameterType="hashmap" resultType="hashmap">
+        SELECT du.BTS_NM,cell.CELL_NM, data.*
+          FROM (SELECT SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+                         ,ORG.INGR_ERP_CD                      AS INGR_ERP_CD
+                         ,ORG.C_UID                            AS C_UID
+                         ,ORG.CELL_ID                          AS CELL_ID
+                         ,ORG.MCID                             AS MCID
+                         ,ORG.FREQ_KIND                        AS FREQ_KIND
+                         <include refid="DownLinkBySTD.sqlFromPartAVG"/>
+                   FROM (<include refid="DownLinkBySTD.selectCellTrafficORG"/>) ORG
+                  GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND) data ,
+                LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+         WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
+           AND data.C_UID        = du.C_UID
+           AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
+           AND data.C_UID        = cell.C_UID
+           AND data.CELL_ID      = cell.CELL_ID
+         ORDER BY data.YMD DESC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </select>
+
+    <select id="DownLinkBySTD.selectCellTrafficMON" parameterType="hashmap" resultType="hashmap">
+
+        select
+        ROWNUM AS ROWIDX
+        ,du.BTS_NM             AS BTS_NM
+        ,cell.CELL_NM          AS CELL_NM
+        ,data.*
+        from (
+        <include refid="DownLinkBySTD.selectCellTrafficORG"/>
+        ) data , LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+        WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
+          AND data.C_UID        = du.C_UID
+          AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
+          AND data.C_UID        = cell.C_UID
+          AND data.CELL_ID      = cell.CELL_ID
+        order by data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </select>
+
+    <select id="DownLinkBySTD.selectCellTrafficMONAVG" parameterType="hashmap" resultType="hashmap">
+        select du.BTS_NM,cell.CELL_NM, data.* from (
+        SELECT
+        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+        ,ORG.INGR_ERP_CD                      AS INGR_ERP_CD
+        ,ORG.C_UID                            AS C_UID
+        ,ORG.CELL_ID                          AS CELL_ID
+        ,ORG.MCID                             AS MCID
+        ,ORG.FREQ_KIND                        AS FREQ_KIND
+        <include refid="DownLinkBySTD.sqlFromPartAVG"/>
+        FROM (
+        <include refid="DownLinkBySTD.selectCellTrafficORG"/>
+        ) ORG
+        GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND
+
+        ) data , LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+        WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
+          AND data.C_UID        = du.C_UID
+          AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
+          AND data.C_UID        = cell.C_UID
+          AND data.CELL_ID      = cell.CELL_ID
+        ORDER BY  data.YMD DESC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </select>
+
+</mapper>

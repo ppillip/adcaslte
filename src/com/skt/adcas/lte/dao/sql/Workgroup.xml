@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+
+    <select id="Workgroup.selectBonbuList" parameterType="hashmap" resultType="hashmap">
+
+        SELECT a.bonbu_cd,
+                a.bonbu_nm
+          FROM BONBU_INFO A
+         WHERE EXISTS(SELECT 'Y'
+                          FROM LTE_BTS_DU_INFO B
+                         WHERE b.bonbu_cd = a.bonbu_cd)
+         ORDER BY a.bonbu_cd
+
+    </select>
+
+    <select id="Workgroup.selectOperTeamList" parameterType="hashmap" resultType="hashmap">
+
+        SELECT a.oper_team_cd,
+                a.oper_team_nm
+          FROM OPER_TEAM_INFO A
+         WHERE EXISTS(SELECT 'Y'
+                          FROM LTE_BTS_DU_INFO B
+                         WHERE b.oper_team_cd = a.oper_team_cd)
+        <if test="BONBU_CD != null">
+           AND a.bonbu_cd = #{BONBU_CD}
+        </if>
+        ORDER BY a.oper_team_nm
+
+    </select>
+
+    <select id="Workgroup.selectPartList" parameterType="hashmap" resultType="hashmap">
+
+        SELECT a.part_cd,
+                a.part_nm
+          FROM PART_INFO A
+         WHERE EXISTS(SELECT 'Y'
+                          FROM LTE_BTS_DU_INFO B
+                         WHERE b.part_cd = a.part_cd)
+        <if test="OPER_TEAM_CD != null">
+           AND a.oper_team_cd = #{OPER_TEAM_CD}
+        </if>
+        ORDER BY a.part_nm
+    </select>
+
+    <select id="Workgroup.selectCityList" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[
+        SELECT city_cd  CITY_CD,
+                city_nm  CITY_NM
+          FROM CITY_INFO
+         WHERE city_nm is not null
+         ORDER BY city_cd
+         ]]>
+    </select>
+
+    <select id="Workgroup.selectGuList" parameterType="hashmap" resultType="hashmap">
+
+        SELECT DISTINCT
+                uni      GU_CD,
+                uni      GU_NM
+          FROM LTE_BTS_DU_INFO
+        <if test="CITY_CD != null">
+            WHERE city_cd = #{CITY_CD}
+        </if>
+        <if test="CITY_NM != null">
+            WHERE city = #{CITY_NM}
+        </if>
+        ORDER BY uni
+
+    </select>
+
+    <select id="Workgroup.selectDongList" parameterType="hashmap" resultType="hashmap">
+
+        SELECT DISTINCT
+                dng      DONG_CD,
+                dng      DONG_NM
+          FROM LTE_BTS_DU_INFO
+        <if test="GU_NM != null">
+            WHERE uni = #{GU_NM}
+        </if>
+        ORDER BY dng
+
+    </select>
+
+    <select id="Workgroup.selectDUList" parameterType="hashmap" resultType="hashmap">
+        SELECT a.ingr_erp_cd,
+                a.c_uid,
+                a.bts_nm_cms||'('||DECODE(b.mfc_cd,'MFC00001','삼성','MFC00002','ELG','MFC00014','NSN',b.mfc_nm)||')' BTS_NM_CMS,
+                a.city||' '||a.uni||' '||a.dng   ADDRESS,
+                b.mfc_cd,
+                DECODE(b.mfc_cd,'MFC00001','삼성','MFC00002','ELG','MFC00014','NSN',b.mfc_nm)  MFC_NM
+          FROM LTE_BTS_DU_INFO A,
+                MFC_INFO B
+        WHERE a.mfc_cd IS NOT NULL
+          AND a.mfc_cd = b.mfc_cd(+)
+        <if test="PART_CD != NULL">
+            AND a.part_cd = #{PART_CD}
+        </if>
+        <if test="GU_CD != NULL">
+            AND a.uni = #{GU_CD}
+        </if>
+        <if test="DU_NAME != NULL">
+            AND a.bts_nm_cms LIKE '%'||#{DU_NAME}||'%'
+        </if>
+        <if test="ADDRESS != NULL">
+            AND a.city||a.uni||a.dng = #{ADDRESS}
+        </if>
+        ORDER BY a.bts_nm_cms
+    </select>
+
+    <select id="Workgroup.selectDUListByWorkgroup" parameterType="hashmap" resultType="hashmap">
+
+        SELECT c.ingr_erp_cd  INGR_ERP_CD,
+                c.c_uid        C_UID,
+                c.bts_nm_cms   BTS_NM_CMS,
+                d.mfc_cd       MFC_CD,
+                DECODE(d.mfc_cd,'MFC00001','삼성','MFC00002','ELG','MFC00014','NSN',d.mfc_nm)  MFC_NM
+          FROM LTE_WORK_GROUP A ,
+                LTE_WORK_GROUP_DU B,
+                LTE_BTS_DU_INFO C,
+                MFC_INFO D
+         WHERE a.user_id = #{USER_ID}
+           AND a.workgroup_id = #{WORKGROUP_ID}
+           AND b.user_id = a.user_id
+           AND b.workgroup_id = a.workgroup_id
+           AND c.ingr_erp_cd = b.ingr_erp_cd
+           AND c.c_uid = b.c_uid
+           AND c.mfc_cd = d.mfc_cd(+)
+         ORDER BY b.order_seq ASC, c.bts_nm_cms
+    </select>
+
+    <select id="Workgroup.selectWorkgroup" parameterType="hashmap" resultType="hashmap">
+
+        SELECT a.user_id,
+                a.workgroup_id,
+                a.workgroup_name,
+                NVL((SELECT d.mfc_nm||'@'||d.mfc_cd
+                       FROM LTE_WORK_GROUP_DU B,
+                             LTE_BTS_DU_INFO C,
+                             MFC_INFO D
+                      WHERE b.user_id = a.user_id
+                        AND b.workgroup_id = a.workgroup_id
+                        AND c.ingr_erp_cd = b.ingr_erp_cd
+                        AND c.c_uid = b.c_uid
+                        AND d.mfc_cd = c.mfc_cd
+                        AND ROWNUM = 1),' ')  MFC_INFO
+           FROM LTE_WORK_GROUP A
+          WHERE a.user_id = #{USER_ID}
+        <if test="WORKGROUP_ID != null">
+            AND a.workgroup_id = #{WORKGROUP_ID}
+        </if>
+        <if test="WORKGROUP_NAME != null">
+            AND a.workgroup_name LIKE '%'||#{WORKGROUP_NAME}||'%'
+        </if>
+        ORDER BY a.upd_date ASC
+
+    </select>
+
+    <insert id="Workgroup.insertWorkgroup" parameterType="hashmap">
+        INSERT INTO LTE_WORK_GROUP
+                      (USER_ID,
+                       WORKGROUP_ID,
+                       WORKGROUP_NAME)
+              VALUES (#{USER_ID},
+                       #{WORKGROUP_ID},
+                       #{WORKGROUP_NAME})
+    </insert>
+
+
+    <delete id="Workgroup.deleteWorkgroup" parameterType="hashmap">
+
+        DELETE LTE_WORK_GROUP
+          WHERE USER_ID = #{USER_ID}
+            AND WORKGROUP_ID = #{WORKGROUP_ID}
+
+    </delete>
+
+    <insert id="Workgroup.insertWorkgroupDU" parameterType="hashmap">
+
+        INSERT INTO LTE_WORK_GROUP_DU
+                     (USER_ID,
+                      WORKGROUP_ID,
+                      INGR_ERP_CD,
+                      C_UID,
+                      ORDER_SEQ)
+             SELECT #{USER_ID},
+                     #{WORKGROUP_ID},
+                     #{INGR_ERP_CD},
+                     #{C_UID},
+                     (SELECT NVL(MAX(ORDER_SEQ),0)+1
+                        FROM LTE_WORK_GROUP_DU
+                       WHERE user_id = #{USER_ID}
+                         AND workgroup_id = #{WORKGROUP_ID})
+                FROM DUAL
+               WHERE NOT EXISTS(SELECT 'Y'
+                                     FROM LTE_WORK_GROUP_DU
+                                    WHERE USER_ID = #{USER_ID}
+                                      AND WORKGROUP_ID = #{WORKGROUP_ID}
+                                      AND INGR_ERP_CD = #{INGR_ERP_CD}
+                                      AND C_UID = #{C_UID})
+
+    </insert>
+
+    <delete id="Workgroup.deleteWorkgroupDU" parameterType="hashmap">
+
+        DELETE LTE_WORK_GROUP_DU
+         WHERE user_id = #{USER_ID}
+           AND workgroup_id = #{WORKGROUP_ID}
+        <if test="INGR_ERP_CD != null">
+            AND ingr_erp_cd = #{INGR_ERP_CD}
+            AND c_uid = #{C_UID}
+        </if>
+
+    </delete>
+
+</mapper>
