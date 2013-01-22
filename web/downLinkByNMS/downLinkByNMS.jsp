@@ -565,7 +565,7 @@
     </div>
     <div class="modal-footer" style="height:30px;">
         <button class="btn btn-mini" data-dismiss="modal" aria-hidden="true">닫기</button>
-        <!-- button class="btn btn-primary btn-mini">Save changes</button      -->
+        <!-- button class="btn btn-primary btn-mini">Save changes</button  -->
     </div>
 </div>
 </body>
