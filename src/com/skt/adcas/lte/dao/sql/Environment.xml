@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+
+    <select id="Environment.selectConstCqiThrp" parameterType="hashmap" resultType="hashmap">
+        SELECT
+        TO_CHAR(A.LASTUPDATE,'YYYY-MM-DD')  AS LASTUPDATE
+        ,A.MFC_CD
+        ,B.MFC_NM
+        ,A.RRU_TYPE
+        ,A.CQI_00
+        ,A.CQI_01
+        ,A.CQI_02
+        ,A.CQI_03
+        ,A.CQI_04
+        ,A.CQI_05
+        ,A.CQI_06
+        ,A.CQI_07
+        ,A.CQI_08
+        ,A.CQI_09
+        ,A.CQI_10
+        ,A.CQI_11
+        ,A.CQI_12
+        ,A.CQI_13
+        ,A.CQI_14
+        ,A.CQI_15
+        FROM LTE_CONST_CQI_THRP A, MFC_INFO B
+       WHERE A.MFC_CD = B.MFC_CD(+)
+       ORDER BY A.MFC_CD, A.RRU_TYPE
+
+    </select>
+
+    <update id="Environment.updateConstCqiThrp" parameterType="hashmap">
+        UPDATE LTE_CONST_CQI_THRP
+            SET CQI_00 = #{CQI_00}
+                ,CQI_01 = #{CQI_01}
+                ,CQI_02 = #{CQI_02}
+                ,CQI_03 = #{CQI_03}
+                ,CQI_04 = #{CQI_04}
+                ,CQI_05 = #{CQI_05}
+                ,CQI_06 = #{CQI_06}
+                ,CQI_07 = #{CQI_07}
+                ,CQI_08 = #{CQI_08}
+                ,CQI_09 = #{CQI_09}
+                ,CQI_10 = #{CQI_10}
+                ,CQI_11 = #{CQI_11}
+                ,CQI_12 = #{CQI_12}
+                ,CQI_13 = #{CQI_13}
+                ,CQI_14 = #{CQI_14}
+                ,CQI_15 = #{CQI_15}
+                ,LASTUPDATE = SYSDATE
+          WHERE MFC_CD = #{MFC_CD}
+            AND RRU_TYPE = #{RRU_TYPE}
+    </update>
+
+    <select id="Environment.selectConstUplinkRsrp" parameterType="hashmap" resultType="hashmap">
+        SELECT A.RSRP
+                , A.THRP
+           FROM LTE_CONST_UPLINK_RSRP A
+          ORDER BY A.RSRP DESC
+    </select>
+
+    <insert id="Environment.insertConstUplinkRsrp" parameterType="hashmap">
+        INSERT INTO LTE_CONST_UPLINK_RSRP
+               (RSRP, THRP, LASTUPDATE)
+        VALUES(#{RSRP}, #{THRP}, SYSDATE)
+    </insert>
+
+    <delete id="Environment.deleteConstUplinkRsrp" parameterType="hashmap">
+        DELETE FROM LTE_CONST_UPLINK_RSRP
+    </delete>
+
+
+    <select id="Environment.selectConstTable" parameterType="hashmap" resultType="hashmap">
+        SELECT A.CONST_TYPE
+                , A.CONST_VAL
+                , A.RAMARK
+                , TO_CHAR(A.LASTUPDATE,'YYYY-MM-DD')  AS LASTUPDATE
+          FROM LTE_CONST_TABLE A
+         ORDER BY DECODE(A.CONST_TYPE,'IN_BUILD',1,'USER_INB',2,'USER_OUT',3,'ADJ_CELL',4)
+
+    </select>
+
+    <update id="Environment.updateConstTable" parameterType="hashmap">
+        UPDATE LTE_CONST_TABLE
+            SET CONST_VAL = #{CONST_VAL}
+                , RAMARK = #{RAMARK}
+                , LASTUPDATE = SYSDATE
+         WHERE CONST_TYPE = #{CONST_TYPE}
+    </update>
+
+    <select id="Environment.selectConstUplink" parameterType="hashmap" resultType="hashmap">
+        SELECT A.CONST_TYPE
+                , A.CONST_VAL
+                , A.RAMARK
+                , TO_CHAR(A.LASTUPDATE,'YYYY-MM-DD')  AS LASTUPDATE
+           FROM LTE_CONST_UPLINK A
+          ORDER BY DECODE(A.CONST_TYPE,'USER_INB',1,'USER_OUT',2,'FREQ_USE',3,'SECTORIZE',4)
+    </select>
+
+    <update id="Environment.updateConstUplink" parameterType="hashmap">
+        UPDATE LTE_CONST_UPLINK
+            SET CONST_VAL = #{CONST_VAL}
+                , RAMARK = #{RAMARK}
+                , LASTUPDATE = SYSDATE
+         WHERE CONST_TYPE = #{CONST_TYPE}
+    </update>
+
+    <select id="Environment.selectCriticalValue" parameterType="hashmap" resultType="hashmap">
+        SELECT USER_ID,
+                USE_TYPE,
+                DL_RRU_VAL1,
+                DL_RRU_VAL2,
+                DL_RRU_UNIT,
+                DL_REPEATER_VAL1,
+                DL_REPEATER_VAL2,
+                DL_REPEATER_UNIT,
+                PRB_USG_VAL1,
+                PRB_USG_VAL2,
+                PRB_USG_UNIT,
+                UL_POWER_VAL1,
+                UL_POWER_VAL2,
+                UL_POWER_UNIT,
+                REMARK,
+                LASTUPDATE
+          FROM LTE_CRITICAL_VALUE
+         WHERE USE_TYPE = #{USE_TYPE}
+        <if test="USE_TYPE.equalsIgnoreCase('USER')">
+           AND USER_ID = #{USER_ID}
+        </if>
+    </select>
+
+    <update id="Environment.updateCriticalValue" parameterType="hashmap">
+            UPDATE LTE_CRITICAL_VALUE
+               SET DL_RRU_VAL1 = #{DL_RRU_VAL1}
+                   , DL_RRU_VAL2 = #{DL_RRU_VAL2}
+                   , DL_REPEATER_VAL1 = #{DL_REPEATER_VAL1}
+                   , DL_REPEATER_VAL2 = #{DL_REPEATER_VAL2}
+                   , PRB_USG_VAL1 = #{PRB_USG_VAL1}
+                   , PRB_USG_VAL2 = #{PRB_USG_VAL2}
+                   , UL_POWER_VAL1 = #{UL_POWER_VAL1}
+                   , UL_POWER_VAL2 = #{UL_POWER_VAL2}
+                   ,LASTUPDATE = SYSDATE
+                <if test="USE_TYPE.equalsIgnoreCase('ADMIN')">
+                    ,USER_ID = #{USER_ID}
+                </if>
+        WHERE USE_TYPE = #{USE_TYPE}
+        <if test="USE_TYPE.equalsIgnoreCase('USER')">
+              AND USER_ID = #{USER_ID}
+        </if>
+    </update>
+
+    <insert id="Environment.insertCriticalValue" parameterType="hashmap">
+        INSERT INTO LTE_CRITICAL_VALUE
+                (USER_ID, USE_TYPE
+                , DL_RRU_VAL1, DL_RRU_VAL2, DL_RRU_UNIT
+                , DL_REPEATER_VAL1, DL_REPEATER_VAL2, DL_REPEATER_UNIT
+                , PRB_USG_VAL1, PRB_USG_VAL2, PRB_USG_UNIT
+                , UL_POWER_VAL1, UL_POWER_VAL2, UL_POWER_UNIT
+                , LASTUPDATE)
+        SELECT #{USER_ID}, 'USER'
+               , DL_RRU_VAL1, DL_RRU_VAL2, DL_RRU_UNIT
+               , DL_REPEATER_VAL1, DL_REPEATER_VAL2, DL_REPEATER_UNIT
+               , PRB_USG_VAL1, PRB_USG_VAL2, PRB_USG_UNIT
+               , UL_POWER_VAL1, UL_POWER_VAL2, UL_POWER_UNIT
+               , SYSDATE
+         FROM LTE_CRITICAL_VALUE
+        WHERE USE_TYPE = 'ADMIN'
+    </insert>
+
+    <select id="Environment.selectConstRssi" parameterType="hashmap" resultType="hashmap">
+        SELECT
+        TO_CHAR(A.LASTUPDATE,'YYYY-MM-DD')  AS LASTUPDATE
+        ,A.MFC_CD
+        ,B.MFC_NM
+        ,A.RSSI_01
+        ,A.RSSI_02
+        ,A.RSSI_03
+        ,A.RSSI_04
+        ,A.RSSI_05
+        ,A.RSSI_06
+        ,A.RSSI_07
+        ,A.RSSI_08
+        ,A.RSSI_09
+        ,A.RSSI_10
+        ,A.RSSI_11
+        ,A.RSSI_12
+        ,A.RSSI_13
+        ,A.RSSI_14
+        ,A.RSSI_15
+        ,A.RSSI_16
+        FROM LTE_CONST_RSSI A, MFC_INFO B
+       WHERE A.MFC_CD = B.MFC_CD(+)
+       ORDER BY A.MFC_CD
+
+    </select>
+
+    <update id="Environment.updateConstRssi" parameterType="hashmap">
+        UPDATE LTE_CONST_RSSI
+            SET RSSI_01 = #{RSSI_01}
+                ,RSSI_02 = #{RSSI_02}
+                ,RSSI_03 = #{RSSI_03}
+                ,RSSI_04 = #{RSSI_04}
+                ,RSSI_05 = #{RSSI_05}
+                ,RSSI_06 = #{RSSI_06}
+                ,RSSI_07 = #{RSSI_07}
+                ,RSSI_08 = #{RSSI_08}
+                ,RSSI_09 = #{RSSI_09}
+                ,RSSI_10 = #{RSSI_10}
+                ,RSSI_11 = #{RSSI_11}
+                ,RSSI_12 = #{RSSI_12}
+                ,RSSI_13 = #{RSSI_13}
+                ,RSSI_14 = #{RSSI_14}
+                ,RSSI_15 = #{RSSI_15}
+                ,RSSI_16 = #{RSSI_16}
+                ,LASTUPDATE = SYSDATE
+          WHERE MFC_CD = #{MFC_CD}
+    </update>
+
+    <select id="Environment.selectTeamList" parameterType="hashmap" resultType="hashmap">
+        SELECT BONBU_CD
+               , BONBU_NM
+               , TOTAL_CELL
+               , THROUGHPUT_BAD
+               , LICENSE_FAIL
+               , PRB_USAGE_BAD
+               , UPLINK_BAD
+         FROM LTE_CELL_ALERT_BOARD
+        WHERE YMD = #{YMD}
+        ORDER BY BONBU_CD
+    </select>
+
+</mapper>

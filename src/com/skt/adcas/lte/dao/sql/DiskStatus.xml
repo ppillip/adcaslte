@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+
+    <select id="diskStatus" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				 u.tablespace_name tableSpace
+			    ,u.bytes / 1048576 sizeM
+			    ,(u.bytes - sum(nvl(f.bytes,0))) / 1048576 usingM
+				,(sum(nvl(f.bytes,0))) / 1048576 usableM
+				,trunc((sum(nvl(f.bytes,0)) / u.bytes) * 100,2) usableRate
+				,u.file_name AS fileName
+			FROM DBA_FREE_SPACE f, DBA_DATA_FILES u
+			WHERE f.file_id(+) = u.file_id
+			GROUP BY u.tablespace_name, u.file_name, u.bytes
+			ORDER BY u.tablespace_name
+		]]>
+	</select>
+
+    <select id="charTest" parameterType="string" resultType="hashmap">
+		<![CDATA[
+			SELECT * FROM ATEST_BTS
+		]]>
+    </select>
+
+    <insert id="charTestInsert" parameterType="hashmap">
+		INSERT INTO ATEST_BTS (
+			BTS_NAME
+		) VALUES (
+			#{BTS_NAME}
+		)
+
+	</insert>
+
+    <select id="Sample.select02" parameterType="string" resultType="hashmap">/* folder.selectList 폴더리스트 가져오기*/
+
+		SELECT
+          B.FOLDER_NAME
+         ,B.FOLDER_ID
+         ,B.PARENT_ID
+         ,B.ACL_ID
+         ,B.CREATE_DATE
+         ,(SELECT COUNT(*) FROM XR_FOLDER A WHERE A.PARENT_ID = B.FOLDER_ID) AS CHILD_COUNT
+         ,B.SORT_INDEX
+		FROM
+			XR_FOLDER B
+			, VIEW_FOLDER_PATH V
+		WHERE B.FOLDER_ID = V.FOLDER_ID
+          AND B.PARENT_ID = #{folder_id}
+		ORDER BY SORT_INDEX
+
+	</select>
+
+    <update id="Sample.update" parameterType="hashmap">
+		UPDATE XR_FOLDER
+		SET  PARENT_ID   = #{parent_id}
+ 			,FOLDER_NAME = #{folder_name}
+ 			,SORT_INDEX  = #{sort_index}
+ 			,ACL_ID      = #{acl_id}
+		WHERE FOLDER_ID  = #{folder_id}
+	</update>
+
+    <insert id="Sample.insert" parameterType="hashmap">
+		INSERT INTO XR_FOLDER (
+		FOLDER_ID
+		,FOLDER_NAME
+		,PARENT_ID
+		,FOLDER_TYPE
+		,IS_SECRET
+		,PASSWORD
+		,SORT_INDEX
+		,FOLDER_STATUS
+		,MAP_ID
+		,ACL_ID
+		,CREATOR_ID
+		,CREATOR_NAME
+		,CREATE_DATE
+		)
+		SELECT
+		#{folder_id}
+		,#{folder_name}
+		,#{parent_id}
+		,'DOCUMENT'
+		,'F'
+		,null
+		,#{sort_index}
+		,'C'
+		,'PROJECT'
+		,#{acl_id}
+		,#{user_id}
+		,(SELECT USER_NAME FROM XR_USER WHERE USER_ID = #{user_id})
+		,SYSDATE
+		FROM DUAL
+	</insert>
+
+    <select id="Sample.delete" parameterType="string">
+		DELETE FROM XR_FOLDER WHERE FOLDER_ID = #{folder_id}
+	</select>
+
+</mapper>

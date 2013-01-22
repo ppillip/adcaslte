@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+    <select id="MonthlyWork.CALL_TRAFFIC_01" parameterType="hashmap">
+        CREATE TABLE ${"CALL_TRAFFIC_" + YM}(
+          C_DATE          CHAR(8)              NULL,
+          GET_TIME        CHAR(2)              NULL,
+          BH              NUMBER(1)            NULL,
+          MH              NUMBER(1)            NULL,
+          MSC_ID          VARCHAR2(7)          NULL,
+          RNC_ID          VARCHAR2(4)          NULL,
+          BTS_ID          VARCHAR2(5)          NULL,
+          SECTOR          VARCHAR2(4)          NULL,
+          FA              VARCHAR2(4)          NULL,
+          C_UID           VARCHAR2(10)         NULL,
+          BTS_NAME        VARCHAR2(50)         NULL,
+          BRANCH_ID       CHAR(4)              NULL,
+          LAREA_ID        CHAR(4)              NULL,
+          MTSO_ID         CHAR(4)              NULL,
+          MTSO_TEAM_ID    CHAR(4)              NULL,
+          OPTEAM_ID       VARCHAR2(4)          NULL,
+          REGION_ID       VARCHAR2(4)          NULL,
+          PART_ID         VARCHAR2(4)          NULL,
+          WEEK_ID         NUMBER(4)            NULL,
+          ATT             NUMBER               NULL,
+          SEI             NUMBER               NULL,
+          ANS             NUMBER               NULL,
+          AHT_CS          NUMBER               NULL,
+          AHT_PS          NUMBER               NULL,
+          AHT_ERL_CS      NUMBER               NULL,
+          AHT_ERL_PS      NUMBER               NULL,
+          AVGCST_CS       NUMBER               NULL,
+          AVGCST_PS       NUMBER               NULL,
+          HSDPA_ANS       NUMBER               NULL,
+          CD              NUMBER               NULL,
+          ORG_ATT         NUMBER               NULL,
+          ORG_SEI         NUMBER               NULL,
+          ORG_ANS         NUMBER               NULL,
+          ORG_CD          NUMBER               NULL,
+          ORG_CS_ATT      NUMBER               NULL,
+          ORG_CS_SEI      NUMBER               NULL,
+          ORG_CS_ANS      NUMBER               NULL,
+          ORG_CS_CD       NUMBER               NULL,
+          ORG_PS_ATT      NUMBER               NULL,
+          ORG_PS_SEI      NUMBER               NULL,
+          ORG_PS_ANS      NUMBER               NULL,
+          ORG_PS_CD       NUMBER               NULL,
+          O_ATT_CIR       NUMBER               NULL,
+          O_SEI_CIR       NUMBER               NULL,
+          O_ANS_CIR       NUMBER               NULL,
+          O_CD_CIR        NUMBER               NULL,
+          TER_ATT         NUMBER               NULL,
+          TER_SEI         NUMBER               NULL,
+          TER_ANS         NUMBER               NULL,
+          TER_CD          NUMBER               NULL,
+          TER_CS_ATT      NUMBER               NULL,
+          TER_CS_SEI      NUMBER               NULL,
+          TER_CS_ANS      NUMBER               NULL,
+          TER_CS_CD       NUMBER               NULL,
+          TER_PS_ATT      NUMBER               NULL,
+          TER_PS_SEI      NUMBER               NULL,
+          TER_PS_ANS      NUMBER               NULL,
+          TER_PS_CD       NUMBER               NULL,
+          T_ATT_CIR       NUMBER               NULL,
+          T_SEI_CIR       NUMBER               NULL,
+          T_ANS_CIR       NUMBER               NULL,
+          T_CD_CIR        NUMBER               NULL
+        )
+        TABLESPACE AD_BEAR12
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+    </select>
+    <select id="MonthlyWork.CALL_TRAFFIC_02" parameterType="hashmap">
+        CREATE INDEX ${"CALL_TRAFFIC_" + YM + "_IDX1"}
+        ON ${"CALL_TRAFFIC_" + YM} (C_DATE, C_UID)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE AD_BEAR12IDX
+        LOGGING
+        NOPARALLEL
+    </select>
+    <select id="MonthlyWork.CALL_TRAFFIC_03" parameterType="hashmap">
+        ALTER TABLE ${"CALL_TRAFFIC_" + YM} ADD
+        (
+            CONSTRAINT ${"CALL_TRAFFIC_" + YM + "_CK2"}
+            CHECK ( GET_TIME IN ('00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23') )
+        )
+    </select>
+    <select id="MonthlyWork.CALL_TRAFFIC_04" parameterType="hashmap">
+        <![CDATA[
+        ALTER TABLE ${"CALL_TRAFFIC_" + YM} ADD
+        (
+        CONSTRAINT ${"CALL_TRAFFIC_" + YM + "_CK1"}
+        CHECK ( c_date >= '${YM+"01"}' AND c_date <= '${YM+"31"}' AND LENGTH(c_date)=8 )
+        )
+        ]]>
+    </select>
+
+
+    <select id="MonthlyWork.HSDPA_MID_01" parameterType="hashmap">
+        CREATE TABLE ${"HSDPA_MID_" + YM} (
+          C_DATE          CHAR(8)              NULL,
+          GET_TIME        CHAR(2)              NULL,
+          C_UID           VARCHAR2(10)         NULL,
+          CITY            VARCHAR2(20)         NULL,
+          VENDOR          CHAR(2)              NULL,
+          MSC_ID          VARCHAR2(7)          NULL,
+          RNC_ID          VARCHAR2(4)          NULL,
+          BTS_ID          VARCHAR2(4)          NULL,
+          SECTOR          VARCHAR2(4)          NULL,
+          FA              VARCHAR2(4)          NULL,
+          BTS_NAME        VARCHAR2(50)         NULL,
+          BRANCH_ID       CHAR(4)              NULL,
+          LAREA_ID        CHAR(4)              NULL,
+          MTSO_ID         CHAR(4)              NULL,
+          MTSO_TEAM_ID    CHAR(4)              NULL,
+          OPTEAM_ID       VARCHAR2(4)          NULL,
+          REGION_ID       VARCHAR2(4)          NULL,
+          PART_ID         VARCHAR2(4)          NULL,
+          CNTCQI_0        NUMBER               NULL,
+          CNTCQI_1        NUMBER               NULL,
+          CNTCQI_2        NUMBER               NULL,
+          CNTCQI_3        NUMBER               NULL,
+          CNTCQI_4        NUMBER               NULL,
+          CNTCQI_5        NUMBER               NULL,
+          CNTCQI_6        NUMBER               NULL,
+          CNTCQI_7        NUMBER               NULL,
+          CNTCQI_8        NUMBER               NULL,
+          CNTCQI_9        NUMBER               NULL,
+          CNTCQI_10       NUMBER               NULL,
+          CNTCQI_11       NUMBER               NULL,
+          CNTCQI_12       NUMBER               NULL,
+          CNTCQI_13       NUMBER               NULL,
+          CNTCQI_14       NUMBER               NULL,
+          CNTCQI_15       NUMBER               NULL,
+          CNTCQI_16       NUMBER               NULL,
+          CNTCQI_17       NUMBER               NULL,
+          CNTCQI_18       NUMBER               NULL,
+          CNTCQI_19       NUMBER               NULL,
+          CNTCQI_20       NUMBER               NULL,
+          CNTCQI_21       NUMBER               NULL,
+          CNTCQI_22       NUMBER               NULL,
+          CNTCQI_23       NUMBER               NULL,
+          CNTCQI_24       NUMBER               NULL,
+          CNTCQI_25       NUMBER               NULL,
+          CNTCQI_26       NUMBER               NULL,
+          CNTCQI_27       NUMBER               NULL,
+          CNTCQI_28       NUMBER               NULL,
+          CNTCQI_29       NUMBER               NULL,
+          CNTCQI_30       NUMBER               NULL,
+          CNTCQI_TOT      NUMBER               NULL,
+          CNTCQI_NOT      NUMBER               NULL,
+          FA_CNT          NUMBER               NULL
+        )
+        TABLESPACE ADCASMID2012
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+    </select>
+
+    <select id="MonthlyWork.HSDPA_MID_02" parameterType="hashmap">
+
+        CREATE INDEX ${"HSDPA_MID_" + YM + "_IDX1"}
+        ON ${"HSDPA_MID_" + YM} (C_DATE, GET_TIME, C_UID)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE ADCASMID2012IDX
+        LOGGING
+        NOPARALLEL
+
+    </select>
+
+
+    <select id="MonthlyWork.HSDPA_MID_03" parameterType="hashmap">
+
+        ALTER TABLE ${"HSDPA_MID_" + YM} ADD
+        (
+            CONSTRAINT ${"HSDPA_MID_" + YM + "CK2"}
+            CHECK ( GET_TIME IN ('00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23') )
+        )
+
+    </select>
+
+    <select id="MonthlyWork.HSDPA_MID_04" parameterType="hashmap">
+
+        <![CDATA[
+        ALTER TABLE ${"HSDPA_MID_" + YM} ADD
+        (
+        CONSTRAINT ${"HSDPA_MID_" + YM + "_CK1"}
+        CHECK ( c_date >= '${YM+"01"}' AND c_date <= '${YM+"31"}' AND LENGTH(c_date)=8 )
+        )
+        ]]>
+
+    </select>
+
+    <select id="MonthlyWork.PS_NTDATATHRPCELL50_DAY_01" parameterType="hashmap">
+        CREATE TABLE ${"PS_NTDATATHRPCELL50_DAY_" + YM} (
+          C_DATE                CHAR(8)              NULL,
+          GET_TIME              CHAR(2)              NULL,
+          C_UID                 VARCHAR2(10)         NULL,
+          MSC_ID                VARCHAR2(7)          NULL,
+          RNC_ID                VARCHAR2(4)          NULL,
+          CELL_NAME             VARCHAR2(30)         NULL,
+          BTS_ID                VARCHAR2(5)          NULL,
+          SECTOR                VARCHAR2(4)          NULL,
+          FA                    VARCHAR2(4)          NULL,
+          BTS_NAME              VARCHAR2(50)         NULL,
+          BRANCH_ID             CHAR(4)              NULL,
+          LAREA_ID              CHAR(4)              NULL,
+          MTSO_ID               CHAR(4)              NULL,
+          MTSO_TEAM_ID          CHAR(4)              NULL,
+          OPTEAM_ID             VARCHAR2(4)          NULL,
+          REGION_ID             VARCHAR2(4)          NULL,
+          PART_ID               VARCHAR2(4)          NULL,
+          WEEK_ID               NUMBER(4)            NULL,
+          BH1                   CHAR(1)              NULL,
+          BH2                   CHAR(1)              NULL,
+          DULOTHER              NUMBER               NULL,
+          DULSRB                NUMBER(4)            NULL,
+          DULCSSPEECH           NUMBER(6)            NULL,
+          DULCSDATA64           NUMBER(6)            NULL,
+          DULCSSTR14_4          NUMBER(2)            NULL,
+          DULCSSTR57_6          NUMBER(2)            NULL,
+          DULPSSTR              NUMBER(2)            NULL,
+          DULPSIB8              NUMBER(6)            NULL,
+          DULPSIB32             NUMBER(6)            NULL,
+          DULPSIB64             NUMBER(6)            NULL,
+          DULPSIB128            NUMBER               NULL,
+          DULPSIB384            NUMBER(6)            NULL,
+          DULHSUPA              NUMBER(6)            NULL,
+          DDNOTHER              NUMBER               NULL,
+          DDNSRB                NUMBER(5)            NULL,
+          DDNCSSPEECH           NUMBER(6)            NULL,
+          DDNCSDATA64           NUMBER(6)            NULL,
+          DDNCSSTR14_4          NUMBER(2)            NULL,
+          DDNCSSTR57_6          NUMBER(2)            NULL,
+          DDNHSDPA              NUMBER(7)            NULL,
+          DDNPSSTR              NUMBER(2)            NULL,
+          DDNPSIB8              NUMBER(4)            NULL,
+          DDNPSIB32             NUMBER               NULL,
+          DDNPSIB64             NUMBER(6)            NULL,
+          DDNPSIB128            NUMBER(6)            NULL,
+          DDNPSIB256            NUMBER(5)            NULL,
+          DDNPSIB384            NUMBER(6)            NULL,
+          DDNAOTHER             NUMBER(7)            NULL,
+          DDNASRB               NUMBER(1)            NULL,
+          DDNACSSPEECH          NUMBER(9)            NULL,
+          DDNACSDATA64          NUMBER(8)            NULL,
+          DDNACSSTR14_4         NUMBER(2)            NULL,
+          DDNACSSTR57_6         NUMBER(2)            NULL,
+          DDNAHSDPA             NUMBER(8)            NULL,
+          DDNAPSSTR             NUMBER(2)            NULL,
+          DDNAPSIB8             NUMBER(6)            NULL,
+          DDNAPSIB32            NUMBER               NULL,
+          DDNAPSIB64            NUMBER(8)            NULL,
+          DDNAPSIB128           NUMBER(7)            NULL,
+          DDNAPSIB256           NUMBER(6)            NULL,
+          DDNAPSIB384           NUMBER(7)            NULL,
+          DULAOTHER             NUMBER(7)            NULL,
+          DULASRB               NUMBER(1)            NULL,
+          DULACSSPEECH          NUMBER(9)            NULL,
+          DULACSDATA64          NUMBER(8)            NULL,
+          DULACSSTR14_4         NUMBER(2)            NULL,
+          DULACSSTR57_6         NUMBER(2)            NULL,
+          DULAPSSTR             NUMBER(2)            NULL,
+          DULAPSIB8             NUMBER(8)            NULL,
+          DULAPSIB32            NUMBER(8)            NULL,
+          DULAPSIB64            NUMBER(8)            NULL,
+          DULAPSIB128           NUMBER(7)            NULL,
+          DULAPSIB384           NUMBER(7)            NULL,
+          DULAHSUPA             NUMBER(8)            NULL,
+          DLASCNFSIGNALLING     NUMBER(9, 6)         NULL,
+          DLASCNFCSSPEECH       NUMBER(9, 6)         NULL,
+          DLASCNFCSDATA         NUMBER(8, 6)         NULL,
+          DLASCNFCSSTR          NUMBER(2)            NULL,
+          DLASCNFPSSTR16        NUMBER(1)            NULL,
+          DLASCNFPSSTR64        NUMBER(1)            NULL,
+          DLASCNFPSSTR128       NUMBER(1)            NULL,
+          DLASCNFPSSTR256       NUMBER(1)            NULL,
+          DLASCNFPSIB8          NUMBER(7, 6)         NULL,
+          DLASCNFPSIB32         NUMBER(8, 6)         NULL,
+          DLASCNFPSIB64         NUMBER(9, 6)         NULL,
+          DLASCNFPSIB128        NUMBER(8, 6)         NULL,
+          DLASCNFPSIB256        NUMBER(7, 6)         NULL,
+          DLASCNFPSIB384        NUMBER(8, 6)         NULL,
+          DLASCNFHSDPA          NUMBER(9, 6)         NULL,
+          DLASCNFTRBCELLFACH    NUMBER(9, 6)         NULL,
+          ULASCNFSIG            NUMBER(9, 6)         NULL,
+          ULASCNFCSSPEECH       NUMBER(9, 6)         NULL,
+          ULASCNFCSDATA         NUMBER(8, 6)         NULL,
+          ULASCNFCSSTR57_6      NUMBER(1)            NULL,
+          ULASCNFCSSTR14_4      NUMBER(1)            NULL,
+          ULASCNFPSSTR16        NUMBER(1)            NULL,
+          ULASCNFPSSTR32        NUMBER(1)            NULL,
+          ULASCNFPSSTR128       NUMBER(1)            NULL,
+          ULASCNFPSIB8          NUMBER(9, 6)         NULL,
+          ULASCNFPSIB32         NUMBER(9, 6)         NULL,
+          ULASCNFPSIB64         NUMBER(9, 6)         NULL,
+          ULASCNFPSIB128        NUMBER(8, 6)         NULL,
+          ULASCNFPSIB384        NUMBER(8, 6)         NULL,
+          ULASCNFHSUPA          NUMBER(9, 6)         NULL,
+          ULASCNFTRBCELLRACH    NUMBER(9, 6)         NULL
+        )
+        TABLESPACE AD_BEAR12
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+    </select>
+    <select id="MonthlyWork.PS_NTDATATHRPCELL50_DAY_02" parameterType="hashmap">
+        CREATE INDEX ${"PS_NTTHRPCELL50_" + YM + "_IDX1"}
+        ON ${"PS_NTDATATHRPCELL50_DAY_" + YM} (C_DATE, C_UID, SECTOR)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE AD_BEAR12IDX
+        LOGGING
+        NOPARALLEL
+    </select>
+    <select id="MonthlyWork.PS_NTDATATHRPCELL50_DAY_03" parameterType="hashmap">
+        <![CDATA[
+            ALTER TABLE ${"PS_NTDATATHRPCELL50_DAY_" + YM} ADD
+            (
+                CONSTRAINT ${"PS_NTTHRPCELL50_" + YM + "_CK1"}
+                CHECK ( c_date >= '${YM+"01"}' AND c_date <= '${YM+"31"}' AND LENGTH(c_date)=8 )
+            )
+        ]]>
+
+    </select>
+
+    <select id="MonthlyWork.QC_API_01" parameterType="hashmap">
+
+        CREATE TABLE ${"QC_API_" + YM} (
+          C_DATE        CHAR(8)          NOT NULL,
+          C_UID         VARCHAR2(10)     NOT NULL,
+          SECTOR        VARCHAR2(4)          NULL,
+          PSC           NUMBER(11)       NOT NULL,
+          RSCP          NUMBER(5)        NOT NULL,
+          RSCP_COUNT    NUMBER(11)       NOT NULL,
+          CITY          VARCHAR2(20)         NULL,
+          ECIO          NUMBER               NULL,
+          RX            NUMBER               NULL,
+          ECIO_COUNT    NUMBER               NULL,
+          RX_COUNT      NUMBER               NULL
+        )
+        TABLESPACE ADCASHSUPA
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 10240 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+
+    </select>
+
+    <select id="MonthlyWork.QC_API_02" parameterType="hashmap">
+        CREATE INDEX ${"QC_API_" + YM + "_IDX1"}
+        ON ${"QC_API_" + YM} (C_DATE, C_UID)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE ADCASHSUPAIDX
+        LOGGING
+        NOPARALLEL
+    </select>
+    <select id="MonthlyWork.QC_API_03" parameterType="hashmap">
+        <![CDATA[
+        ALTER TABLE ${"QC_API_" + YM} ADD
+        (
+        CONSTRAINT ${"QC_API_" + YM + "_CK1"}
+        CHECK ( c_date >= '${YM+"01"}' AND c_date <= '${YM+"31"}' AND LENGTH(c_date)=8 )
+        )
+        ]]>
+    </select>
+
+
+
+
+
+
+    <select id="MonthlyWork.RC_RPT_BAS_HIS_01" parameterType="hashmap">
+        CREATE TABLE ${"RC_RPT_BAS_HIS_" + YM} (
+          C_DATE             NUMBER(8)             NULL,
+          RPT_CLSS_CD        VARCHAR2(5)           NULL,
+          RPT_ID             NUMBER(8)             NULL,
+          RPT_MKR_CD         VARCHAR2(5)           NULL,
+          CID                VARCHAR2(10)          NULL,
+          LCL_CD             VARCHAR2(2)           NULL,
+          AMP_MKR_CD         VARCHAR2(2)           NULL,
+          AMP_CPCT_CD        VARCHAR2(2)           NULL,
+          TRM_MDL_CD         VARCHAR2(2)           NULL,
+          TRM_MKR_CD         VARCHAR2(2)           NULL,
+          RPT_USE_YN         VARCHAR2(1)           NULL,
+          RPT_GB             VARCHAR2(1)           NULL,
+          RPT_ROL_CD         VARCHAR2(2)           NULL,
+          RPT_PRVD_CD        VARCHAR2(3)           NULL,
+          RPT_MDL_CD         VARCHAR2(4)           NULL,
+          RPT_NM             VARCHAR2(100)         NULL,
+          POT_NO             NUMBER                NULL,
+          TRM_NO             VARCHAR2(20)          NULL,
+          DNR_NO             VARCHAR2(2)           NULL,
+          RMT_NO             VARCHAR2(2)           NULL,
+          REU_NO             VARCHAR2(2)           NULL,
+          VER                VARCHAR2(3)           NULL,
+          ESN_CD             VARCHAR2(10)          NULL,
+          SMS_USE_YN         VARCHAR2(1)           NULL,
+          BG_TYP_CD          VARCHAR2(2)           NULL,
+          LOU_ID             VARCHAR2(3)           NULL,
+          EOU_ID             VARCHAR2(3)           NULL,
+          EOU_NO             VARCHAR2(2)           NULL,
+          TRM_1_NO           VARCHAR2(3)           NULL,
+          SIDO_CD            VARCHAR2(3)           NULL,
+          USIM_ICC_ID        VARCHAR2(19)          NULL,
+          RFMM_RPT_MKR_CD    VARCHAR2(2)           NULL,
+          PART_ID            VARCHAR2(5)           NULL,
+          COM_DNR_NO         VARCHAR2(2)           NULL,
+          OPNG_YMD           VARCHAR2(8)           NULL,
+          SHUT_YMD           VARCHAR2(8)           NULL,
+          MOD_DTM            VARCHAR2(100)         NULL,
+          ALTT               VARCHAR2(9)           NULL,
+          LATT               VARCHAR2(9)           NULL,
+          LOGT               VARCHAR2(9)           NULL,
+          ZIP_CD             VARCHAR2(7)           NULL,
+          ADR                VARCHAR2(100)         NULL,
+          DTL_ADR            VARCHAR2(200)         NULL,
+          DNR_ID             NUMBER(8)             NULL,
+          RMT_ID             NUMBER(10)            NULL,
+          REU_ID             NUMBER(10)            NULL,
+          PA_RPT_ID          NUMBER(8)             NULL,
+          SYS_GB             VARCHAR2(1)           NULL,
+          DST_POT_NO         VARCHAR2(2)           NULL,
+          MSC_NO             VARCHAR2(3)           NULL,
+          BSC_NO             VARCHAR2(3)           NULL,
+          BTS_NO             VARCHAR2(5)           NULL,
+          CDMA_MSC_NO        VARCHAR2(3)           NULL,
+          CDMA_BSC_NO        VARCHAR2(3)           NULL,
+          CDMA_BTS_NO        VARCHAR2(3)           NULL,
+          CDMA_SECTR_CD      VARCHAR2(2)           NULL,
+          WCDMA_MSC_NO       VARCHAR2(3)           NULL,
+          WCDMA_BSC_NO       VARCHAR2(3)           NULL,
+          WCDMA_BTS_NO       VARCHAR2(3)           NULL,
+          WCDMA_SECTR_CD     VARCHAR2(2)           NULL,
+          WIBRO_MSC_NO       VARCHAR2(3)           NULL,
+          WIBRO_BSC_NO       VARCHAR2(3)           NULL,
+          WIBRO_BTS_NO       VARCHAR2(3)           NULL,
+          WIBRO_SECTR_CD     VARCHAR2(2)           NULL,
+          DST_NO             VARCHAR2(2)           NULL,
+          CDMA_CID           VARCHAR2(10)          NULL,
+          WCDMA_CID          VARCHAR2(10)          NULL,
+          WIBRO_CID          VARCHAR2(10)          NULL,
+          DST_CLSS_CD        VARCHAR2(2)           NULL,
+          PRPTY_CD           VARCHAR2(10)          NULL,
+          ERP_BZ_CD          VARCHAR2(10)          NULL,
+          ACTL_AMP_CD        VARCHAR2(1)           NULL,
+          INPT_DTM           VARCHAR2(100)         NULL,
+          LTE_MSC_NO         VARCHAR2(3)           NULL,
+          LTE_BSC_NO         VARCHAR2(3)           NULL,
+          LTE_BTS_NO         VARCHAR2(3)           NULL,
+          LTE_SECTR_CD       VARCHAR2(2)           NULL,
+          LTE_CID            VARCHAR2(10)          NULL
+        )
+        TABLESPACE ADCASINFOHIS2012
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+
+
+    </select>
+    <select id="MonthlyWork.RC_RPT_BAS_HIS_02" parameterType="hashmap">
+        CREATE INDEX ${"RC_RPT_BAS_HIS_" + YM + "_IDX1"}
+        ON ${"RC_RPT_BAS_HIS_" + YM} (C_DATE)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE ADCASINFOHIS2012IDX
+        LOGGING
+        NOPARALLEL
+    </select>
+
+    <select id="MonthlyWork.PS_DATATHRP220_DAY_01" parameterType="hashmap">
+        CREATE TABLE ${"PS_DATATHRP220_DAY_" + YM} (
+          C_DATE             CHAR(8)               NULL,
+          GET_TIME           CHAR(2)               NULL,
+          MSC_ID             VARCHAR2(7)           NULL,
+          RNC_ID             VARCHAR2(4)           NULL,
+          C_UID              VARCHAR2(10)          NULL,
+          BTS_NAME           VARCHAR2(50)          NULL,
+          BRANCH_ID          CHAR(4)               NULL,
+          LAREA_ID           CHAR(4)               NULL,
+          MTSO_ID            CHAR(4)               NULL,
+          MTSO_TEAM_ID       CHAR(4)               NULL,
+          OPTEAM_ID          VARCHAR2(4)           NULL,
+          REGION_ID          VARCHAR2(4)           NULL,
+          PART_ID            VARCHAR2(4)           NULL,
+          WEEK_ID            NUMBER(4)             NULL,
+          BH1                CHAR(1)               NULL,
+          BH2                CHAR(1)               NULL,
+          BTS_ID             VARCHAR2(5)           NULL,
+          SECTOR             VARCHAR2(4)           NULL,
+          FA                 VARCHAR2(4)           NULL,
+          ULTOTBYTECS64      NUMBER                NULL,
+          ULTOTBYTEPS64      NUMBER(6)             NULL,
+          ULTOTBYTEPS128     NUMBER(6)             NULL,
+          ULTOTBYTEPS384     NUMBER(6)             NULL,
+          ULTOTBYTEPS2K      NUMBER(6)             NULL,
+          DLTOTBYTECS64      NUMBER(6)             NULL,
+          DLTOTBYTEPS64      NUMBER(6)             NULL,
+          DLTOTBYTEPS128     NUMBER(6)             NULL,
+          DLTOTBYTEPS384     NUMBER(3)             NULL,
+          HSTOTBYTEPS1_2M    NUMBER(3)             NULL,
+          HSTOTBYTEPS1_8M    NUMBER(4)             NULL,
+          HSTOTBYTEPS3_65    NUMBER(4)             NULL,
+          HSTOTBYTEPS7_3M    NUMBER(4)             NULL,
+          HSTOTBYTEPS10_2    NUMBER                NULL,
+          HSTOTBYTEPS14_4    NUMBER(3)             NULL,
+          HUTOTPS730K        NUMBER(3)             NULL,
+          HUTOTPS1_46M       NUMBER(3)             NULL,
+          HUTOTPS2_92M       NUMBER                NULL,
+          HUTOTPS5_76M       NUMBER                NULL,
+          ULACKBYTECS64      NUMBER(6)             NULL,
+          ULACKBYTEPS64      NUMBER(6)             NULL,
+          ULACKBYTEPS128     NUMBER(6)             NULL,
+          ULACKBYTEPS384     NUMBER                NULL,
+          HUACKBYTEPS2M      NUMBER(6)             NULL,
+          DLACKBYTECS64      NUMBER                NULL,
+          DLACKBYTEPS64      NUMBER(6)             NULL,
+          DLACKBYTEPS128     NUMBER(6)             NULL,
+          DLACKBYTEPS384     NUMBER(3)             NULL,
+          HSACKBYTEPS1_2M    NUMBER(3)             NULL,
+          HSACKBYTEPS1_8M    NUMBER(4)             NULL,
+          HSACKBYTEPS3_65    NUMBER(4)             NULL,
+          HSACKBYTEPS7_3M    NUMBER(4)             NULL,
+          HSACKBYTEPS10_2    NUMBER                NULL,
+          HSACKBYTEPS14_4    NUMBER                NULL,
+          HUACKPS730K        NUMBER(3)             NULL,
+          HUACKPS1_46M       NUMBER(3)             NULL,
+          HUACKPS2_92M       NUMBER                NULL,
+          HUACKPS5_76M       NUMBER                NULL,
+          ULREBYTECS64       NUMBER(6)             NULL,
+          ULREBYTEPS64       NUMBER                NULL,
+          ULREBYTEPS128      NUMBER(6)             NULL,
+          ULREBYTEPS384      NUMBER                NULL,
+          HUREBYTEPS2M       NUMBER                NULL,
+          DLREBYTECS64       NUMBER                NULL,
+          DLREBYTEPS64       NUMBER                NULL,
+          DLREBYTEPS128      NUMBER                NULL,
+          DLREBYTEPS384      NUMBER(3)             NULL,
+          HSREBYTEPS1_2M     NUMBER                NULL,
+          HSREBYTEPS1_8M     NUMBER(3)             NULL,
+          HSREBYTEPS3_65     NUMBER(3)             NULL,
+          HSREBYTEPS7_3M     NUMBER                NULL,
+          HSREBYTEPS10_2     NUMBER                NULL,
+          HSREBYTEPS14_4     NUMBER(1)             NULL,
+          HURERXPS730K       NUMBER(3)             NULL,
+          HURERXPS1_46M      NUMBER                NULL,
+          HURERXPS2_92M      NUMBER(3)             NULL,
+          HURERXPS5_76M      NUMBER(1)             NULL,
+          AMRVCETOTTIME      NUMBER(9)             NULL,
+          ULTOTTIMECS64      NUMBER                NULL,
+          ULTOTTIMEPS64      NUMBER(9)             NULL,
+          ULTOTTIMEPS128     NUMBER                NULL,
+          ULTOTTIMEPS384     NUMBER                NULL,
+          HUTOTTIMEPS2M      NUMBER(9)             NULL,
+          DLTOTTIMECS64      NUMBER(9)             NULL,
+          DLTOTTIMEPS64      NUMBER(9)             NULL,
+          DLTOTTIMEPS128     NUMBER(9)             NULL,
+          DLTOTTIMEPS384     NUMBER                NULL,
+          HSTOTTIMEPS1_2M    NUMBER(8)             NULL,
+          HSTOTTIMEPS1_8M    NUMBER(8)             NULL,
+          HSTOTTIMEPS3_65    NUMBER(9)             NULL,
+          HSTOTTIMEPS7_3M    NUMBER                NULL,
+          HSTOTTIMEPS10_2    NUMBER(9)             NULL,
+          HSTOTTIMEPS14_4    NUMBER(9)             NULL,
+          HUTOTTPS730K       NUMBER(9)             NULL,
+          HUTOTTPS1_46M      NUMBER(9)             NULL,
+          HUTOTTPS2_92M      NUMBER                NULL,
+          HUTOTTPS5_76M      NUMBER(8)             NULL,
+          ULTRAFTIMECS64     NUMBER                NULL,
+          ULTRAFTIMEPS64     NUMBER(9)             NULL,
+          ULTRAFTIMEPS128    NUMBER                NULL,
+          ULTRAFTIMEPS384    NUMBER                NULL,
+          HUTRAFTIMEPS2M     NUMBER(9)             NULL,
+          DLTRAFTIMECS64     NUMBER                NULL,
+          DLTRAFTIMEPS64     NUMBER(9)             NULL,
+          DLTRAFTIMEPS128    NUMBER                NULL,
+          DLTRAFTIMEPS384    NUMBER                NULL,
+          HSTRFTIMEPS1_2M    NUMBER(9)             NULL,
+          HSTRFTIMEPS1_8M    NUMBER                NULL,
+          HSTRFTIMEPS3_65    NUMBER(9)             NULL,
+          HSTRFTIMEPS7_3M    NUMBER                NULL,
+          HSTRFTIMEPS10_2    NUMBER(8)             NULL,
+          HSTRFTIMEPS14_4    NUMBER(9)             NULL,
+          HUTRFTPS730K       NUMBER                NULL,
+          HUTRFTPS1_46M      NUMBER(9)             NULL,
+          HUTRFTPS2_92M      NUMBER                NULL,
+          HUTRFTPS5_76M      NUMBER(9)             NULL,
+          AVGUTULCS64        NUMBER(9, 3)          NULL,
+          AVGUTULPS64        NUMBER(5, 2)          NULL,
+          AVGUTULPS128       NUMBER(10, 4)         NULL,
+          AVGUTULPS384       NUMBER(8, 4)          NULL,
+          AVGUTULPS2M        NUMBER(8, 4)          NULL,
+          AVGUTDLCS64        NUMBER(8, 2)          NULL,
+          AVGUTDLPS64        NUMBER(8, 4)          NULL,
+          AVGUTDLPS128       NUMBER(8, 4)          NULL,
+          AVGUTDLPS384       NUMBER(4, 2)          NULL,
+          AVGUTHSPS1_2M      NUMBER(4, 2)          NULL,
+          AVGUTHSPS1_8M      NUMBER(5, 2)          NULL,
+          AVGUTHSPS3_65M     NUMBER(4, 2)          NULL,
+          AVGUTHSPS7_3M      NUMBER(4, 2)          NULL,
+          AVGUTHSPS10_2M     NUMBER(4, 2)          NULL,
+          AVGUTHSPS14_4M     NUMBER(3, 2)          NULL,
+          AVGUTULPS730K      NUMBER(6, 3)          NULL,
+          AVGUTULPS1_46M     NUMBER(6, 3)          NULL,
+          AVGUTULPS2_92M     NUMBER(3, 2)          NULL,
+          AVGUTULPS5_76M     NUMBER(3, 2)          NULL,
+          AVGCTULCSIMG       NUMBER(6, 2)          NULL,
+          AVGCTDLCSIMG       NUMBER(6, 2)          NULL,
+          AVGCTULPS          NUMBER                NULL,
+          AVGCTULHUPS        NUMBER(4, 2)          NULL,
+          AVGCTDCHDLPS       NUMBER(6, 2)          NULL,
+          AVGCTHSDLPS        NUMBER(4, 2)          NULL,
+          AVGCTDLPS          NUMBER(7, 2)          NULL,
+          AVGCALLAMRVCE      NUMBER(8, 2)          NULL,
+          AVGCALLCSIMG       NUMBER(8, 2)          NULL,
+          AVGCALLPS64        NUMBER(8, 2)          NULL,
+          AVGCALLPS128       NUMBER(8, 2)          NULL,
+          AVGCALLPS384       NUMBER(8, 2)          NULL,
+          AVGCALLHUPS2M      NUMBER(4, 2)          NULL,
+          AVGCALLHSPS1_2M    NUMBER(8, 2)          NULL,
+          AVGCALLHSPS1_8M    NUMBER                NULL,
+          AVGCALLHSPS3_65    NUMBER(8, 2)          NULL,
+          AVGCALLHSPS7_3M    NUMBER                NULL,
+          AVGCALLHSPS10_2    NUMBER(12, 6)         NULL,
+          AVGCALLHSPS14_4    NUMBER(12, 6)         NULL,
+          AVGCALHUPS730K     NUMBER                NULL,
+          AVGCALHUPS1_46M    NUMBER(10, 5)         NULL,
+          AVGCALHUPS2_92M    NUMBER                NULL,
+          AVGCALHUPS5_76M    NUMBER(12, 6)         NULL,
+          ULRERATECS64       NUMBER(8, 4)          NULL,
+          ULRERATEPS64       NUMBER                NULL,
+          ULRERATEPS128      NUMBER(6, 3)          NULL,
+          ULRERATEPS384      NUMBER                NULL,
+          HURERATEPS2M       NUMBER                NULL,
+          DLRERATECS64       NUMBER(6, 2)          NULL,
+          DLRERATEPS64       NUMBER                NULL,
+          DLRERATEPS128      NUMBER                NULL,
+          DLRERATEPS384      NUMBER(8, 4)          NULL,
+          HSRERATEPS1_2M     NUMBER(6, 3)          NULL,
+          HSRERATEPS1_8M     NUMBER(6, 3)          NULL,
+          HSRERATEPS3_65     NUMBER(6, 3)          NULL,
+          HSRERATEPS7_3M     NUMBER(6, 3)          NULL,
+          HSRERATEPS10_2     NUMBER(6, 3)          NULL,
+          HSRERATEPS14_4     NUMBER(1)             NULL,
+          HURERATEPS730K     NUMBER(6, 3)          NULL,
+          HURERATEPS1_46M    NUMBER(1)             NULL,
+          HURERATEPS2_92M    NUMBER(8, 4)          NULL,
+          HURERATEPS5_76M    NUMBER(1)             NULL,
+          NAME1              NUMBER                NULL,
+          NAME2              NUMBER                NULL,
+          NAME3              NUMBER                NULL,
+          NAME4              NUMBER                NULL,
+          NAME5              NUMBER                NULL
+        )
+        TABLESPACE AD_BEAR12
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+    </select>
+
+    <select id="MonthlyWork.PS_DATATHRP220_DAY_02" parameterType="hashmap">
+        CREATE INDEX ${"PS_DATATHRP220_DAY_" + YM +"IDX1"}
+        ON ${"PS_DATATHRP220_DAY_" + YM} (C_DATE, C_UID, SECTOR, FA)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE AD_BEAR12IDX
+        LOGGING
+        NOPARALLEL
+    </select>
+
+    <select id="MonthlyWork.PS_DATATHRP220_DAY_03" parameterType="hashmap">
+
+        <![CDATA[
+        ALTER TABLE ${"PS_DATATHRP220_DAY_" + YM} ADD
+        (
+        CONSTRAINT ${"PS_DATATHRP220_DAY_" + YM + "_CK1"}
+        CHECK ( c_date >= '${YM+"01"}' AND c_date <= '${YM+"31"}' AND LENGTH(c_date)=8 )
+        )
+        ]]>
+
+    </select>
+
+
+    <select id="MonthlyWork.PS_CHELEM200_DAY_01" parameterType="hashmap">
+        CREATE TABLE ${"PS_CHELEM200_DAY_" + YM} (
+          C_DATE          CHAR(8)               NULL,
+          GET_TIME        CHAR(2)               NULL,
+          MSC_ID          VARCHAR2(7)           NULL,
+          RNC_ID          VARCHAR2(4)           NULL,
+          C_UID           VARCHAR2(10)          NULL,
+          BTS_NAME        VARCHAR2(30)          NULL,
+          BRANCH_ID       CHAR(4)               NULL,
+          MTSO_ID         CHAR(4)               NULL,
+          MTSO_TEAM_ID    CHAR(4)               NULL,
+          OPTEAM_ID       VARCHAR2(4)           NULL,
+          REGION_ID       VARCHAR2(4)           NULL,
+          PART_ID         VARCHAR2(4)           NULL,
+          WEEK_ID         NUMBER(4)             NULL,
+          BH1             CHAR(1)               NULL,
+          BH2             CHAR(1)               NULL,
+          BTS_ID          VARCHAR2(5)           NULL,
+          CIP_ID          VARCHAR2(4)           NULL,
+          CEP_ID          VARCHAR2(4)           NULL,
+          PEG1            NUMBER(10)            NULL,
+          PEG2            NUMBER(10)            NULL,
+          PEG3            NUMBER                NULL,
+          PEG4            NUMBER                NULL,
+          PEG5            NUMBER(14, 6)         NULL,
+          PEG6            NUMBER                NULL,
+          PEG7            NUMBER                NULL,
+          PEG8            NUMBER(10)            NULL,
+          PEG9            NUMBER(10)            NULL,
+          PEG10           NUMBER(10)            NULL,
+          PEG11           NUMBER                NULL,
+          PEG12           NUMBER(13, 5)         NULL,
+          PEG13           NUMBER                NULL,
+          PEG14           NUMBER                NULL,
+          PEG15           NUMBER                NULL,
+          PEG16           NUMBER                NULL,
+          PEG17           NUMBER                NULL,
+          PEG18           NUMBER                NULL,
+          PEG19           NUMBER(14, 6)         NULL,
+          PEG20           NUMBER                NULL,
+          PEG21           NUMBER                NULL,
+          PEG22           NUMBER                NULL,
+          PEG23           NUMBER                NULL,
+          PEG24           NUMBER                NULL,
+          PEG25           NUMBER                NULL,
+          PEG26           NUMBER(12, 4)         NULL,
+          PEG27           NUMBER                NULL,
+          PEG28           NUMBER                NULL,
+          PEG29           NUMBER                NULL,
+          PEG30           NUMBER                NULL,
+          PEG31           NUMBER                NULL,
+          PEG32           NUMBER                NULL,
+          PEG33           NUMBER                NULL,
+          PEG34           NUMBER                NULL,
+          PEG35           NUMBER                NULL,
+          PEG36           NUMBER                NULL,
+          PEG37           NUMBER                NULL,
+          PEG38           NUMBER                NULL,
+          PEG39           NUMBER                NULL,
+          PEG40           NUMBER(14, 6)         NULL,
+          PEG41           NUMBER                NULL,
+          PEG42           NUMBER                NULL,
+          PEG43           NUMBER                NULL,
+          PEG44           NUMBER                NULL,
+          PEG45           NUMBER                NULL,
+          PEG46           NUMBER                NULL,
+          PEG47           NUMBER(11, 3)         NULL,
+          PEG48           NUMBER                NULL,
+          PEG49           NUMBER                NULL,
+          PEG50           NUMBER                NULL,
+          PEG51           NUMBER                NULL,
+          PEG52           NUMBER                NULL,
+          PEG53           NUMBER                NULL,
+          PEG54           NUMBER(14, 6)         NULL,
+          PEG55           NUMBER                NULL,
+          PEG56           NUMBER                NULL,
+          PEG57           NUMBER                NULL,
+          PEG58           NUMBER                NULL,
+          PEG59           NUMBER                NULL,
+          PEG60           NUMBER                NULL,
+          PEG61           NUMBER                NULL,
+          PEG62           NUMBER                NULL,
+          PEG63           NUMBER                NULL,
+          PEG64           NUMBER                NULL,
+          PEG65           NUMBER                NULL,
+          PEG66           NUMBER                NULL,
+          PEG67           NUMBER                NULL,
+          PEG68           NUMBER                NULL,
+          PEG69           NUMBER                NULL,
+          PEG70           NUMBER                NULL
+        )
+        TABLESPACE AD_BEAR12
+        PCTFREE 10
+        PCTUSED 0
+        INITRANS 1
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+        )
+        LOGGING
+        NOCACHE
+        MONITORING
+        NOPARALLEL
+    </select>
+
+    <select id="MonthlyWork.PS_CHELEM200_DAY_02" parameterType="hashmap">
+        CREATE INDEX ${"PS_CHELEM200_DAY_" + YM + "_IDX1"}
+        ON ${"PS_CHELEM200_DAY_" + YM} (C_DATE, C_UID)
+        PCTFREE 10
+        INITRANS 2
+        MAXTRANS 255
+        STORAGE (
+            INITIAL 64 K
+            NEXT 0 K
+            MINEXTENTS 1
+            MAXEXTENTS UNLIMITED
+            PCTINCREASE 0
+        )
+        TABLESPACE AD_BEAR12IDX
+        LOGGING
+        NOPARALLEL
+    </select>
+
+    <select id="MonthlyWork.PS_CHELEM200_DAY_03" parameterType="hashmap">
+
+        <![CDATA[
+        ALTER TABLE ${"PS_CHELEM200_DAY_" + YM} ADD
+        (
+        CONSTRAINT ${"PS_CHELEM200_DAY_" + YM + "CK1"}
+        CHECK ( c_date >= '${YM+"01"}' AND c_date <= '${YM+"31"}' AND LENGTH(c_date)=8 )
+        )
+        ]]>
+
+    </select>
+
+
+
+
+
+</mapper>
+
+
+

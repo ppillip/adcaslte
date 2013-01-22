@@ -606,13 +606,13 @@ $(document).ready(function(){
         },"json");
     });
 
-/*
+    /*교정이 시급합니다.*/
     $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
     $("input[name=WORKGROUP_YN]").val("Y");
-    $("input[name=WORKGROUP_NAME]").val("테스트모드");
+    $("input[name=WORKGROUP_NAME]").val("테스트모드입니다.");
     $("#datepicker01").val("2013-01-15");
     $("#datepicker02").val("2013-01-15");
 
     $("button[name=search]").trigger("click");
-*/
+
 });
