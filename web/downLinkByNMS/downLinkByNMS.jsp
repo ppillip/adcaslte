@@ -138,8 +138,8 @@
                                                     <td style="font-size: 11px;" ><b>주파수</b></td>
                                                     <td style="font-size: 11px;" >
                                                         <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
-                                                        <input type="radio" name="FREQ_KIND" value="800MHz"> 800 MHz
-                                                        <input type="radio" name="FREQ_KIND" value="1.8GHz"> 1.8 GHz
+                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
+                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
                                                     </td>
                                                     <td style="font-size: 11px;" ><b>보기방식</b></td>
                                                     <td style="font-size: 11px;" >
