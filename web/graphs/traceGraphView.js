@@ -44,11 +44,13 @@ Array.prototype.resultHistogramList = function (callback){
     callback(categoryVal,rVal,cdf);
 }
 
+/*
 var tVal = [2.12,2.22,1.69,2.02,1.79,1.77,2.11,1.56,1.99,1.75];
 tVal.resultHistogramList(function(a,b,c){
     console.log(" categoryVal = " +  a);
     console.log(" rVal = " +  b);
     console.log(" cdf = " +  c);
 })
+*/
 
 
