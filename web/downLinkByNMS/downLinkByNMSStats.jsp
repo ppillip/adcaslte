@@ -78,7 +78,7 @@
                                                         <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
                                                                 <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
-                                                                <li name="showThrpGraph"><a href="#">용량그래프</a></li>
+                                                                <%--<li name="showThrpGraph"><a href="#">용량그래프</a></li>--%>
                                                             </ul>
                                                     </span>
                                                     <span class="dropdown" id="excelDropDown">
@@ -91,6 +91,8 @@
                                                     <td><b>통계주기</b></td>
                                                     <td>
                                                         <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
+                                                        <input type="radio" name="TERMTYPE" value="WK">주간
+                                                        <input type="radio" name="TERMTYPE" value="MON">월간
                                                     </td>
                                                     <td><b>최번기준</b></td>
                                                     <td>
@@ -114,6 +116,7 @@
                                                             <li  name="partSearch"><a tabindex="-1" href="#">파트별</a></li>
                                                             <li  name="citySearch"><a tabindex="-1" href="#">도/특별/광역</a></li>
                                                             <li  name="uniSearch"><a tabindex="-1" href="#">시/군/구</a></li>
+                                                            <li  name="emsSearch"><a tabindex="-1" href="#">EMS</a></li>
                                                         </ul>
                                                         <input type="hidden" name="SEARCHTYPE" id="SEARCHTYPE">
                                                     </span>
@@ -126,6 +129,9 @@
                                                         <span   group="searchSelect" id="cityLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">도/특별/광역</span>
                                                         <span   group="searchSelect" id="uniLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">시/군/구</span>
                                                         <select group="searchSelect" name="CITY" id="CITY" style="display:none"></select>
+                                                        <span   group="searchSelect" id="emsLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">EMS</span>
+                                                        <select group="searchSelect" name="MME_GRP_ID" id="MME_GRP_ID" style="display:none;width:100px;"></select>
+                                                        <select group="searchSelect" name="NE_ID" id="NE_ID" style="display:none;width:120px;"></select>
                                                     </span>
                                                     </td>
                                                     <td><b>시간대</b></td>
@@ -143,8 +149,16 @@
                                                 <tr>
                                                     <td><b>기간</b></td>
                                                     <td>
-                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text" name="FROMYMD" id="datepicker01"/>-
-                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text"  name="TOYMD" id="datepicker02"/>
+                                                        <input  group="TERMTYPE" id="datepicker01" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="dash" style="margin-left: 5px;margin-right: 5px;">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker02" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="fromto" style="display:none; margin-left: 10px;"></span>
+                                                        <select group="TERMTYPE" id="fromYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonth" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toMonth" style="display:none;width:80px;"></select>
+                                                        <input type="hidden" name="FROMYMD"/>
+                                                        <input type="hidden" name="TOYMD"/>
                                                     </td>
                                                     <td></td>
                                                     <td></td>

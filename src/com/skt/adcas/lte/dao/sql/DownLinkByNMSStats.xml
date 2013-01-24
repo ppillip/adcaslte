@@ -5,22 +5,29 @@
 
     <sql id="DownLinkByNMSStats.selectCellTrafficStatsORG">
         SELECT /*+ no_merge */
-        BONBU.BONBU_NM
-        ,BONBU.BONBU_CD
-        ,TEAM.OPER_TEAM_NM
-        ,TEAM.OPER_TEAM_CD
-        ,PART.PART_NM
-        ,PART.PART_CD
-        ,CITY.CITY_CD
-        ,CITY.CITY_NM
-        ,DU.UNI
-        ,LTE.YMD
-        ,${MBTYPE + "_THROUGHPUT    "} AS MB_TIME
-        ,LTE.INGR_ERP_CD
-        ,LTE.C_UID
-        ,LTE.CELL_ID
-        ,LTE.MCID
+        LTE.YMD
         ,LTE.FREQ_KIND
+        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
+                  SEARCHTYPE.equalsIgnoreCase('TEAM') ||
+                  SEARCHTYPE.equalsIgnoreCase('PART')">
+            ,LTE.BONBU_NM
+            ,LTE.BONBU_CD
+            ,LTE.OPER_TEAM_NM
+            ,LTE.OPER_TEAM_CD
+            ,LTE.PART_NM
+            ,LTE.PART_CD
+        </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
+                  SEARCHTYPE.equalsIgnoreCase('UNI')">
+            ,LTE.CITY_CD
+            ,LTE.CITY_NM
+            ,LTE.UNI
+        </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+            ,LTE.MME_GRP_ID
+            ,LTE.NE_ID
+        </if>
+        --,${MBTYPE + "_THROUGHPUT    "} AS MB_TIME
         ,round( ${MBTYPE + "_THROUGHPUT    "}   ,1) AS THROUGHPUT
         ,round( ${MBTYPE + "_CQI_AVERAGE   "}   ,1) AS CQI_AVERAGE
         ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
@@ -85,39 +92,71 @@
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0)                                           ,3) * 100  AS CQI_CDF_14
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_15    "} ,0)  ,3) * 100  AS CQI_CDF_15
 
-        FROM VIEW_LTE_CELL_DAY LTE,
-        LTE_BTS_DU_INFO DU,
-        BONBU_INFO BONBU,
-        OPER_TEAM_INFO TEAM,
-        PART_INFO PART,
-        CITY_INFO CITY
+        FROM
+        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
+                  SEARCHTYPE.equalsIgnoreCase('TEAM') ||
+                  SEARCHTYPE.equalsIgnoreCase('PART')">
+            VIEW_LTE_ST_PART_${TERMTYPE} LTE
+        </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
+                  SEARCHTYPE.equalsIgnoreCase('UNI')">
+            VIEW_LTE_ST_CITY_${TERMTYPE} LTE
+        </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+            VIEW_LTE_ST_MME_${TERMTYPE} LTE
+        </if>
         WHERE
         LTE.YMD BETWEEN #{FROMYMD} AND #{TOYMD}
         AND DAYTIME_SEQ = #{DAYTIME_SEQ}
         <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
             AND FREQ_KIND = #{FREQ_KIND}
         </if>
-        AND LTE.INGR_ERP_CD = DU.INGR_ERP_CD
-        AND LTE.C_UID = DU.C_UID
-        AND BONBU.BONBU_CD = DU.BONBU_CD
         <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
             <if test="!BONBU_CD.equalsIgnoreCase('ALL')">
-                AND DU.BONBU_CD = #{BONBU_CD}
+                AND LTE.BONBU_CD = #{BONBU_CD}
             </if>
         </if>
-        AND TEAM.OPER_TEAM_CD = DU.OPER_TEAM_CD
         <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            AND DU.BONBU_CD = #{BONBU_CD}
+            AND LTE.BONBU_CD = #{BONBU_CD}
             <if test="!OPER_TEAM_CD.equalsIgnoreCase('ALL')">
-                AND DU.OPER_TEAM_CD = #{OPER_TEAM_CD}
+                AND LTE.OPER_TEAM_CD = #{OPER_TEAM_CD}
             </if>
         </if>
-        AND PART.PART_CD = DU.PART_CD
-        AND CITY.CITY_CD = DU.CITY_CD
         <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
             <if test="!CITY.equalsIgnoreCase('ALL')">
-                AND DU.CITY_CD = #{CITY}
+                AND LTE.CITY_CD = #{CITY}
             </if>
+        </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+            <if test="!MME_GRP_ID.equalsIgnoreCase('ALL')">
+                AND LTE.MME_GRP_ID = #{MME_GRP_ID}
+            </if>
+            <if test="!NE_ID.equalsIgnoreCase('ALL')">
+                AND LTE.NE_ID = #{NE_ID}
+            </if>
+        </if>
+        <if test="SUBLIST != null">
+            <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
+                AND (LTE.BONBU_CD,LTE.FREQ_KIND) IN
+            </if>
+            <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                AND (LTE.OPER_TEAM_CD,LTE.FREQ_KIND) IN
+            </if>
+            <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
+                AND (LTE.PART_CD,LTE.FREQ_KIND) IN
+            </if>
+            <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
+                AND (LTE.CITY_CD,LTE.FREQ_KIND) IN
+            </if>
+            <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                AND (LTE.UNI,,LTE.FREQ_KIND) IN
+            </if>
+            <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                AND (LTE.NE_ID,LTE.FREQ_KIND) IN
+            </if>
+            <foreach item="item" index="index" collection="SUBLIST" open="(" separator="," close=")">
+                (split(#{item},1,'_'),split(#{item},2,'_'))
+            </foreach>
         </if>
 
     </sql>
@@ -188,167 +227,19 @@
             ,round(avg(ORG.CQI_CDF_15     )  ,1)  AS CQI_CDF_15
     </sql>
 
-    <sql id="DownLinkByNMSStats.sqlFromPartSummary">
-        NUM AS SRT
-        ,DECODE(NUM,1,round(avg(THROUGHPUT     )  ,3),2,round(max(THROUGHPUT     )  ,3),3,round(min(THROUGHPUT     )  ,3),4,round(stddev(THROUGHPUT     )  ,3)) AS THROUGHPUT
-        ,DECODE(NUM,1,round(avg(CQI_AVERAGE    )  ,3),2,round(max(CQI_AVERAGE    )  ,3),3,round(min(CQI_AVERAGE    )  ,3),4,round(stddev(CQI_AVERAGE    )  ,3)) AS CQI_AVERAGE
-        ,DECODE(NUM,1,round(avg(CQI0_RATE      )  ,3),2,round(max(CQI0_RATE      )  ,3),3,round(min(CQI0_RATE      )  ,3),4,round(stddev(CQI0_RATE      )  ,3)) AS CQI0_RATE
-        ,DECODE(NUM,1,round(avg(RI_RATE        )  ,3),2,round(max(RI_RATE        )  ,3),3,round(min(RI_RATE        )  ,3),4,round(stddev(RI_RATE        )  ,3)) AS RI_RATE
-        ,DECODE(NUM,1,round(avg(DL_PRB_RATE    )  ,3),2,round(max(DL_PRB_RATE    )  ,3),3,round(min(DL_PRB_RATE    )  ,3),4,round(stddev(DL_PRB_RATE    )  ,3)) AS DL_PRB_RATE
-        ,DECODE(NUM,1,round(avg(MCS_AVERAGE    )  ,3),2,round(max(MCS_AVERAGE    )  ,3),3,round(min(MCS_AVERAGE    )  ,3),4,round(stddev(MCS_AVERAGE    )  ,3)) AS MCS_AVERAGE             /* ss , nsn */
-        ,DECODE(NUM,1,round(avg(MIMO_RATE      )  ,3),2,round(max(MIMO_RATE      )  ,3),3,round(min(MIMO_RATE      )  ,3),4,round(stddev(MIMO_RATE      )  ,3)) AS MIMO_RATE               /* elg, nsn */
-        ,DECODE(NUM,1,round(avg(RSSI           )  ,3),2,round(max(RSSI           )  ,3),3,round(min(RSSI           )  ,3),4,round(stddev(RSSI           )  ,3)) AS RSSI                    /*ss*/
-        ,DECODE(NUM,1,round(avg(R2_RSSI        )  ,3),2,round(max(R2_RSSI        )  ,3),3,round(min(R2_RSSI        )  ,3),4,round(stddev(R2_RSSI        )  ,3)) AS R2_RSSI                 /*ss*/
-        ,DECODE(NUM,1,round(avg(DL_THROUGHPUT  )  ,3),2,round(max(DL_THROUGHPUT  )  ,3),3,round(min(DL_THROUGHPUT  )  ,3),4,round(stddev(DL_THROUGHPUT  )  ,3)) AS DL_THROUGHPUT           /*elg*/
-        ,DECODE(NUM,1,round(avg(LICENSE_FAIL   )  ,3),2,round(max(LICENSE_FAIL   )  ,3),3,round(min(LICENSE_FAIL   )  ,3),4,round(stddev(LICENSE_FAIL   )  ,3)) AS LICENSE_FAIL            /*elg*/
-        ,DECODE(NUM,1,round(avg(PUCCH_AVG      )  ,3),2,round(max(PUCCH_AVG      )  ,3),3,round(min(PUCCH_AVG      )  ,3),4,round(stddev(PUCCH_AVG      )  ,3)) AS PUCCH_AVG               /*nsn*/
-        ,DECODE(NUM,1,round(avg(R2_PUCCH_AVG   )  ,3),2,round(max(R2_PUCCH_AVG   )  ,3),3,round(min(R2_PUCCH_AVG   )  ,3),4,round(stddev(R2_PUCCH_AVG   )  ,3)) AS R2_PUCCH_AVG            /*nsn*/
-        ,DECODE(NUM,1,round(avg(PUSCH_AVG      )  ,3),2,round(max(PUSCH_AVG      )  ,3),3,round(min(PUSCH_AVG      )  ,3),4,round(stddev(PUSCH_AVG      )  ,3)) AS PUSCH_AVG               /*nsn*/
-        ,DECODE(NUM,1,round(avg(R2_PUSCH_AVG   )  ,3),2,round(max(R2_PUSCH_AVG   )  ,3),3,round(min(R2_PUSCH_AVG   )  ,3),4,round(stddev(R2_PUSCH_AVG   )  ,3)) AS R2_PUSCH_AVG            /*nsn*/
-        ,DECODE(NUM,1,round(avg(PDCP_DL_MB     )  ,3),2,round(max(PDCP_DL_MB     )  ,3),3,round(min(PDCP_DL_MB     )  ,3),4,round(stddev(PDCP_DL_MB     )  ,3)) AS PDCP_DL_MB
-        ,DECODE(NUM,1,round(avg(PRB_USG_RATE   )  ,3),2,round(max(PRB_USG_RATE   )  ,3),3,round(min(PRB_USG_RATE   )  ,3),4,round(stddev(PRB_USG_RATE   )  ,3)) AS PRB_USG_RATE
-        ,DECODE(NUM,1,round(avg(DRB_USG_RATE   )  ,3),2,round(max(DRB_USG_RATE   )  ,3),3,round(min(DRB_USG_RATE   )  ,3),4,round(stddev(DRB_USG_RATE   )  ,3)) AS DRB_USG_RATE
-        ,DECODE(NUM,1,round(avg(CON_TIME       )  ,3),2,round(max(CON_TIME       )  ,3),3,round(min(CON_TIME       )  ,3),4,round(stddev(CON_TIME       )  ,3)) AS CON_TIME
-        ,DECODE(NUM,1,round(avg(TRY_CCNT       )  ,3),2,round(max(TRY_CCNT       )  ,3),3,round(min(TRY_CCNT       )  ,3),4,round(stddev(TRY_CCNT       )  ,3)) AS TRY_CCNT
-        ,DECODE(NUM,1,round(avg(CON_RATE       )  ,3),2,round(max(CON_RATE       )  ,3),3,round(min(CON_RATE       )  ,3),4,round(stddev(CON_RATE       )  ,3)) AS CON_RATE
-        ,DECODE(NUM,1,round(avg(CDC_RATE       )  ,3),2,round(max(CDC_RATE       )  ,3),3,round(min(CDC_RATE       )  ,3),4,round(stddev(CDC_RATE       )  ,3)) AS CDC_RATE
-        ,DECODE(NUM,1,round(avg(VOICE_DL_MB    )  ,3),2,round(max(VOICE_DL_MB    )  ,3),3,round(min(VOICE_DL_MB    )  ,3),4,round(stddev(VOICE_DL_MB    )  ,3)) AS VOICE_DL_MB
-        ,DECODE(NUM,1,round(avg(VOICE_DL_PRB   )  ,3),2,round(max(VOICE_DL_PRB   )  ,3),3,round(min(VOICE_DL_PRB   )  ,3),4,round(stddev(VOICE_DL_PRB   )  ,3)) AS VOICE_DL_PRB
-        ,DECODE(NUM,1,round(avg(VOICE_TRY_CCNT )  ,3),2,round(max(VOICE_TRY_CCNT )  ,3),3,round(min(VOICE_TRY_CCNT )  ,3),4,round(stddev(VOICE_TRY_CCNT )  ,3)) AS VOICE_TRY_CCNT
-        ,DECODE(NUM,1,round(avg(VOICE_TIME     )  ,3),2,round(max(VOICE_TIME     )  ,3),3,round(min(VOICE_TIME     )  ,3),4,round(stddev(VOICE_TIME     )  ,3)) AS VOICE_TIME
-        ,DECODE(NUM,1,round(avg(IMAGE_DL_MB    )  ,3),2,round(max(IMAGE_DL_MB    )  ,3),3,round(min(IMAGE_DL_MB    )  ,3),4,round(stddev(IMAGE_DL_MB    )  ,3)) AS IMAGE_DL_MB
-        ,DECODE(NUM,1,round(avg(IMAGE_DL_PRB   )  ,3),2,round(max(IMAGE_DL_PRB   )  ,3),3,round(min(IMAGE_DL_PRB   )  ,3),4,round(stddev(IMAGE_DL_PRB   )  ,3)) AS IMAGE_DL_PRB
-        ,DECODE(NUM,1,round(avg(IMAGE_TRY_CCNT )  ,3),2,round(max(IMAGE_TRY_CCNT )  ,3),3,round(min(IMAGE_TRY_CCNT )  ,3),4,round(stddev(IMAGE_TRY_CCNT )  ,3)) AS IMAGE_TRY_CCNT
-        ,DECODE(NUM,1,round(avg(IMAGE_TIME     )  ,3),2,round(max(IMAGE_TIME     )  ,3),3,round(min(IMAGE_TIME     )  ,3),4,round(stddev(IMAGE_TIME     )  ,3)) AS IMAGE_TIME
-    </sql>
-
-
     <select id="DownLinkByNMSStats.selectCellTrafficStats" parameterType="hashmap" resultType="hashmap">
-        SELECT
-        ROWNUM AS ROWIDX
+        SELECT ROWNUM AS ROWIDX
         ,DATA.*
         FROM (
         SELECT
-        ORG.YMD
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD ,ORG.PART_NM AS TITLE03 ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM AS TITLE01, ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02
-        </if>
-        ,ORG.FREQ_KIND                        AS FREQ_KIND
-        <include refid="DownLinkByNMSStats.sqlFromPartAVG"/>
-        FROM (
-        <include refid="DownLinkByNMSStats.selectCellTrafficStatsORG"/>
-        ) ORG
-        GROUP BY
-        ORG.YMD
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD ,ORG.PART_NM ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM ,ORG.CITY_CD ,ORG.UNI
-        </if>
-        ,ORG.FREQ_KIND
-        ORDER BY
-        ORG.YMD DESC
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_CD ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_CD ,ORG.OPER_TEAM_CD ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_CD ,ORG.UNI
-        </if>
-        ,ORG.FREQ_KIND
-        ) DATA
-    </select>
-
-    <select id="DownLinkByNMSStats.selectCellTrafficStatsSummary" parameterType="hashmap" resultType="hashmap">
-
-        SELECT
-        <include refid="DownLinkByNMSStats.sqlFromPartSummary"/>
-        FROM (
-        SELECT
-        ORG.YMD
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD ,ORG.PART_NM AS TITLE03 ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM AS TITLE01, ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02
-        </if>
-        ,ORG.FREQ_KIND                        AS FREQ_KIND
-        <include refid="DownLinkByNMSStats.sqlFromPartAVG"/>
-        FROM (
-        <include refid="DownLinkByNMSStats.selectCellTrafficStatsORG"/>
-        ) ORG
-        GROUP BY
-        ORG.YMD
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD ,ORG.PART_NM ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM ,ORG.CITY_CD ,ORG.UNI
-        </if>
-        ,ORG.FREQ_KIND
-        )  V,
-        <![CDATA[
-        (SELECT LEVEL NUM FROM DUAL CONNECT BY LEVEL <=4) N
-        ]]>
-        GROUP BY NUM
-        order by 1
-    </select>
-
-    <select id="DownLinkByNMSStats.selectCellTrafficStatsAVG" parameterType="hashmap" resultType="hashmap">
-        SELECT
-        ROWNUM AS ROWIDX
-        ,DATA.*
-        FROM (
-        SELECT
-        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+        <choose>
+            <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
+                SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+            </when>
+            <otherwise>
+                ORG.YMD AS YMD
+            </otherwise>
+        </choose>
         <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
             ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD
         </if>
@@ -364,13 +255,21 @@
         <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
             ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02
         </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+            ,ORG.MME_GRP_ID AS TITLE01 ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
+        </if>
         ,ORG.FREQ_KIND                        AS FREQ_KIND
         <include refid="DownLinkByNMSStats.sqlFromPartAVG"/>
-        FROM (
-        <include refid="DownLinkByNMSStats.selectCellTrafficStatsORG"/>
-        ) ORG
+        FROM (<include refid="DownLinkByNMSStats.selectCellTrafficStatsORG"/>) ORG
         GROUP BY
-        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+        <choose>
+            <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
+                SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+            </when>
+            <otherwise>
+                ORG.YMD
+            </otherwise>
+        </choose>
         <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
             ,ORG.BONBU_NM ,ORG.BONBU_CD
         </if>
@@ -386,9 +285,19 @@
         <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
             ,ORG.CITY_NM ,ORG.CITY_CD ,ORG.UNI
         </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+            ,ORG.MME_GRP_ID ,ORG.NE_ID
+        </if>
         ,ORG.FREQ_KIND
         ORDER BY
-        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+        <choose>
+            <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
+                SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+            </when>
+            <otherwise>
+                ORG.YMD
+            </otherwise>
+        </choose>
         <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
             ,ORG.BONBU_CD
         </if>
@@ -404,61 +313,11 @@
         <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
             ,ORG.CITY_CD ,ORG.UNI
         </if>
+        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+            ,ORG.MME_GRP_ID ,ORG.NE_ID
+        </if>
         ,ORG.FREQ_KIND
         ) DATA
-    </select>
-
-    <select id="DownLinkByNMSStats.selectCellTrafficStatsSummaryAVG" parameterType="hashmap" resultType="hashmap">
-
-        SELECT
-        <include refid="DownLinkByNMSStats.sqlFromPartSummary"/>
-        FROM (
-        SELECT
-        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD ,ORG.PART_NM AS TITLE03 ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM AS TITLE01, ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02
-        </if>
-        ,ORG.FREQ_KIND                        AS FREQ_KIND
-        <include refid="DownLinkByNMSStats.sqlFromPartAVG"/>
-        FROM (
-        <include refid="DownLinkByNMSStats.selectCellTrafficStatsORG"/>
-        ) ORG
-        GROUP BY
-        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD ,ORG.PART_NM ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM ,ORG.CITY_CD ,ORG.UNI
-        </if>
-        ,ORG.FREQ_KIND
-        )  V,
-        <![CDATA[
-        (SELECT LEVEL NUM FROM DUAL CONNECT BY LEVEL <=4) N
-        ]]>
-        GROUP BY NUM
-        order by 1
     </select>
 
 </mapper>

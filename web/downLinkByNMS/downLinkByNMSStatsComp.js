@@ -1,4 +1,3 @@
-
 var screenMaxRow = 500; //화면에 보일 max tr 수 입니다.
 
 function scrollX() {
@@ -35,42 +34,106 @@ $(document).ready(function(){
         }
     });
 
+    /*===============================================================================
+     * For 기간
+     *==============================================================================*/
+    //최초 기간 셋팅 (통계주기 일간)
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
     var _today = moment().format("YYYY-MM-DD").toString();
 
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
-    )
-        .on('changeDate', function(){
+    ).on('changeDate', function(){
+            $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
             $('#datepicker01').datepicker('hide');
         });
     $('#datepicker02').val(_today)
         .datepicker(
         {format : "yyyy-mm-dd"}
-    )
-        .on('changeDate', function(){
+    ).on('changeDate', function(){
+            $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
             $('#datepicker02').datepicker('hide');
         });
-
     $('#datepicker03').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
-    )
-        .on('changeDate', function(){
+    ).on('changeDate', function(){
+            $("input[name=FROMYMD2]").val($("#datepicker03").val().replace(/-/gi,''));
             $('#datepicker03').datepicker('hide');
         });
     $('#datepicker04').val(_today)
         .datepicker(
         {format : "yyyy-mm-dd"}
-    )
-        .on('changeDate', function(){
+    ).on('changeDate', function(){
+            $("input[name=TOYMD2]").val($("#datepicker04").val().replace(/-/gi,''));
             $('#datepicker04').datepicker('hide');
         });
+    $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
+    $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
+    $("input[name=FROMYMD2]").val($("#datepicker03").val().replace(/-/gi,''));
+    $("input[name=TOYMD2]").val($("#datepicker04").val().replace(/-/gi,''));
 
-/*===============================================================================
-* For GRAPH
-*==============================================================================*/
+    //월간 셋팅
+    var today = new Date();
+    var year  = Number(today.getFullYear());
+    var month = Number(today.getMonth())+1;
+    month = (month>9)?month:'0'+month;
+    for (var i=0; i<3; i++) {
+        $("#fromYear1,#toYear1,#fromYear2,#toYear2").append("<option value='"+(year-i)+"'>" +(year-i)+"</option>");
+    }
+    for (var i=1; i<=12; i++) {
+        $("#fromMonth1,#toMonth1,#fromMonth2,#toMonth2").append("<option value='"+(i>9?i:'0'+i)+"'>" +(i>9?i:'0'+i)+"</option>");
+    }
+    $("#fromMonth1,#fromMonth2").val(month);
+    $("#toMonth1,#toMonth2").val(month);
+    $("#fromYear1,#toYear1,#fromMonth1,#toMonth1,#fromYear2,#toYear2,#fromMonth2,#toMonth2").change(function () {
+        $("input[name=FROMYMD]").val($('#fromYear1').val()+$('#fromMonth1').val());
+        $("input[name=TOYMD]").val($('#toYear1').val()+$('#toMonth1').val());
+        $("input[name=FROMYMD2]").val($('#fromYear2').val()+$('#fromMonth2').val());
+        $("input[name=TOYMD2]").val($('#toYear2').val()+$('#toMonth2').val());
+    });
+
+    //통계주기 변경시
+    $("input[name=TERMTYPE]").click(function (event) {
+        $("[group=TERMTYPE]").hide();
+
+        if (this.value === 'DAY') {
+            $('#datepicker01').show();
+            $('#dash1').show();
+            $('#datepicker02').show();
+            $('#datepicker03').show();
+            $('#dash2').show();
+            $('#datepicker04').show();
+            $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
+            $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
+            $("input[name=FROMYMD2]").val($("#datepicker03").val().replace(/-/gi,''));
+            $("input[name=TOYMD2]").val($("#datepicker04").val().replace(/-/gi,''));
+        } else if (this.value === 'MON') {
+            $('#fromYear1').show();
+            $('#fromMonth1').show();
+            $('#toYear1').show();
+            $('#toMonth1').show();
+            $('#fromYear2').show();
+            $('#fromMonth2').show();
+            $('#toYear2').show();
+            $('#toMonth2').show();
+            $("input[name=FROMYMD]").val($('#fromYear1').val()+$('#fromMonth1').val());
+            $("input[name=TOYMD]").val($('#toYear1').val()+$('#toMonth1').val());
+            $("input[name=FROMYMD2]").val($('#fromYear2').val()+$('#fromMonth2').val());
+            $("input[name=TOYMD2]").val($('#toYear2').val()+$('#toMonth2').val());
+        }
+    });
+
+    /*===============================================================================
+     * End For 기간
+     *==============================================================================*/
+
+
+
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
     $("#cqiModal input[name=cqiFlag]").click(function(){
         $("#cqiPDFContainer").hide();
         $("#cqiCDFContainer").hide();
@@ -174,13 +237,13 @@ $(document).ready(function(){
         });
 
     })
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -240,14 +303,14 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * End For EXCEL
+     *==============================================================================*/
 
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         if(!$("#SEARCHTYPE").val()) {
@@ -298,13 +361,13 @@ $(document).ready(function(){
         });
 
     });
-/*===============================================================================
- * End For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * End For SEARCH
+     *==============================================================================*/
 
-/*===============================================================================
- * For 조회대상
- *==============================================================================*/
+    /*===============================================================================
+     * For 조회대상
+     *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
         event.preventDefault();
@@ -313,7 +376,8 @@ $(document).ready(function(){
         $bonbuLabel.show();
         $("[group^=title]").hide();
         $("[group=title01]").show();
-        $("#title01").html("본부");
+        $("#title01").text("본부");
+        $("#title01After").text("본부");
         $("#SEARCHTYPE").val("BONBU");
         setLeft(1);
 
@@ -333,8 +397,10 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("본부");
+        $("#title01After").text("본부");
         $("[group=title02]").show();
         $("#title02").text("팀");
+        $("#title02After").text("팀");
         $("#SEARCHTYPE").val("TEAM");
         setLeft(2);
 
@@ -360,10 +426,13 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("본부");
+        $("#title01After").text("본부");
         $("[group=title02]").show();
         $("#title02").text("팀");
+        $("#title02After").text("팀");
         $("[group=title03]").show();
         $("#title03").text("파트");
+        $("#title03After").text("파트");
         $("#SEARCHTYPE").val("PART");
         setLeft(3);
 
@@ -379,6 +448,7 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("도/특별/광역");
+        $("#title01After").text("도/특별/광역");
         $("#SEARCHTYPE").val("CITY");
         setLeft(1);
 
@@ -398,15 +468,47 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("도/특별/광역");
+        $("#title01After").text("도/특별/광역");
         $("[group=title02]").show();
         $("#title02").text("시/군/구");
+        $("#title02After").text("시/군/구");
         $("#SEARCHTYPE").val("UNI");
         setLeft(2);
 
     });
-/*===============================================================================
- * End For 조회대상
- *==============================================================================*/
+
+    //조회대상 : EMS별
+    $("#searchDropDown li[name=emsSearch]").click(function(event){
+        event.preventDefault();
+        $("[group=searchSelect]").hide();
+        var $emsLabel = $("#emsLabel");
+        var $mmeSelect = $("#MME_GRP_ID");
+        var $neSelect = $("#NE_ID");
+        $emsLabel.show();
+        $mmeSelect.show();
+        $neSelect.show();
+
+        setMMEList($mmeSelect,true,setNEList,$neSelect); //true : all 보이도록..); //false : all 보이지 않도록..
+
+        $("[group^=title]").hide();
+        $("[group=title01]").show();
+        $("#title01").text("MME");
+        $("#title01After").text("MME");
+        $("[group=title02]").show();
+        $("#title02").text("NE");
+        $("#title02After").text("NE");
+        $("#SEARCHTYPE").val("EMS");
+        setLeft(2);
+
+    });
+
+    $("#MME_GRP_ID").change(function(){
+        setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
+    });
+
+    /*===============================================================================
+     * End For 조회대상
+     *==============================================================================*/
 
 });
 
@@ -488,11 +590,11 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                 +"<td style='width:60px;text-align:center;font-size:11px;'>"
                 + (function(_idx, _row){
-                    if ($rightTable.parent().attr("id").match(/After/g)) {
-                        return "&nbsp;";
-                    } else {
-                        return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0px;' name='"+_row.ROWIDX+"'>";
-                    }
+                if ($rightTable.parent().attr("id").match(/After/g)) {
+                    return "&nbsp;";
+                } else {
+                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0px;' name='"+_row.ROWIDX+"'>";
+                }
             })(idx, row)
                 +"</td>"
                 +"</tr>")
@@ -512,11 +614,27 @@ function getData(param, $leftTable, $rightTable, callback) {
             });
 
             $("<tr name='" + row.ROWIDX + "'>"
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"
+                +(function(value,sign,critical) {
+                if(Number(value) && critical != null && eval(value+sign+critical)) {
+                    return "<span style='color:red'>"+value+"</span>";
+                } else {
+                    return value;
+                }
+            })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                +"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE )+"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"
+                +(function(value,sign,critical) {
+                if(Number(value) && critical != null && eval(value+sign+critical)) {
+                    return "<span style='color:red'>"+value+"</span>";
+                } else {
+                    return value;
+                }
+            })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                +"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI        )+"</td>"  /*SS*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_RSSI     )+"</td>"  /*SS*/

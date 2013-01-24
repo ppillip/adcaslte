@@ -34,7 +34,9 @@
     </div>
     <div id="web_container">
         <div id="header">
-            <%--<div id="popup_title">QCAS</div>--%>
+            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
+                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
+            </div>
             <div id="popup_desc">LTE 용량분석 > LTE NMS 기반 섹터 TP > DownLink 통계 전후비교</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
         </div>
@@ -88,9 +90,15 @@
                                                     </td>
                                                     <td><b>전기간</b></td>
                                                     <td>
-                                                        <input type="text" name="FROMYMD" id="datepicker01"/>
-                                                        -
-                                                        <input type="text" name="TOYMD" id="datepicker02"/>
+                                                        <input  group="TERMTYPE" id="datepicker01" type="text">
+                                                        <span   group="TERMTYPE" id="dash1">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker02" type="text">
+                                                        <select group="TERMTYPE" id="fromYear1" style="display:none;width:80px;height:22px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonth1" style="display:none;width:80px;height:22px;"></select>
+                                                        <select group="TERMTYPE" id="toYear1" style="display:none;width:80px;height:22px;"></select>
+                                                        <select group="TERMTYPE" id="toMonth1" style="display:none;width:80px;height:22px;"></select>
+                                                        <input type="hidden" name="FROMYMD">
+                                                        <input type="hidden" name="TOYMD">
                                                     </td>
                                                     <td><b>주파수</b></td>
                                                     <td>
@@ -109,6 +117,7 @@
                                                             <li  name="partSearch"><a tabindex="-1" href="#">파트별</a></li>
                                                             <li  name="citySearch"><a tabindex="-1" href="#">도/특별/광역</a></li>
                                                             <li  name="uniSearch"><a tabindex="-1" href="#">시/군/구</a></li>
+                                                            <li  name="emsSearch"><a tabindex="-1" href="#">EMS</a></li>
                                                         </ul>
                                                         <input type="hidden" name="SEARCHTYPE" id="SEARCHTYPE">
                                                     </span>
@@ -121,13 +130,22 @@
                                                         <span   group="searchSelect" id="cityLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">도/특별/광역</span>
                                                         <span   group="searchSelect" id="uniLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">시/군/구</span>
                                                         <select group="searchSelect" name="CITY" id="CITY" style="display:none"></select>
+                                                        <span   group="searchSelect" id="emsLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">EMS</span>
+                                                        <select group="searchSelect" name="MME_GRP_ID" id="MME_GRP_ID" style="display:none;width:100px;"></select>
+                                                        <select group="searchSelect" name="NE_ID" id="NE_ID" style="display:none;width:120px;"></select>
                                                     </span>
                                                     </td>
                                                     <td><b>후기간</b></td>
                                                     <td>
-                                                        <input type="text" name="FROMYMD2" id="datepicker03"/>
-                                                        -
-                                                        <input type="text" name="TOYMD2" id="datepicker04"/>
+                                                        <input  group="TERMTYPE" id="datepicker03" type="text">
+                                                        <span   group="TERMTYPE" id="dash2">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker04" type="text">
+                                                        <select group="TERMTYPE" id="fromYear2" style="display:none;width:80px;height:22px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonth2" style="display:none;width:80px;height:22px;"></select>
+                                                        <select group="TERMTYPE" id="toYear2" style="display:none;width:80px;height:22px;"></select>
+                                                        <select group="TERMTYPE" id="toMonth2" style="display:none;width:80px;height:22px;"></select>
+                                                        <input type="hidden" name="FROMYMD2">
+                                                        <input type="hidden" name="TOYMD2">
                                                     </td>
                                                     <td><b>시간대</b></td>
                                                     <td>
@@ -141,6 +159,7 @@
                                                     <td><b>통계주기</b></td>
                                                     <td>
                                                         <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
+                                                        <input type="radio" name="TERMTYPE" value="MON">월간
                                                     </td>
                                                     <td><b>최번기준</b></td>
                                                     <td>
@@ -153,11 +172,6 @@
                                                             <option value="R15D">동접자최번(DU기준)</option>
                                                         </select>
                                                     </td>
-                                                <%--<td><b>보기방식</b></td>
-                                                    <td>
-                                                        <input type="radio" name="VIEWTYPE" value="" checked="true"> 추세
-                                                        <input type="radio" name="VIEWTYPE" value="AVG"> 평균
-                                                    </td>--%>
                                                 </tr>
                                             </table>
                                         </div>

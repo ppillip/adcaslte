@@ -35,17 +35,17 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
     private Boolean error = false;
     private HashMap<String,Object> param = new HashMap<String, Object>();
     private String downloadurl = "";
-
     private HashMap adminCriticalValues;
     public HashMap getAdminCriticalValues() {
-        setAdminCriticalValues();
         return (HashMap)request.getSession().getAttribute("ADMIN_CRITICAL_VALUES");
     }
-
     /* 기본 셋업 끝*/
 
     public void setSEARCHTYPE(String SEARCHTYPE) {
         this.SEARCHTYPE = SEARCHTYPE;
+    }
+    public String getSEARCHTYPE() {
+        return SEARCHTYPE;
     }
     public void setBONBU_CD(String BONBU_CD) {
         this.BONBU_CD = BONBU_CD;
@@ -55,6 +55,12 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
     }
     public void setCITY(String CITY) {
         this.CITY = CITY;
+    }
+    public void setMME_GRP_ID(String MME_GRP_ID) {
+        this.MME_GRP_ID = MME_GRP_ID;
+    }
+    public void setNE_ID(String NE_ID) {
+        this.NE_ID = NE_ID;
     }
     public void setTERMTYPE(String TERMTYPE) {
         this.TERMTYPE = TERMTYPE;
@@ -77,27 +83,33 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
     public void setVIEWTYPE(String VIEWTYPE) {
         this.VIEWTYPE = VIEWTYPE;
     }
+    public void setSUBLIST(String SUBLIST) {
+        this.SUBLIST = SUBLIST;
+    }
     public void setJSONDATA(String JSONDATA) {
         this.JSONDATA = JSONDATA;
     }
+
     public void setJSONDATA2(String JSONDATA2) {
         this.JSONDATA2 = JSONDATA2;
     }
-    public String getSEARCHTYPE() {
-        return SEARCHTYPE;
-    }
 
-    private String SEARCHTYPE    = "";
+    private String SEARCHTYPE     = "";
     private String BONBU_CD       = "";
-    private String OPER_TEAM_CD  = "";
+    private String OPER_TEAM_CD   = "";
     private String CITY           = "";
+    private String MME_GRP_ID     = "";
+    private String NE_ID          = "";
     private String TERMTYPE       = "";
-    private String FROMYMD         = "";
-    private String TOYMD           = "";
+    private String FROMYMD        = "";
+    private String TOYMD          = "";
     private String DAYTIME_SEQ    = "";
     private String FREQ_KIND      = "";
     private String MBTYPE         = "R3";
     private String VIEWTYPE       = "";
+    //For Graph
+    private String SUBLIST        = "";
+    //For Excel
     private String JSONDATA       = "";
     private String JSONDATA2      = "";
 
@@ -114,17 +126,32 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
         param.put("SEARCHTYPE"    , SEARCHTYPE);
         param.put("BONBU_CD"      , BONBU_CD);
-        param.put("OPER_TEAM_CD" , OPER_TEAM_CD);
-        param.put("CITY"           , CITY);
+        param.put("OPER_TEAM_CD"  , OPER_TEAM_CD);
+        param.put("CITY"          , CITY);
+        param.put("MME_GRP_ID"    , MME_GRP_ID);
+        param.put("NE_ID"         , NE_ID);
         param.put("TERMTYPE"      , TERMTYPE);
-        param.put("FROMYMD"       , FROMYMD.replace("-","").replace(".","").replace("/","")  );
-        param.put("TOYMD"         , TOYMD.replace("-","").replace(".","").replace("/","")  );
+        param.put("FROMYMD"       , FROMYMD.replace("-","").replace(".","").replace("/",""));
+        param.put("TOYMD"         , TOYMD.replace("-","").replace(".","").replace("/",""));
         param.put("DAYTIME_SEQ"   , DAYTIME_SEQ);
         param.put("FREQ_KIND"     , FREQ_KIND);
-        param.put("MBTYPE"       ,  MBTYPE  );
+        param.put("MBTYPE"        , MBTYPE);
         param.put("VIEWTYPE"      , VIEWTYPE);
-        param.put("USER_ID"       ,  USER_ID  );
+        param.put("USER_ID"       , USER_ID);
 
+        this.log.debug("######################"+SUBLIST);
+        if (!SUBLIST.equals("")) {
+            ArrayList<String> subList = new ArrayList<String>();
+            String temp01[] = SUBLIST.split("\\|");
+
+            for(int i=0;i<temp01.length;i++){
+                this.log.debug("######################"+temp01[i]);
+
+                subList.add(temp01[i]);
+            }
+            if (subList.size() > 0) param.put("SUBLIST",subList);
+
+        }
         this.log.debug("###################### 파라미터 가져오기 ");
         this.log.debug(param.toString());
 
@@ -143,8 +170,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
 
             //this.param.put("BTS_NM_CMS",BTS_NM_CMS);
-            this.log.debug("###################### 데이터 가져오기="+"DownLinkByNMSStats.selectCellTrafficStats"+VIEWTYPE);
-            this.rows = session.selectList("DownLinkByNMSStats.selectCellTrafficStats"+VIEWTYPE,param);
+            this.log.debug("###################### 데이터 가져오기="+"DownLinkByNMSStats.selectCellTrafficStats");
+            this.rows = session.selectList("DownLinkByNMSStats.selectCellTrafficStats",param);
             this.log.debug("###################### 조회완료");
             if(this.rows.size() > 0) {
                 this.msg = "조회되었습니다.";
@@ -209,8 +236,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String searchType = this.SEARCHTYPE;
             log.debug("SEARCHTYPE : " + searchType);
-            
-            
+
+
             Workbook wb = new HSSFWorkbook();
 
 
@@ -354,7 +381,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
     public void createCellTrafficStatsCQIExcelSheet(Sheet sheet, String type, String searchType, Map<String, Object> map) throws Exception {
 
         this.log.debug("createCellTrafficStatsCQIExcelSheet Start");
-   
+
         //header 만들자
         Row hrow0 = sheet.createRow((short) 0 );
         hrow0.setHeightInPoints(20);
@@ -459,7 +486,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             log.debug("json data : " + this.JSONDATA);
 
             String searchType = this.SEARCHTYPE;
-            
+
             Workbook wb = new HSSFWorkbook();
             //CreationHelper createHelper = wb.getCreationHelper();
 
@@ -651,7 +678,7 @@ log.debug("selectCellTrafficStatsExcelDownload : row start");
 
 log.debug("selectCellTrafficStatsExcelDownload : row end");
 */
-log.debug("selectCellTrafficStatsExcelDownload : file start");
+            log.debug("selectCellTrafficStatsExcelDownload : file start");
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
@@ -664,7 +691,7 @@ log.debug("selectCellTrafficStatsExcelDownload : file start");
             String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
             fileOut = new FileOutputStream(xlsFileFullPath);
             wb.write(fileOut);
-log.debug("selectCellTrafficStatsExcelDownload : file end");
+            log.debug("selectCellTrafficStatsExcelDownload : file end");
 
             this.msg = "엑셀이 생성 되었습니다";
             this.status = "SUCCESS";

@@ -82,9 +82,9 @@ function parseParam (_this){
 }
 
 /*===============================================================================
-* Bonbu Selet Setting (For 통계)
-*
-*==============================================================================*/
+ * Bonbu Select Setting (For 통계)
+ *
+ *==============================================================================*/
 function setBonbuList($select,allChk,callback,$subSelect) {
 
     jQuery.post("/adcaslte/svc/Workgroup-selectBonbuList",{},function(result,stat){
@@ -108,7 +108,7 @@ function setBonbuList($select,allChk,callback,$subSelect) {
 }
 
 /*===============================================================================
- * Oper Team Selet Setting  (For 통계)
+ * Oper Team Select Setting  (For 통계)
  *
  *==============================================================================*/
 function setOperTeamList($select,allChk,upperValue) {
@@ -130,7 +130,7 @@ function setOperTeamList($select,allChk,upperValue) {
 }
 
 /*===============================================================================
- * City Selet Setting (For 통계)
+ * City Select Setting (For 통계)
  *
  *==============================================================================*/
 function setCityList($select,allChk) {
@@ -156,6 +156,54 @@ function setCityList($select,allChk) {
 }
 
 /*===============================================================================
+ * MME Select Setting (For 통계)
+ *
+ *==============================================================================*/
+function setMMEList($select,allChk,callback,$subSelect) {
+
+    jQuery.post("/adcaslte/svc/Workgroup-selectMMEList",{},function(result,stat){
+        $select.empty();
+        if(allChk) {
+            $("<option value='ALL'>전체</option>")
+                .appendTo($select);
+        }
+        $(result.rows).each(function(idx,row){
+            $("<option value='"+row.MME_GRP_ID+"'>" +
+                row.MME_GRP_NM +
+                "</option>")
+                .appendTo($select);
+        });
+
+        if(typeof(callback) === 'function') {
+            callback($subSelect,true,$select.val());
+        }
+
+    },"json");
+}
+
+/*===============================================================================
+ * NE Select Setting  (For 통계)
+ *
+ *==============================================================================*/
+function setNEList($select,allChk,upperValue) {
+    jQuery.post("/adcaslte/svc/Workgroup-selectNEList",{MME_GRP_ID:upperValue},function(result,stat){
+        $select.empty();
+        if(allChk) {
+            $("<option value='ALL'>전체</option>")
+                .appendTo($select);
+        }
+        $(result.rows).each(function(idx,row){
+            $("<option value='"+row.NE_ID+"'>" +
+                row.NE_NM +
+                "</option>")
+                .appendTo($select);
+        });
+
+    },"json");
+
+}
+
+/*===============================================================================
  * 테이타 조회 진행 이미지 SHOW / HIDE
  *
  *==============================================================================*/
@@ -163,7 +211,7 @@ function toggleProgress(method) {
     var methods = {
         show : function (id,top) {
             $("#"+id).remove();
-           // var topPx = (resultDataType === 'result'?'340px':'560px');
+            // var topPx = (resultDataType === 'result'?'340px':'560px');
             $("<div id='"+id+"' style='position: absolute;z-index:2;top:"+top+";left:620px;'><img src='/adcaslte/common/img/ajax-loader.gif'/></div>").appendTo("body");
         },
         hide : function (id) {
