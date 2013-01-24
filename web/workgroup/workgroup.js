@@ -53,28 +53,28 @@ $(document).ready(function(){
         addWorkgroupRow : function(row,callback) {
             var $tbody = this.$workgroupTable.find("tbody");
             var $newWorkgroup =
-            $("<tr id="+row.WORKGROUP_ID+">"
-                +"<td>"+row.WORKGROUP_NAME
-                +"<div class='floatRight alignRight'>"
-                +"<button class=\"close\" onclick=\"deleteWorkgroup(event,this);\">&times;</button>&nbsp;&nbsp;"
-                +"</div>"
-                //+"<button class='btn btn-mini' style='margin-right: 2px;' onclick=\"sendData(event,'"+row.WORKGROUP_ID+"','"+row.WORKGROUP_NAME+"');\">선택</button>"
-                //+"<button class='btn btn-mini' style='margin-right: 2px;' onclick='deleteWorkgroup(event,this)' >삭제</button>"
-                //+"<button class='btn btn-mini' onclick='workgroup.showDUTree(this);'>DU추가</button>"
-                +"</td>"
-                +"</tr>")
-                .click(function(){
-                    $(this).siblings().removeClass("error");
-                    $(this).addClass("error");
-                    workgroup.$selectedWorkgroup.text(row.WORKGROUP_NAME)
-                        .data("workgroupID",row.WORKGROUP_ID);
-                    getDuList(row.WORKGROUP_ID);
-                    workgroup.$addDuListTable.show();
-                    workgroup.$addDuListTable.find('span').text(row.WORKGROUP_NAME);
-                })
-                .data("row",row)
-                .css("cursor","pointer")
-                .prependTo($tbody);
+                $("<tr id="+row.WORKGROUP_ID+">"
+                    +"<td>"+row.WORKGROUP_NAME
+                    +"<div class='floatRight alignRight'>"
+                    +"<button class=\"close\" onclick=\"deleteWorkgroup(event,this);\">&times;</button>&nbsp;&nbsp;"
+                    +"</div>"
+                    //+"<button class='btn btn-mini' style='margin-right: 2px;' onclick=\"sendData(event,'"+row.WORKGROUP_ID+"','"+row.WORKGROUP_NAME+"');\">선택</button>"
+                    //+"<button class='btn btn-mini' style='margin-right: 2px;' onclick='deleteWorkgroup(event,this)' >삭제</button>"
+                    //+"<button class='btn btn-mini' onclick='workgroup.showDUTree(this);'>DU추가</button>"
+                    +"</td>"
+                    +"</tr>")
+                    .click(function(){
+                        $(this).siblings().removeClass("error");
+                        $(this).addClass("error");
+                        workgroup.$selectedWorkgroup.text(row.WORKGROUP_NAME)
+                            .data("workgroupID",row.WORKGROUP_ID);
+                        getDuList(row.WORKGROUP_ID);
+                        workgroup.$addDuListTable.show();
+                        workgroup.$addDuListTable.find('span').text(row.WORKGROUP_NAME);
+                    })
+                    .data("row",row)
+                    .css("cursor","pointer")
+                    .prependTo($tbody);
 
             if(typeof(callback) === 'function') {
                 callback($newWorkgroup);
@@ -83,29 +83,29 @@ $(document).ready(function(){
         addDuRow : function(row,callback) {
             var $tbody = this.$duListTable.find("tbody");
             var $newDU =
-            $("<tr>"
-                +"<td class='alignCenter'>"+row.MFC_NM+"</td>"
-                +"<td>"
-                +"<div style='float: left'>"+row.BTS_NM_CMS+"</div>"
-                +"<div style='text-align: right'>"
-                +"<button class=\"close\" onclick=\"deleteDU(event,$(this).parents('tr:first'));\">&times;</button>"
-                +"&nbsp;&nbsp;</div>"
-                +"</td>"
-                +"</tr>")
-                .data("row",row)
-                .css("cursor","pointer")
-                .prependTo($tbody)
-                .children('td:first').addClass(function() {
-                    var className = '';
-                    if (row.MFC_CD === 'MFC00001') {
-                        className = 'MFC00001';
-                    } else if (row.MFC_CD === 'MFC00002') {
-                        className = 'MFC00002';
-                    } else if (row.MFC_CD === 'MFC00014') {
-                        className = 'MFC00014';
-                    }
-                    return className;
-                }).end();
+                $("<tr>"
+                    +"<td class='alignCenter'>"+row.MFC_NM+"</td>"
+                    +"<td>"
+                    +"<div style='float: left'>"+row.BTS_NM_CMS+"</div>"
+                    +"<div style='text-align: right'>"
+                    +"<button class=\"close\" onclick=\"deleteDU(event,$(this).parents('tr:first'));\">&times;</button>"
+                    +"&nbsp;&nbsp;</div>"
+                    +"</td>"
+                    +"</tr>")
+                    .data("row",row)
+                    .css("cursor","pointer")
+                    .prependTo($tbody)
+                    .children('td:first').addClass(function() {
+                        var className = '';
+                        if (row.MFC_CD === 'MFC00001') {
+                            className = 'MFC00001';
+                        } else if (row.MFC_CD === 'MFC00002') {
+                            className = 'MFC00002';
+                        } else if (row.MFC_CD === 'MFC00014') {
+                            className = 'MFC00014';
+                        }
+                        return className;
+                    }).end();
 
 
             if(typeof(callback) === 'function') {
@@ -137,11 +137,11 @@ $(document).ready(function(){
             $("#duHelp").show(); //DU Help show
 
             /*if(obj.id === 'tempDuListBtn') {
-                this.resetDuList(this.tempSearchString);
-                $("#closeDuListBtn").hide();
-            } else {
-                $("#closeDuListBtn").show();
-            }*/
+             this.resetDuList(this.tempSearchString);
+             $("#closeDuListBtn").hide();
+             } else {
+             $("#closeDuListBtn").show();
+             }*/
         },
         hideDUTree : function() {
             $("#divDU").hide(); // DU Tree hide
@@ -160,7 +160,7 @@ $(document).ready(function(){
      * 처리중..
      *
      *==============================================================================*/
-    $("<div style='display:none;position:fixed;top:200px;left:430px;width:25px;height:25px;'>"
+    $("<div style='display:none;position:fixed;top:320px;left:390px;width:25px;height:25px;'>"
         + "<img src='/adcaslte/common/img/ajax-loader.gif'/></div>")
         .ajaxStart(function(){
             $(this).show();
@@ -210,10 +210,6 @@ $(document).ready(function(){
      * WorkGroup 추가 버튼 클릭 이벤트 설정
      *
      *==============================================================================*/
-    /*$("#addWorkGroupBtn").click(function() {
-        $("#divAddWorkgroup").show();
-        //$(".alert").alert();
-    });*/
     $('#addWorkgroupModal').on('shown', function () {
         $("#addWorkgroupName").focus();
     })
@@ -259,15 +255,15 @@ $(document).ready(function(){
     $("#delDuBtn").click(function(event){
         if (workgroup.$duListTable.find('tr').length !== 0) {
             deleteDU(event,$(this)/*,function() {
-                alert('모두 삭제되었습니다.');
-            }*/);
+             alert('모두 삭제되었습니다.');
+             }*/);
         }
     });
 
     /*===============================================================================
-    * DU 검색시 검색타입 선택 이벤트 설정
-    *
-    *==============================================================================*/
+     * DU 검색시 검색타입 선택 이벤트 설정
+     *
+     *==============================================================================*/
     //DU 명으로 검색
     $("#searchType1").click(function(){
         $("#searchNameDiv").show();
@@ -298,22 +294,22 @@ $(document).ready(function(){
      * SCROLL 설정 변경
      *==============================================================================*/
     /*$('#duTab a').click(function (event) {
-        event.preventDefault();
-        alert('1='+$(this).attr('href'));
-        if ($(this).attr('href') === '#tabContent3') {
-            $(".tab-content").css("overflow-y","hidden");
-        } else {
-            $(".tab-content").css("overflow-y","auto");
-        }
-    }) ;*/
+     event.preventDefault();
+     alert('1='+$(this).attr('href'));
+     if ($(this).attr('href') === '#tabContent3') {
+     $(".tab-content").css("overflow-y","hidden");
+     } else {
+     $(".tab-content").css("overflow-y","auto");
+     }
+     }) ;*/
 
     /*===============================================================================
      * DU Tree Tab 클릭 이벤트 설정
      *
      *==============================================================================*/
     /*$('#duTab').bind('click', function (e) {
-        var href = e.target.href;
-        var selectedTab = href.substring(href.indexOf("#")+1);*/
+     var href = e.target.href;
+     var selectedTab = href.substring(href.indexOf("#")+1);*/
     $('#duTab a').click(function (event) {
         event.preventDefault();
         var selectedTab = $(this).attr('href');
@@ -325,9 +321,14 @@ $(document).ready(function(){
             $(".tab-content").css("overflow-y","auto");
         }
 
+        // EMS별 DU Tree 가져오기
+        if(selectedTab === '#tabContent0') {
+            setTreeByEms();
+        }
+
         // 지역별 DU Tree 가져오기
         if(selectedTab === '#tabContent2') {
-           setTreeByCity();
+            setTreeByCity();
         }
 
         // 주소로 검색시 이벤트 설정 및 City List 가져오기
@@ -477,8 +478,8 @@ function addWorkGroup(callback) {
             });
 
             /*if (workgroup.$duListTable.find("tr").length > 0) {
-                insertDuList();
-            }*/
+             insertDuList();
+             }*/
 
             $addWorkgroupName.val("");
 
@@ -556,27 +557,27 @@ function addDuList(node,type,callback) {
 
             $.each(node.getChildren().reverse(), function(index,childNode){
                 var row  = {INGR_ERP_CD:childNode.data.key,
-                             BTS_NM_CMS:childNode.data.title,
-                             C_UID:childNode.data.cUID,
-                             MFC_CD:childNode.data.mfcCD,
-                             MFC_NM:childNode.data.mfcNM};
+                    BTS_NM_CMS:childNode.data.title,
+                    C_UID:childNode.data.cUID,
+                    MFC_CD:childNode.data.mfcCD,
+                    MFC_NM:childNode.data.mfcNM};
                 rows[index] = row;
             });
         } else {
             var row  = {INGR_ERP_CD:node.data.key,
-                         BTS_NM_CMS:node.data.title,
-                         C_UID:node.data.cUID,
-                         MFC_CD:node.data.mfcCD,
-                         MFC_NM:node.data.mfcNM};
+                BTS_NM_CMS:node.data.title,
+                C_UID:node.data.cUID,
+                MFC_CD:node.data.mfcCD,
+                MFC_NM:node.data.mfcNM};
             rows[0] = row;
         }
-    //search일 경우
+        //search일 경우
     } else {
         var row  =  {INGR_ERP_CD:$(node).data("row").INGR_ERP_CD,
-                      BTS_NM_CMS:$(node).data("row").BTS_NM_CMS,
-                      C_UID:$(node).data("row").C_UID,
-                      MFC_CD:$(node).data("row").MFC_CD,
-                      MFC_NM:$(node).data("row").MFC_NM};
+            BTS_NM_CMS:$(node).data("row").BTS_NM_CMS,
+            C_UID:$(node).data("row").C_UID,
+            MFC_CD:$(node).data("row").MFC_CD,
+            MFC_NM:$(node).data("row").MFC_NM};
         rows[0] = row;
     }
 
@@ -762,7 +763,7 @@ function setTreeByTeam() {
                         if(node.getEventTargetType(event) == "title") {
                             node.toggleSelect();
                             if(node.isSelected()) addDuList(node,'tree',insertDuList);
-                        //checkbox 클릭시
+                            //checkbox 클릭시
                         } else if(node.getEventTargetType(event) == "checkbox") {
                             //select가 일어나기 전이므로 unSelect일 경우 DU 추가
                             if(!node.isSelected()) {
@@ -798,7 +799,7 @@ function getTreeByTeam(node,callback) {
             node.addChild(treeData,firstChildNode);
             firstChildNode.li.style.display = "none";  //데이타 가져오는 중 숨김.
         },"json");
-    //Oper Team -> Part
+        //Oper Team -> Part
     } else if (node.getLevel() === 2 && node.getChildren()[0].data.key.indexOf("loading") != -1) {
 
         jQuery.post("/adcaslte/svc/Workgroup-selectPartList",{OPER_TEAM_CD:node.data.key},function(result,stat){
@@ -813,7 +814,7 @@ function getTreeByTeam(node,callback) {
             node.removeChildren(); //데이타 가져오는 중 삭제
             node.addChild(treeData);
         },"json");
-    //Part -> DU
+        //Part -> DU
     } else if (node.getLevel() === 3 && node.getChildren()[0].data.key.indexOf("loading") != -1) {
 
         //Sync 방식으로 처리
@@ -835,22 +836,22 @@ function getTreeByTeam(node,callback) {
             }
         });
         /*jQuery.post("/adcaslte/svc/Workgroup-selectDUList",{PART_CD:node.data.key},function(result,stat){
-            var treeData = [];
-            var select = false;
-            //node가 선택되었을 경우 child node 모두 select되도록
-            if(node.isSelected()) select = true;
+         var treeData = [];
+         var select = false;
+         //node가 선택되었을 경우 child node 모두 select되도록
+         if(node.isSelected()) select = true;
 
-            $(result.rows).each(function(idx,row){
-                var treeRow = {title:row.BTS_NM_CMS, key:row.INGR_ERP_CD, cUID:row.C_UID, mfcCD:row.MFC_CD, mfcNM:row.MFC_NM,
-                               select:select};
-                treeData.push(treeRow);
-            });
-            node.removeChildren();
-            node.addChild(treeData);
+         $(result.rows).each(function(idx,row){
+         var treeRow = {title:row.BTS_NM_CMS, key:row.INGR_ERP_CD, cUID:row.C_UID, mfcCD:row.MFC_CD, mfcNM:row.MFC_NM,
+         select:select};
+         treeData.push(treeRow);
+         });
+         node.removeChildren();
+         node.addChild(treeData);
 
 
 
-        },"json");*/
+         },"json");*/
     }
 
     if(typeof(callback) === 'function') {
@@ -859,9 +860,9 @@ function getTreeByTeam(node,callback) {
 }
 
 /*===============================================================================
-* 지역별 DU Tree 셋팅하는 Function
-*
-*==============================================================================*/
+ * 지역별 DU Tree 셋팅하는 Function
+ *
+ *==============================================================================*/
 function setTreeByCity() {
 
     jQuery.post("/adcaslte/svc/Workgroup-selectCityList",{},function(result,stat){
@@ -881,7 +882,7 @@ function setTreeByCity() {
             children: treeData,
             fx: { height: "toggle", duration: 500 },
             onQuerySelect: function(flag, node) {
-                //구선택시 팀에 속한 DU List 보여주고 선택되도록 함.
+                //구선택시 구에 속한 DU List 보여주고 선택되도록 함.
                 if (node.getLevel() === 2) {
                     getTreeByCity(node, function() {
                         if(flag === true) {
@@ -904,7 +905,7 @@ function setTreeByCity() {
                         if(node.getEventTargetType(event) == "title") {
                             node.toggleSelect();
                             if(node.isSelected()) addDuList(node,'tree',insertDuList);
-                        //checkbox 클릭시
+                            //checkbox 클릭시
                         } else if(node.getEventTargetType(event) == "checkbox") {
                             //select가 일어나기 전이므로 unSelect일 경우 DU 추가
                             if(!node.isSelected()) {
@@ -915,17 +916,17 @@ function setTreeByCity() {
                 });
             }
             /*onQuerySelect: function(flag, node) {
-                getTreeByCity(node,function() { node.expand() });
-            },
-            onSelect: function(flag, node) {
-                //checkSelect(node,'duTreeByCity');
-            },
-            onClick: function(node, event) {
-                getTreeByCity(node, function() { if (node.getLevel() === 3) node.toggleSelect() });
-            },
-            onDblClick: function(node, event) {
-                node.toggleSelect();
-            }*/
+             getTreeByCity(node,function() { node.expand() });
+             },
+             onSelect: function(flag, node) {
+             //checkSelect(node,'duTreeByCity');
+             },
+             onClick: function(node, event) {
+             getTreeByCity(node, function() { if (node.getLevel() === 3) node.toggleSelect() });
+             },
+             onDblClick: function(node, event) {
+             node.toggleSelect();
+             }*/
         });
 
     },"json");
@@ -952,7 +953,7 @@ function getTreeByCity(node,callback) {
             node.addChild(treeData,firstChildNode);
             firstChildNode.li.style.display = "none";  //데이타 가져오는 중 숨김
         },"json");
-    //Gu -> Du
+        //Gu -> Du
     } else if (node.getLevel() === 2 && node.getChildren()[0].data.key.indexOf("loading") != -1) {
         //node.data.unselectable = false;
         jQuery.ajax({
@@ -974,19 +975,19 @@ function getTreeByCity(node,callback) {
         });
 
         /*jQuery.post("/adcaslte/svc/Workgroup-selectDUList",{GU_CD:node.data.key},function(result,stat){
-            var treeData = [];
-            var select = false;
-            //node가 선택되었을 경우 child node 모두 select되도록
-            if(node.isSelected()) select = true;
+         var treeData = [];
+         var select = false;
+         //node가 선택되었을 경우 child node 모두 select되도록
+         if(node.isSelected()) select = true;
 
-            $(result.rows).each(function(idx,row){
-                var treeRow = {title:row.BTS_NM_CMS, key:row.INGR_ERP_CD, cUID:row.C_UID, mfcCD:row.MFC_CD, mfcNM:row.MFC_NM,
-                               select:select };
-                treeData.push(treeRow);
-            });
-            node.removeChildren(); //데이타 가져오는 중 삭제
-            node.addChild(treeData);
-        },"json");*/
+         $(result.rows).each(function(idx,row){
+         var treeRow = {title:row.BTS_NM_CMS, key:row.INGR_ERP_CD, cUID:row.C_UID, mfcCD:row.MFC_CD, mfcNM:row.MFC_NM,
+         select:select };
+         treeData.push(treeRow);
+         });
+         node.removeChildren(); //데이타 가져오는 중 삭제
+         node.addChild(treeData);
+         },"json");*/
     }
 
     if(typeof(callback) === 'function') {
@@ -994,6 +995,131 @@ function getTreeByCity(node,callback) {
     }
 
 }
+
+/*===============================================================================
+ * EMS별 DU Tree 셋팅하는 Function
+ *
+ *==============================================================================*/
+function setTreeByEms() {
+
+    jQuery.post("/adcaslte/svc/Workgroup-selectMMEList",{},function(result,stat){
+
+        var treeData = [];
+
+        $(result.rows).each(function(idx,row){
+            var treeRow = {title:row.MME_GRP_NM, key:row.MME_GRP_ID,
+                isFolder:true, hideCheckbox:true,
+                children:[{title: "데이타 가져오는 중...", key: row.MME_GRP_ID+"loading", hideCheckbox:true}]};
+            treeData.push(treeRow);
+        });
+
+        $("#duTreeByEms").dynatree({
+            checkbox: true,
+            selectMode: 3,
+            children: treeData,
+            fx: { height: "toggle", duration: 500 },
+            onQuerySelect: function(flag, node) {
+                //NE_ID선택시 NE_ID에 속한 DU List 보여주고 선택되도록 함.
+                if (node.getLevel() === 2) {
+                    getTreeByEms(node, function() {
+                        if(flag === true) {
+                            node.expand(true);
+                            addDuList(node,'tree',insertDuList);
+                        } else {
+                            node.expand(false);
+                        }
+                    });
+                }
+            },
+            onSelect: function(flag, node) {
+                //if (flag === true && node.getLevel() === 3) isDuList(node);
+                //checkSelect(node,'duTreeByCity');
+            },
+            onClick: function(node, event) {
+                getTreeByEms(node, function() {
+                    if (node.getLevel() === 3) {
+                        //title 클릭시
+                        if(node.getEventTargetType(event) == "title") {
+                            node.toggleSelect();
+                            if(node.isSelected()) addDuList(node,'tree',insertDuList);
+                            //checkbox 클릭시
+                        } else if(node.getEventTargetType(event) == "checkbox") {
+                            //select가 일어나기 전이므로 unSelect일 경우 DU 추가
+                            if(!node.isSelected()) {
+                                addDuList(node,'tree',insertDuList);
+                            }
+                        }
+                    }
+                });
+            }
+            /*onQuerySelect: function(flag, node) {
+             getTreeByCity(node,function() { node.expand() });
+             },
+             onSelect: function(flag, node) {
+             //checkSelect(node,'duTreeByCity');
+             },
+             onClick: function(node, event) {
+             getTreeByCity(node, function() { if (node.getLevel() === 3) node.toggleSelect() });
+             },
+             onDblClick: function(node, event) {
+             node.toggleSelect();
+             }*/
+        });
+
+    },"json");
+
+}
+
+/*===============================================================================
+ * EMS별 DU Tree에서 클릭된 Node 하위 Tree 가져오는 Function
+ *
+ *==============================================================================*/
+function getTreeByEms(node,callback) {
+    //MME_GRP_ID -> NE_ID
+    if (node.getLevel() === 1 && node.getChildren()[0].data.key.indexOf("loading") != -1) {
+
+        jQuery.post("/adcaslte/svc/Workgroup-selectNEList",{MME_GRP_ID:node.data.key},function(result,stat){
+            var treeData = [];
+            $(result.rows).each(function(idx,row){
+                var treeRow = {title:row.NE_NM, key:row.NE_ID,
+                    isFolder:true,
+                    children:[{title: "데이타 가져오는 중...", key: row.NE_ID+"loading", hideCheckbox:true }]};
+                treeData.push(treeRow);
+            });
+            var firstChildNode = node.tree.getNodeByKey(node.data.key+"loading");
+            node.addChild(treeData,firstChildNode);
+            firstChildNode.li.style.display = "none";  //데이타 가져오는 중 숨김
+        },"json");
+        //Gu -> Du
+    } else if (node.getLevel() === 2 && node.getChildren()[0].data.key.indexOf("loading") != -1) {
+        //node.data.unselectable = false;
+        jQuery.ajax({
+            type: "POST",
+            url: "/adcaslte/svc/Workgroup-selectDUList",
+            data: {NE_ID:node.data.key},
+            dataType: "json",
+            async: false,
+            success: function(result,stat){
+                var treeData = [];
+
+                $(result.rows).each(function(idx,row){
+                    var treeRow = {title:row.BTS_NM_CMS, key:row.INGR_ERP_CD, cUID:row.C_UID, mfcCD:row.MFC_CD, mfcNM:row.MFC_NM};
+                    treeData.push(treeRow);
+                });
+                node.removeChildren();
+                node.addChild(treeData);
+            }
+        });
+
+    }
+
+    if(typeof(callback) === 'function') {
+        callback();
+    }
+
+}
+
+
 
 /*===============================================================================
  * DU List에 존재하는 DU일 경우 체크되지 않도록 하는 Function
@@ -1020,8 +1146,8 @@ function isDuList(node) {
 function checkSelect(node,treeID) {
 
     /*var $selectedWorkgroup = $("#selectedWorkgroup");
-    var $selectedMFC = $("#selectedMFC");
-    var selectedMfcCD = $selectedMFC.data("mfcCD");
+     var $selectedMFC = $("#selectedMFC");
+     var selectedMfcCD = $selectedMFC.data("mfcCD");
      //MFC별 선택막음 2012.11.13
      if (node.getLevel() === 3) {
      //alert('onSelect='+node.tree.getSelectedNodes().length);
@@ -1058,35 +1184,35 @@ function checkSelect(node,treeID) {
 function rearrangeDuTree(mfcCD) {
     //alert('rearrangeDuTree');
     //선택된 Tab 찾기
-   /* var selectedTab = "";
-    $("#duTab").children().each(function(){
-        if ($(this).hasClass("active"))
-            selectedTab = $(this).attr("id");
-    });
+    /* var selectedTab = "";
+     $("#duTab").children().each(function(){
+     if ($(this).hasClass("active"))
+     selectedTab = $(this).attr("id");
+     });
 
-    var selectedNodes;
-    if (selectedTab != "tabSearch") { //search TAB이 아닐 경우
-        //선택된 Tree 찾기
-        var selectedTree = "";
-        $(".tab-content").children().each(function(){
-            if ($(this).hasClass("active"))
-                selectedTree = $(this).children().eq(0).attr("id");
-        });
-        $.each($("#"+selectedTree).dynatree("getSelectedNodes"), function(index,node){
-            if (node.getLevel() === 4) {
-                if (node.data.mfcCD != mfcCD) {
-                    if(node.isSelected()) node.toggleSelect();
-                }
-            }
-        });
-    } else {  //search TAB일 경우
-        var selectedNodes = $.map($("#searchDuTable tbody tr").toArray(), function(row,index){
-            if($(row).hasClass("error") === true) {
-                if ($(row).data("row").MFC_CD != mfcCD)
-                    $(row).removeClass("error")
-            }
-        });
-    }*/
+     var selectedNodes;
+     if (selectedTab != "tabSearch") { //search TAB이 아닐 경우
+     //선택된 Tree 찾기
+     var selectedTree = "";
+     $(".tab-content").children().each(function(){
+     if ($(this).hasClass("active"))
+     selectedTree = $(this).children().eq(0).attr("id");
+     });
+     $.each($("#"+selectedTree).dynatree("getSelectedNodes"), function(index,node){
+     if (node.getLevel() === 4) {
+     if (node.data.mfcCD != mfcCD) {
+     if(node.isSelected()) node.toggleSelect();
+     }
+     }
+     });
+     } else {  //search TAB일 경우
+     var selectedNodes = $.map($("#searchDuTable tbody tr").toArray(), function(row,index){
+     if($(row).hasClass("error") === true) {
+     if ($(row).data("row").MFC_CD != mfcCD)
+     $(row).removeClass("error")
+     }
+     });
+     }*/
 
 }
 

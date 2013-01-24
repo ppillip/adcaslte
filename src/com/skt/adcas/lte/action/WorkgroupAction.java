@@ -27,20 +27,22 @@ public class WorkgroupAction extends ActionSupport4lte {
 
     public void parseParam() {
         USER_ID = (String)request.getSession().getAttribute("USER_ID");
-        this.log.debug("param========================USER_ID = "+USER_ID);
+        //this.log.debug("param========================USER_ID = "+USER_ID);
         if (request.getRequestURL().indexOf("localhost") != -1) {
-            this.log.debug("request========================URL = "+request.getRequestURL());
+            //this.log.debug("request========================URL = "+request.getRequestURL());
             if (USER_ID == null) USER_ID = "qcas";
         }
         Map<String,Object> parameters = ActionContext.getContext().getParameters();
         for (Map.Entry<String, Object> paraEntry : parameters.entrySet() ) {
             String key = paraEntry.getKey();
             String[] value = (String[])paraEntry.getValue();
-            this.log.debug("param========================key = "+key);
-            this.log.debug("param========================value = "+value[0]);
+            //this.log.debug("param========================key = "+key);
+            //this.log.debug("param========================value = "+value[0]);
             param.put(key, value[0]);
         }
         param.put("USER_ID",USER_ID);
+        this.log.debug("###################### 파라미터 가져오기 ");
+        this.log.debug(param.toString());
     }
 
     public String selectBonbuList(){
@@ -183,6 +185,54 @@ public class WorkgroupAction extends ActionSupport4lte {
         }finally{
             session.close();
             this.log.debug("########## selectDongList End");
+        }
+        return SUCCESS;
+    }
+
+    public String selectMMEList(){
+        this.log.debug("########## selectMMEList Start");
+        SqlSession session = null;
+        try{
+            parseParam();
+            session = SqlSessionManager.getSqlSession().openSession();
+            this.rows = session.selectList("Workgroup.selectMMEList",this.param);
+            session.commit();
+            this.msg = "생성되었습니다";
+            this.status = "SUCCESS";
+        }catch (Exception e){
+            this.msg = e.getMessage();
+            this.status = "ERROR";
+            this.error = true;
+            session.rollback();
+            e.printStackTrace();
+
+        }finally{
+            session.close();
+            this.log.debug("########## selectMMEList End");
+        }
+        return SUCCESS;
+    }
+
+    public String selectNEList(){
+        this.log.debug("########## selectNEList Start");
+        SqlSession session = null;
+        try{
+            parseParam();
+            session = SqlSessionManager.getSqlSession().openSession();
+            this.rows = session.selectList("Workgroup.selectNEList",this.param);
+            session.commit();
+            this.msg = "생성되었습니다";
+            this.status = "SUCCESS";
+        }catch (Exception e){
+            this.msg = e.getMessage();
+            this.status = "ERROR";
+            this.error = true;
+            session.rollback();
+            e.printStackTrace();
+
+        }finally{
+            session.close();
+            this.log.debug("########## selectNEList End");
         }
         return SUCCESS;
     }
