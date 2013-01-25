@@ -154,6 +154,53 @@ function setCityList($select,allChk) {
     },"json");
 }
 
+/*===============================================================================
+ * MME Select Setting (For 통계)
+ *
+ *==============================================================================*/
+function setMMEList($select,allChk,callback,$subSelect) {
+
+    jQuery.post("/adcaslte/svc/Workgroup-selectMMEList",{},function(result,stat){
+        $select.empty();
+        if(allChk) {
+            $("<option value='ALL'>전체</option>")
+                .appendTo($select);
+        }
+        $(result.rows).each(function(idx,row){
+            $("<option value='"+row.MME_GRP_ID+"'>" +
+                row.MME_GRP_NM +
+                "</option>")
+                .appendTo($select);
+        });
+
+        if(typeof(callback) === 'function') {
+            callback($subSelect,true,$select.val());
+        }
+
+    },"json");
+}
+
+/*===============================================================================
+ * NE Select Setting  (For 통계)
+ *
+ *==============================================================================*/
+function setNEList($select,allChk,upperValue) {
+    jQuery.post("/adcaslte/svc/Workgroup-selectNEList",{MME_GRP_ID:upperValue},function(result,stat){
+        $select.empty();
+        if(allChk) {
+            $("<option value='ALL'>전체</option>")
+                .appendTo($select);
+        }
+        $(result.rows).each(function(idx,row){
+            $("<option value='"+row.NE_ID+"'>" +
+                row.NE_NM +
+                "</option>")
+                .appendTo($select);
+        });
+
+    },"json");
+
+}
 
 /*===============================================================================
  * 평균, 최대값, 최소값, 표준편하 구하는 함수
@@ -334,4 +381,3 @@ function getSaturday(strDate) {
     return year+'-'+month+'-'+date;
 
 }
-

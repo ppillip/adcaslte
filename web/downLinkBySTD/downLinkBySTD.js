@@ -12,10 +12,6 @@ function scrollY() {
 
 $(document).ready(function(){
 
-    $("input[name=WORKGROUP_YN]").hide();
-    $("input[name=WORKGROUP_ID]").hide();
-    $("input[name=DUIDs]").hide();
-
     //GRAHP ALL Check
     $("input[name=checkAll]").click(function(){
         if($(this).attr("checked")){
@@ -37,28 +33,73 @@ $(document).ready(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=820,height=700');
     });
 
+/*===============================================================================
+ * For 기간
+ *==============================================================================*/
+    //최초 기간 셋팅 (통계주기 주간)
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
-
-    $("#fromto").text('[ '+getSunday(_yesterday)+' ~ '+getSaturday(_yesterday)+' ]');
-    $("input[name=FROMYMD]").val(getSunday(_yesterday).replace(/-/gi,''));
-    $("input[name=TOYMD]").val(getSaturday(_yesterday).replace(/-/gi,''));
-
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $('#datepicker01').datepicker('hide');
-        });
+        $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+        $('#datepicker01').datepicker('hide');
+    });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
+        $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+        $('#datepicker02').datepicker('hide');
+    });
+    $("#fromto").text('[ '+getSunday(_yesterday)+' ~ '+getSaturday(_yesterday)+' ]');
+    $("input[name=FROMYMD]").val(getSunday(_yesterday).replace(/-/gi,''));
+    $("input[name=TOYMD]").val(getSaturday(_yesterday).replace(/-/gi,''));
+
+    //월간 셋팅
+    var today = new Date();
+    var year  = Number(today.getFullYear());
+    var month = Number(today.getMonth())+1;
+    month = (month>9)?month:'0'+month;
+    for (var i=0; i<3; i++) {
+        $("#fromYear,#toYear").append("<option value='"+(year-i)+"'>" +(year-i)+"</option>");
+    }
+    for (var i=1; i<=12; i++) {
+        $("#fromMonth,#toMonth").append("<option value='"+(i>9?i:'0'+i)+"'>" +(i>9?i:'0'+i)+"</option>");
+    }
+    $("#fromMonth").val(month);
+    $("#toMonth").val(month);
+    $("#fromYear,#toYear,#fromMonth,#toMonth").change(function () {
+        $("input[name=FROMYMD]").val($('#fromYear').val()+$('#fromMonth').val());
+        $("input[name=TOYMD]").val($('#toYear').val()+$('#toMonth').val());
+    });
+
+    //통계주기 변경시
+    $("input[name=TERMTYPE]").click(function (event) {
+        $("[group=TERMTYPE]").hide();
+
+        if (this.value === 'WK') {
+            $('#datepicker01').show();
+            $('#dash').show();
+            $('#datepicker02').show();
+            $('#fromto').show().text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
             $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $('#datepicker02').datepicker('hide');
-        });
+        } else if (this.value === 'MON') {
+            $('#fromYear').show();
+            $('#fromMonth').show();
+            $('#toYear').show();
+            $('#toMonth').show();
+            $("input[name=FROMYMD]").val($('#fromYear').val()+$('#fromMonth').val());
+            $("input[name=TOYMD]").val($('#toYear').val()+$('#toMonth').val());
+        }
+    });
+
+/*===============================================================================
+ * End For 기간
+ *==============================================================================*/
 
 /*===============================================================================
 * For Left Title Setting
@@ -142,7 +183,6 @@ $(document).ready(function(){
                     .appendTo($leftTable);
 
                 $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THRP     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -153,6 +193,8 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                     +"</tr>")
                     .appendTo($rightTable);
 
@@ -175,7 +217,6 @@ $(document).ready(function(){
             for(var i=0; i < 4; i++) {
                 $("tbody tr:first",$bottomRightTable).remove();
                 $("<tr class='info'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THRP     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
@@ -186,6 +227,8 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }

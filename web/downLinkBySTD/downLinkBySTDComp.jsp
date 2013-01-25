@@ -96,14 +96,10 @@
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>전기간</b></td>
                                                 <td>
-                                                    <select id="FROM_YEAR1" name="FROM_YEAR1">
-                                                    </select>
-                                                    <select id="FROM_MONTH1" name="FROM_MONTH1">
-                                                    </select>
-                                                    <select id="TO_YEAR1" name="TO_YEAR1">
-                                                    </select>
-                                                    <select id="TO_MONTH1" name="TO_MONTH1">
-                                                    </select>
+                                                    <select id="FROM_YEAR1" name="FROM_YEAR1"></select>
+                                                    <select id="FROM_MONTH1" name="FROM_MONTH1"></select>
+                                                    <select id="TO_YEAR1" name="TO_YEAR1"></select>
+                                                    <select id="TO_MONTH1" name="TO_MONTH1"></select>
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>시간대</b></td>
                                                 <td>
@@ -120,14 +116,10 @@
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>후기간</b></td>
                                                 <td>
-                                                    <select id="FROM_YEAR2" name="FROM_YEAR2">
-                                                    </select>
-                                                    <select id="FROM_MONTH2" name="FROM_MONTH2">
-                                                    </select>
-                                                    <select id="TO_YEAR2" name="TO_YEAR2">
-                                                    </select>
-                                                    <select id="TO_MONTH2" name="TO_MONTH2">
-                                                    </select>
+                                                    <select id="FROM_YEAR2" name="FROM_YEAR2"></select>
+                                                    <select id="FROM_MONTH2" name="FROM_MONTH2"></select>
+                                                    <select id="TO_YEAR2" name="TO_YEAR2"></select>
+                                                    <select id="TO_MONTH2" name="TO_MONTH2"></select>
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>주파수</b></td>
                                                 <td style="font-size: 11px;" >
@@ -143,7 +135,7 @@
                                                 <td></td>
                                                 <td style="font-size: 11px;" ><b>최번기준</b></td>
                                                 <td style="font-size: 11px;" >
-                                                    <select name="MBTYPE" style="height:24px; width:140px;font-size:11px;margin: 0 0 0 0;">
+                                                    <select name="MBTYPE" style="width:140px;">
                                                         <option value="R3" selected>PRB최번(Cell기준)</option>
                                                         <option value="R5"  >Data최번(Cell기준)</option>
                                                         <option value="R15" >동접자최번(Cell기준)</option>
@@ -214,12 +206,10 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">용량(Mbps)</td>
                     <td rowspan="3">기준용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -227,13 +217,13 @@
                     <td rowspan="3">DL PRB 사용율(%)</td>
                     <td colspan="4">RSSI</td>
                     <td rowspan="3">License<br/>초과 실패호</td>
-                    <%--<td colspan="2">전송로</td>--%>
+                    <td colspan="2">전송로</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
-                    <%--<td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>--%>
+                    <td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -271,8 +261,7 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
 
@@ -282,7 +271,7 @@
     </td>
 </tr>
 
-<tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+<tr style="vertical-align: top; margin: 0px; padding: 0px;">
     <td><!-- top left   -->
         <div name="divTopLeft" id="divTopLeftAfter">
             <table name="tableTopLeft" id="tableTopLeftAfter" class="table table-bordered table-condensed">
@@ -317,12 +306,10 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">용량(Mbps)</td>
                     <td rowspan="3">기준용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -330,13 +317,13 @@
                     <td rowspan="3">DL PRB 사용율(%)</td>
                     <td colspan="4">RSSI</td>
                     <td rowspan="3">License<br/>초과 실패호</td>
-                    <%--<td colspan="2">전송로</td>--%>
+                    <td colspan="2">전송로</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
-                    <%--<td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>--%>
+                    <td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -374,8 +361,7 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
 
@@ -416,15 +402,13 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><%--<td></td>
-                    <td></td>--%>
+                    <td></td><td></td><td></td><td></td>
                 </tr>
                 </tbody>
             </table>
@@ -452,7 +436,6 @@
     </div>
     <div class="modal-footer" style="height:30px;">
         <button class="btn btn-mini" data-dismiss="modal" aria-hidden="true">닫기</button>
-        <!-- button class="btn btn-primary btn-mini">Save changes</button -->
     </div>
 </div>
 

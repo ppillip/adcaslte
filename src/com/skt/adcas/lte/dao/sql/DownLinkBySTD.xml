@@ -11,7 +11,6 @@
         ,CELL_ID
         ,MCID
         ,FREQ_KIND
-        ,round( ${MBTYPE + "_DL_THRP       "}   ,1) AS DL_THRP
         ,round( ${MBTYPE + "_THROUGHPUT    "}   ,1) AS THROUGHPUT
         ,round( ${MBTYPE + "_CQI_AVERAGE   "}   ,1) AS CQI_AVERAGE
         ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
@@ -55,9 +54,9 @@
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0)                                                                                    ,3) * 100  AS CQI_CDF_13
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0)                                           ,3) * 100  AS CQI_CDF_14
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_15    "} ,0)  ,3) * 100  AS CQI_CDF_15
-        FROM LTE_CELL_INDEX_STD_WK
+        FROM LTE_STD_IDX_${TERMTYPE}
         WHERE YMD BETWEEN #{FROMYMD}
-                        AND #{TOYMD} <if test="TOYMD.length() == 6">||'31'</if>
+                      AND #{TOYMD}
           AND DAYTIME_SEQ = #{DAYTIME_SEQ}
         <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
             AND FREQ_KIND = #{FREQ_KIND}
@@ -84,7 +83,7 @@
                         SELECT C_UID , INGR_ERP_CD
                         FROM LTE_WORK_GROUP_DU
                         WHERE WORKGROUP_ID = #{WORKGROUP_ID}
-                        /*AND USER_ID = 'qcas'*/
+                        AND USER_ID = #{USER_ID}
                         )
                     </when>
                     <when test="WORKGROUP_YN.equalsIgnoreCase('N')">
@@ -98,7 +97,7 @@
                         </foreach>
                     </when>
                     <otherwise>
-                        (select null as C_UID ,null as INGR_ERP_CD from dual)
+                        (SELECT NULL AS C_UID, NULL AS INGR_ERP_CD FROM DUAL)
                     </otherwise>
                 </choose>
             </otherwise>
@@ -107,7 +106,6 @@
     </sql>
 
     <sql id="DownLinkBySTD.sqlFromPartAVG">
-        ,round(avg(ORG.DL_THRP        )  ,3)  AS DL_THRP
         ,round(avg(ORG.THROUGHPUT     )  ,3)  AS THROUGHPUT
         ,round(avg(ORG.CQI_AVERAGE    )  ,3)  AS CQI_AVERAGE
         ,round(avg(ORG.CQI0_RATE      )  ,3)  AS CQI0_RATE
@@ -153,7 +151,7 @@
         ,round(avg(ORG.CQI_CDF_15     )  ,1)  AS CQI_CDF_15
     </sql>
 
-    <select id="DownLinkBySTD.selectCellTrafficWK" parameterType="hashmap" resultType="hashmap">
+    <select id="DownLinkBySTD.selectCellTraffic" parameterType="hashmap" resultType="hashmap">
         SELECT ROWNUM AS ROWIDX
                 ,du.BTS_NM             AS BTS_NM
                 ,cell.CELL_NM          AS CELL_NM
@@ -168,66 +166,32 @@
          ORDER BY data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
     </select>
 
-    <select id="DownLinkBySTD.selectCellTrafficWKAVG" parameterType="hashmap" resultType="hashmap">
+    <select id="DownLinkBySTD.selectCellTrafficAVG" parameterType="hashmap" resultType="hashmap">
         SELECT du.BTS_NM,cell.CELL_NM, data.*
-          FROM (SELECT SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
-                         ,ORG.INGR_ERP_CD                      AS INGR_ERP_CD
-                         ,ORG.C_UID                            AS C_UID
-                         ,ORG.CELL_ID                          AS CELL_ID
-                         ,ORG.MCID                             AS MCID
-                         ,ORG.FREQ_KIND                        AS FREQ_KIND
-                         <include refid="DownLinkBySTD.sqlFromPartAVG"/>
-                   FROM (<include refid="DownLinkBySTD.selectCellTrafficORG"/>) ORG
-                  GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND) data ,
-                LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+          FROM (SELECT
+                <choose>
+                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+                    </when>
+                    <when test="TERMTYPE.equalsIgnoreCase('MON')">
+                        SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2) AS YMD
+                    </when>
+                </choose>
+                       ,ORG.INGR_ERP_CD                      AS INGR_ERP_CD
+                       ,ORG.C_UID                            AS C_UID
+                       ,ORG.CELL_ID                          AS CELL_ID
+                       ,ORG.MCID                             AS MCID
+                       ,ORG.FREQ_KIND                        AS FREQ_KIND
+                       <include refid="DownLinkBySTD.sqlFromPartAVG"/>
+                 FROM (<include refid="DownLinkBySTD.selectCellTrafficORG"/>) ORG
+                GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND) data ,
+               LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
          WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
            AND data.C_UID        = du.C_UID
            AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
            AND data.C_UID        = cell.C_UID
            AND data.CELL_ID      = cell.CELL_ID
          ORDER BY data.YMD DESC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
-    </select>
-
-    <select id="DownLinkBySTD.selectCellTrafficMON" parameterType="hashmap" resultType="hashmap">
-
-        select
-        ROWNUM AS ROWIDX
-        ,du.BTS_NM             AS BTS_NM
-        ,cell.CELL_NM          AS CELL_NM
-        ,data.*
-        from (
-        <include refid="DownLinkBySTD.selectCellTrafficORG"/>
-        ) data , LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
-        WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
-          AND data.C_UID        = du.C_UID
-          AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
-          AND data.C_UID        = cell.C_UID
-          AND data.CELL_ID      = cell.CELL_ID
-        order by data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
-    </select>
-
-    <select id="DownLinkBySTD.selectCellTrafficMONAVG" parameterType="hashmap" resultType="hashmap">
-        select du.BTS_NM,cell.CELL_NM, data.* from (
-        SELECT
-        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
-        ,ORG.INGR_ERP_CD                      AS INGR_ERP_CD
-        ,ORG.C_UID                            AS C_UID
-        ,ORG.CELL_ID                          AS CELL_ID
-        ,ORG.MCID                             AS MCID
-        ,ORG.FREQ_KIND                        AS FREQ_KIND
-        <include refid="DownLinkBySTD.sqlFromPartAVG"/>
-        FROM (
-        <include refid="DownLinkBySTD.selectCellTrafficORG"/>
-        ) ORG
-        GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND
-
-        ) data , LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
-        WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
-          AND data.C_UID        = du.C_UID
-          AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
-          AND data.C_UID        = cell.C_UID
-          AND data.CELL_ID      = cell.CELL_ID
-        ORDER BY  data.YMD DESC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
     </select>
 
 </mapper>
