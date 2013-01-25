@@ -23,6 +23,9 @@ Array.prototype.average = function () {
         sum += this[i];
     }
     return (sum / this.length );
+
+    /* array 함수 사용 패턴 */
+    /* return this.reduce(function(a, b){return a+b;})/this.length; */ /*reduce 함수 사용*/
 }
 
 /*===============================================================================
@@ -39,6 +42,13 @@ Array.prototype.variance = function () {
     }
     v /= this.length;  //분산 = 편차의 제곱의 합 / 총 변량의 개수
     return v;
+
+    /* array 함수 사용 패턴 */
+    /*
+    var avg = this.average();
+    var dev = this.map(function(a){return (a-avg)*(a-avg);});
+    return dev.reduce(function(a, b){return a+b;})/this.length;
+    */
 }
 
 /*===============================================================================
