@@ -171,6 +171,50 @@ function scrollY() {
     document.all.divMiddleLeft.scrollTop = document.all.divMiddleRight.scrollTop;
 }
 
+function getSunday(strDate) {
+    var dateArray = strDate.split('-');
+    var year  = dateArray[0];
+    var month = dateArray[1];
+    var date  = dateArray[2];
+
+    var objDate = new Date(year, month-1, date);
+
+    objDate.setDate(objDate.getDate() - objDate.getDay());
+
+    year  = objDate.getFullYear();
+    month = objDate.getMonth()+1;
+    month = (month > 9 ? '' : '0') + month;
+    date = objDate.getDate();
+    date = (date > 9 ? '' : '0') + date;
+
+    return year+'-'+month+'-'+date;
+
+}
+
+/*===============================================================================
+ * 현재일 이후 토요일 얻는 함수
+ *
+ *==============================================================================*/
+function getSaturday(strDate) {
+    var dateArray = strDate.split('-');
+    var year  = dateArray[0];
+    var month = dateArray[1];
+    var date  = dateArray[2];
+
+    var objDate = new Date(year, month-1, date);
+
+    objDate.setDate(objDate.getDate() + (6 - objDate.getDay()));
+
+    year  = objDate.getFullYear();
+    month = objDate.getMonth()+1;
+    month = (month > 9 ? '' : '0') + month;
+    date = objDate.getDate();
+    date = (date > 9 ? '' : '0') + date;
+
+    return year+'-'+month+'-'+date;
+
+}
+
 $(document).ready(function(){
 
     var topLeftWidth = {
@@ -518,8 +562,6 @@ $(document).ready(function(){
     $("input[name=WORKGROUP_ID]").hide();
     $("input[name=DUIDs]").hide();
 
-    var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
-
     $("input[name=checkAll]").click(function(){
         if($(this).attr("checked")){
             $("input[type=checkbox]").attr("checked",true);
@@ -540,19 +582,104 @@ $(document).ready(function(){
     $("#tempsearch").click(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=815,height=700');
     });
-
+//
+//    $('#datepicker01').val(_yesterday)
+//        .datepicker(
+//        {format : "yyyy-mm-dd"}
+//    ).on('changeDate', function(){
+//            $('#datepicker01').datepicker('hide');
+//    });
+//    $('#datepicker02').val(_yesterday)
+//        .datepicker(
+//        {format : "yyyy-mm-dd"}
+//    ).on('changeDate', function(){
+//         $('#datepicker02').datepicker('hide');
+//    });
+//
+    /*===============================================================================
+     * For 기간
+     *==============================================================================*/
+    //최초 기간 셋팅 (통계주기 일간)
+    var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
+            var termType = $("input[name=TERMTYPE]:checked").val();
+            if (termType === 'DAY') {
+                $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
+            } else if (termType === 'WK') {
+                $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+                $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            }
             $('#datepicker01').datepicker('hide');
-    });
+        });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-         $('#datepicker02').datepicker('hide');
+            var termType = $("input[name=TERMTYPE]:checked").val();
+            if (termType === 'DAY') {
+                $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
+            } else if (termType === 'WK') {
+                $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+                $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            }
+            $('#datepicker02').datepicker('hide');
+        });
+    $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
+    $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
+
+    //월간 셋팅
+    var today = new Date();
+    var year  = Number(today.getFullYear());
+    var month = Number(today.getMonth())+1;
+    month = (month>9)?month:'0'+month;
+    for (var i=0; i<3; i++) {
+        $("#fromYear,#toYear").append("<option value='"+(year-i)+"'>" +(year-i)+"</option>");
+    }
+    for (var i=1; i<=12; i++) {
+        $("#fromMonth,#toMonth").append("<option value='"+(i>9?i:'0'+i)+"'>" +(i>9?i:'0'+i)+"</option>");
+    }
+    $("#fromMonth").val(month);
+    $("#toMonth").val(month);
+    $("#fromYear,#toYear,#fromMonth,#toMonth").change(function () {
+        $("input[name=FROMYMD]").val($('#fromYear').val()+$('#fromMonth').val());
+        $("input[name=TOYMD]").val($('#toYear').val()+$('#toMonth').val());
     });
+
+    //통계주기 변경시
+    $("input[name=TERMTYPE]").click(function (event) {
+        $("[group=TERMTYPE]").hide();
+
+        if (this.value === 'DAY') {
+            $('#datepicker01').show();
+            $('#dash').show();
+            $('#datepicker02').show();
+            $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
+            $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
+        } else if (this.value === 'WK') {
+            $('#datepicker01').show();
+            $('#dash').show();
+            $('#datepicker02').show();
+            $('#fromto').show().text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+        } else if (this.value === 'MON') {
+            $('#fromYear').show();
+            $('#fromMonth').show();
+            $('#toYear').show();
+            $('#toMonth').show();
+            $("input[name=FROMYMD]").val($('#fromYear').val()+$('#fromMonth').val());
+            $("input[name=TOYMD]").val($('#toYear').val()+$('#toMonth').val());
+        }
+    });
+
+    /*===============================================================================
+     * End For 기간
+     *==============================================================================*/
+
+
 
 
     $("#divSearch button[name=excelDownload]").click(function(){
