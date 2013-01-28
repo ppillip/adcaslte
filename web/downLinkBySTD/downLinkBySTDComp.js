@@ -72,13 +72,11 @@ $(document).ready(function(){
  * For Left Title Setting
  *==============================================================================*/
     var topLeftWidth = {
-        /*"YMD"          : "60"
-        ,"R3_MB_TIME" : "35"*/
         "BTS_NM"     : "220"
-        ,"CELL_ID"    : "35"
-        ,"MCID"        : "45"
-        ,"FREQ_KIND"  : "55"
-        ,"GRAPH"       : "50"
+        ,"CELL_ID"   : "35"
+        ,"MCID"      : "45"
+        ,"FREQ_KIND" : "55"
+        ,"GRAPH"     : "50"
     }
     $("#tableTopLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
@@ -88,60 +86,6 @@ $(document).ready(function(){
     });
 /*===============================================================================
  * End For Left Title Setting
- *==============================================================================*/
-
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
-    $("#divSearch button[name=search]").click(function(){
-
-        if(!$("#WORKGROUP_NAME").val()) {
-            alert('조회대상이 선택되지 않았습니다.');
-            return false;
-        }
-
-        $("div[name=divMiddleLeft] table tbody tr").remove();
-        $("div[name=divMiddleRight] table tbody tr").remove();
-
-        var btn = $(this);
-        btn.button('loading');
-
-        //Before
-        var param = parseParam(this);
-        param["FROMYMD"] = param["FROM_YEAR1"]+param["FROM_MONTH1"];
-        param["TOYMD"]   = param["TO_YEAR1"]+param["TO_MONTH1"];
-        window.result = null;
-        toggleProgress('show','progress_result','340px');
-        getData(param, $("#tableMiddleLeft tbody"), $("#tableMiddleRight tbody"), topLeftWidth, function (_result) {
-            window.result = _result;
-            if(_result.error || _result.rows.length === 0){
-                toggleProgress('message','progress_result',_result.msg);
-                if(window.resultAfter) btn.button('reset');
-                return;
-            }
-            toggleProgress('hide','progress_result');
-            if(window.resultAfter) btn.button('reset');
-        });
-        //After
-        var param2 = param;
-        param2["FROMYMD"] = param["FROM_YEAR2"]+param["FROM_MONTH2"];
-        param2["TOYMD"]   = param["TO_YEAR2"]+param["TO_MONTH2"];
-        window.resultAfter = null;
-        toggleProgress('show','progress_resultAfter','560px');
-        getData(param2, $("#tableMiddleLeftAfter tbody"), $("#tableMiddleRightAfter tbody"), topLeftWidth, function (_result) {
-            window.resultAfter = _result;
-            if(_result.error || _result.rows.length === 0){
-                toggleProgress('message','progress_resultAfter',_result.msg);
-                if(window.result) btn.button('reset');
-                return;
-            }
-            toggleProgress('hide','progress_resultAfter');
-            if(window.result) btn.button('reset');
-        });
-
-    });
-/*===============================================================================
- * End For SEARCH
  *==============================================================================*/
 
 /*===============================================================================
@@ -307,7 +251,63 @@ $(document).ready(function(){
  * For EXCEL
  *==============================================================================*/
 
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
+    $("#divSearch button[name=search]").click(function(){
+
+        if(!$("#WORKGROUP_NAME").val()) {
+            alert('조회대상이 선택되지 않았습니다.');
+            return false;
+        }
+
+        $("div[name=divMiddleLeft] table tbody tr").remove();
+        $("div[name=divMiddleRight] table tbody tr").remove();
+
+        var btn = $(this);
+        btn.button('loading');
+
+        //Before
+        var param = parseParam(this);
+        param["FROMYMD"] = param["FROM_YEAR1"]+param["FROM_MONTH1"];
+        param["TOYMD"]   = param["TO_YEAR1"]+param["TO_MONTH1"];
+        window.result = null;
+        toggleProgress('show','progress_result','340px');
+        getData(param, $("#tableMiddleLeft tbody"), $("#tableMiddleRight tbody"), topLeftWidth, function (_result) {
+            window.result = _result;
+            if(_result.error || _result.rows.length === 0){
+                toggleProgress('message','progress_result',_result.msg);
+                if(window.resultAfter) btn.button('reset');
+                return;
+            }
+            toggleProgress('hide','progress_result');
+            if(window.resultAfter) btn.button('reset');
+        });
+        //After
+        var param2 = param;
+        param2["FROMYMD"] = param["FROM_YEAR2"]+param["FROM_MONTH2"];
+        param2["TOYMD"]   = param["TO_YEAR2"]+param["TO_MONTH2"];
+        window.resultAfter = null;
+        toggleProgress('show','progress_resultAfter','560px');
+        getData(param2, $("#tableMiddleLeftAfter tbody"), $("#tableMiddleRightAfter tbody"), topLeftWidth, function (_result) {
+            window.resultAfter = _result;
+            if(_result.error || _result.rows.length === 0){
+                toggleProgress('message','progress_resultAfter',_result.msg);
+                if(window.result) btn.button('reset');
+                return;
+            }
+            toggleProgress('hide','progress_resultAfter');
+            if(window.result) btn.button('reset');
+        });
+
+    });
+/*===============================================================================
+ * End For SEARCH
+ *==============================================================================*/
+
 });
+
+
 
 /*===============================================================================
  * Search Data
@@ -352,7 +352,6 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 .appendTo($leftTable);
 
             $("<tr name='" + row.ROWIDX + "'>"
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THRP     )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -363,6 +362,8 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                 +"</tr>")
                 .appendTo($rightTable);
 
@@ -404,7 +405,6 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 .appendTo($leftTable);
 
             $("<tr>"
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THRP     )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
@@ -415,6 +415,8 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+ "</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                 +"</tr>")
                 .appendTo($rightTable);
         }

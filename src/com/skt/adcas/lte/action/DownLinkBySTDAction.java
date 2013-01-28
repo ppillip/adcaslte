@@ -113,6 +113,10 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
             if(isNull(USER_ID).equals("")){
                 throw new Exception("세션이 만료 되었습니다");
             }
+        } else {
+            if(isNull(USER_ID).equals("")){
+                USER_ID = "qcas";
+            }
         }
 
         param.put("WORKGROUP_ID" , WORKGROUP_ID  );
@@ -154,8 +158,8 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
 
             //this.param.put("BTS_NM_CMS",BTS_NM_CMS);
-            this.log.debug("###################### 데이터 가져오는중="+"DownLinkBySTD.selectCellTraffic"+TERMTYPE+VIEWTYPE);
-            this.rows = session.selectList("DownLinkBySTD.selectCellTraffic"+TERMTYPE+VIEWTYPE,param);
+            this.log.debug("###################### 데이터 가져오는중="+"DownLinkBySTD.selectCellTraffic"+VIEWTYPE);
+            this.rows = session.selectList("DownLinkBySTD.selectCellTraffic"+VIEWTYPE,param);
             this.log.debug("###################### 조회완료");
             if(this.rows.size() > 0) {
                 this.msg = "조회되었습니다.";

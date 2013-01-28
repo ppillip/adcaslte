@@ -59,8 +59,10 @@
                                 </tr>
                                 <tr>
                                     <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
-
                                         <div name="divSearch" ID="divSearch" class="" style="margin-top:0px;padding:0; vertical-align:middle;">
+                                            <input type="hidden" name="WORKGROUP_YN">
+                                            <input type="hidden" name="WORKGROUP_ID">
+                                            <input type="hidden" name="DUIDs">
                                             <table border="0">
                                                 <colgroup>
                                                     <col width="80px">
@@ -90,9 +92,7 @@
                                                     <td style="font-size: 11px;"><b>통계주기</b></td>
                                                     <td style="font-size: 11px;">
                                                         <input type="radio" name="TERMTYPE" value="WK" checked="true">주간
-                                                        <input type="text" name="WORKGROUP_YN" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:20px; height:18px;font-size:11px;">
-                                                        <input type="text" name="WORKGROUP_ID" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;">
-                                                        <input type="text" name="DUIDs" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;">
+                                                        <input type="radio" name="TERMTYPE" value="MON">월간
                                                     </td>
                                                 <%--<td style="font-size: 11px;" width="50px;"><b>제조사</b></td>
                                                     <td style="font-size: 11px;" width="320px;">
@@ -118,7 +118,7 @@
                                                     </td>
                                                     <td style="font-size: 11px;" ><b>최번기준</b></td>
                                                     <td style="font-size: 11px;" >
-                                                        <select name="MBTYPE" style="height:24px; width:140px;font-size:11px;margin: 0 0 0 0;">
+                                                        <select name="MBTYPE">
                                                             <option value="R3" selected>PRB최번(Cell기준)</option>
                                                             <option value="R5"  >Data최번(Cell기준)</option>
                                                             <option value="R15" >동접자최번(Cell기준)</option>
@@ -131,11 +131,16 @@
                                                 <tr>
                                                     <td style="font-size: 11px;" ><b>기간</b></td>
                                                     <td>
-                                                        <input style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" id="datepicker01"/>-
-                                                        <input style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" id="datepicker02"/>
-                                                        <input type="hidden" name="FROMYMD"/>
-                                                        <input type="hidden" name="TOYMD"/>
-                                                        &nbsp;&nbsp;<span id="fromto"></span>
+                                                        <input  group="TERMTYPE" id="datepicker01" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text">
+                                                        <span   group="TERMTYPE" id="dash" style="margin-left: 5px;margin-right: 5px;">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker02" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text">
+                                                        <span   group="TERMTYPE" id="fromto" style="margin-left: 10px;"></span>
+                                                        <select group="TERMTYPE" id="fromYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonth" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toMonth" style="display:none;width:80px;"></select>
+                                                        <input type="hidden" name="FROMYMD">
+                                                        <input type="hidden" name="TOYMD">
                                                     </td>
                                                     <td style="font-size: 11px;" ><b>주파수</b></td>
                                                     <td style="font-size: 11px;" >
@@ -210,12 +215,10 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">용량<br>(Mbps)</td>
                     <td rowspan="3">기준용량<br>(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -223,13 +226,13 @@
                     <td rowspan="3">DL PRB<br>사용율(%)</td>
                     <td colspan="4">RSSI</td>
                     <td rowspan="3">License<br>초과<br>실패호</td>
-                    <%--<td colspan="2">전송로</td>--%>
+                    <td colspan="2">전송로</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
-                    <%--<td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>--%>
+                    <td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -268,8 +271,7 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
 
@@ -335,33 +337,29 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr class='info'>
                     <td>&nbsp;</td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><%--<td></td>
-                    <td></td>--%>
+                    <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
                     <td>&nbsp;</td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><%--<td></td>
-                    <td></td>--%>
+                    <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
                     <td>&nbsp;</td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><%--<td></td>
-                    <td></td>--%>
+                    <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
                     <td>&nbsp;</td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><%--<td></td>
-                    <td></td>--%>
+                    <td></td><td></td><td></td><td></td>
                 </tr>
                 </tbody>
             </table>
