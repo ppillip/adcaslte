@@ -235,12 +235,12 @@
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
                 <choose>
-                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
-                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
-                    </when>
                     <when test="TERMTYPE.equalsIgnoreCase('MON')">
                         SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2) AS YMD
                     </when>
+                    <otherwise>
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>
@@ -272,12 +272,12 @@
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
                 <choose>
-                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
-                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
-                    </when>
                     <when test="TERMTYPE.equalsIgnoreCase('MON')">
                         SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2)
                     </when>
+                    <otherwise>
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>
@@ -307,12 +307,12 @@
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
                 <choose>
-                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
-                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
-                    </when>
                     <when test="TERMTYPE.equalsIgnoreCase('MON')">
                         SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2)
                     </when>
+                    <otherwise>
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>

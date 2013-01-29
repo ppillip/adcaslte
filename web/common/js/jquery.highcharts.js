@@ -127,10 +127,20 @@
 
             var mVal = (maxVal - minVal) / 10;
 
+            var k = 2;
+            var ii = 1;
+            for(var j = 1; j <6; j++) {
+                ii = ii*0.1;
+                if(maxVal - minVal >= ii) {
+                    k =  1+j;
+                    break;
+                }
+            }
+
             /*categoryVal 구하기*/
             for(i = 0; i<categoryVal.length; i++){
                 compVal[i] = minVal + mVal*(i);
-                categoryVal[i] = ( compVal[i] + mVal/2 ).toFixed(2);
+                categoryVal[i] = ( compVal[i] + mVal/2 ).toFixed(k);
             }
 
             /*rVal 구하기*/
@@ -235,9 +245,9 @@
                 legend: {
                     layout: 'vertical',
                     align: 'left',
-                    x: 120,
+                    x: 800,
                     verticalAlign: 'top',
-                    y: 100,
+                    y: 50,
                     floating: true,
                     backgroundColor: '#FFFFFF'
                 },
