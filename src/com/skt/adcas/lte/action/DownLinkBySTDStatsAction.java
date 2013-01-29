@@ -41,6 +41,9 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
     public void setSEARCHTYPE(String SEARCHTYPE) {
         this.SEARCHTYPE = SEARCHTYPE;
     }
+    public String getSEARCHTYPE() {
+        return SEARCHTYPE;
+    }
     public void setBONBU_CD(String BONBU_CD) {
         this.BONBU_CD = BONBU_CD;
     }
@@ -49,6 +52,12 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
     }
     public void setCITY(String CITY) {
         this.CITY = CITY;
+    }
+    public void setMME_GRP_ID(String MME_GRP_ID) {
+        this.MME_GRP_ID = MME_GRP_ID;
+    }
+    public void setNE_ID(String NE_ID) {
+        this.NE_ID = NE_ID;
     }
     public void setTERMTYPE(String TERMTYPE) {
         this.TERMTYPE = TERMTYPE;
@@ -71,35 +80,39 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
     public void setVIEWTYPE(String VIEWTYPE) {
         this.VIEWTYPE = VIEWTYPE;
     }
+    public void setSUBLIST(String SUBLIST) {
+        this.SUBLIST = SUBLIST;
+    }
     public void setJSONDATA(String JSONDATA) {
         this.JSONDATA = JSONDATA;
-    }
-    public String getSEARCHTYPE() {
-        return SEARCHTYPE;
     }
     public void setJSONDATA2(String JSONDATA2) {
         this.JSONDATA2 = JSONDATA2;
     }
 
     private String SEARCHTYPE    = "";
-    private String BONBU_CD       = "";
+    private String BONBU_CD      = "";
     private String OPER_TEAM_CD  = "";
-    private String CITY           = "";
-    private String TERMTYPE       = "";
-    private String FROMYMD         = "";
-    private String TOYMD           = "";
-    private String DAYTIME_SEQ    = "";
-    private String FREQ_KIND      = "";
-    private String MBTYPE         = "R3";
-    private String VIEWTYPE       = "";
-    private String JSONDATA       = "";
-    private String JSONDATA2      = "";
+    private String CITY          = "";
+    private String MME_GRP_ID    = "";
+    private String NE_ID         = "";
+    private String TERMTYPE      = "";
+    private String FROMYMD       = "";
+    private String TOYMD         = "";
+    private String DAYTIME_SEQ   = "";
+    private String FREQ_KIND     = "";
+    private String MBTYPE        = "R3";
+    private String VIEWTYPE      = "";
+    //For Graph
+    private String SUBLIST        = "";
+    //For Excel
+    private String JSONDATA      = "";
+    private String JSONDATA2     = "";
 
 
     private void parseParam() throws Exception {
 
         String USER_ID = (String)request.getSession().getAttribute("USER_ID");//"qcas"; //to do 추후 session 처리 합니다.
-
 
         if (!isLocalHost()) {
             if(isNull(USER_ID).equals("")){
@@ -109,17 +122,32 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
 
         param.put("SEARCHTYPE"    , SEARCHTYPE);
         param.put("BONBU_CD"      , BONBU_CD);
-        param.put("OPER_TEAM_CD" , OPER_TEAM_CD);
-        param.put("CITY"           , CITY);
+        param.put("OPER_TEAM_CD"  , OPER_TEAM_CD);
+        param.put("CITY"          , CITY);
+        param.put("MME_GRP_ID"    , MME_GRP_ID);
+        param.put("NE_ID"         , NE_ID);
         param.put("TERMTYPE"      , TERMTYPE);
-        param.put("FROMYMD"       , FROMYMD.replace("-","").replace(".","").replace("/","")  );
-        param.put("TOYMD"         , TOYMD.replace("-","").replace(".","").replace("/","")  );
+        param.put("FROMYMD"       , FROMYMD.replace("-","").replace(".","").replace("/",""));
+        param.put("TOYMD"         , TOYMD.replace("-","").replace(".","").replace("/",""));
         param.put("DAYTIME_SEQ"   , DAYTIME_SEQ);
         param.put("FREQ_KIND"     , FREQ_KIND);
-        param.put("MBTYPE"       ,  MBTYPE  );
+        param.put("MBTYPE"        , MBTYPE);
         param.put("VIEWTYPE"      , VIEWTYPE);
-        param.put("USER_ID"       ,  USER_ID  );
+        param.put("USER_ID"       , USER_ID);
 
+        this.log.debug("######################"+SUBLIST);
+        if (!SUBLIST.equals("")) {
+            ArrayList<String> subList = new ArrayList<String>();
+            String temp01[] = SUBLIST.split("\\|");
+
+            for(int i=0;i<temp01.length;i++){
+                this.log.debug("######################"+temp01[i]);
+
+                subList.add(temp01[i]);
+            }
+            if (subList.size() > 0) param.put("SUBLIST",subList);
+
+        }
         this.log.debug("###################### 파라미터 가져오기 ");
         this.log.debug(param.toString());
 
@@ -138,8 +166,8 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
 
             //this.param.put("BTS_NM_CMS",BTS_NM_CMS);
-            this.log.debug("###################### 데이터 가져오기="+"DownLinkBySTDStats.selectCellTrafficStats"+VIEWTYPE);
-            this.rows = session.selectList("DownLinkBySTDStats.selectCellTrafficStats"+VIEWTYPE,param);
+            this.log.debug("###################### 데이터 가져오기="+"DownLinkBySTDStats.selectCellTrafficStats");
+            this.rows = session.selectList("DownLinkBySTDStats.selectCellTrafficStats",param);
             this.log.debug("###################### 조회완료");
             if(this.rows.size() > 0) {
                 this.msg = "조회되었습니다.";
@@ -327,7 +355,7 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
     public void createCellTrafficStatsCQIExcelSheet(Sheet sheet, Map<String, Object> map, String searchType, String type) throws Exception {
 
         this.log.debug("createCellTrafficStatsCQIExcelSheet Start");
-        
+
         Row hrow0 = sheet.createRow((short) 0 );
         hrow0.setHeightInPoints(20);
         int a = 0;

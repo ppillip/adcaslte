@@ -234,7 +234,14 @@
         SELECT
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
-                SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+                <choose>
+                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+                    </when>
+                    <when test="TERMTYPE.equalsIgnoreCase('MON')">
+                        SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2) AS YMD
+                    </when>
+                </choose>
             </when>
             <otherwise>
                 ORG.YMD AS YMD
@@ -264,7 +271,14 @@
         GROUP BY
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
-                SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                <choose>
+                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                    </when>
+                    <when test="TERMTYPE.equalsIgnoreCase('MON')">
+                        SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2)
+                    </when>
+                </choose>
             </when>
             <otherwise>
                 ORG.YMD
@@ -292,7 +306,14 @@
         ORDER BY
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
-                SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                <choose>
+                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                    </when>
+                    <when test="TERMTYPE.equalsIgnoreCase('MON')">
+                        SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2)
+                    </when>
+                </choose>
             </when>
             <otherwise>
                 ORG.YMD

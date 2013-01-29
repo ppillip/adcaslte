@@ -1,4 +1,3 @@
-
 var screenMaxRow = 500; //화면에 보일 max tr 수 입니다.
 
 function scrollX() {
@@ -26,17 +25,15 @@ $(document).ready(function(){
     });
 
 
+    /*===============================================================================
+     * For 기간
+     *==============================================================================*/
+    //최초 기간 셋팅 (통계주기 주간)
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
-
-    $("#fromto").text('[ '+getSunday(_yesterday)+' ~ '+getSaturday(_yesterday)+' ]');
-    $("input[name=FROMYMD]").val(getSunday(_yesterday).replace(/-/gi,''));
-    $("input[name=TOYMD]").val(getSaturday(_yesterday).replace(/-/gi,''));
-
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
-    )
-        .on('changeDate', function(){
+    ).on('changeDate', function(){
             $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
             $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
             $('#datepicker01').datepicker('hide');
@@ -44,16 +41,61 @@ $(document).ready(function(){
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
-    )
-        .on('changeDate', function(){
+    ).on('changeDate', function(){
             $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
             $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
             $('#datepicker02').datepicker('hide');
         });
+    $("#fromto").text('[ '+getSunday(_yesterday)+' ~ '+getSaturday(_yesterday)+' ]');
+    $("input[name=FROMYMD]").val(getSunday(_yesterday).replace(/-/gi,''));
+    $("input[name=TOYMD]").val(getSaturday(_yesterday).replace(/-/gi,''));
+
+    //월간 셋팅
+    var today = new Date();
+    var year  = Number(today.getFullYear());
+    var month = Number(today.getMonth())+1;
+    month = (month>9)?month:'0'+month;
+    for (var i=0; i<3; i++) {
+        $("#fromYear,#toYear").append("<option value='"+(year-i)+"'>" +(year-i)+"</option>");
+    }
+    for (var i=1; i<=12; i++) {
+        $("#fromMonth,#toMonth").append("<option value='"+(i>9?i:'0'+i)+"'>" +(i>9?i:'0'+i)+"</option>");
+    }
+    $("#fromMonth").val(month);
+    $("#toMonth").val(month);
+    $("#fromYear,#toYear,#fromMonth,#toMonth").change(function () {
+        $("input[name=FROMYMD]").val($('#fromYear').val()+$('#fromMonth').val());
+        $("input[name=TOYMD]").val($('#toYear').val()+$('#toMonth').val());
+    });
+
+    //통계주기 변경시
+    $("input[name=TERMTYPE]").click(function (event) {
+        $("[group=TERMTYPE]").hide();
+
+        if (this.value === 'WK') {
+            $('#datepicker01').show();
+            $('#dash').show();
+            $('#datepicker02').show();
+            $('#fromto').show().text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+        } else if (this.value === 'MON') {
+            $('#fromYear').show();
+            $('#fromMonth').show();
+            $('#toYear').show();
+            $('#toMonth').show();
+            $("input[name=FROMYMD]").val($('#fromYear').val()+$('#fromMonth').val());
+            $("input[name=TOYMD]").val($('#toYear').val()+$('#toMonth').val());
+        }
+    });
 
 /*===============================================================================
-* For GRAPH
-*==============================================================================*/
+ * End For 기간
+ *==============================================================================*/
+
+/*===============================================================================
+ * For GRAPH
+ *==============================================================================*/
     $("#cqiModal input[name=cqiFlag]").click(function(){
         $("#cqiPDFContainer").hide();
         $("#cqiCDFContainer").hide();
@@ -226,8 +268,8 @@ $(document).ready(function(){
  *==============================================================================*/
 
 /*===============================================================================
-* For SEARCH
-*==============================================================================*/
+ * For SEARCH
+ *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         if(!$("#SEARCHTYPE").val()) {
@@ -303,7 +345,6 @@ $(document).ready(function(){
                 });
 
                 $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THRP     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -314,6 +355,8 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                     +"</tr>")
                     .appendTo($rightTable);
 
@@ -337,7 +380,6 @@ $(document).ready(function(){
             for(var i=0; i < 4; i++) {
                 $("tbody tr:first",$bottomRightTable).remove();
                 $("<tr class='info'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THRP     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
@@ -348,6 +390,8 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }
@@ -462,6 +506,34 @@ $(document).ready(function(){
         setLeft(2);
 
     });
+
+    //조회대상 : EMS별
+    $("#searchDropDown li[name=emsSearch]").click(function(event){
+        event.preventDefault();
+        $("[group=searchSelect]").hide();
+        var $emsLabel = $("#emsLabel");
+        var $mmeSelect = $("#MME_GRP_ID");
+        var $neSelect = $("#NE_ID");
+        $emsLabel.show();
+        $mmeSelect.show();
+        $neSelect.show();
+
+        setMMEList($mmeSelect,true,setNEList,$neSelect); //true : all 보이도록..); //false : all 보이지 않도록..
+
+        $("[group^=title]").hide();
+        $("[group=title01]").show();
+        $("#title01").text("MME");
+        $("[group=title02]").show();
+        $("#title02").text("NE");
+        $("#SEARCHTYPE").val("EMS");
+        setLeft(2);
+
+    });
+
+    $("#MME_GRP_ID").change(function(){
+        setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
+    });
+
 /*===============================================================================
  * End For 조회대상
  *==============================================================================*/

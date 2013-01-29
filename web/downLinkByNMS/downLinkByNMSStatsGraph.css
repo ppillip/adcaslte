@@ -21,4 +21,4 @@ div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:690px;}
 
 .col01 {width:70px;}
 
-select {height:23px; width:140px;font-size:11px; margin: 0px;}
+select {width:140px; height:20px; font-size:11px; margin: 0px; padding: 1px 4px}

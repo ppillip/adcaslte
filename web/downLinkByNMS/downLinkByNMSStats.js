@@ -51,7 +51,7 @@ $(document).ready(function(){
             $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
             $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
         }
-        $('#datepicker01').datepicker('hide');
+        $('#datepicker02').datepicker('hide');
     });
     $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
     $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
@@ -217,7 +217,12 @@ $(document).ready(function(){
 
     //For 용량그래프
     $("#graphDropDown li[name=showThrpGraph]").click(function(){
-        window.open("downLinkByNMSStatsGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        window.open("downLinkByNMSStatsGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+    });
+
+    //For HISTOGRAM
+    $("#graphDropDown li[name=showHistogram]").click(function(){
+        window.open("downLinkByNMSStatsGraph.jsp","showHistogram",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
     });
 
 /*===============================================================================
@@ -346,12 +351,8 @@ $(document).ready(function(){
                     +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                     +"<td style='width:60px;text-align:center;font-size:11px;'>"
                     + (function(_idx, _row){
-                    if(_row.YMD.length != 8){
-                        return "&nbsp;";
-                    }else{
                         return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                    }
-                })(idx, row)
+                    })(idx, row)
                     +"</td>"
                     +"</tr>")
                     .data("row",row)
