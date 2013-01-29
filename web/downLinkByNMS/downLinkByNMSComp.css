@@ -34,4 +34,5 @@ div[name=divDailyDataPadAfter] table {table-layout: fixed; border-collapse: coll
 
 .col01 {width:70px;}
 
+select {height:23px; width:140px;font-size:11px; margin: 0px;}
 

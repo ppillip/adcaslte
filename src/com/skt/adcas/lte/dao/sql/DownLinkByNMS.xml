@@ -282,7 +282,7 @@
             ) ORG
             GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND
 
-        ) data , BTS_L_DU_INFO du , BTS_L_CELL_INFO cell
+        ) data , LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
         where
         data.INGR_ERP_CD  = du.INGR_ERP_CD
         and data.C_UID        = du.C_UID

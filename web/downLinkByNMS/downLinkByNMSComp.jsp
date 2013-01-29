@@ -98,6 +98,7 @@
                                                     <td style="font-size: 11px;" width="70px;"><b>통계주기</b></td>
                                                     <td style="font-size: 11px;" width="200px;">
                                                         <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
+                                                        <input type="radio" name="TERMTYPE" value="MON">월간
                                                         <input type="text" name="WORKGROUP_YN" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:20px; height:18px;font-size:11px;">
                                                         <input type="text" name="WORKGROUP_ID" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;">
                                                         <input type="text" name="DUIDs" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;">
@@ -130,8 +131,16 @@
                                                 <tr>
                                                     <td style="font-size: 11px;" ><b>기간</b></td>
                                                     <td>
-                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text" name="FROMYMD" id="datepicker01"/>-
-                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text"  name="TOYMD" id="datepicker02"/>
+                                                        <input  group="TERMTYPE" id="datepicker01" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="dash" style="margin-left: 5px;margin-right: 5px;">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker02" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="fromto" style="display:none; margin-left: 10px;"></span>
+                                                        <select group="TERMTYPE" id="fromYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonth" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toMonth" style="display:none;width:80px;"></select>
+                                                        <input type="hidden" name="FROMYMD"/>
+                                                        <input type="hidden" name="TOYMD"/>
                                                     </td>
                                                     <td style="font-size: 11px;" ><b>주파수</b></td>
                                                     <td style="font-size: 11px;" >
@@ -146,14 +155,22 @@
 
                                                         <input type="hidden" name="VIEWTYPE" value="AVG">
 
-
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
                                                     <td>
-                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text" name="FROMYMDAFTER" id="datepicker01After"/>-
-                                                        <input style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;" type="text"  name="TOYMDAFTER" id="datepicker02After"/>
+                                                        <input  group="TERMTYPE" id="datepicker01After" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="dashAfter" style="margin-left: 5px;margin-right: 5px;">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker02After" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="fromtoAfter" style="display:none; margin-left: 10px;"></span>
+                                                        <select group="TERMTYPE" id="fromYearAfter" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonthAfter" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toYearAfter" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toMonthAfter" style="display:none;width:80px;"></select>
+                                                        <input type="hidden" name="FROMYMDAFTER"/>
+                                                        <input type="hidden" name="TOYMDAFTER"/>
+
                                                     </td>
                                                     <td></td>
                                                     <td></td>
