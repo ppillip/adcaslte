@@ -17,7 +17,7 @@
     <script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
     <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
 
-<%--<script src="/adcaslte/common/js/jquery.progress.js"></script>--%>
+    <%--<script src="/adcaslte/common/js/jquery.progress.js"></script>--%>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
     <link href="downLinkBySTDStatsComp.css" rel="stylesheet">
@@ -36,7 +36,9 @@
     </div>
     <div id="web_container">
         <div id="header">
-            <%--<div id="popup_title">QCAS</div>--%>
+            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
+                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
+            </div>
             <div id="popup_desc">LTE 용량분석 > LTE 기준 용량분석 > DownLink 통계 전후비교</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
         </div>
@@ -91,14 +93,10 @@
                                                     </td>
                                                     <td><b>전기간</b></td>
                                                     <td>
-                                                        <select id="FROM_YEAR1" name="FROM_YEAR1">
-                                                        </select>
-                                                        <select id="FROM_MONTH1" name="FROM_MONTH1">
-                                                        </select>
-                                                        <select id="TO_YEAR1" name="TO_YEAR1">
-                                                        </select>
-                                                        <select id="TO_MONTH1" name="TO_MONTH1">
-                                                        </select>
+                                                        <select id="FROM_YEAR1" name="FROM_YEAR1"></select>
+                                                        <select id="FROM_MONTH1" name="FROM_MONTH1"></select>
+                                                        <select id="TO_YEAR1" name="TO_YEAR1"></select>
+                                                        <select id="TO_MONTH1" name="TO_MONTH1"></select>
                                                     </td>
                                                     <td><b>최번기준</b></td>
                                                     <td>
@@ -122,6 +120,7 @@
                                                                 <li  name="partSearch"><a tabindex="-1" href="#">파트별</a></li>
                                                                 <li  name="citySearch"><a tabindex="-1" href="#">도/특별/광역</a></li>
                                                                 <li  name="uniSearch"><a tabindex="-1" href="#">시/군/구</a></li>
+                                                                <li  name="emsSearch"><a tabindex="-1" href="#">EMS</a></li>
                                                             </ul>
                                                             <input type="hidden" name="SEARCHTYPE" id="SEARCHTYPE">
                                                         </span>
@@ -134,18 +133,17 @@
                                                             <span   group="searchSelect" id="cityLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">도/특별/광역</span>
                                                             <span   group="searchSelect" id="uniLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">시/군/구</span>
                                                             <select group="searchSelect" name="CITY" id="CITY" style="display:none"></select>
+                                                            <span   group="searchSelect" id="emsLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">EMS</span>
+                                                            <select group="searchSelect" name="MME_GRP_ID" id="MME_GRP_ID" style="display:none;width:100px;"></select>
+                                                            <select group="searchSelect" name="NE_ID" id="NE_ID" style="display:none;width:120px;"></select>
                                                         </span>
                                                     </td>
                                                     <td><b>후기간</b></td>
                                                     <td>
-                                                        <select id="FROM_YEAR2" name="FROM_YEAR2">
-                                                        </select>
-                                                        <select id="FROM_MONTH2" name="FROM_MONTH2">
-                                                        </select>
-                                                        <select id="TO_YEAR2" name="TO_YEAR2">
-                                                        </select>
-                                                        <select id="TO_MONTH2" name="TO_MONTH2">
-                                                        </select>
+                                                        <select id="FROM_YEAR2" name="FROM_YEAR2"></select>
+                                                        <select id="FROM_MONTH2" name="FROM_MONTH2"></select>
+                                                        <select id="TO_YEAR2" name="TO_YEAR2"></select>
+                                                        <select id="TO_MONTH2" name="TO_MONTH2"></select>
                                                     </td>
                                                     <td style="font-size: 11px;" ><b>시간대</b></td>
                                                     <td>
@@ -226,12 +224,10 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">용량(Mbps)</td>
                     <td rowspan="3">기준용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -239,13 +235,13 @@
                     <td rowspan="3">DL PRB 사용율(%)</td>
                     <td colspan="4">RSSI</td>
                     <td rowspan="3">License<br/>초과 실패호</td>
-                    <%--<td colspan="2">전송로</td>--%>
+                    <td colspan="2">전송로</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
-                    <%--<td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>--%>
+                    <td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -283,8 +279,7 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
 
@@ -329,12 +324,10 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">용량(Mbps)</td>
                     <td rowspan="3">기준용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -342,13 +335,13 @@
                     <td rowspan="3">DL PRB 사용율(%)</td>
                     <td colspan="4">RSSI</td>
                     <td rowspan="3">License<br/>초과 실패호</td>
-                    <%--<td colspan="2">전송로</td>--%>
+                    <td colspan="2">전송로</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
-                    <%--<td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>--%>
+                    <td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -386,8 +379,7 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <%--<col class="col01">
-                    <col class="col01">--%>
+                    <col class="col01">
                 </colgroup>
                 <tbody>
 
@@ -429,7 +421,6 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr>
@@ -437,7 +428,6 @@
                     <td/><td/><td/>
                     <td/><td/><td/>
                     <td/><td/><td/>
-                    <td/>
                 </tr>
                 </tbody>
             </table>

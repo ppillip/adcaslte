@@ -17,9 +17,9 @@ div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:760px; /*
 div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:120px; /*width:501px;*/ /*col00 변경시 수정*/}
 div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:776px;   height:120px;                                                            }
 
-div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:7600px;}
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:760px;}
 
 .col01 {width:70px;}
 
-select {height:23px; width:70px; font-size:11px; margin: 0px;}
+select {width:70px; height:20px; font-size:11px; margin: 0px; padding: 1px 4px}
 

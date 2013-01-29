@@ -1,4 +1,3 @@
-
 var screenMaxRow = 500; //화면에 보일 max tr 수 입니다.
 
 function scrollX() {
@@ -36,8 +35,8 @@ $(document).ready(function(){
     });
 
 /*===============================================================================
-* For 전기간, 후기간 셋팅
-*==============================================================================*/
+ * For 전기간, 후기간 셋팅
+ *==============================================================================*/
     var today = new Date();
     var year  = Number(today.getFullYear());
     var month = Number(today.getMonth())+1;
@@ -295,7 +294,8 @@ $(document).ready(function(){
         $bonbuLabel.show();
         $("[group^=title]").hide();
         $("[group=title01]").show();
-        $("#title01").html("본부");
+        $("#title01").text("본부");
+        $("#title01After").text("본부");
         $("#SEARCHTYPE").val("BONBU");
         setLeft(1);
 
@@ -315,8 +315,10 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("본부");
+        $("#title01After").text("본부");
         $("[group=title02]").show();
         $("#title02").text("팀");
+        $("#title02After").text("팀");
         $("#SEARCHTYPE").val("TEAM");
         setLeft(2);
 
@@ -342,10 +344,13 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("본부");
+        $("#title01After").text("본부");
         $("[group=title02]").show();
         $("#title02").text("팀");
+        $("#title02After").text("팀");
         $("[group=title03]").show();
         $("#title03").text("파트");
+        $("#title03After").text("파트");
         $("#SEARCHTYPE").val("PART");
         setLeft(3);
 
@@ -361,6 +366,7 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("도/특별/광역");
+        $("#title01After").text("도/특별/광역");
         $("#SEARCHTYPE").val("CITY");
         setLeft(1);
 
@@ -380,12 +386,44 @@ $(document).ready(function(){
         $("[group^=title]").hide();
         $("[group=title01]").show();
         $("#title01").text("도/특별/광역");
+        $("#title01After").text("도/특별/광역");
         $("[group=title02]").show();
         $("#title02").text("시/군/구");
+        $("#title02After").text("시/군/구");
         $("#SEARCHTYPE").val("UNI");
         setLeft(2);
 
     });
+
+    //조회대상 : EMS별
+    $("#searchDropDown li[name=emsSearch]").click(function(event){
+        event.preventDefault();
+        $("[group=searchSelect]").hide();
+        var $emsLabel = $("#emsLabel");
+        var $mmeSelect = $("#MME_GRP_ID");
+        var $neSelect = $("#NE_ID");
+        $emsLabel.show();
+        $mmeSelect.show();
+        $neSelect.show();
+
+        setMMEList($mmeSelect,true,setNEList,$neSelect); //true : all 보이도록..); //false : all 보이지 않도록..
+
+        $("[group^=title]").hide();
+        $("[group=title01]").show();
+        $("#title01").text("MME");
+        $("#title01After").text("MME");
+        $("[group=title02]").show();
+        $("#title02").text("NE");
+        $("#title02After").text("NE");
+        $("#SEARCHTYPE").val("EMS");
+        setLeft(2);
+
+    });
+
+    $("#MME_GRP_ID").change(function(){
+        setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
+    });
+
 /*===============================================================================
  * End For 조회대상
  *==============================================================================*/
@@ -468,11 +506,11 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                 +"<td style='width:60px;text-align:center;font-size:11px;'>"
                 + (function(_idx, _row){
-                    if ($rightTable.parent().attr("id").match(/After/g)) {
-                        return "&nbsp;";
-                    } else {
-                        return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0px;' name='"+_row.ROWIDX+"'>";
-                    }
+                if ($rightTable.parent().attr("id").match(/After/g)) {
+                    return "&nbsp;";
+                } else {
+                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0px;' name='"+_row.ROWIDX+"'>";
+                }
             })(idx, row)
                 +"</td>"
                 +"</tr>")
@@ -492,7 +530,6 @@ function getData(param, $leftTable, $rightTable, callback) {
             });
 
             $("<tr name='" + row.ROWIDX + "'>"
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THRP     )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -503,6 +540,8 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                 +"</tr>")
                 .appendTo($rightTable);
 
@@ -542,7 +581,6 @@ function getData(param, $leftTable, $rightTable, callback) {
             });
 
             $("<tr>"
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THRP     )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
@@ -553,6 +591,8 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+ "</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                 +"</tr>")
                 .appendTo($rightTable);
         }
