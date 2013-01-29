@@ -6,8 +6,8 @@
 //        },
         drawThrpGraph : function(rows) {
 
-            console.log('rows');
-            console.log(rows);
+//            console.log('rows');
+//            console.log(rows);
 
             var categories = [];
             var series = [];
@@ -27,8 +27,8 @@
                 }
             }
 
-            console.log('categories');
-            console.log(categories);
+//            console.log('categories');
+//            console.log(categories);
 
             for(var i= 0,max=rows.length; i<max; i++) {
                 var _thisRow = rows[i];
@@ -59,8 +59,8 @@
                 }
             }
 
-            console.log('series');
-            console.log(series);
+//            console.log('series');
+//            console.log(series);
 
             var $this = $(this);
             var chart = new Highcharts.Chart({
@@ -127,10 +127,20 @@
 
             var mVal = (maxVal - minVal) / 10;
 
+            var k = 2;
+            var ii = 1;
+            for(var j = 1; j <6; j++) {
+                ii = ii*0.1;
+                if(maxVal - minVal >= ii) {
+                    k =  1+j;
+                    break;
+                }
+            }
+
             /*categoryVal 구하기*/
             for(i = 0; i<categoryVal.length; i++){
                 compVal[i] = minVal + mVal*(i);
-                categoryVal[i] = ( compVal[i] + mVal/2 ).toFixed(2);
+                categoryVal[i] = ( compVal[i] + mVal/2 ).toFixed(k);
             }
 
             /*rVal 구하기*/
@@ -156,16 +166,16 @@
                 cdf[i] = a + rate[i];
             }
 
-            console.log('thrpVal');
-            console.log(thrpVal);
-            console.log('categoryVal');
-            console.log(categoryVal);
-            console.log('compVal');
-            console.log(compVal);
-            console.log('rVal');
-            console.log(rVal);
-            console.log('rate');
-            console.log(rate);
+//            console.log('thrpVal');
+//            console.log(thrpVal);
+//            console.log('categoryVal');
+//            console.log(categoryVal);
+//            console.log('compVal');
+//            console.log(compVal);
+//            console.log('rVal');
+//            console.log(rVal);
+//            console.log('rate');
+//            console.log(rate);
 
             var $this = $(this);
             var chart = new Highcharts.Chart({
@@ -201,9 +211,9 @@
                             style: {
                                 color: '#4572A7'
                             }
-                        },
+                        }/*,
                         min : 0,
-                        max : 110
+                        max : 110*/
                     }
                     ,
                     { // Secondary yAxis
@@ -235,9 +245,9 @@
                 legend: {
                     layout: 'vertical',
                     align: 'left',
-                    x: 120,
+                    x: 800,
                     verticalAlign: 'top',
-                    y: 100,
+                    y: 50,
                     floating: true,
                     backgroundColor: '#FFFFFF'
                 },

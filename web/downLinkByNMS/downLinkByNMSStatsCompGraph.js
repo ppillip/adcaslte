@@ -51,14 +51,13 @@ $(document).ready(function(){
  *==============================================================================*/
 
 /*===============================================================================
- * For 시간대, 최번기준, 통계주기, 주파수, 보기방식, 그래프 타입 셋팅
+ * For 시간대, 최번기준, 통계주기, 주파수, 그래프 타입 셋팅
  *==============================================================================*/
     $("#FROMYMD").val($opener.find("#FROMYMD").val());
     $("#TOYMD").val($opener.find("#TOYMD").val());
     $("select[name=MBTYPE]").val($opener.find("select[name=MBTYPE]").val());
     $("input[value="+$opener.find("input[name=TERMTYPE]:checked").val()+"]").attr("checked","checked");
     $("input[value="+$opener.find("input[name=DAYTIME_SEQ]:checked").val()+"]").attr("checked","checked");
-    $("input[value="+$opener.find("input[name=VIEWTYPE]:checked").val()+"]").attr("checked","checked");
     if (window.name === 'showThrpGraph') {
         $("input[name=CHARTTYPE][value=THROUGHPUT]").attr("checked","checked");
     } else if (window.name === 'showHistogram') {
@@ -78,26 +77,14 @@ $(document).ready(function(){
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-        var termType = $("input[name=TERMTYPE]:checked").val();
-        if (termType === 'DAY') {
-            $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
-        } else if (termType === 'WK') {
-            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-        }
+        $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
         $('#datepicker01').datepicker('hide');
     });
     $('#datepicker02').val($opener.find("#datepicker02").val()||_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-        var termType = $("input[name=TERMTYPE]:checked").val();
-        if (termType === 'DAY') {
-            $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
-        } else if (termType === 'WK') {
-            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-        }
+        $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
         $('#datepicker02').datepicker('hide');
     });
 
@@ -139,13 +126,6 @@ $(document).ready(function(){
             $('#datepicker02').show();
             $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
             $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
-        } else if (termType === 'WK') {
-            $('#datepicker01').show();
-            $('#dash').show();
-            $('#datepicker02').show();
-            $('#fromto').show().text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
-            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
         } else if (termType === 'MON') {
             $('#fromYear').show();
             $('#fromMonth').show();
@@ -189,10 +169,6 @@ $(document).ready(function(){
 /*===============================================================================
  * For GRAPH
  *==============================================================================*/
-//    var rows = [];
-//    $opener.find("input[type=checkbox][name!=checkAll]:checked").each(function(idx,element){
-//        rows.push(window.opener.$(element).parents("tr:first").data("row"));
-//    });
     //그래프 선택시 이벤트 설정
     $("input[name=CHARTTYPE]").click(function () {
         if (this.value === 'THROUGHPUT') {
@@ -208,7 +184,6 @@ $(document).ready(function(){
  * End For GRAPH
  *==============================================================================*/
 
-
 /*===============================================================================
  * For SEARCH
  *==============================================================================*/
@@ -221,8 +196,6 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
-//        console.log('subList');
-//        console.log(subList);
         param["SUBLIST"] = subList.join("|");
 
         jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStats",param,function(result,stat){

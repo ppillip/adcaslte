@@ -314,8 +314,8 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
-        console.log('param');
-        console.log(param);
+//        console.log('param');
+//        console.log(param);
         jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStats",param,function(result,stat){
 
             $("input[name=checkAll]").attr("checked",false); //전체선택된거 원위치

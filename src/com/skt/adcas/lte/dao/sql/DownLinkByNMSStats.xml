@@ -149,7 +149,7 @@
                 AND (LTE.CITY_CD,LTE.FREQ_KIND) IN
             </if>
             <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-                AND (LTE.UNI,,LTE.FREQ_KIND) IN
+                AND (LTE.UNI,LTE.FREQ_KIND) IN
             </if>
             <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
                 AND (LTE.NE_ID,LTE.FREQ_KIND) IN
@@ -235,12 +235,12 @@
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
                 <choose>
-                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
-                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
-                    </when>
                     <when test="TERMTYPE.equalsIgnoreCase('MON')">
                         SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2) AS YMD
                     </when>
+                    <otherwise>
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>
@@ -260,10 +260,10 @@
             ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD
         </if>
         <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02
+            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02 ,ORG.UNI
         </if>
         <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            ,ORG.MME_GRP_ID AS TITLE01 ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
+            ,ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
         </if>
         ,ORG.FREQ_KIND                        AS FREQ_KIND
         <include refid="DownLinkByNMSStats.sqlFromPartAVG"/>
@@ -272,12 +272,12 @@
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
                 <choose>
-                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
-                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
-                    </when>
                     <when test="TERMTYPE.equalsIgnoreCase('MON')">
                         SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2)
                     </when>
+                    <otherwise>
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>
@@ -307,12 +307,12 @@
         <choose>
             <when test="VIEWTYPE.equalsIgnoreCase('AVG')">
                 <choose>
-                    <when test="TERMTYPE.equalsIgnoreCase('WK')">
-                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
-                    </when>
                     <when test="TERMTYPE.equalsIgnoreCase('MON')">
                         SUBSTR(#{FROMYMD},5,2) || '~' || SUBSTR(#{TOYMD},5,2)
                     </when>
+                    <otherwise>
+                        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2)
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>
