@@ -6,8 +6,8 @@
 //        },
         drawThrpGraph : function(rows) {
 
-            console.log('rows');
-            console.log(rows);
+//            console.log('rows');
+//            console.log(rows);
 
             var categories = [];
             var series = [];
@@ -27,8 +27,8 @@
                 }
             }
 
-            console.log('categories');
-            console.log(categories);
+//            console.log('categories');
+//            console.log(categories);
 
             for(var i= 0,max=rows.length; i<max; i++) {
                 var _thisRow = rows[i];
@@ -59,8 +59,8 @@
                 }
             }
 
-            console.log('series');
-            console.log(series);
+//            console.log('series');
+//            console.log(series);
 
             var $this = $(this);
             var chart = new Highcharts.Chart({
@@ -156,16 +156,16 @@
                 cdf[i] = a + rate[i];
             }
 
-            console.log('thrpVal');
-            console.log(thrpVal);
-            console.log('categoryVal');
-            console.log(categoryVal);
-            console.log('compVal');
-            console.log(compVal);
-            console.log('rVal');
-            console.log(rVal);
-            console.log('rate');
-            console.log(rate);
+//            console.log('thrpVal');
+//            console.log(thrpVal);
+//            console.log('categoryVal');
+//            console.log(categoryVal);
+//            console.log('compVal');
+//            console.log(compVal);
+//            console.log('rVal');
+//            console.log(rVal);
+//            console.log('rate');
+//            console.log(rate);
 
             var $this = $(this);
             var chart = new Highcharts.Chart({
@@ -201,9 +201,9 @@
                             style: {
                                 color: '#4572A7'
                             }
-                        },
+                        }/*,
                         min : 0,
-                        max : 110
+                        max : 110*/
                     }
                     ,
                     { // Secondary yAxis

@@ -221,8 +221,8 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
-        console.log('subList');
-        console.log(subList);
+//        console.log('subList');
+//        console.log(subList);
         param["SUBLIST"] = subList.join("|");
 
         jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStats",param,function(result,stat){
