@@ -63,14 +63,21 @@ $(document).ready(function(){
         $("#"+$(this).val()).show();
     })
 
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
+    $("#graphDropDown li[name=showCqiModal], #graphDropDown li[name=showThrpGraph]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
             return ;
         }
 
-        $('#cqiModal').modal('show');
+        var name = $(this).attr("name");
+        //For CQI
+        if (name === 'showCqiModal') {
+            $('#cqiModal').modal('show');
+            //For 용량그래프
+        } else if (name === 'showThrpGraph') {
+            window.open("downLinkBySTDStatsCompGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        }
 
     });
 
@@ -159,7 +166,7 @@ $(document).ready(function(){
             doCQIChart(cqiPDFList,cqiCDFList);
         });
 
-    })
+    });
 
 /*===============================================================================
  * End For GRAPH

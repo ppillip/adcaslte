@@ -102,11 +102,10 @@
                                                         <input type="hidden" name="FROMYMD">
                                                         <input type="hidden" name="TOYMD">
                                                     </td>
-                                                    <td><b>주파수</b></td>
+                                                    <td><b>시간대</b></td>
                                                     <td>
-                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
-                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
-                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
+                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
+                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -149,10 +148,11 @@
                                                         <input type="hidden" name="FROMYMD2">
                                                         <input type="hidden" name="TOYMD2">
                                                     </td>
-                                                    <td><b>시간대</b></td>
+                                                    <td><b>주파수</b></td>
                                                     <td>
-                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
-                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
+                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
+                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
+                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
                                                     </td>
                                                 </tr>
                                                 <tr>

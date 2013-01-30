@@ -25,27 +25,27 @@ $(document).ready(function(){
     });
 
 
-    /*===============================================================================
-     * For 기간
-     *==============================================================================*/
+/*===============================================================================
+ * For 기간
+ *==============================================================================*/
     //최초 기간 셋팅 (통계주기 주간)
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $('#datepicker01').datepicker('hide');
-        });
+        $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+        $('#datepicker01').datepicker('hide');
+    });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $('#datepicker02').datepicker('hide');
-        });
+        $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+        $('#datepicker02').datepicker('hide');
+    });
     $("#fromto").text('[ '+getSunday(_yesterday)+' ~ '+getSaturday(_yesterday)+' ]');
     $("input[name=FROMYMD]").val(getSunday(_yesterday).replace(/-/gi,''));
     $("input[name=TOYMD]").val(getSaturday(_yesterday).replace(/-/gi,''));
@@ -102,14 +102,22 @@ $(document).ready(function(){
         $("#"+$(this).val()).show();
     })
 
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
+    $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph]").click(function(){
+
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
             return ;
         }
 
-        $('#cqiModal').modal('show');
+        var name = $(this).attr("name");
+        //For CQI
+        if (name === 'showCqiModal') {
+            $('#cqiModal').modal('show');
+        //For 용량그래프
+        } else if (name === 'showThrpGraph') {
+            window.open("downLinkBySTDStatsGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        }
 
     });
 
@@ -198,7 +206,8 @@ $(document).ready(function(){
             doCQIChart(cqiPDFList,cqiCDFList);
         });
 
-    })
+    });
+
 /*===============================================================================
  * End For GRAPH
  *==============================================================================*/

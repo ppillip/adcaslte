@@ -95,16 +95,11 @@
                                                         <input type="radio" name="TERMTYPE" value="WK">주간
                                                         <input type="radio" name="TERMTYPE" value="MON">월간
                                                     </td>
-                                                    <td><b>최번기준</b></td>
+                                                    <td><b>주파수</b></td>
                                                     <td>
-                                                        <select name="MBTYPE">
-                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
-                                                            <option value="R5"  >Data최번(Cell기준)</option>
-                                                            <option value="R15" >동접자최번(Cell기준)</option>
-                                                            <option value="R3D" >PRB최번(DU기준)</option>
-                                                            <option value="R5D" >Data최번(DU기준)</option>
-                                                            <option value="R15D">동접자최번(DU기준)</option>
-                                                        </select>
+                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
+                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
+                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -140,11 +135,16 @@
                                                         <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
                                                         <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
                                                     </td>
-                                                    <td><b>주파수</b></td>
+                                                    <td><b>최번기준</b></td>
                                                     <td>
-                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
-                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
-                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
+                                                        <select name="MBTYPE">
+                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
+                                                            <option value="R5"  >Data최번(Cell기준)</option>
+                                                            <option value="R15" >동접자최번(Cell기준)</option>
+                                                            <option value="R3D" >PRB최번(DU기준)</option>
+                                                            <option value="R5D" >Data최번(DU기준)</option>
+                                                            <option value="R15D">동접자최번(DU기준)</option>
+                                                        </select>
                                                     </td>
                                                 </tr>
                                                 <tr>

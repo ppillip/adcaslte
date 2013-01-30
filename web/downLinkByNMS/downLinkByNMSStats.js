@@ -108,23 +108,34 @@ $(document).ready(function(){
 /*===============================================================================
  * For GRAPH
  *==============================================================================*/
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
 
-    // For CQI
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
+    $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph],#graphDropDown li[name=showHistogram]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
             return ;
         }
 
-        $('#cqiModal').modal('show');
+        var name = $(this).attr("name");
+        //For CQI
+        if (name === 'showCqiModal') {
+            $('#cqiModal').modal('show');
+        //For 용량그래프
+        } else if (name === 'showThrpGraph') {
+            window.open("downLinkByNMSStatsGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        //For HISTOGRAM
+        } else if (name === 'showHistogram') {
+            window.open("downLinkByNMSStatsGraph.jsp","showHistogram",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        }
 
     });
+
+    //For CQI
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#cqiPDFContainer").hide();
+        $("#cqiCDFContainer").hide();
+        $("#"+$(this).val()).show();
+    })
 
     //For CQI
     function selectCheckedCQIData(cellList,callback){
@@ -213,16 +224,6 @@ $(document).ready(function(){
             doCQIChart(cqiPDFList,cqiCDFList);
         });
 
-    });
-
-    //For 용량그래프
-    $("#graphDropDown li[name=showThrpGraph]").click(function(){
-        window.open("downLinkByNMSStatsGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
-    });
-
-    //For HISTOGRAM
-    $("#graphDropDown li[name=showHistogram]").click(function(){
-        window.open("downLinkByNMSStatsGraph.jsp","showHistogram",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
     });
 
 /*===============================================================================
