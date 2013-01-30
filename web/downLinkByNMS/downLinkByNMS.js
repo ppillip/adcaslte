@@ -286,11 +286,7 @@ $(document).ready(function(){
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
                     + (function(_idx, _row){
-                        if(!_row.MB_TIME){
-                            return "&nbsp;";
-                        }else{
                             return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                        }
                       })(idx, row)
                     +"</td>"
                     +"</tr>")
@@ -582,20 +578,7 @@ $(document).ready(function(){
     $("#tempsearch").click(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=815,height=700');
     });
-//
-//    $('#datepicker01').val(_yesterday)
-//        .datepicker(
-//        {format : "yyyy-mm-dd"}
-//    ).on('changeDate', function(){
-//            $('#datepicker01').datepicker('hide');
-//    });
-//    $('#datepicker02').val(_yesterday)
-//        .datepicker(
-//        {format : "yyyy-mm-dd"}
-//    ).on('changeDate', function(){
-//         $('#datepicker02').datepicker('hide');
-//    });
-//
+
     /*===============================================================================
      * For 기간
      *==============================================================================*/
