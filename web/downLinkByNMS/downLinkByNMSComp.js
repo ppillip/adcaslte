@@ -323,12 +323,27 @@ $(document).ready(function(){
 
                 $("<tr name='" + row.ROWIDX + "'>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                    +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE )+"</td>"
-
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                    + "</td>"
                     + (function(row){
                     if(param.MFC_CD==="MFC00001"){
                         return "<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"  /*SS*/
@@ -546,11 +561,27 @@ $(document).ready(function(){
 
                 $("<tr name='" + row.ROWIDX + "'>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                    +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                    + "</td>"
 
                     + (function(row){
                     if(param.MFC_CD==="MFC00001"){

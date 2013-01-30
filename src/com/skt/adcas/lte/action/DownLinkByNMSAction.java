@@ -104,7 +104,11 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
     private String MFC_CD = "";
     private String JSONDATA = "";
     private String JSONDATAAFTER = "";
+    private HashMap adminCriticalValues;
 
+    public HashMap getAdminCriticalValues() {
+        return (HashMap)request.getSession().getAttribute("ADMIN_CRITICAL_VALUES");
+    }
 
     private void parseParam() throws Exception {
 
