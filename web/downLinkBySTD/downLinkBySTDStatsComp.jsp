@@ -80,15 +80,16 @@
                                                         <button class="btn btn-xmini btn-inverse" name="excelDownload" id="excelDownload"><i class="icon-file icon-white"></i>&nbsp;EXCEL</button>
                                                         <span class="dropdown" id="graphDropDown">
                                                             <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
-                                                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                                                                    <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
-                                                                </ul>
+                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                                                                <li name="showThrpGraph"><a href="#">용량그래프</a></li>
+                                                                <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
+                                                            </ul>
                                                         </span>
                                                         <span class="dropdown" id="excelDropDown">
-                                                                <button class="dropdown-toggle btn btn-xmini" id="drop5" role="button" data-toggle="dropdown" href="#"><i class="icon-file"></i> EXCEL <b class="caret"></b> </button>
-                                                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                                                                    <li  name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>
-                                                                </ul>
+                                                            <button class="dropdown-toggle btn btn-xmini" id="drop5" role="button" data-toggle="dropdown" href="#"><i class="icon-file"></i> EXCEL <b class="caret"></b> </button>
+                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                                                                <li name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>
+                                                            </ul>
                                                         </span>
                                                     </td>
                                                     <td><b>전기간</b></td>
@@ -98,16 +99,10 @@
                                                         <select id="TO_YEAR1" name="TO_YEAR1"></select>
                                                         <select id="TO_MONTH1" name="TO_MONTH1"></select>
                                                     </td>
-                                                    <td><b>최번기준</b></td>
+                                                    <td style="font-size: 11px;" ><b>시간대</b></td>
                                                     <td>
-                                                        <select name="MBTYPE" style="width:140px;">
-                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
-                                                            <option value="R5"  >Data최번(Cell기준)</option>
-                                                            <option value="R15" >동접자최번(Cell기준)</option>
-                                                            <option value="R3D" >PRB최번(DU기준)</option>
-                                                            <option value="R5D" >Data최번(DU기준)</option>
-                                                            <option value="R15D">동접자최번(DU기준)</option>
-                                                        </select>
+                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
+                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -145,10 +140,11 @@
                                                         <select id="TO_YEAR2" name="TO_YEAR2"></select>
                                                         <select id="TO_MONTH2" name="TO_MONTH2"></select>
                                                     </td>
-                                                    <td style="font-size: 11px;" ><b>시간대</b></td>
-                                                    <td>
-                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
-                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
+                                                    <td style="font-size: 11px;" ><b>주파수</b></td>
+                                                    <td style="font-size: 11px;" >
+                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
+                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
+                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -156,11 +152,16 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td style="font-size: 11px;" ><b>주파수</b></td>
-                                                    <td style="font-size: 11px;" >
-                                                        <input type="radio" name="FREQ_KIND" value="ALL" checked="true"> 전체
-                                                        <input type="radio" name="FREQ_KIND" value="800MHZ"> 800 MHz
-                                                        <input type="radio" name="FREQ_KIND" value="1.8GHZ"> 1.8 GHz
+                                                    <td><b>최번기준</b></td>
+                                                    <td>
+                                                        <select name="MBTYPE" style="width:140px;">
+                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
+                                                            <option value="R5"  >Data최번(Cell기준)</option>
+                                                            <option value="R15" >동접자최번(Cell기준)</option>
+                                                            <option value="R3D" >PRB최번(DU기준)</option>
+                                                            <option value="R5D" >Data최번(DU기준)</option>
+                                                            <option value="R15D">동접자최번(DU기준)</option>
+                                                        </select>
                                                     </td>
                                                 </tr>
                                             </table>
