@@ -301,7 +301,7 @@ $(document).ready(function(){
 
 
 
-//for 문으로 튜닝한다
+//for 문으로 튜닝한다 before
             for(idx=0;idx<result.rows.length;idx++){
                 row = result.rows[idx];
 
@@ -326,6 +326,7 @@ $(document).ready(function(){
                     .appendTo($leftTable);
 
                 $("<tr name='" + row.ROWIDX + "'>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -354,10 +355,10 @@ $(document).ready(function(){
                             + "<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
                             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
                             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
-                            + "<td style='display:none'/>" /*갯수맞춰줘야 IE 스크롤 안깨짐*/
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*LG n NSN*/
                             + "<td style='display:none'/>"
                             + "<td style='display:none'/>"
                             ;
@@ -420,6 +421,7 @@ $(document).ready(function(){
             $(result.STATS).each(function(idx,row){
 
                 $("<tr class='info'>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -446,12 +448,12 @@ $(document).ready(function(){
                             + "<td style='display:none'/>"
                             + "<td style='display:none'/>"
                             + "<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
-                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber( row.DL_THROUGHPUT)+"</td>"  /*LG*/
-                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber( row.LICENSE_FAIL )+"</td>"  /*LG*/
-                            + "<td style='display:none'/>" /*갯수맞춰줘야 IE 스크롤 안깨짐*/
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*LG n NSN*/
                             + "<td style='display:none'/>"
                             + "<td style='display:none'/>"
                             ;
@@ -529,7 +531,7 @@ $(document).ready(function(){
 
 
 
-//for 문으로 튜닝한다
+//for 문으로 튜닝한다 after
             for(idx=0;idx<result.rows.length;idx++){
                 row = result.rows[idx];
 
@@ -547,6 +549,7 @@ $(document).ready(function(){
                     .appendTo($leftTableAfter);
 
                 $("<tr name='" + row.ROWIDX + "'>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -575,10 +578,10 @@ $(document).ready(function(){
                             + "<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
                             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
                             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
-                            + "<td style='display:none'/>" /*갯수맞춰줘야 IE 스크롤 안깨짐*/
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*LG n NSN*/
                             + "<td style='display:none'/>"
                             + "<td style='display:none'/>"
                             ;
@@ -641,6 +644,7 @@ $(document).ready(function(){
             $(result.STATS).each(function(idx,row){
 
                 $("<tr class='info'>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
@@ -667,12 +671,12 @@ $(document).ready(function(){
                             + "<td style='display:none'/>"
                             + "<td style='display:none'/>"
                             + "<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
-                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber( row.DL_THROUGHPUT)+"</td>"  /*LG*/
-                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber( row.LICENSE_FAIL )+"</td>"  /*LG*/
-                            + "<td style='display:none'/>" /*갯수맞춰줘야 IE 스크롤 안깨짐*/
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
-                            + "<td style='display:none'/>"
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*LG n NSN*/
+                            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*LG n NSN*/
                             + "<td style='display:none'/>"
                             + "<td style='display:none'/>"
                             ;

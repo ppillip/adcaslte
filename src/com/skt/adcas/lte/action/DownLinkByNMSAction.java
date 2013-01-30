@@ -691,7 +691,7 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
                 }
 
                 //한줄 만들고 셋팅
-                Row row = sheet.createRow((short) i );
+                Row row = sheet.createRow((short) i )   ;
                 row.setHeightInPoints(20);
 
                 row.createCell(0 ).setCellValue((String) jrow.get("YMD")             );
