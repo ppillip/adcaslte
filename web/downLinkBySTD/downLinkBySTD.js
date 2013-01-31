@@ -157,6 +157,7 @@ $(document).ready(function(){
             if(result.error || result.rows.length === 0){
                 btn.button('reset');
                 alert(result.msg);
+                $(document).trigger('ajaxError');
                 return;
             }
 
@@ -242,29 +243,38 @@ $(document).ready(function(){
  *==============================================================================*/
 
 /*===============================================================================
-* For GRAPH
-*==============================================================================*/
+ * For GRAPH
+ *==============================================================================*/
+    $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph]").click(function(){
+
+        var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
+        if( checkedList.length === 0 ) {
+            alert("Cell 을 선택해 주세요");
+            return ;
+        } else if( checkedList.length > 20 ) {
+            alert("그래프는 20개 까지만 허용합니다.");
+            return ;
+        }
+
+        var name = $(this).attr("name");
+        //For CQI
+        if (name === 'showCqiModal') {
+            $('#cqiModal').modal('show');
+            //For 용량그래프
+        } else if (name === 'showThrpGraph') {
+            window.open("downLinkBySTDGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        }
+
+    });
+
+    //For CQI
     $("#cqiModal input[name=cqiFlag]").click(function(){
         $("#cqiPDFContainer").hide();
         $("#cqiCDFContainer").hide();
         $("#"+$(this).val()).show();
     })
 
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
-        var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
-        if( checkedList.length === 0 ) {
-            alert("Cell 을 선택해 주세요");
-            return ;
-        }
-        if( checkedList.length > 20 ) {
-            alert("그래프는 20개 까지만 허용합니다.");
-            return ;
-        }
-
-        $('#cqiModal').modal('show');
-
-    });
-
+    //For CQI
     function selectCheckedCQIData(cellList,callback){
 
         var cqiPDFList = [];
@@ -323,6 +333,7 @@ $(document).ready(function(){
         callback(cqiPDFList,cqiCDFList);
     }
 
+    //For CQI
     $('#cqiModal').on('shown', function () {
 
         /*초기에 PDF 그래프 보이게 셋팅*/
