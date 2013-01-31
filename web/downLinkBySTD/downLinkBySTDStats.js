@@ -96,12 +96,6 @@ $(document).ready(function(){
 /*===============================================================================
  * For GRAPH
  *==============================================================================*/
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
-
     $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph]").click(function(){
 
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
@@ -121,6 +115,14 @@ $(document).ready(function(){
 
     });
 
+    //For CQI
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#cqiPDFContainer").hide();
+        $("#cqiCDFContainer").hide();
+        $("#"+$(this).val()).show();
+    })
+
+    //For CQI
     function selectCheckedCQIData(cellList,callback) {
 
         var cqiPDFList = [];
@@ -195,6 +197,7 @@ $(document).ready(function(){
         callback(cqiPDFList,cqiCDFList);
     }
 
+    //For CQI
     $('#cqiModal').on('shown', function () {
 
         /*초기에 PDF 그래프 보이게 셋팅*/

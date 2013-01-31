@@ -58,7 +58,6 @@
                                     <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
 
                                         <div name="divSearch" ID="divSearch" style="width:1000px;vertical-align:middle;">
-                                            <input type="hidden" name="TERMTYPE" value="MON">
                                             <input type="hidden" name="VIEWTYPE" value="AVG">
                                             <table border="0">
                                                 <colgroup>
@@ -71,55 +70,24 @@
                                                 </colgroup>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <button class="btn btn-xmini btn-inverse" name="search" id="searchBtn"><i class="icon-search icon-white"></i>&nbsp;조 회</button>
                                                         <button class="btn btn-xmini btn-inverse" name="excelDownload" id="excelDownload"><i class="icon-file icon-white"></i>&nbsp;EXCEL</button>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><b>최번기준</b></td>
+                                                    <td><b>전기간</b></td>
                                                     <td>
-                                                        <select name="MBTYPE">
-                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
-                                                            <option value="R5"  >Data최번(Cell기준)</option>
-                                                            <option value="R15" >동접자최번(Cell기준)</option>
-                                                            <option value="R3D" >PRB최번(DU기준)</option>
-                                                            <option value="R5D" >Data최번(DU기준)</option>
-                                                            <option value="R15D">동접자최번(DU기준)</option>
-                                                        </select>
+                                                        <span id="BEFOREYMD"></span>
                                                     </td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>조회대상</b></td>
                                                     <td>
                                                         <span id="SEARCHTYPE_NAME"></span>
-                                                        <input type="hidden" name="SEARCHTYPE"     id="SEARCHTYPE">
-                                                        <input type="hidden" name="BONBU_CD"       id="BONBU_CD">
-                                                        <input type="hidden" name="OPER_TEAM_CD"   id="OPER_TEAM_CD">
-                                                        <input type="hidden" name="CITY"           id="CITY">
-                                                        <input type="hidden" name="MME_GRP_ID"     id="MME_GRP_ID">
-                                                        <input type="hidden" name="NE_ID"          id="NE_ID">
-                                                        <input type="hidden" name="FREQ_KIND"      value="ALL">
                                                     </td>
-                                                    <td><b>시간대</b></td>
+                                                    <td><b>후기간</b></td>
                                                     <td>
-                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
-                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
+                                                        <span id="AFTERYMD"></span>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>기간</b></td>
-                                                    <td>
-                                                        <select id="fromYear" style="width:80px;"></select>
-                                                        <select id="fromMonth" style="width:80px;"></select>
-                                                        <select id="toYear" style="width:80px;"></select>
-                                                        <select id="toMonth" style="width:80px;"></select>
-                                                        <input type="hidden" name="FROMYMD">
-                                                        <input type="hidden" name="TOYMD">
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
@@ -146,9 +114,6 @@
 </div>
 
 <!-- Graph -->
-<div style="margin-left:20px;">
-    용량그래프 : <input type="radio" name="CHARTTYPE" value="THROUGHPUT" checked>
-</div>
 <div id="graphContainer" style="width: 1080px; height: 470px; margin: 0px;"></div>
 
 </body>
