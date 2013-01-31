@@ -268,7 +268,7 @@
     <td><!--  middle right   -->
         <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
-                <colgroup><col class="col01">
+                <colgroup>
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -368,7 +368,7 @@
     <td><!--  middle right   -->
         <div name="divMiddleRight" id="divMiddleRightAfter" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRightAfter" class="table table-bordered table-condensed table-striped">
-                <colgroup><col class="col01">
+                <colgroup>
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
