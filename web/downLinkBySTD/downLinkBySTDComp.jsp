@@ -84,6 +84,7 @@
                                                     <span class="dropdown" id="graphDropDown">
                                                         <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                                                                <li name="showThrpGraph"><a href="#">용량그래프</a></li>
                                                                 <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
                                                             </ul>
                                                     </span>
@@ -96,10 +97,10 @@
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>전기간</b></td>
                                                 <td>
-                                                    <select id="FROM_YEAR1" name="FROM_YEAR1"></select>
+                                                    <select id="FROM_YEAR1"  name="FROM_YEAR1"></select>
                                                     <select id="FROM_MONTH1" name="FROM_MONTH1"></select>
-                                                    <select id="TO_YEAR1" name="TO_YEAR1"></select>
-                                                    <select id="TO_MONTH1" name="TO_MONTH1"></select>
+                                                    <select id="TO_YEAR1"    name="TO_YEAR1"></select>
+                                                    <select id="TO_MONTH1"   name="TO_MONTH1"></select>
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>시간대</b></td>
                                                 <td>
@@ -116,10 +117,10 @@
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>후기간</b></td>
                                                 <td>
-                                                    <select id="FROM_YEAR2" name="FROM_YEAR2"></select>
+                                                    <select id="FROM_YEAR2"  name="FROM_YEAR2"></select>
                                                     <select id="FROM_MONTH2" name="FROM_MONTH2"></select>
-                                                    <select id="TO_YEAR2" name="TO_YEAR2"></select>
-                                                    <select id="TO_MONTH2" name="TO_MONTH2"></select>
+                                                    <select id="TO_YEAR2"    name="TO_YEAR2"></select>
+                                                    <select id="TO_MONTH2"   name="TO_MONTH2"></select>
                                                 </td>
                                                 <td style="font-size: 11px;" ><b>주파수</b></td>
                                                 <td style="font-size: 11px;" >
@@ -421,7 +422,7 @@
 
 <!-- Modal -->
 <div id="cqiModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="cqiModalLabel" aria-hidden="true"
-     style="width: 800px; postion:absolute; top:260px; left:300px;">
+     style="width: 1000px; postion:absolute; top:260px; left:300px;">
     <div class="modal-footer" style="height:30px; vertical-align: middle">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <button type="button" class="btn btn-mini pull-left" name="excelDownload"><i class="icon-download"></i> EXCEL Down </button>
@@ -431,8 +432,8 @@
         </div>
     </div>
     <div class="modal-body">
-        <div id="cqiPDFContainer" style="width: 760px; height: 400px; margin: 0 0 0 0;"></div>
-        <div id="cqiCDFContainer" style="width: 760px; height: 400px; margin: 0 0 0 0;"></div>
+        <div id="cqiPDFContainer" style="width: 960px; height: 400px; margin: 0 0 0 0;"></div>
+        <div id="cqiCDFContainer" style="width: 960px; height: 400px; margin: 0 0 0 0;"></div>
     </div>
     <div class="modal-footer" style="height:30px;">
         <button class="btn btn-mini" data-dismiss="modal" aria-hidden="true">닫기</button>
