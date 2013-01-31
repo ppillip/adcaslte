@@ -314,12 +314,8 @@ $(document).ready(function(){
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
                     + (function(_idx, _row){
-                    if(!_row.MB_TIME){
-                        return "&nbsp;";
-                    }else{
                         return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                    }
-                })(idx, row)
+                        })(idx, row)
                     +"</td>"
                     +"</tr>")
                     .data("row",row)
@@ -327,12 +323,27 @@ $(document).ready(function(){
 
                 $("<tr name='" + row.ROWIDX + "'>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                    +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE )+"</td>"
-
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                    + "</td>"
                     + (function(row){
                     if(param.MFC_CD==="MFC00001"){
                         return "<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"  /*SS*/
@@ -550,11 +561,27 @@ $(document).ready(function(){
 
                 $("<tr name='" + row.ROWIDX + "'>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                    +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"
+                    +(function(value,sign,critical) {
+                        if(Number(value) && critical != null && eval(value+sign+critical)) {
+                            return "<span style='color:red'>"+value+"</span>";
+                        } else {
+                            return value;
+                        }
+                    })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                    + "</td>"
 
                     + (function(row){
                     if(param.MFC_CD==="MFC00001"){
@@ -840,34 +867,6 @@ $(document).ready(function(){
     $("#tempsearch").click(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=815,height=700');
     });
-//    /*전*/
-//    $('#datepicker01').val(_yesterday)
-//        .datepicker(
-//        {format : "yyyy-mm-dd"}
-//    ).on('changeDate', function(){
-//            $('#datepicker01').datepicker('hide');
-//    });
-//    $('#datepicker02').val(_yesterday)
-//        .datepicker(
-//        {format : "yyyy-mm-dd"}
-//    ).on('changeDate', function(){
-//         $('#datepicker02').datepicker('hide');
-//    });
-//    /*후*/
-//    $('#datepicker01After').val(_yesterday)
-//        .datepicker(
-//        {format : "yyyy-mm-dd"}
-//    ).on('changeDate', function(){
-//            $('#datepicker01After').datepicker('hide');
-//        });
-//    $('#datepicker02After').val(_yesterday)
-//        .datepicker(
-//        {format : "yyyy-mm-dd"}
-//    ).on('changeDate', function(){
-//            $('#datepicker02After').datepicker('hide');
-//        });
-
-
 
     /*===============================================================================
      * For 기간
@@ -1002,8 +1001,9 @@ $(document).ready(function(){
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
         param["JSONDATA"] = JSON.stringify(window.result);
+        param["JSONDATAAFTER"] = JSON.stringify(window.resultAfter);
 
-        jQuery.post("/adcaslte/svc/DownLinkByNMS-selectDailyCellTrafficExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkByNMS-selectDailyCellTrafficCompExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
