@@ -79,7 +79,6 @@
                                                         <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
                                                                 <li name="showThrpGraph"><a href="#">용량그래프</a></li>
-                                                                <li name="showHistogram"><a href="#">HISTOGRAM</a></li>
                                                                 <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
                                                             </ul>
                                                     </span>
@@ -99,8 +98,8 @@
                                                         <select group="TERMTYPE" id="fromMonth1" style="display:none;width:80px;height:22px;"></select>
                                                         <select group="TERMTYPE" id="toYear1" style="display:none;width:80px;height:22px;"></select>
                                                         <select group="TERMTYPE" id="toMonth1" style="display:none;width:80px;height:22px;"></select>
-                                                        <input type="hidden" name="FROMYMD">
-                                                        <input type="hidden" name="TOYMD">
+                                                        <input type="hidden" name="FROMYMD" id="FROMYMD">
+                                                        <input type="hidden" name="TOYMD"   id="TOYMD" >
                                                     </td>
                                                     <td><b>시간대</b></td>
                                                     <td>
@@ -145,8 +144,8 @@
                                                         <select group="TERMTYPE" id="fromMonth2" style="display:none;width:80px;height:22px;"></select>
                                                         <select group="TERMTYPE" id="toYear2" style="display:none;width:80px;height:22px;"></select>
                                                         <select group="TERMTYPE" id="toMonth2" style="display:none;width:80px;height:22px;"></select>
-                                                        <input type="hidden" name="FROMYMD2">
-                                                        <input type="hidden" name="TOYMD2">
+                                                        <input type="hidden" name="FROMYMD2" id="FROMYMD2">
+                                                        <input type="hidden" name="TOYMD2"   id="TOYMD2">
                                                     </td>
                                                     <td><b>주파수</b></td>
                                                     <td>

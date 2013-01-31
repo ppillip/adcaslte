@@ -836,7 +836,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             StringMap rate = (StringMap) map.get("rate");
             StringMap cdf = (StringMap) map.get("cdf");
 
-            short i = 2;
+            short i = 1;
             for (int j=0; j<10; j++) {
                 //한줄 만들고 셋팅
                 Row row = sheet.createRow((short) i );
@@ -848,7 +848,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
                 i++;
             }
 
-            log.debug("selectCellTrafficStatsExcelDownload : file start");
+            log.debug("selectCellTrafficStatsHistogramExcelDownload : file start");
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
@@ -861,7 +861,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
             fileOut = new FileOutputStream(xlsFileFullPath);
             wb.write(fileOut);
-            log.debug("selectCellTrafficStatsExcelDownload : file end");
+            log.debug("selectCellTrafficStatsHistogramExcelDownload : file end");
 
             this.msg = "엑셀이 생성 되었습니다";
             this.status = "SUCCESS";
@@ -883,7 +883,91 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             }
         }
 
-        this.log.debug("selectCellTrafficStatsExcelDownload End");
+        this.log.debug("selectCellTrafficStatsHistogramExcelDownload End");
+        return SUCCESS;
+    }
+
+    public String selectCellTrafficStatsThrpCompGraphExcelDownload(){
+
+        this.log.debug("selectCellTrafficStatsThrpCompGraphExcelDownload Start");
+        SqlSession session = null;
+        FileOutputStream fileOut = null;
+
+        try{
+            //parseParam();
+            Type type = new TypeToken<Map<String, Object>>(){}.getType();
+            Gson gson = new Gson();
+            Map<String, Object> map = gson.fromJson(this.JSONDATA, type);
+
+            log.debug("json data : " + this.JSONDATA);
+
+            Workbook wb = new HSSFWorkbook();
+            //CreationHelper createHelper = wb.getCreationHelper();
+
+            String sheetName = "용량 전후비교";
+            String safeName = WorkbookUtil.createSafeSheetName(sheetName);
+
+            //sheet 만들고
+            Sheet sheet = wb.createSheet(safeName);
+
+            //header 만들자
+            Row hrow0 = sheet.createRow((short) 0 );
+            hrow0.setHeightInPoints(20);
+            hrow0.createCell(0).setCellValue("");
+            hrow0.createCell(1).setCellValue("전("+this.FROMYMD+")");
+            hrow0.createCell(2).setCellValue("후("+this.TOYMD+")");
+
+            StringMap categories   = (StringMap) map.get("categories");
+            StringMap beforeSeries = (StringMap) map.get("beforeSeries");
+            StringMap afterSeries  = (StringMap) map.get("afterSeries");
+
+            short i = 1;
+            for (int j=0; j<categories.size(); j++) {
+                //한줄 만들고 셋팅
+                Row row = sheet.createRow((short) i );
+                row.setHeightInPoints(20);
+                row.createCell(0).setCellValue(categories.get(String.valueOf(j)).toString().replaceAll("<br>"," : "));
+                row.createCell(1).setCellValue(Double.parseDouble(beforeSeries.get(String.valueOf(j)).toString()));
+                row.createCell(2).setCellValue(Double.parseDouble(afterSeries.get(String.valueOf(j)).toString()));
+                i++;
+            }
+
+            log.debug("selectCellTrafficStatsThrpCompGraphExcelDownload : file start");
+
+            String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
+            String tempFolder = "/" + UUID.randomUUID().toString();
+            String xlsFileName = "/DownLinkStatsThrpCompGraph.xls";
+
+            if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
+                throw new Exception("엑셀파일 생성에 실패 하였습니다.");
+            }
+
+            String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
+            fileOut = new FileOutputStream(xlsFileFullPath);
+            wb.write(fileOut);
+            log.debug("selectCellTrafficStatsThrpCompGraphExcelDownload : file end");
+
+            this.msg = "엑셀이 생성 되었습니다";
+            this.status = "SUCCESS";
+            this.downloadurl = "download" + tempFolder + xlsFileName ;
+
+        }catch (Exception e){
+            this.msg = e.getMessage();
+            this.status = "ERROR";
+            this.error = true;
+            if(session!=null){
+                session.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            try { if(fileOut!=null) fileOut.close();}
+            catch (IOException e) { e.printStackTrace(); }
+            if(session!=null){
+                session.close();
+            }
+        }
+
+        this.log.debug("selectCellTrafficStatsThrpCompGraphExcelDownload End");
         return SUCCESS;
     }
 

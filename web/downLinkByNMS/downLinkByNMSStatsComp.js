@@ -147,9 +147,6 @@ $(document).ready(function(){
         //For 용량그래프
         } else if (name === 'showThrpGraph') {
             window.open("downLinkByNMSStatsCompGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
-        //For HISTOGRAM
-        } else if (name === 'showHistogram') {
-            window.open("downLinkByNMSStatsCompGraph.jsp","showHistogram",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });

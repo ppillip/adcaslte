@@ -108,6 +108,147 @@
                 series: series
             });
         },
+        drawThrpCompGraph : function(beforeRows,afterRows,callback) {
+
+//            console.log('rows');
+//            console.log(rows);
+
+            var categories = [];
+            var series = [];
+            var beforeSeries = [];
+            var afterSeries = [];
+            var afterSeriesData = [];
+
+            for(var i= 0,max=beforeRows.length; i<max; i++) {
+                var _thisRow = beforeRows[i];
+                var category = '';
+                if(_thisRow.TITLE03) {
+                    category = _thisRow.TITLE01 + "<br>" + _thisRow.TITLE02 + "<br>" + _thisRow.TITLE03 + "<br>" + _thisRow.FREQ_KIND;
+                } else if(_thisRow.TITLE02) {
+                    category = _thisRow.TITLE01 + "<br>" + _thisRow.TITLE02 + "<br>" + _thisRow.FREQ_KIND;
+                } else if(_thisRow.TITLE01) {
+                    category = _thisRow.TITLE01 + "<br>" + _thisRow.FREQ_KIND;
+                } else {
+                    category = _thisRow.BTS_NM + "<br>" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ "<br>" + _thisRow.FREQ_KIND;
+                }
+                categories.push(category);
+                beforeSeries.push(Number(isUndifined(_thisRow.THROUGHPUT,0).toFixed(1)));
+                //beforeSeries.push({name:category,data:Number(isUndifined(_thisRow.THROUGHPUT,0).toFixed(1))});
+            }
+
+            for(var i= 0,max=afterRows.length; i<max; i++) {
+                var _thisRow = afterRows[i];
+                var category = '';
+                if(_thisRow.TITLE03) {
+                    category = _thisRow.TITLE01 + "<br>" + _thisRow.TITLE02 + "<br>" + _thisRow.TITLE03 + "<br>" + _thisRow.FREQ_KIND;
+                } else if(_thisRow.TITLE02) {
+                    category = _thisRow.TITLE01 + "<br>" + _thisRow.TITLE02 + "<br>" + _thisRow.FREQ_KIND;
+                } else if(_thisRow.TITLE01) {
+                    category = _thisRow.TITLE01 + "<br>" + _thisRow.FREQ_KIND;
+                } else {
+                    category = _thisRow.BTS_NM + "<br>" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ "<br>" + _thisRow.FREQ_KIND;
+                }
+
+                for (var j=0; j<categories.length; j++) {
+                    if (categories[j] === category) {
+                        afterSeriesData.push({name:category,data:Number(isUndifined(_thisRow.THROUGHPUT,0).toFixed(1))});
+                        break;
+                    }
+                }
+            }
+
+            if (beforeSeries.length != afterSeriesData.length) {
+                for (var i= 0; i<categories.length; i++) {
+                    var notExist = true;
+                    for(var j=0; j<afterSeriesData.length; j++) {
+                        if (categories[i] === afterSeriesData[j].category) {
+                            afterSeries.push(afterSeriesData[j].data);
+                            notExist = false;
+                            break;
+                        }
+                    }
+                    if(notExist) afterSeries.push(0);
+                }
+            } else {
+                for (var i=0; i<afterSeriesData.length; i++) {
+                    afterSeries.push(afterSeriesData[i].data);
+                }
+            }
+//            console.log('categories');
+//            console.log(categories);
+//            console.log('beforeSeries');
+//            console.log(beforeSeries);
+//            console.log('afterSeries');
+//            console.log(afterSeries);
+
+            var $this = $(this);
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: $this.attr("id"),
+                    type: 'column',
+                    marginRight: 70,
+                    marginBottom: 80
+                },
+                title: {
+                    text: '용량그래프',
+                    x: -30 //center
+                },
+                subtitle: {
+                    text: 'Source: qcas.sktelecom.com',
+                    x: -30
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Mbps'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    backgroundColor: '#FFFFFF',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 1010,
+                    y: 50,
+                    floating: true,
+                    shadow: true
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                            this.x +' : '+ this.y;
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: '전',
+                    data: beforeSeries
+
+                }, {
+                    name: '후',
+                    data: afterSeries
+
+                }]
+            });
+
+            var thrpCompData = {categories:[],beforeSeries:[],afterSeries:[]};
+            thrpCompData.categories = $.extend({},categories);
+            thrpCompData.beforeSeries = $.extend({},beforeSeries);
+            thrpCompData.afterSeries = $.extend({},afterSeries);
+
+            if (typeof(callback) === 'function') {
+                callback(thrpCompData);
+            }
+
+        },
         drawHistogram : function(rows,callback) {
 
             var thrpVal = [];
