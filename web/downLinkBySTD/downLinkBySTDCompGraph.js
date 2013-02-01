@@ -6,33 +6,7 @@ $(document).ready(function(){
 /*===============================================================================
  * For 조회대상 셋팅
  *==============================================================================*/
-    var SEARCHTYPE = $opener.find("#SEARCHTYPE").val();
-    $("#SEARCHTYPE").val(SEARCHTYPE);
-
-    if(SEARCHTYPE === 'BONBU') {
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#bonbuLabel").text()+"</span>");
-    } else if (SEARCHTYPE === 'TEAM') {
-        var $bonbuCD = $opener.find("#BONBU_CD");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#teamLabel").text()+"</span>");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$bonbuCD.find("option:selected").text()+"</span>");
-    } else if (SEARCHTYPE === 'PART') {
-        var $bonbuCD = $opener.find("#BONBU_CD");
-        var $teamCD  = $opener.find("#OPER_TEAM_CD");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#partLabel").text()+"</span>");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$teamCD.find("option:selected").text()+"</span>");
-    } else if (SEARCHTYPE === 'CITY') {
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#cityLabel").text()+"</span>");
-    } else if (SEARCHTYPE === 'UNI') {
-        var $city = $opener.find("#CITY");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#uniLabel").text()+"</span>");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$city.find("option:selected").text()+"</span>");
-    } else if (SEARCHTYPE === 'EMS') {
-        var $mmeGrpID = $opener.find("#MME_GRP_ID");
-        var $neID = $opener.find("#NE_ID");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#emsLabel").text()+"</span>");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$mmeGrpID.find("option:selected").text()+"</span>");
-        $("#SEARCHTYPE_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$neID.find("option:selected").text()+"</span>");
-    }
+    $("#WORKGROUP_NAME").append("<span class='label' style='font-size: 13px;margin-left:5px'>"+$opener.find("#WORKGROUP_NAME").val()+"</span>");
 /*===============================================================================
  * End For 조회대상 셋팅
  *==============================================================================*/
@@ -78,7 +52,7 @@ $(document).ready(function(){
         param["TOYMD"] = fromYMD2+" ~ "+toYMD2;
         param["JSONDATA"]  = JSON.stringify(window.thrpCompData);
 
-        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsThrpCompGraphExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkBySTD-selectCellTrafficThrpCompGraphExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);

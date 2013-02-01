@@ -22,8 +22,8 @@
     <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
     <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
 
-    <link href="downLinkBySTDStatsCompGraph.css" rel="stylesheet">
-    <script src="downLinkBySTDStatsCompGraph.js" language="javascript"></script>
+    <link href="downLinkBySTDCompGraph.css" rel="stylesheet">
+    <script src="downLinkBySTDCompGraph.js" language="javascript"></script>
     <script src="common.js" language="javascript"></script>
 
 
@@ -35,7 +35,7 @@
             <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
                 <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
             </div>
-            <div id="popup_desc">LTE 용량분석 > LTE 기준 용량분석 > DownLink 통계 전후비교 그래프</div>
+            <div id="popup_desc">LTE 용량분석 > LTE 기준 용량분석 > DownLink 전후비교 그래프</div>
         </div>
         <div id="middle">
             <div id='search_table'>
@@ -58,7 +58,6 @@
                                     <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
 
                                         <div name="divSearch" ID="divSearch" style="width:1000px;vertical-align:middle;">
-                                            <input type="hidden" name="VIEWTYPE" value="AVG">
                                             <table border="0">
                                                 <colgroup>
                                                     <col width="60px">
@@ -82,7 +81,7 @@
                                                 <tr>
                                                     <td><b>조회대상</b></td>
                                                     <td>
-                                                        <span id="SEARCHTYPE_NAME"></span>
+                                                        <span id="WORKGROUP_NAME"></span>
                                                     </td>
                                                     <td><b>후기간</b></td>
                                                     <td>

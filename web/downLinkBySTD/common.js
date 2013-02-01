@@ -202,8 +202,36 @@ function setNEList($select,allChk,upperValue) {
 
 }
 
+
 /*===============================================================================
- * 평균, 최대값, 최소값, 표준편하 구하는 함수
+ * 테이타 조회 진행 이미지 SHOW / HIDE
+ *
+ *==============================================================================*/
+function toggleProgress(method) {
+    var methods = {
+        show : function (id,top) {
+            $("#"+id).remove();
+            // var topPx = (resultDataType === 'result'?'340px':'560px');
+            $("<div id='"+id+"' style='position: absolute;z-index:2;top:"+top+";left:600px;'><img src='/adcaslte/common/img/ajax-loader.gif'/></div>").appendTo("body");
+        },
+        hide : function (id) {
+            $("#"+id).remove();
+        },
+        message : function (id,message) {
+            $("#"+id).empty();
+            $("#"+id).text(message);
+        }
+    }
+
+    if (methods[method]) {
+        return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+    } else {
+        alert(method+'는 존재하지 않는 함수입니다.');
+    }
+}
+
+/*===============================================================================
+ * 평균, 최대값, 최소값, 표준편차 구하는 함수
  *
  *==============================================================================*/
 function getMath(method) {
@@ -252,33 +280,6 @@ function getMath(method) {
         alert(method+'는 존재하지 않는 함수입니다.');
     }
 
-}
-
-/*===============================================================================
- * 테이타 조회 진행 이미지 SHOW / HIDE
- *
- *==============================================================================*/
-function toggleProgress(method) {
-    var methods = {
-        show : function (id,top) {
-            $("#"+id).remove();
-            // var topPx = (resultDataType === 'result'?'340px':'560px');
-            $("<div id='"+id+"' style='position: absolute;z-index:2;top:"+top+";left:600px;'><img src='/adcaslte/common/img/ajax-loader.gif'/></div>").appendTo("body");
-        },
-        hide : function (id) {
-            $("#"+id).remove();
-        },
-        message : function (id,message) {
-            $("#"+id).empty();
-            $("#"+id).text(message);
-        }
-    }
-
-    if (methods[method]) {
-        return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-    } else {
-        alert(method+'는 존재하지 않는 함수입니다.');
-    }
 }
 
 /*===============================================================================

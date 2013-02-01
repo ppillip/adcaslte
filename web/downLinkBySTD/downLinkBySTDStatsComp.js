@@ -57,12 +57,6 @@ $(document).ready(function(){
 /*===============================================================================
  * For GRAPH
  *==============================================================================*/
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
-
     $("#graphDropDown li[name=showCqiModal], #graphDropDown li[name=showThrpGraph]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
@@ -74,98 +68,21 @@ $(document).ready(function(){
         //For CQI
         if (name === 'showCqiModal') {
             $('#cqiModal').modal('show');
-            //For 용량그래프
+        //For 용량그래프
         } else if (name === 'showThrpGraph') {
             window.open("downLinkBySTDStatsCompGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });
 
-    function selectCheckedCQIData(cellList,callback){
-
-        var cqiPDFList = [];
-        var cqiCDFList = [];
-
-        cellList.each(function(idx,element){
-            var _thisRow = $(element).parents("tr:first").data("row");
-            cqiPDFList.push((function(row){
-                return {
-                    name : (function (_row) {
-                        if(_row.TITLE03) {
-                            return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03;
-                        } else if(_row.TITLE02) {
-                            return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02;
-                        } else {
-                            return _row.YMD + ":" + _row.TITLE01;
-                        }
-                    })(row)
-                    ,data : [
-                        row.CQI_PDF_00 || 0
-                        ,row.CQI_PDF_01 || 0
-                        ,row.CQI_PDF_02 || 0
-                        ,row.CQI_PDF_03 || 0
-                        ,row.CQI_PDF_04 || 0
-                        ,row.CQI_PDF_05 || 0
-                        ,row.CQI_PDF_06 || 0
-                        ,row.CQI_PDF_07 || 0
-                        ,row.CQI_PDF_08 || 0
-                        ,row.CQI_PDF_09 || 0
-                        ,row.CQI_PDF_10 || 0
-                        ,row.CQI_PDF_11 || 0
-                        ,row.CQI_PDF_12 || 0
-                        ,row.CQI_PDF_13 || 0
-                        ,row.CQI_PDF_14 || 0
-                        ,row.CQI_PDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-
-            cqiCDFList.push((function(row){
-                return {
-                    name : (function () {
-                        if(row.TITLE03) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02 + ":" + row.TITLE03;
-                        } else if(row.TITLE02) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02;
-                        } else {
-                            return row.YMD + ":" + row.TITLE01;
-                        }
-                    })()
-                    ,data : [
-                        row.CQI_CDF_00 || 0
-                        ,row.CQI_CDF_01 || 0
-                        ,row.CQI_CDF_02 || 0
-                        ,row.CQI_CDF_03 || 0
-                        ,row.CQI_CDF_04 || 0
-                        ,row.CQI_CDF_05 || 0
-                        ,row.CQI_CDF_06 || 0
-                        ,row.CQI_CDF_07 || 0
-                        ,row.CQI_CDF_08 || 0
-                        ,row.CQI_CDF_09 || 0
-                        ,row.CQI_CDF_10 || 0
-                        ,row.CQI_CDF_11 || 0
-                        ,row.CQI_CDF_12 || 0
-                        ,row.CQI_CDF_13 || 0
-                        ,row.CQI_CDF_14 || 0
-                        ,row.CQI_CDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-        });
-        callback(cqiPDFList,cqiCDFList);
-    }
-
+    //For CQI
     $('#cqiModal').on('shown', function () {
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),'PDF');
+    });
 
-        /*초기에 PDF 그래프 보이게 셋팅*/
-        $("input[type=radio][name=cqiFlag]")[0].checked=true;
-        $("#cqiPDFContainer").show();
-        $("#cqiCDFContainer").hide();
-
-        selectCheckedCQIData($("input[type=checkbox][name!=checkAll]:checked"),function(cqiPDFList,cqiCDFList){
-            doCQIChart(cqiPDFList,cqiCDFList);
-        });
-
+    //For CQI
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
     });
 
 /*===============================================================================

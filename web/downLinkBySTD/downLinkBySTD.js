@@ -105,13 +105,12 @@ $(document).ready(function(){
 * For Left Title Setting
 *==============================================================================*/
     var topLeftWidth = {
-        "YMD"          : "60"
-        //,"MB_TIME"    : "35"
+        "YMD"         : "60"
         ,"BTS_NM"     : "220"
         ,"CELL_ID"    : "35"
-        ,"MCID"        : "45"
+        ,"MCID"       : "45"
         ,"FREQ_KIND"  : "55"
-        ,"GRAPH"       : "50"
+        ,"GRAPH"      : "50"
     }
     $("#tableTopLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
@@ -157,6 +156,7 @@ $(document).ready(function(){
             if(result.error || result.rows.length === 0){
                 btn.button('reset');
                 alert(result.msg);
+                $(document).trigger('ajaxError');
                 return;
             }
 
@@ -242,99 +242,40 @@ $(document).ready(function(){
  *==============================================================================*/
 
 /*===============================================================================
-* For GRAPH
-*==============================================================================*/
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
+ * For GRAPH
+ *==============================================================================*/
+    $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph]").click(function(){
 
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
             return ;
-        }
-        if( checkedList.length > 20 ) {
+        } else if( checkedList.length > 20 ) {
             alert("그래프는 20개 까지만 허용합니다.");
             return ;
         }
 
-        $('#cqiModal').modal('show');
+        var name = $(this).attr("name");
+        //For CQI
+        if (name === 'showCqiModal') {
+            $('#cqiModal').modal('show');
+        //For 용량그래프
+        } else if (name === 'showThrpGraph') {
+            window.open("downLinkBySTDGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        }
 
     });
 
-    function selectCheckedCQIData(cellList,callback){
-
-        var cqiPDFList = [];
-        var cqiCDFList = [];
-
-        cellList.each(function(){
-            var _thisRow = $(this).parent().parent().data("row");
-            cqiPDFList.push((function(row){
-                return {
-                    name : row.YMD + ":" + row.BTS_NM + ":" + row.CELL_ID
-                    ,data : [
-                        row.CQI_PDF_00 || 0
-                        ,row.CQI_PDF_01 || 0
-                        ,row.CQI_PDF_02 || 0
-                        ,row.CQI_PDF_03 || 0
-                        ,row.CQI_PDF_04 || 0
-                        ,row.CQI_PDF_05 || 0
-                        ,row.CQI_PDF_06 || 0
-                        ,row.CQI_PDF_07 || 0
-                        ,row.CQI_PDF_08 || 0
-                        ,row.CQI_PDF_09 || 0
-                        ,row.CQI_PDF_10 || 0
-                        ,row.CQI_PDF_11 || 0
-                        ,row.CQI_PDF_12 || 0
-                        ,row.CQI_PDF_13 || 0
-                        ,row.CQI_PDF_14 || 0
-                        ,row.CQI_PDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-
-            cqiCDFList.push((function(row){
-                return {
-                    name : row.YMD + ":" + row.BTS_NM + ":" + row.CELL_ID
-                    ,data : [
-                        row.CQI_CDF_00 || 0
-                        ,row.CQI_CDF_01 || 0
-                        ,row.CQI_CDF_02 || 0
-                        ,row.CQI_CDF_03 || 0
-                        ,row.CQI_CDF_04 || 0
-                        ,row.CQI_CDF_05 || 0
-                        ,row.CQI_CDF_06 || 0
-                        ,row.CQI_CDF_07 || 0
-                        ,row.CQI_CDF_08 || 0
-                        ,row.CQI_CDF_09 || 0
-                        ,row.CQI_CDF_10 || 0
-                        ,row.CQI_CDF_11 || 0
-                        ,row.CQI_CDF_12 || 0
-                        ,row.CQI_CDF_13 || 0
-                        ,row.CQI_CDF_14 || 0
-                        ,row.CQI_CDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-        });
-        callback(cqiPDFList,cqiCDFList);
-    }
-
+    //For CQI
     $('#cqiModal').on('shown', function () {
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),'PDF');
+    });
 
-        /*초기에 PDF 그래프 보이게 셋팅*/
-        $("input[type=radio][name=cqiFlag]")[0].checked=true;
-        $("#cqiPDFContainer").show();
-        $("#cqiCDFContainer").hide();
+    //For CQI
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
+    });
 
-        selectCheckedCQIData($("input[type=checkbox][name!=checkAll]:checked"),function(cqiPDFList,cqiCDFList){
-            doCQIChart(cqiPDFList,cqiCDFList);
-        });
-
-    })
 /*===============================================================================
  * End For GRAPH
  *==============================================================================*/

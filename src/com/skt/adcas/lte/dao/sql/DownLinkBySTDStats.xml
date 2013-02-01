@@ -7,26 +7,28 @@
         SELECT /*+ no_merge */
         LTE.YMD
         ,LTE.FREQ_KIND
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
                  SEARCHTYPE.equalsIgnoreCase('TEAM') ||
                  SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,LTE.BONBU_NM
-            ,LTE.BONBU_CD
-            ,LTE.OPER_TEAM_NM
-            ,LTE.OPER_TEAM_CD
-            ,LTE.PART_NM
-            ,LTE.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
+                ,LTE.BONBU_NM
+                ,LTE.BONBU_CD
+                ,LTE.OPER_TEAM_NM
+                ,LTE.OPER_TEAM_CD
+                ,LTE.PART_NM
+                ,LTE.PART_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
                  SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,LTE.CITY_CD
-            ,LTE.CITY_NM
-            ,LTE.UNI
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            ,LTE.MME_GRP_ID
-            ,LTE.NE_ID
-        </if>
+                ,LTE.CITY_CD
+                ,LTE.CITY_NM
+                ,LTE.UNI
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                ,LTE.MME_GRP_ID
+                ,LTE.NE_ID
+            </when>
+        </choose>
         ,round( ${MBTYPE + "_THROUGHPUT    "}   ,1) AS THROUGHPUT
         ,round( ${MBTYPE + "_CQI_AVERAGE   "}   ,1) AS CQI_AVERAGE
         ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
@@ -71,67 +73,90 @@
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0)                                           ,3) * 100  AS CQI_CDF_14
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_15    "} ,0)  ,3) * 100  AS CQI_CDF_15
         FROM
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
-                 SEARCHTYPE.equalsIgnoreCase('TEAM') ||
-                 SEARCHTYPE.equalsIgnoreCase('PART')">
-            LTE_ST_STD_IDX_PART_${TERMTYPE} LTE
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
-                 SEARCHTYPE.equalsIgnoreCase('UNI')">
-            LTE_ST_STD_IDX_CITY_${TERMTYPE} LTE
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            LTE_ST_STD_IDX_MME_${TERMTYPE} LTE
-        </if>
-        WHERE LTE.YMD BETWEEN #{FROMYMD}
-        AND #{TOYMD} <if test="TOYMD.length() == 6">||'31'</if>
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
+                        SEARCHTYPE.equalsIgnoreCase('TEAM')  ||
+                        SEARCHTYPE.equalsIgnoreCase('PART')">
+                LTE_ST_STD_IDX_PART_${TERMTYPE} LTE
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
+                        SEARCHTYPE.equalsIgnoreCase('UNI')">
+                LTE_ST_STD_IDX_CITY_${TERMTYPE} LTE
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                LTE_ST_STD_IDX_MME_${TERMTYPE} LTE
+            </when>
+        </choose>
+        WHERE LTE.YMD BETWEEN #{FROMYMD}AND #{TOYMD}
         AND DAYTIME_SEQ = #{DAYTIME_SEQ}
         <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
             AND FREQ_KIND = #{FREQ_KIND}
         </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            <if test="!BONBU_CD.equalsIgnoreCase('ALL')">
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
+                        SEARCHTYPE.equalsIgnoreCase('TEAM')  ||
+                        SEARCHTYPE.equalsIgnoreCase('PART')">
+                AND LTE.BONBU_CD IS NOT NULL
+                AND LTE.OPER_TEAM_CD IS NOT NULL
+                AND LTE.PART_CD IS NOT NULL
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
+                        SEARCHTYPE.equalsIgnoreCase('UNI')">
+                AND LTE.CITY_CD IS NOT NULL
+                AND LTE.UNI IS NOT NULL
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                AND LTE.MME_GRP_ID IS NOT NULL
+                AND LTE.NE_ID IS NOT NULL
+            </when>
+        </choose>
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                <if test="!BONBU_CD.equalsIgnoreCase('ALL')">
+                    AND LTE.BONBU_CD = #{BONBU_CD}
+                </if>
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
                 AND LTE.BONBU_CD = #{BONBU_CD}
-            </if>
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            AND LTE.BONBU_CD = #{BONBU_CD}
-            <if test="!OPER_TEAM_CD.equalsIgnoreCase('ALL')">
-                AND LTE.OPER_TEAM_CD = #{OPER_TEAM_CD}
-            </if>
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            <if test="!CITY.equalsIgnoreCase('ALL')">
-                AND LTE.CITY_CD = #{CITY}
-            </if>
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            <if test="!MME_GRP_ID.equalsIgnoreCase('ALL')">
-                AND LTE.MME_GRP_ID = #{MME_GRP_ID}
-            </if>
-            <if test="!NE_ID.equalsIgnoreCase('ALL')">
-                AND LTE.NE_ID = #{NE_ID}
-            </if>
-        </if>
+                <if test="!OPER_TEAM_CD.equalsIgnoreCase('ALL')">
+                    AND LTE.OPER_TEAM_CD = #{OPER_TEAM_CD}
+                </if>
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                <if test="!CITY.equalsIgnoreCase('ALL')">
+                    AND LTE.CITY_CD = #{CITY}
+                </if>
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                <if test="!MME_GRP_ID.equalsIgnoreCase('ALL')">
+                    AND LTE.MME_GRP_ID = #{MME_GRP_ID}
+                </if>
+                <if test="!NE_ID.equalsIgnoreCase('ALL')">
+                    AND LTE.NE_ID = #{NE_ID}
+                </if>
+            </when>
+        </choose>
         <if test="SUBLIST != null">
-            <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-                AND (LTE.BONBU_CD,LTE.FREQ_KIND) IN
-            </if>
-            <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-                AND (LTE.OPER_TEAM_CD,LTE.FREQ_KIND) IN
-            </if>
-            <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-                AND (LTE.PART_CD,LTE.FREQ_KIND) IN
-            </if>
-            <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-                AND (LTE.CITY_CD,LTE.FREQ_KIND) IN
-            </if>
-            <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-                AND (LTE.UNI,LTE.FREQ_KIND) IN
-            </if>
-            <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-                AND (LTE.NE_ID,LTE.FREQ_KIND) IN
-            </if>
+            <choose>
+                <when test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
+                    AND (LTE.BONBU_CD,LTE.FREQ_KIND) IN
+                </when>
+                <when test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                    AND (LTE.OPER_TEAM_CD,LTE.FREQ_KIND) IN
+                </when>
+                <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
+                    AND (LTE.PART_CD,LTE.FREQ_KIND) IN
+                </when>
+                <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">
+                    AND (LTE.CITY_CD,LTE.FREQ_KIND) IN
+                </when>
+                <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                    AND (LTE.UNI,LTE.FREQ_KIND) IN
+                </when>
+                <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                    AND (LTE.NE_ID,LTE.FREQ_KIND) IN
+                </when>
+            </choose>
             <foreach item="item" index="index" collection="SUBLIST" open="(" separator="," close=")">
                 (split(#{item},1,'_'),split(#{item},2,'_'))
             </foreach>
@@ -204,24 +229,26 @@
                 ORG.YMD AS YMD
             </otherwise>
         </choose>
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD ,ORG.PART_NM AS TITLE03 ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02 ,ORG.UNI
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            ,ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
-        </if>
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
+                ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
+                ,ORG.BONBU_NM AS TITLE01 ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM AS TITLE02 ,ORG.OPER_TEAM_CD ,ORG.PART_NM AS TITLE03 ,ORG.PART_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">
+                ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02 ,ORG.UNI
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                ,ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
+            </when>
+        </choose>
         ,ORG.FREQ_KIND                        AS FREQ_KIND
         <include refid="DownLinkBySTDStats.sqlFromPartAVG"/>
         FROM (<include refid="DownLinkBySTDStats.selectCellTrafficStatsORG"/>) ORG
@@ -241,24 +268,26 @@
                 ORG.YMD
             </otherwise>
         </choose>
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD ,ORG.PART_NM ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_NM ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_NM ,ORG.CITY_CD ,ORG.UNI
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            ,ORG.MME_GRP_ID ,ORG.NE_ID
-        </if>
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
+                ,ORG.BONBU_NM ,ORG.BONBU_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
+                ,ORG.BONBU_NM ,ORG.BONBU_CD ,ORG.OPER_TEAM_NM ,ORG.OPER_TEAM_CD ,ORG.PART_NM ,ORG.PART_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">
+                ,ORG.CITY_NM ,ORG.CITY_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                ,ORG.CITY_NM ,ORG.CITY_CD ,ORG.UNI
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                ,ORG.MME_GRP_ID ,ORG.NE_ID
+            </when>
+        </choose>
         ,ORG.FREQ_KIND
         ORDER BY
         <choose>
@@ -276,24 +305,26 @@
                 ORG.YMD
             </otherwise>
         </choose>
-        <if test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
-            ,ORG.BONBU_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
-            ,ORG.BONBU_CD ,ORG.OPER_TEAM_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('PART')">
-            ,ORG.BONBU_CD ,ORG.OPER_TEAM_CD ,ORG.PART_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-            ,ORG.CITY_CD
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-            ,ORG.CITY_CD ,ORG.UNI
-        </if>
-        <if test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-            ,ORG.MME_GRP_ID ,ORG.NE_ID
-        </if>
+        <choose>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
+                ,ORG.BONBU_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                ,ORG.BONBU_CD ,ORG.OPER_TEAM_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
+                ,ORG.BONBU_CD ,ORG.OPER_TEAM_CD ,ORG.PART_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">
+                ,ORG.CITY_CD
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                ,ORG.CITY_CD ,ORG.UNI
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                ,ORG.MME_GRP_ID ,ORG.NE_ID
+            </when>
+        </choose>
         ,ORG.FREQ_KIND
         ) DATA
     </select>
