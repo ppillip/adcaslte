@@ -20,10 +20,11 @@ input[type=text] {text-align: center;padding:0 0 0 0; margin: 0 0 0 0; height:24
 .floatRight {float:right;}
 .clearBoth {clear:both;}
 .hide {display:none;}
-.vAlignCenter {vertical-align: middle!important;}
-.alignCenter {text-align: center!important;}
-.alignLeft {text-align: left!important;}
-.alignRight {text-align: right!important;}
+.vAlignCenter {vertical-align: middle;}
+.alignCenter {text-align: center;}
+.alignLeft {text-align: left;}
+.alignRight {text-align: right;}
+.tempGroup, .workgroup {display:none;}
 
 .MFC00001 {color : blue}
 .MFC00002 {color : red}
