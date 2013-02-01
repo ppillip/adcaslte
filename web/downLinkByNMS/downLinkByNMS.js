@@ -1,7 +1,6 @@
 //var screenMaxRow = 500; //화면에 보일 max tr 수 입니다.
 var currentPosition = 0;
 var appendCount = 20;
-var adjHeight = 380;
 
 function scrollX() {
     document.all.divTopRight.scrollLeft = document.all.divBottomRight.scrollLeft;
@@ -139,7 +138,7 @@ function appendToTable(callback){
         var $tr = $("<tr name='" + row.ROWIDX + "'>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+ row.YMD +"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MB_TIME+"px;'>"+isUndifined(row.MB_TIME,"-") + "</td>"
-            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"+ "(" + row.ROWIDX + ")" +row.BTS_NM + "<!--"+ row.C_UID +"-->" + "</td>"
+            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>" + row.BTS_NM + "<!--"+ row.C_UID +"-->" + "</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"

@@ -312,7 +312,6 @@
                     <col class="col05">
                     <col class="col06">
                     <col class="col07">
-                    <col class="col08">
                 </colgroup>
                 <tbody>
                 </tbody>
