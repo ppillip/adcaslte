@@ -1,14 +1,101 @@
 (function( $ ){
 
     var methods = {
-//        init : function( options ) {
-//            null;
-//        },
-        drawThrpGraph : function(rows) {
+        drawCqiGraph : function(cellList,cqiType,mfcCd) {
+
+            var rows = [];
+            cellList.each(function(){
+                rows.push($(this).parent().parent().data("row"));
+            });
+            var cqiSeries = [];
+
+            for (var i= 0, max=rows.length; i<max; i++) {
+                var _thisRow = rows[i];
+                cqiSeries.push((function(row){
+                    return {
+                        name : (function (_row) {
+                            if(_row.TITLE03) {
+                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03;
+                            } else if(_row.TITLE02) {
+                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02;
+                            } else if(_row.TITLE01) {
+                                return _row.YMD + ":" + _row.TITLE01;
+                            } else if(_row.BTS_NM) {
+                                return _row.YMD + ":" + _row.BTS_NM + ":" + _row.CELL_ID
+                            }
+                        })(row)
+                        ,data : (function (_row) {
+                            var data = [];
+                            for (var j=0; j<=15; j++) {
+                                data.push(_row['CQI_'+cqiType+'_'+(j>=10?j:'0'+j)] || 0);
+                            }
+                            return data;
+                        })(row)
+                    }
+                })(_thisRow));
+            }
+
+            var $this = $(this);
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: $this.attr("id"),
+                    type: 'line',
+                    marginRight: 330,
+                    marginBottom: 20
+                },
+                title: {
+                    text: 'CQI PDF GRAPH',
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: 'Source: qcas.sktelecom.com',
+                    x: -20
+                },
+                xAxis: {
+                    categories : (function (MFC_CD) {
+                        return (MFC_CD === "MFC00002")
+                            ?['#01', '#02', '#03', '#04', '#05', '#06', '#07', '#08', '#09', '#10', '#11', '#12', '#13', '#14', '#15', '#16']
+                            :['#00', '#01', '#02', '#03', '#04', '#05', '#06', '#07', '#08', '#09', '#10', '#11', '#12', '#13', '#14', '#15'];
+                    })(mfcCd || "MFC00001")
+                },
+                yAxis: {
+                    title: {
+                        text: '%'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                            this.x +': '+ this.y ;
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -20,
+                    y: 30,
+                    borderWidth: 0
+                },
+                series: cqiSeries
+            });
+        },
+        drawThrpGraph : function(rows,thrpColumnName) {
 
 //            console.log('rows');
 //            console.log(rows);
 
+            var thrpColumn = "";
+            if (thrpColumnName) {
+                thrpColumn = thrpColumnName;
+            } else {
+                thrpColumn = "THROUGHPUT";
+            }
             var categories = [];
             var series = [];
 
@@ -42,7 +129,7 @@
                 } else {
                     name = _thisRow.YMD + ":" + _thisRow.BTS_NM + ":" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ ":" + _thisRow.FREQ_KIND;
                 }
-                var _thisData = Number(isUndifined(_thisRow.THROUGHPUT,0).toFixed(1));
+                var _thisData = Number(isUndifined(_thisRow[thrpColumn],0).toFixed(1));
 
                 var notExist = true;
                 if (series) {
@@ -249,11 +336,17 @@
             }
 
         },
-        drawHistogram : function(rows,callback) {
+        drawHistogram : function(rows,callback,thrpColumnName) {
 
+            var thrpColumn = "";
+            if (thrpColumnName) {
+                thrpColumn = thrpColumnName;
+            } else {
+                thrpColumn = "THROUGHPUT";
+            }
             var thrpVal = [];
             for(var i=0,max=rows.length; i<max; i++) {
-                thrpVal[i] = isUndifined(rows[i].THROUGHPUT,0);
+                thrpVal[i] = isUndifined(rows[i][thrpColumn],0);
             }
 
             var minVal = Math.min.apply(null,thrpVal);

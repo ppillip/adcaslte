@@ -17,6 +17,7 @@
 
     <script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
     <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
+    <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
     <%--<script src="/adcaslte/common/js/jquery.progress.js"></script>--%>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
@@ -25,7 +26,6 @@
     <link href="downLinkBySTDComp.css" rel="stylesheet">
     <script src="downLinkBySTDComp.js" language="javascript"></script>
     <script src="common.js" language="javascript"></script>
-    <script src="graph.js" language="javascript"></script>
 </head>
 <body>
 
@@ -38,7 +38,9 @@
     </div>
     <div id="web_container">
         <div id="header">
-            <%--<div id="popup_title">QCAS</div>--%>
+            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
+                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
+            </div>
             <div id="popup_desc">LTE 용량분석 > LTE 기준 용량분석 > DownLink 전후비교</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
         </div>
@@ -422,21 +424,17 @@
 
 <!-- Modal -->
 <div id="cqiModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="cqiModalLabel" aria-hidden="true"
-     style="width: 1000px; postion:absolute; top:260px; left:300px;">
+     style="width: 1000px; postion:absolute; top:430px; left:450px;">
     <div class="modal-footer" style="height:30px; vertical-align: middle">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <button type="button" class="btn btn-mini pull-left" name="excelDownload"><i class="icon-download"></i> EXCEL Down </button>
         <div class="pull-left" style="margin-left:20px;">
-            CQI PDF graph :<input type="radio" name="cqiFlag" value="cqiPDFContainer" checked="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            CQI CDF graph :<input type="radio" name="cqiFlag" value="cqiCDFContainer">
+            CQI PDF graph :<input type="radio" name="cqiFlag" value="PDF" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            CQI CDF graph :<input type="radio" name="cqiFlag" value="CDF">
         </div>
     </div>
     <div class="modal-body">
-        <div id="cqiPDFContainer" style="width: 960px; height: 400px; margin: 0 0 0 0;"></div>
-        <div id="cqiCDFContainer" style="width: 960px; height: 400px; margin: 0 0 0 0;"></div>
-    </div>
-    <div class="modal-footer" style="height:30px;">
-        <button class="btn btn-mini" data-dismiss="modal" aria-hidden="true">닫기</button>
+        <div id="graphContainer" style="width: 960px; height: 390px; margin: 0px;"></div>
     </div>
 </div>
 
