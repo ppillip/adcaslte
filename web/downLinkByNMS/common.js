@@ -41,7 +41,7 @@ function formatNumber(obj){
 /*===============================================================================
  * WorkGroup에서 호출하는 Function
  *==============================================================================*/
-function setWorkgroup(workgroupID, duIDs, workgroupName) {
+function setWorkgroup(workgroupID, duIDs, workgroupName, mfcCD) {
     if(workgroupID)  {
         $("input[name=WORKGROUP_YN]").val("Y");
     } else {
@@ -50,6 +50,14 @@ function setWorkgroup(workgroupID, duIDs, workgroupName) {
     $("input[name=WORKGROUP_ID]").val(workgroupID);
     $("input[name=DUIDs]").val(duIDs);
     $("input[name=WORKGROUP_NAME]").val(workgroupName);
+
+    if(mfcCD) {
+        $("input[name=MFC_CD]").each(function(idx,element){
+            if(element.value === mfcCD) {
+                element.checked = true;
+            }
+        });
+    }
 }
 
 /*===============================================================================

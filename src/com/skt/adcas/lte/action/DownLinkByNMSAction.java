@@ -166,8 +166,11 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
             //this.param.put("BTS_NM_CMS",BTS_NM_CMS);
             this.log.debug("###################### 트레픽 데이터 가져오는중 ");
             this.rows = session.selectList("DownLinkByNMS.selectDailyCellTraffic"+VIEWTYPE,param);
+
+            /*
             this.log.debug("###################### Summary 데이터 가져오는중");
             this.STATS = session.selectList("DownLinkByNMS.selectDailyCellTrafficSummary"+VIEWTYPE,param);
+            */
 
             this.log.debug("###################### 세션커밋");
             //session.commit();

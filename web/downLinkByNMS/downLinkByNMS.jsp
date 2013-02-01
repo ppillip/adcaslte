@@ -19,21 +19,9 @@
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
     <link href="downLinkByNMS.css" rel="stylesheet">
+    <script src="common.js" language="javascript"></script>
     <script src="downLinkByNMS.js" language="javascript"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#quickmenu_trigger').toggle(function() {
-                $('#quickmenu_container').show();
-            }, function() {
-                $('#quickmenu_container').hide();
-            });
-        });
-
-        function close_quickmenu() {
-            $('#quickmenu_container').hide();
-        }
-    </script>
 
 </head>
 <body>
