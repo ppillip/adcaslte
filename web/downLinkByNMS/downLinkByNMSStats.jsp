@@ -253,8 +253,6 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
@@ -265,7 +263,6 @@
                     <td rowspan="3">DL PRB<br/>사용률(%)</td>
 
                     <td rowspan="3">MCS평균</td>
-                    <td rowspan="2" colspan="2">RSSI</td>
                     <td rowspan="3">MIMO<br>비율</td>
                     <td rowspan="3">DL <br/>Throughput<br/>(Kbps)</td>
                     <td rowspan="3">License<br/>초과<br>실패호</td>
@@ -309,8 +306,6 @@
                     <td>최한시</td>
                     <td>최번시</td>
                     <td>최한시</td>
-                    <td>최번시</td>
-                    <td>최한시</td>
                 </tr>
                 </tbody>
             </table>
@@ -332,8 +327,6 @@
         <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
                 <colgroup><col class="col01">
-                    <col class="col01">
-                    <col class="col01">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -455,8 +448,6 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr class='info'>
@@ -470,7 +461,6 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
                 </tr>
                 <tr class='info'>
                     <!-- 고정 -->
@@ -483,7 +473,6 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
                 </tr>
                 <tr class='info'>
                     <td>&nbsp;</td><td/>
@@ -495,11 +484,9 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
                 </tr>
                 <tr class='info'>
                     <td>&nbsp;</td><td/>
-                    <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>

@@ -34,16 +34,14 @@
         ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
         ,round( ${MBTYPE + "_RI_RATE       "}   ,1) AS RI_RATE
         ,round( ${MBTYPE + "_DL_PRB_RATE   "}   ,1) AS DL_PRB_RATE
-        ,round( ${MBTYPE + "_MCS_AVERAGE   "}   ,1) AS MCS_AVERAGE       /* ss , nsn */
-        ,round( ${MBTYPE + "_MIMO_RATE     "}   ,1) AS MIMO_RATE         /* elg, nsn */
-        ,round( ${MBTYPE + "_RSSI          "}   ,1) AS RSSI              /*ss*/
-        ,round( ${       "R2_RSSI          "}   ,1) AS R2_RSSI           /*ss*/
-        ,round( ${MBTYPE + "_DL_THROUGHPUT "}   ,1) AS DL_THROUGHPUT     /*elg*/
-        ,round( ${MBTYPE + "_LICENSE_FAIL  "}   ,1) AS LICENSE_FAIL      /*elg*/
-        ,round( ${MBTYPE + "_PUCCH_AVG     "}   ,1) AS PUCCH_AVG         /*nsn*/
-        ,round( ${       "R2_PUCCH_AVG     "}   ,1) AS R2_PUCCH_AVG      /*nsn*/
-        ,round( ${MBTYPE + "_PUSCH_AVG     "}   ,1) AS PUSCH_AVG         /*nsn*/
-        ,round( ${       "R2_PUSCH_AVG     "}   ,1) AS R2_PUSCH_AVG      /*nsn*/
+        ,round( ${MBTYPE + "_MCS_AVERAGE   "}   ,1) AS MCS_AVERAGE
+        ,round( ${MBTYPE + "_MIMO_RATE     "}   ,1) AS MIMO_RATE
+        ,round( ${MBTYPE + "_DL_THROUGHPUT "}   ,1) AS DL_THROUGHPUT
+        ,round( ${MBTYPE + "_LICENSE_FAIL  "}   ,1) AS LICENSE_FAIL
+        ,round( NVL(${MBTYPE +"_RSSI"},${MBTYPE +"_PUCCH_AVG"}),1) AS PUCCH_AVG
+        ,round( NVL(R2_RSSI,R2_PUCCH_AVG),1)                       AS R2_PUCCH_AVG
+        ,round( ${MBTYPE + "_PUSCH_AVG   "}   ,1)                  AS PUSCH_AVG
+        ,round( R2_PUCCH_AVG,1)                                    AS R2_PUSCH_AVG
         ,round( ${MBTYPE + "_PDCP_DL_MB    "}   ,1) AS PDCP_DL_MB
         ,round( ${MBTYPE + "_PRB_USG_RATE  "}   ,1) AS PRB_USG_RATE
         ,round( ${MBTYPE + "_DRB_USG_RATE  "}   ,1) AS DRB_USG_RATE
@@ -191,18 +189,16 @@
             ,round(avg(ORG.CQI0_RATE      )  ,3)  AS CQI0_RATE
             ,round(avg(ORG.RI_RATE        )  ,3)  AS RI_RATE
             ,round(avg(ORG.DL_PRB_RATE    )  ,3)  AS DL_PRB_RATE
-            ,round(avg(ORG.MCS_AVERAGE    )  ,3)  AS MCS_AVERAGE      /* ss , nsn */
-            ,round(avg(ORG.MIMO_RATE      )  ,3)  AS MIMO_RATE        /* elg, nsn */
-            ,round(avg(ORG.RSSI           )  ,3)  AS RSSI             /*ss*/
-            ,round(avg(ORG.R2_RSSI        )  ,3)  AS R2_RSSI          /*ss*/
-            ,round(avg(ORG.DL_THROUGHPUT  )  ,3)  AS DL_THROUGHPUT    /*elg*/
-            ,round(avg(ORG.LICENSE_FAIL   )  ,3)  AS LICENSE_FAIL     /*elg*/
-            ,round(avg(ORG.PUCCH_AVG      )  ,3)  AS PUCCH_AVG        /*nsn*/
-            ,round(avg(ORG.R2_PUCCH_AVG   )  ,3)  AS R2_PUCCH_AVG     /*nsn*/
-            ,round(avg(ORG.PUSCH_AVG      )  ,3)  AS PUSCH_AVG        /*nsn*/
-            ,round(avg(ORG.R2_PUSCH_AVG   )  ,3)  AS R2_PUSCH_AVG     /*nsn*/
-            ,round(avg(ORG.PDCP_DL_MB     )  ,3)  AS PDCP_DL_MB
+            ,round(avg(ORG.MCS_AVERAGE    )  ,3)  AS MCS_AVERAGE
+            ,round(avg(ORG.MIMO_RATE      )  ,3)  AS MIMO_RATE
+            ,round(avg(ORG.DL_THROUGHPUT  )  ,3)  AS DL_THROUGHPUT
+            ,round(avg(ORG.LICENSE_FAIL   )  ,3)  AS LICENSE_FAIL
+            ,round(avg(ORG.PUCCH_AVG      )  ,3)  AS PUCCH_AVG
+            ,round(avg(ORG.R2_PUCCH_AVG   )  ,3)  AS R2_PUCCH_AVG
+            ,round(avg(ORG.PUSCH_AVG      )  ,3)  AS PUSCH_AVG
+            ,round(avg(ORG.R2_PUSCH_AVG   )  ,3)  AS R2_PUSCH_AVG
             ,round(avg(ORG.PRB_USG_RATE   )  ,3)  AS PRB_USG_RATE
+            ,round(avg(ORG.PDCP_DL_MB     )  ,3)  AS PDCP_DL_MB
             ,round(avg(ORG.DRB_USG_RATE   )  ,3)  AS DRB_USG_RATE
             ,round(avg(ORG.CON_TIME       )  ,3)  AS CON_TIME
             ,round(avg(ORG.TRY_CCNT       )  ,3)  AS TRY_CCNT

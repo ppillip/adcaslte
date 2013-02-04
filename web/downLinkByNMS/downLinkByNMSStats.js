@@ -319,8 +319,7 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
-//        console.log('param');
-//        console.log(param);
+        window.currentPosition = 0;
         jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStats",param,function(result,stat){
 
             $("input[name=checkAll]").attr("checked",false); //전체선택된거 원위치
@@ -355,8 +354,6 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RI_RATE     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_PRB_RATE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI        )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].R2_RSSI     )+"</td>"  /*SS*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MIMO_RATE    )+"</td>"  /*LG*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THROUGHPUT)+"</td>"  /*LG*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL )+"</td>"  /*LG*/
@@ -642,8 +639,6 @@ function appendToTable(callback){
         })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
             +"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI        )+"</td>"  /*SS*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_RSSI     )+"</td>"  /*SS*/
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
