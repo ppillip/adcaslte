@@ -152,7 +152,7 @@ function appendToTable(callback){
             .appendTo($leftTable);
 
         $("<tr name='" + row.ROWIDX + "'>"
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+ (row.MIMO_TYPE||"-") +"</td>"
             +"<td style='text-align: right;font-size:11px;'>"
             +(function(value,sign,critical) {
             if(Number(value) && critical != null && eval(value+sign+critical)) {
@@ -318,7 +318,7 @@ $(document).ready(function(){
             for(var i=0; i < 4; i++) {
                 $("tbody tr:first",$bottomRightTable).remove();
                 $("<tr class='info'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MIMO_TYPE  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+ "-" +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
