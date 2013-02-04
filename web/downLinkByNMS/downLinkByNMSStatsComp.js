@@ -503,8 +503,8 @@ $(document).ready(function(){
         $("#title01").text("MME");
         $("#title01After").text("MME");
         $("[group=title02]").show();
-        $("#title02").text("NE");
-        $("#title02After").text("NE");
+        $("#title02").text("EMS");
+        $("#title02After").text("EMS");
         $("#SEARCHTYPE").val("EMS");
         setLeft(2);
 
@@ -644,8 +644,6 @@ function getData(param, $leftTable, $rightTable, callback) {
             })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
                 +"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI        )+"</td>"  /*SS*/
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_RSSI     )+"</td>"  /*SS*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
@@ -718,8 +716,6 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RI_RATE     )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_PRB_RATE )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"    /*SS*/
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI        )+"</td>"    /*SS*/
-                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].R2_RSSI     )+"</td>"    /*SS*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MIMO_RATE    )+"</td>"   /*LG*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THROUGHPUT)+"</td>"   /*LG*/
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL )+"</td>"   /*LG*/

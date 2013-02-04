@@ -30,11 +30,11 @@ $(document).ready(function(){
 
             var callType = window.name; //location.href.substring(location.href.indexOf('=')+1);
             if(callType === 'workgroup') {
-                $("[group=workgroup]").show();
-                $("[group=tempgroup]").hide();
+                $(".workgroup").show();
+                $(".tempgroup").hide();
             } else {
-                $("[group=workgroup]").hide();
-                $("[group=tempgroup]").show();
+                $(".workgroup").hide();
+                $(".tempgroup").show();
             }
         },
         setDuCount : function() {
@@ -84,7 +84,7 @@ $(document).ready(function(){
             var $tbody = this.$duListTable.find("tbody");
             var $newDU =
                 $("<tr>"
-                    +"<td class='alignCenter'>"+row.MFC_NM+"</td>"
+                    +"<td style='text-align: center'>"+row.MFC_NM+"</td>"
                     +"<td>"
                     +"<div style='float: left'>"+row.BTS_NM_CMS+"</div>"
                     +"<div style='text-align: right'>"

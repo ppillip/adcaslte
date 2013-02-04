@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+
+    <sql id="DownLinkByQMS.selectCellTrafficORG">
+        SELECT /*+ no_merge */
+        YMD
+        ,INGR_ERP_CD
+        ,C_UID
+        ,CELL_ID
+        ,NVL(MCID,'-')                       AS MCID
+        ,NVL(FREQ_KIND,'-')                  AS FREQ_KIND
+        ,round( DL_TPUT                  ,1) AS DL_TPUT
+        ,round( UL_TPUT                  ,1) AS UL_TPUT
+        ,round( CQI_AVERAGE              ,1) AS CQI_AVERAGE
+        ,round( RANK_INDEX               ,1) AS RANK_INDEX
+        ,round( MCS_AVERAGE              ,1) AS MCS_AVERAGE
+        ,round( RSRP_AVERAGE             ,1) AS RSRP_AVERAGE
+        ,round( SINR_AVERAGE             ,1) AS SINR_AVERAGE
+        ,round( RSRQ_AVERAGE             ,1) AS RSRQ_AVERAGE
+        ,round( TXPW_PUCCH               ,1) AS TXPW_PUCCH
+        ,round( R3_CQI0_RATE             ,1) AS CQI0_RATE
+        ,round( R3_DL_PRB_RATE           ,1) AS DL_PRB_RATE
+        ,round( NVL(R3_RSSI,R3_PUCCH_AVG),1) AS RSSI0_PUCCH
+        ,round( NVL(R2_RSSI,R2_PUCCH_AVG),1) AS RSSI1_PUCCH
+        ,round( R3_PUSCH_AVG             ,1) AS RSSI0_PUSCH
+        ,round( R2_PUCCH_AVG             ,1) AS RSSI1_PUSCH
+        ,round( R3_LICENSE_FAIL          ,1) AS LICENSE_FAIL
+        FROM LTE_QMS_IDX_DAY
+        WHERE YMD BETWEEN #{FROMYMD} AND #{TOYMD}
+        <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
+            AND FREQ_KIND = #{FREQ_KIND}
+        </if>
+        <choose>
+            <when test="CELLGROUP_YN.equalsIgnoreCase('Y')">
+                AND (C_UID,INGR_ERP_CD,CELL_ID,NVL(MCID,'-')) IN
+                <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
+                    <![CDATA[
+                          (
+                           split(#{item},1,'_')
+                          ,split(#{item},2,'_')
+                          ,split(#{item},3,'_')
+                          ,split(#{item},4,'_')
+                          )
+                        ]]>
+                </foreach>
+            </when>
+            <otherwise>
+                AND (C_UID,INGR_ERP_CD) IN
+                <choose>
+                    <when test="WORKGROUP_YN.equalsIgnoreCase('Y')">
+                        (
+                        SELECT C_UID , INGR_ERP_CD
+                        FROM LTE_WORK_GROUP_DU
+                        WHERE WORKGROUP_ID = #{WORKGROUP_ID}
+                        AND USER_ID = #{USER_ID}
+                        )
+                    </when>
+                    <when test="WORKGROUP_YN.equalsIgnoreCase('N')">
+                        <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
+                            <![CDATA[
+                          (
+                           split(#{item},1,'_')
+                          ,split(#{item},2,'_')
+                          )
+                        ]]>
+                        </foreach>
+                    </when>
+                    <otherwise>
+                        (SELECT NULL AS C_UID, NULL AS INGR_ERP_CD FROM DUAL)
+                    </otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+
+    </sql>
+
+    <sql id="DownLinkByQMS.sqlFromPartAVG">
+        ,round(avg(ORG.DL_TPUT                  )  ,3) AS DL_TPUT
+        ,round(avg(ORG.UL_TPUT                  )  ,3) AS UL_TPUT
+        ,round(avg(ORG.CQI_AVERAGE              )  ,3) AS CQI_AVERAGE
+        ,round(avg(ORG.RANK_INDEX               )  ,3) AS RANK_INDEX
+        ,round(avg(ORG.MCS_AVERAGE              )  ,3) AS MCS_AVERAGE
+        ,round(avg(ORG.RSRP_AVERAGE             )  ,3) AS RSRP_AVERAGE
+        ,round(avg(ORG.SINR_AVERAGE             )  ,3) AS SINR_AVERAGE
+        ,round(avg(ORG.RSRQ_AVERAGE             )  ,3) AS RSRQ_AVERAGE
+        ,round(avg(ORG.TXPW_PUCCH               )  ,3) AS TXPW_PUCCH
+        ,round(avg(ORG.CQI0_RATE                )  ,3) AS CQI0_RATE
+        ,round(avg(ORG.DL_PRB_RATE              )  ,3) AS DL_PRB_RATE
+        ,round(avg(ORG.RSSI0_PUCCH              )  ,3) AS RSSI0_PUCCH
+        ,round(avg(ORG.RSSI1_PUCCH              )  ,3) AS RSSI1_PUCCH
+        ,round(avg(ORG.RSSI0_PUSCH              )  ,3) AS RSSI0_PUSCH
+        ,round(avg(ORG.RSSI1_PUSCH              )  ,3) AS RSSI1_PUSCH
+        ,round(avg(ORG.LICENSE_FAIL             )  ,3) AS LICENSE_FAIL
+    </sql>
+
+    <select id="DownLinkByQMS.selectCellTraffic" parameterType="hashmap" resultType="hashmap">
+        SELECT ROWNUM AS ROWIDX
+        ,du.BTS_NM             AS BTS_NM
+        ,cell.CELL_NM          AS CELL_NM
+        ,data.*
+        FROM (<include refid="DownLinkByQMS.selectCellTrafficORG"/>) data ,
+        LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+        WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
+        AND data.C_UID        = du.C_UID
+        AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
+        AND data.C_UID        = cell.C_UID
+        AND data.CELL_ID      = cell.CELL_ID
+        ORDER BY data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </select>
+
+    <select id="DownLinkByQMS.selectCellTrafficAVG" parameterType="hashmap" resultType="hashmap">
+        SELECT du.BTS_NM,cell.CELL_NM, data.*
+        FROM (SELECT
+        SUBSTR(#{FROMYMD},7,2) || '~' || SUBSTR(#{TOYMD},7,2) AS YMD
+        ,ORG.INGR_ERP_CD                      AS INGR_ERP_CD
+        ,ORG.C_UID                            AS C_UID
+        ,ORG.CELL_ID                          AS CELL_ID
+        ,ORG.MCID                             AS MCID
+        ,ORG.FREQ_KIND                        AS FREQ_KIND
+        <include refid="DownLinkByQMS.sqlFromPartAVG"/>
+        FROM (<include refid="DownLinkByQMS.selectCellTrafficORG"/>) ORG
+        GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND) data ,
+        LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+        WHERE data.INGR_ERP_CD  = du.INGR_ERP_CD
+        AND data.C_UID        = du.C_UID
+        AND data.INGR_ERP_CD  = cell.INGR_ERP_CD
+        AND data.C_UID        = cell.C_UID
+        AND data.CELL_ID      = cell.CELL_ID
+        ORDER BY data.YMD DESC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </select>
+
+</mapper>

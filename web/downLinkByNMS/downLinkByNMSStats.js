@@ -1,3 +1,7 @@
+//For Scroll Append
+var currentPosition = 0;
+var appendCount = 20;
+
 function scrollX() {
     document.all.divTopRight.scrollLeft = document.all.divBottomRight.scrollLeft;
     document.all.divMiddleRight.scrollLeft = document.all.divBottomRight.scrollLeft;
@@ -315,8 +319,7 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
-//        console.log('param');
-//        console.log(param);
+        window.currentPosition = 0;
         jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStats",param,function(result,stat){
 
             $("input[name=checkAll]").attr("checked",false); //전체선택된거 원위치
@@ -330,107 +333,18 @@ $(document).ready(function(){
                 return;
             }
 
-            $leftTable = $("#tableMiddleLeft tbody");
-            $rightTable = $("#tableMiddleRight tbody");
-            $bottomRightTable = $("#tableBottomRight");
-
-            //각항목 배열
-            var propertiesArray = {};
-            //for 문으로 튜닝한다
-            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
-
-                var row = result.rows[idx];
-
-                //각 항목별 배열만들기
-                propertiesArray = getPropertiesArray(row,propertiesArray);
-
-                var $tr = $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='width:70px;text-align:center;font-size:11px;'>"+row.YMD +"</td>"
-                    +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title01'>"+isUndifined(row.TITLE01,"-") + "</td>"
-                    +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title02'>"+isUndifined(row.TITLE02,"-") + "</td>"
-                    +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"+isUndifined(row.TITLE03,"-") +"</td>"
-                    +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
-                    +"<td style='width:60px;text-align:center;font-size:11px;'>"
-                    + (function(_idx, _row){
-                        return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                    })(idx, row)
-                    +"</td>"
-                    +"</tr>")
-                    .data("row",row)
-                    .appendTo($leftTable);
-
-                $tr.children("td[group^=title]").each(function(index,childTd){
-                    if($("#title01").is(":visible") && $(childTd).is("[group=title01]")) {
-                        $(childTd).show();
-                    }
-                    if($("#title02").is(":visible") && $(childTd).is("[group=title02]")) {
-                        $(childTd).show();
-                    }
-                    if($("#title03").is(":visible") && $(childTd).is("[group=title03]")) {
-                        $(childTd).show();
-                    }
-                });
-
-                $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"
-                    +(function(value,sign,critical) {
-                    if(Number(value) && critical != null && eval(value+sign+critical)) {
-                        return "<span style='color:red'>"+value+"</span>";
-                    } else {
-                        return value;
-                    }
-                })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
-                    +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"
-                    +(function(value,sign,critical) {
-                    if(Number(value) && critical != null && eval(value+sign+critical)) {
-                        return "<span style='color:red'>"+value+"</span>";
-                    } else {
-                        return value;
-                    }
-                })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
-                    +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI        )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_RSSI     )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PDCP_DL_MB  )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PRB_USG_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DRB_USG_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_TIME    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_MB */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_PRB*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TRY_CC*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TIME  */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_MB */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_PRB*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TRY_CC*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TIME  */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"</tr>")
-                    .appendTo($rightTable);
-
-            }
+            //테이블 랜더링
+            appendToTable(function(){});
 
             //각항목 배열 통계
+            var propertiesArray = {};
+            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
+                var row = result.rows[idx];
+                propertiesArray = getPropertiesArray(row,propertiesArray);
+            }
             var statsArray = getStatsArray(propertiesArray);
 
+            $bottomRightTable = $("#tableBottomRight");
             for(var i=0; i < 4; i++) {
                 $("tbody tr:first",$bottomRightTable).remove();
                 $("<tr class='info'>"
@@ -440,8 +354,6 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RI_RATE     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_PRB_RATE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI        )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].R2_RSSI     )+"</td>"  /*SS*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MIMO_RATE    )+"</td>"  /*LG*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THROUGHPUT)+"</td>"  /*LG*/
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL )+"</td>"  /*LG*/
@@ -478,7 +390,7 @@ $(document).ready(function(){
         },"json");
     });
 /*===============================================================================
- * For SEARCH
+ * End For SEARCH
  *==============================================================================*/
 
 /*===============================================================================
@@ -601,7 +513,7 @@ $(document).ready(function(){
         $("[group=title01]").show();
         $("#title01").text("MME");
         $("[group=title02]").show();
-        $("#title02").text("NE");
+        $("#title02").text("EMS");
         $("#SEARCHTYPE").val("EMS");
         setLeft(2);
 
@@ -647,9 +559,120 @@ function setLeft(depth) {
     $("#tableBottomRight").unwrap();
     $("#tableBottomRight").wrap("<div name='divBottomRight' id='divBottomRight' onscroll='javascript:scrollX();' style='width:"+middleWidth+"px;'></div>");
 
-
     $("#tableMiddleLeft tbody").empty();
     $("#tableMiddleRight tbody").empty();
     $("#tableBottomRight").find("td").html("&nbsp;");
 
+    /*===============================================================================
+     * For SCROLL APPEND
+     *==============================================================================*/
+    $("#divMiddleRight").scroll(function(){
+        if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
+        {
+            appendToTable(function(){}); //callback 필요시 삽입
+        }
+    });
+    /*===============================================================================
+     * End For SCROLL APPEND
+     *==============================================================================*/
 }
+
+/*===============================================================================
+ * For SCROLL APPEND
+ *
+ *==============================================================================*/
+function appendToTable(callback){
+
+    $leftTable = $("#tableMiddleLeft tbody");
+    $rightTable = $("#tableMiddleRight tbody");
+
+    for(var idx=currentPosition; idx<(currentPosition + appendCount) && idx<result.rows.length; idx++){
+        row = result.rows[idx];
+
+        var $tr = $("<tr name='" + row.ROWIDX + "'>"
+            +"<td style='width:70px;text-align:center;font-size:11px;'>"+row.YMD +"</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title01'>"+isUndifined(row.TITLE01,"-") + "</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title02'>"+isUndifined(row.TITLE02,"-") + "</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"+isUndifined(row.TITLE03,"-") +"</td>"
+            +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
+            +"<td style='width:60px;text-align:center;font-size:11px;'>"
+            + (function(_idx, _row){
+            return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+        })(idx, row)
+            +"</td>"
+            +"</tr>")
+            .data("row",row)
+            .appendTo($leftTable);
+
+        $tr.children("td[group^=title]").each(function(index,childTd){
+            if($("#title01").is(":visible") && $(childTd).is("[group=title01]")) {
+                $(childTd).show();
+            }
+            if($("#title02").is(":visible") && $(childTd).is("[group=title02]")) {
+                $(childTd).show();
+            }
+            if($("#title03").is(":visible") && $(childTd).is("[group=title03]")) {
+                $(childTd).show();
+            }
+        });
+
+        $("<tr name='" + row.ROWIDX + "'>"
+            +"<td style='text-align: right;font-size:11px;'>"
+            +(function(value,sign,critical) {
+            if(Number(value) && critical != null && eval(value+sign+critical)) {
+                return "<span style='color:red'>"+value+"</span>";
+            } else {
+                return value;
+            }
+        })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+            +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"
+            +(function(value,sign,critical) {
+            if(Number(value) && critical != null && eval(value+sign+critical)) {
+                return "<span style='color:red'>"+value+"</span>";
+            } else {
+                return value;
+            }
+        })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+            +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE )+"</td>"    /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"    /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PDCP_DL_MB  )+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PRB_USG_RATE)+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DRB_USG_RATE)+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_TIME    )+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    )+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_MB */"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_PRB*/"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TRY_CC*/"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TIME  */"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_MB */"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_PRB*/"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TRY_CC*/"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TIME  */"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+            +"</tr>")
+            .appendTo($rightTable);
+
+    }
+
+    if (typeof(callback) === 'function') callback();
+    window.currentPosition = window.currentPosition + window.appendCount;
+
+}
+

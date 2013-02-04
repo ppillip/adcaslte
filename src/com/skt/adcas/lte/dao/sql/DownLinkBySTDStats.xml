@@ -9,8 +9,8 @@
         ,LTE.FREQ_KIND
         <choose>
             <when test="SEARCHTYPE.equalsIgnoreCase('BONBU') ||
-                 SEARCHTYPE.equalsIgnoreCase('TEAM') ||
-                 SEARCHTYPE.equalsIgnoreCase('PART')">
+                        SEARCHTYPE.equalsIgnoreCase('TEAM')  ||
+                        SEARCHTYPE.equalsIgnoreCase('PART')">
                 ,LTE.BONBU_NM
                 ,LTE.BONBU_CD
                 ,LTE.OPER_TEAM_NM
@@ -19,7 +19,7 @@
                 ,LTE.PART_CD
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('CITY') ||
-                 SEARCHTYPE.equalsIgnoreCase('UNI')">
+                        SEARCHTYPE.equalsIgnoreCase('UNI')">
                 ,LTE.CITY_CD
                 ,LTE.CITY_NM
                 ,LTE.UNI
@@ -246,7 +246,7 @@
                 ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02 ,ORG.UNI
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-                ,ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
+                ,'MMEG'||ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
             </when>
         </choose>
         ,ORG.FREQ_KIND                        AS FREQ_KIND

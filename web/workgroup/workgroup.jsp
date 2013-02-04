@@ -25,7 +25,7 @@
 
 <div class="row" style="padding:0px 10px;">
 <%--<div id='search_table'>--%>
-<div group="workgroup" >
+<div class="workgroup">
     <table style="margin-left:15px;">
         <tr>
             <td background="/adcaslte/common/bootstrap/img/searchbox_top_l.png" style="height:9px;">&nbsp;</td>
@@ -77,11 +77,11 @@
     <table style="height:30px;">
         <tr>
             <td>
-                <div class="floatLeft" group="workgroup">
+                <div class="floatLeft workgroup">
                     <i class="icon-home"></i>&nbsp;선택된 WorkGroup 명 :&nbsp;&nbsp;
                     <b><span id="selectedWorkgroup" name="selectedWorkgroup">WorkGroup을 선택하세요</span></b>
                 </div>
-                <div group="tempgroup">
+                <div class="tempgroup">
                     &nbsp;&nbsp;임시 WorkGroup
                 </div>
             </td>
@@ -94,8 +94,8 @@
     <table style="height:30px;">
         <tr>
             <td style="width:250px">
-                <button class="btn btn-mini btn-info" group="workgroup" name="addDuListBtn" id="addDuListBtn"><i class="icon-plus"></i>&nbsp;&nbsp;&nbsp;DU 추가</button>
-                <button class="btn btn-mini btn-info" group="tempgroup" name="selectDuListBtn" id="selectDuListBtn"><i class="icon-ok"></i>&nbsp;선택</button>
+                <button class="btn btn-mini btn-info workgroup" name="addDuListBtn" id="addDuListBtn"><i class="icon-plus"></i>&nbsp;&nbsp;&nbsp;DU 추가</button>
+                <button class="btn btn-mini btn-info tempgroup" name="selectDuListBtn" id="selectDuListBtn"><i class="icon-ok"></i>&nbsp;선택</button>
                 <button class="btn btn-mini btn-info hide" name="closeDuListBtn" id="closeDuListBtn"><i class="icon-off"></i>&nbsp;닫기</button>
             </td>
             <td>
@@ -109,12 +109,12 @@
 <div class="clearBoth"></div>
 
 <%-- WORKGROUP List --%>
-<div class="span5 floatLeft" id="divWorkgroup" group="workgroup">
+<div class="span5 floatLeft workgroup" id="divWorkgroup">
     <div>
         <table class="table table-bordered table-condensed">
             <tbody>
             <tr class="info">
-                <td class="alignCenter" style="height:23px;">WorkGroup 이름</td>
+                <td style="height:23px; text-align: center;">WorkGroup 이름</td>
             </tr>
             </tbody>
         </table>
@@ -127,7 +127,7 @@
 </div>
 <%-- WORKGROUP List --%>
 <%-- DU Tree --%>
-<div class="span5 floatLeft" id="divDU" group="tempgroup">
+<div class="span5 floatLeft tempgroup" id="divDU">
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul id="duTab" class="nav nav-tabs">
             <li id="tabEms"><a href="#tabContent0" data-toggle="tab">EMS별</a></li>
@@ -217,7 +217,7 @@
             </div>
         </div>
     </div>
-    <div class="well well-small" id="duHelp" group="tempgroup" style="font-weight: bold;">
+    <div class="well well-small tempgroup" id="duHelp" style="font-weight: bold;">
         DU 클릭시 자동으로 DU리스트에 추가됩니다.
     </div>
 
@@ -229,7 +229,7 @@
     <table class="table table-bordered table-condensed">
         <tbody>
         <tr class="info">
-            <td class="alignCenter" style="width:250px">
+            <td style="width:250px; text-align: center;">
                 DU 명
                 <div class="floatRight alignRight">
                     <a class="btn btn-mini" id="delDuBtn"><i class="icon-minus"></i>모두삭제</a>&nbsp;&nbsp;
