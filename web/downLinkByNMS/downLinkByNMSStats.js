@@ -516,7 +516,7 @@ $(document).ready(function(){
         $("[group=title01]").show();
         $("#title01").text("MME");
         $("[group=title02]").show();
-        $("#title02").text("NE");
+        $("#title02").text("EMS");
         $("#SEARCHTYPE").val("EMS");
         setLeft(2);
 

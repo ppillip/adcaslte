@@ -503,8 +503,8 @@ $(document).ready(function(){
         $("#title01").text("MME");
         $("#title01After").text("MME");
         $("[group=title02]").show();
-        $("#title02").text("NE");
-        $("#title02After").text("NE");
+        $("#title02").text("EMS");
+        $("#title02After").text("EMS");
         $("#SEARCHTYPE").val("EMS");
         setLeft(2);
 

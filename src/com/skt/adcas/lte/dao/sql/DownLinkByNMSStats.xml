@@ -288,7 +288,7 @@
                 ,ORG.CITY_NM AS TITLE01 ,ORG.CITY_CD ,ORG.UNI AS TITLE02 ,ORG.UNI
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-                ,ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
+                ,'MMEG'||ORG.MME_GRP_ID AS TITLE01 ,ORG.MME_GRP_ID ,ORG.NE_ID AS TITLE02 ,ORG.NE_ID
             </when>
         </choose>
         ,ORG.FREQ_KIND                        AS FREQ_KIND
