@@ -15,13 +15,16 @@
     <script src="/adcaslte/common/js/moment.min.js"></script>
     <script src="/adcaslte/common/js/accounting.min.js"></script>
 
+    <script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
+    <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
+    <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
+
     <script src="/adcaslte/common/js/jquery.progress.js"></script>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
     <link href="downLinkByNMSStats.css" rel="stylesheet">
     <script src="downLinkByNMSStats.js" language="javascript"></script>
     <script src="common.js" language="javascript"></script>
-    <script src="graph.js" language="javascript"></script>
 
 </head>
 <body>
@@ -51,7 +54,7 @@
                     <tr>
                         <td background="/adcaslte/common/bootstrap/img/searchbox_center1.png" style="width:6px;">&nbsp;</td>
                         <td>
-                            <table width="1240" height="110" cellspacing="0" cellpadding="0" border="0">
+                            <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
                                         <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
@@ -505,27 +508,20 @@
 </table>
 
 </div>
-<script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
-<script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
 
 <!-- Modal -->
 <div id="cqiModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="cqiModalLabel" aria-hidden="true"
-     style="width: 1000px; postion:absolute; top:330px; left:400px;">
+     style="width: 1000px; postion:absolute; top:430px; left:450px;">
     <div class="modal-footer" style="height:30px; vertical-align: middle">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <button type="button" class="btn btn-mini pull-left" name="excelDownload"><i class="icon-download"></i> EXCEL Down </button>
         <div class="pull-left" style="margin-left:20px;">
-            CQI PDF graph :<input type="radio" name="cqiFlag" value="cqiPDFContainer" checked="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            CQI CDF graph :<input type="radio" name="cqiFlag" value="cqiCDFContainer">
+            CQI PDF graph :<input type="radio" name="cqiFlag" value="PDF" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            CQI CDF graph :<input type="radio" name="cqiFlag" value="CDF">
         </div>
     </div>
     <div class="modal-body">
-        <div id="cqiPDFContainer" style="width: 960px; height: 400px; margin: 0 0 0 0;"></div>
-        <div id="cqiCDFContainer" style="width: 960px; height: 400px; margin: 0 0 0 0;"></div>
-    </div>
-    <div class="modal-footer" style="height:30px;">
-        <button class="btn btn-mini" data-dismiss="modal" aria-hidden="true">닫기</button>
-        <!-- button class="btn btn-primary btn-mini">Save changes</button -->
+        <div id="graphContainer" style="width: 960px; height: 390px; margin: 0px;"></div>
     </div>
 </div>
 

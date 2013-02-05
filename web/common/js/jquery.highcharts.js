@@ -85,10 +85,135 @@
                 series: cqiSeries
             });
         },
-        drawThrpGraph : function(rows,thrpColumnName) {
 
-//            console.log('rows');
-//            console.log(rows);
+        drawCqiCompGraph : function(cellList,afterRows,cqiType,mfcCd,callback) {
+
+            //For Excel File
+            var cqiBeforeExcelData = {rows:[]};
+            var cqiAfterExcelData  = {rows:[]};
+            var rows = [];
+            cellList.each(function(){
+                rows.push($(this).parent().parent().data("row"));
+            });
+            var cqiSeries = [];
+
+            for (var i= 0, max=rows.length; i<max; i++) {
+                var _thisRow = rows[i];
+                cqiSeries.push((function(row){
+                    return {
+                        name : (function (_row) {
+                            if(_row.TITLE03) {
+                                return _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03 + ":" + _row.FREQ_KIND;
+                            } else if(_row.TITLE02) {
+                                return _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.FREQ_KIND;
+                            } else if(_row.TITLE01) {
+                                return _row.TITLE01 + ":" + _row.FREQ_KIND;
+                            } else if(_row.BTS_NM) {
+                                return _row.BTS_NM + ":" + _row.CELL_ID+ ":" + _row.MCID + ":" + _row.FREQ_KIND;
+                            }
+                        })(row)
+                        ,data : (function (_row) {
+                            var data = [];
+                            for (var j=0; j<=15; j++) {
+                                data.push(_row['CQI_'+cqiType+'_'+(j>=10?j:'0'+j)] || 0);
+                            }
+                            return data;
+                        })(row)
+                        ,row : row //For Excel File
+                    }
+                })(_thisRow));
+            }
+
+            var cqiCompSeries = [];
+
+            for(var i= 0,max=afterRows.length; i<max; i++) {
+                var _thisRow = afterRows[i];
+                var seriesName = (function (_row) {
+                    if(_row.TITLE03) {
+                        return _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03 + ":" + _row.FREQ_KIND;
+                    } else if(_row.TITLE02) {
+                        return _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.FREQ_KIND;
+                    } else if(_row.TITLE01) {
+                        return _row.TITLE01 + ":" + _row.FREQ_KIND;
+                    } else if(_row.BTS_NM) {
+                        return _row.BTS_NM + ":" + _row.CELL_ID+ ":" + _row.MCID + ":" + _row.FREQ_KIND;
+                    }
+                })(_thisRow);
+
+                for (var j=0; j<cqiSeries.length; j++) {
+                    if (cqiSeries[j].name === seriesName) {
+                        cqiCompSeries.push({name:'전:'+cqiSeries[j].name,data:cqiSeries[j].data});
+                        cqiCompSeries.push({name:'후:'+seriesName,data:(function (_row) {
+                            var data = [];
+                            for (var j=0; j<=15; j++) {
+                                data.push(_row['CQI_'+cqiType+'_'+(j>=10?j:'0'+j)] || 0);
+                            }
+                            return data;
+                        })(_thisRow)});
+                        //For Excel File
+                        cqiBeforeExcelData.rows.push(cqiSeries[j].row);
+                        cqiAfterExcelData.rows.push(_thisRow);
+                        break;
+                    }
+                }
+            }
+
+            var $this = $(this);
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: $this.attr("id"),
+                    type: 'line',
+                    marginRight: 330,
+                    marginBottom: 20
+                },
+                title: {
+                    text: 'CQI PDF GRAPH',
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: 'Source: qcas.sktelecom.com',
+                    x: -20
+                },
+                xAxis: {
+                    categories : (function (MFC_CD) {
+                        return (MFC_CD === "MFC00002")
+                            ?['#01', '#02', '#03', '#04', '#05', '#06', '#07', '#08', '#09', '#10', '#11', '#12', '#13', '#14', '#15', '#16']
+                            :['#00', '#01', '#02', '#03', '#04', '#05', '#06', '#07', '#08', '#09', '#10', '#11', '#12', '#13', '#14', '#15'];
+                    })(mfcCd || "MFC00001")
+                },
+                yAxis: {
+                    title: {
+                        text: '%'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                            this.x +': '+ this.y ;
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -20,
+                    y: 30,
+                    borderWidth: 0
+                },
+                series: cqiCompSeries
+            });
+
+            if (typeof(callback) === 'function') {
+                callback(cqiBeforeExcelData,cqiAfterExcelData);
+            }
+
+        },
+        drawThrpGraph : function(rows,thrpColumnName) {
 
             var thrpColumn = "";
             if (thrpColumnName) {
@@ -113,9 +238,6 @@
                     categories.push(rows[i].YMD);
                 }
             }
-
-//            console.log('categories');
-//            console.log(categories);
 
             for(var i= 0,max=rows.length; i<max; i++) {
                 var _thisRow = rows[i];
@@ -145,9 +267,6 @@
                     series.push({name:name,data:[_thisData]});
                 }
             }
-
-//            console.log('series');
-//            console.log(series);
 
             var $this = $(this);
             var chart = new Highcharts.Chart({
