@@ -824,7 +824,7 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
             row.createCell(4 ).setCellValue((String) jrow.get("CELL_NM")         );
             row.createCell(5 ).setCellValue((String) jrow.get("MCID")            );
             row.createCell(6 ).setCellValue((String) jrow.get("FREQ_KIND")      );
-            row.createCell(7 ).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_TYPE")?jrow.get("MIMO_TYPE").toString():"0"));      // 용량(Mbps)");       //   "MIMO_TYPE"       //추가됨
+            row.createCell(7 ).setCellValue(jrow.containsKey("MIMO_TYPE")?jrow.get("MIMO_TYPE").toString():"0");      // 미모타입");       //   "MIMO_TYPE"       //추가됨
             row.createCell(8 ).setCellValue(Double.parseDouble(jrow.containsKey("THROUGHPUT")?jrow.get("THROUGHPUT").toString():"0"));      // 용량(Mbps)");       //   "THROUGHPUT"
             row.createCell(9 ).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE")?jrow.get("CQI_AVERAGE").toString():"0"));    // CQI 평균");         //   "CQI_AVERAGE"
             row.createCell(10).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE")?jrow.get("CQI0_RATE").toString():"0"));         // CQI0 비율(%)");         //   "RI_RATE"
