@@ -61,7 +61,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
+                                    <td style="padding: 1px 10px">
 
                                         <div name="divSearch" ID="divSearch" style="width:1210px;vertical-align:middle;">
                                             <table border="0">

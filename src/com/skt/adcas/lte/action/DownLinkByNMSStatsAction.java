@@ -645,8 +645,6 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("");                  //"RI2 비율(%) : RI_RATE"
         hrow0.createCell(a++).setCellValue("");                  //"DL PRB 사용율(%) : DL_PRB_RATE"
         hrow0.createCell(a++).setCellValue("");                  //"MCS 평균 : MCS_AVERAGE"
-        hrow0.createCell(a++).setCellValue("RSSI");             //"RSSI-최번시 : RSSI"
-        hrow0.createCell(a++).setCellValue("RSSI");             //"RSSI-최한시 : R2_RSSI"
         hrow0.createCell(a++).setCellValue("");                  //"MIMO 비율 : MIMO_RATE"
         hrow0.createCell(a++).setCellValue("");                  //"DL Throughput(Kbps) : DL_THROUGHPUT"
         hrow0.createCell(a++).setCellValue("");                  //"License 초과실패호 : LICENSE_FAIL"
@@ -665,30 +663,25 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-CD율(%) : CDC_RATE"
 
         if (searchType.equalsIgnoreCase("BONBU")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,9,10));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,14,17));
             sheet.addMergedRegion(new CellRangeAddress(0,0,16,17));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,18,19));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,20,26));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,18,24));
         } else if (searchType.equalsIgnoreCase("TEAM")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,10,11));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,15,16));
             sheet.addMergedRegion(new CellRangeAddress(0,0,17,18));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,19,20));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,21,27));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,19,25));
         } else if (searchType.equalsIgnoreCase("PART")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,11,12));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,18,19));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,20,21));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,22,28));
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,9,10));
             sheet.addMergedRegion(new CellRangeAddress(0,0,16,17));
             sheet.addMergedRegion(new CellRangeAddress(0,0,18,19));
             sheet.addMergedRegion(new CellRangeAddress(0,0,20,26));
+        } else if (searchType.equalsIgnoreCase("CITY")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,0,14,17));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,16,17));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,18,24));
         } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,10,11));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,15,16));
             sheet.addMergedRegion(new CellRangeAddress(0,0,17,18));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,19,20));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,21,27));
+            sheet.addMergedRegion(new CellRangeAddress(0,0,19,25));
         }
 
         log.debug("createCellTrafficStatsExcelSheet : hrow0 end");
@@ -719,8 +712,6 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         hrow1.createCell(b++).setCellValue("RI2 비율(%)");             //"RI2 비율(%) : RI_RATE"
         hrow1.createCell(b++).setCellValue("DL PRB 사용율(%)");       //"DL PRB 사용율(%) : DL_PRB_RATE"
         hrow1.createCell(b++).setCellValue("MCS 평균");                //"MCS 평균 : MCS_AVERAGE"
-        hrow1.createCell(b++).setCellValue("최번시");                  //"RSSI-최번시 : RSSI"
-        hrow1.createCell(b++).setCellValue("최한시");                  //"RSSI-최한시 : R2_RSSI"
         hrow1.createCell(b++).setCellValue("MIMO 비율");              //"MIMO 비율 : MIMO_RATE"
         hrow1.createCell(b++).setCellValue("DL Throughput(Kbps)");  //"DL Throughput(Kbps) : DL_THROUGHPUT"
         hrow1.createCell(b++).setCellValue("License 초과실패호");    //"License 초과실패호 : LICENSE_FAIL"
@@ -773,8 +764,6 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
             row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
             row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI")?jrow.get("RSSI").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("R2_RSSI1")?jrow.get("R2_RSSI1").toString():"0"));
             row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
             row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("DL_THROUGHPUT")?jrow.get("DL_THROUGHPUT").toString():"0"));
             row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
