@@ -60,7 +60,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
+                                    <td style="padding: 1px 10px">
 
                                         <div name="divSearch" ID="divSearch" style="width:1210px;vertical-align:middle;">
                                             <input type="hidden" name="TERMTYPE" value="MON">
@@ -445,7 +445,7 @@
      style="width: 1000px; postion:absolute; top:430px; left:450px;">
     <div class="modal-footer" style="height:30px; vertical-align: middle">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <button type="button" class="btn btn-mini pull-left" name="excelDownload"><i class="icon-download"></i> EXCEL Down </button>
+        <button type="button" class="btn btn-mini pull-left" name="excelDownload"><i class="icon-download"></i> EXCEL Download </button>
         <div class="pull-left" style="margin-left:20px;">
             CQI PDF graph :<input type="radio" name="cqiFlag" value="PDF" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             CQI CDF graph :<input type="radio" name="cqiFlag" value="CDF">
