@@ -146,7 +146,7 @@ $(document).ready(function(){
             $('#cqiModal').modal('show');
         //For 용량그래프
         } else if (name === 'showThrpGraph') {
-            window.open("downLinkByNMSStatsCompGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkByNMSStatsCompGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });

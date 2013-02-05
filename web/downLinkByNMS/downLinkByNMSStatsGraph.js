@@ -1,10 +1,10 @@
 $(document).ajaxStart(function(){
     $("<div id='t_progress' style='position: absolute;top:340px;left:500px;'><img src='/adcaslte/common/img/ajax-loader.gif'/></div>").appendTo("body");
 }).ajaxComplete(function(){
-        $("#t_progress").remove();
-    }).ajaxError(function(){
-        $("#t_progress").remove();
-    });
+    $("#t_progress").remove();
+}).ajaxError(function(){
+    $("#t_progress").remove();
+});
 
 $(document).ready(function(){
 
@@ -59,9 +59,11 @@ $(document).ready(function(){
     $("input[value="+$opener.find("input[name=TERMTYPE]:checked").val()+"]").attr("checked","checked");
     $("input[value="+$opener.find("input[name=DAYTIME_SEQ]:checked").val()+"]").attr("checked","checked");
     $("input[value="+$opener.find("input[name=VIEWTYPE]:checked").val()+"]").attr("checked","checked");
-    if (window.name === 'showThrpGraph') {
+
+    var chart = location.search.substring(location.search.indexOf('=')+1);
+    if (chart === 'showThrpGraph') {
         $("input[name=CHARTTYPE][value=THROUGHPUT]").attr("checked","checked");
-    } else if (window.name === 'showHistogram') {
+    } else if (chart === 'showHistogram') {
         $("input[name=CHARTTYPE][value=HISTOGRAM]").attr("checked","checked");
     }
 
@@ -189,10 +191,6 @@ $(document).ready(function(){
 /*===============================================================================
  * For GRAPH
  *==============================================================================*/
-//    var rows = [];
-//    $opener.find("input[type=checkbox][name!=checkAll]:checked").each(function(idx,element){
-//        rows.push(window.opener.$(element).parents("tr:first").data("row"));
-//    });
     //그래프 선택시 이벤트 설정
     $("input[name=CHARTTYPE]").click(function () {
         if (this.value === 'THROUGHPUT') {
@@ -203,7 +201,6 @@ $(document).ready(function(){
             });
         }
     });
-
 /*===============================================================================
  * End For GRAPH
  *==============================================================================*/
@@ -221,8 +218,6 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
-//        console.log('subList');
-//        console.log(subList);
         param["SUBLIST"] = subList.join("|");
 
         jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStats",param,function(result,stat){

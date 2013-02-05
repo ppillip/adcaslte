@@ -243,11 +243,11 @@
                 var _thisRow = rows[i];
                 var name = '';
                 if(_thisRow.TITLE03) {
-                    name = _thisRow.YMD + ":" + _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.TITLE03 + ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.TITLE03 + ":" + _thisRow.FREQ_KIND;
                 } else if(_thisRow.TITLE02) {
-                    name = _thisRow.YMD + ":" + _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.FREQ_KIND;
                 } else if(_thisRow.TITLE01) {
-                    name = _thisRow.YMD + ":" + _thisRow.TITLE01 + ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.TITLE01 + ":" + _thisRow.FREQ_KIND;
                 } else {
                     name = _thisRow.YMD + ":" + _thisRow.BTS_NM + ":" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ ":" + _thisRow.FREQ_KIND;
                 }
