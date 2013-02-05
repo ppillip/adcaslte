@@ -17,6 +17,7 @@
         ,round( RANK_INDEX               ,1) AS RANK_INDEX
         ,round( MCS_AVERAGE              ,1) AS MCS_AVERAGE
         ,round( RSRP_AVERAGE             ,1) AS RSRP_AVERAGE
+        ,round( RSSI_AVERAGE             ,1) AS RSSI_AVERAGE
         ,round( SINR_AVERAGE             ,1) AS SINR_AVERAGE
         ,round( RSRQ_AVERAGE             ,1) AS RSRQ_AVERAGE
         ,round( TXPW_PUCCH               ,1) AS TXPW_PUCCH
@@ -83,6 +84,7 @@
         ,round(avg(ORG.RANK_INDEX               )  ,3) AS RANK_INDEX
         ,round(avg(ORG.MCS_AVERAGE              )  ,3) AS MCS_AVERAGE
         ,round(avg(ORG.RSRP_AVERAGE             )  ,3) AS RSRP_AVERAGE
+        ,round(avg(ORG.RSSI_AVERAGE             )  ,3) AS RSSI_AVERAGE
         ,round(avg(ORG.SINR_AVERAGE             )  ,3) AS SINR_AVERAGE
         ,round(avg(ORG.RSRQ_AVERAGE             )  ,3) AS RSRQ_AVERAGE
         ,round(avg(ORG.TXPW_PUCCH               )  ,3) AS TXPW_PUCCH

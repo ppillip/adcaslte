@@ -15,13 +15,13 @@
                     return {
                         name : (function (_row) {
                             if(_row.TITLE03) {
-                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03;
+                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03 + ":" + _row.FREQ_KIND;
                             } else if(_row.TITLE02) {
-                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02;
+                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.FREQ_KIND;
                             } else if(_row.TITLE01) {
-                                return _row.YMD + ":" + _row.TITLE01;
+                                return _row.YMD + ":" + _row.TITLE01 + ":" + _row.FREQ_KIND;
                             } else if(_row.BTS_NM) {
-                                return _row.YMD + ":" + _row.BTS_NM + ":" + _row.CELL_ID
+                                return _row.YMD + ":" + _row.BTS_NM + ":" + _row.CELL_ID+ ":" + _row.MCID + ":" + _row.FREQ_KIND;
                             }
                         })(row)
                         ,data : (function (_row) {
@@ -243,11 +243,11 @@
                 var _thisRow = rows[i];
                 var name = '';
                 if(_thisRow.TITLE03) {
-                    name = _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.TITLE03 + ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.YMD + ":" + _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.TITLE03 + ":" + _thisRow.FREQ_KIND;
                 } else if(_thisRow.TITLE02) {
-                    name = _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.YMD + ":" + _thisRow.TITLE01 + ":" + _thisRow.TITLE02 + ":" + _thisRow.FREQ_KIND;
                 } else if(_thisRow.TITLE01) {
-                    name = _thisRow.TITLE01 + ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.YMD + ":" + _thisRow.TITLE01 + ":" + _thisRow.FREQ_KIND;
                 } else {
                     name = _thisRow.YMD + ":" + _thisRow.BTS_NM + ":" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ ":" + _thisRow.FREQ_KIND;
                 }
