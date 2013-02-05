@@ -12,12 +12,12 @@ div[name=divDailyDataPad] tr.info td {text-align: center;font-size:11px;}
 div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 
 div[name=divTopLeft]     {}
-div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:620px; }
+div[name=divTopRight]    {overflow-x:hidden; overflow-y: hidden; width:725px;}
 
-div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:220px; width:636px; /*col00 변경시 수정*/}
-div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:636px;   height:220px;                                                            }
+div[name=divMiddleLeft]  {overflow-x:hidden; overflow-y: hidden; height:220px;}
+div[name=divMiddleRight] {overflow-x:hidden; overflow-y: scroll; width:741px; height:220px;}
 
-div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:620px;}
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:725px;}
 
 .col01 {width:70px;}
 
