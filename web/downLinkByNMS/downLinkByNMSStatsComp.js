@@ -45,30 +45,30 @@ $(document).ready(function(){
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
-            $('#datepicker01').datepicker('hide');
-        });
+        $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
+        $('#datepicker01').datepicker('hide');
+    });
     $('#datepicker02').val(_today)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
-            $('#datepicker02').datepicker('hide');
-        });
+        $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
+        $('#datepicker02').datepicker('hide');
+    });
     $('#datepicker03').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=FROMYMD2]").val($("#datepicker03").val().replace(/-/gi,''));
-            $('#datepicker03').datepicker('hide');
-        });
+        $("input[name=FROMYMD2]").val($("#datepicker03").val().replace(/-/gi,''));
+        $('#datepicker03').datepicker('hide');
+    });
     $('#datepicker04').val(_today)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=TOYMD2]").val($("#datepicker04").val().replace(/-/gi,''));
-            $('#datepicker04').datepicker('hide');
-        });
+        $("input[name=TOYMD2]").val($("#datepicker04").val().replace(/-/gi,''));
+        $('#datepicker04').datepicker('hide');
+    });
     $("input[name=FROMYMD]").val($("#datepicker01").val().replace(/-/gi,''));
     $("input[name=TOYMD]").val($("#datepicker02").val().replace(/-/gi,''));
     $("input[name=FROMYMD2]").val($("#datepicker03").val().replace(/-/gi,''));
@@ -146,104 +146,25 @@ $(document).ready(function(){
             $('#cqiModal').modal('show');
         //For 용량그래프
         } else if (name === 'showThrpGraph') {
-            window.open("downLinkByNMSStatsCompGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkByNMSStatsCompGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });
 
     //For CQI
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
+    $('#cqiModal').on('shown', function () {
+        $("#graphContainer").highcharts("drawCqiCompGraph",$("input[type=checkbox][name!=checkAll]:checked"),window.resultAfter.rows,'PDF','',function (cqiBeforeExcelData,cqiAfterExcelData) {
+            window.cqiBeforeExcelData = cqiBeforeExcelData;
+            window.cqiAfterExcelData  = cqiAfterExcelData;
+        });
+    });
 
     //For CQI
-    function selectCheckedCQIData(cellList,callback){
-
-        var cqiPDFList = [];
-        var cqiCDFList = [];
-
-        cellList.each(function(idx,element){
-            var _thisRow = $(element).parents("tr:first").data("row");
-            cqiPDFList.push((function(row){
-                return {
-                    name : (function (_row) {
-                        if(_row.TITLE03) {
-                            return _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03;
-                        } else if(_row.TITLE02) {
-                            return _row.TITLE01 + ":" + _row.TITLE02;
-                        } else {
-                            return _row.TITLE01;
-                        }
-                    })(row)
-                    ,data : [
-                        row.CQI_PDF_00 || 0
-                        ,row.CQI_PDF_01 || 0
-                        ,row.CQI_PDF_02 || 0
-                        ,row.CQI_PDF_03 || 0
-                        ,row.CQI_PDF_04 || 0
-                        ,row.CQI_PDF_05 || 0
-                        ,row.CQI_PDF_06 || 0
-                        ,row.CQI_PDF_07 || 0
-                        ,row.CQI_PDF_08 || 0
-                        ,row.CQI_PDF_09 || 0
-                        ,row.CQI_PDF_10 || 0
-                        ,row.CQI_PDF_11 || 0
-                        ,row.CQI_PDF_12 || 0
-                        ,row.CQI_PDF_13 || 0
-                        ,row.CQI_PDF_14 || 0
-                        ,row.CQI_PDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-
-            cqiCDFList.push((function(row){
-                return {
-                    name : (function () {
-                        if(row.TITLE03) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02 + ":" + row.TITLE03;
-                        } else if(row.TITLE02) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02;
-                        } else {
-                            return row.YMD + ":" + row.TITLE01;
-                        }
-                    })()
-                    ,data : [
-                        row.CQI_CDF_00 || 0
-                        ,row.CQI_CDF_01 || 0
-                        ,row.CQI_CDF_02 || 0
-                        ,row.CQI_CDF_03 || 0
-                        ,row.CQI_CDF_04 || 0
-                        ,row.CQI_CDF_05 || 0
-                        ,row.CQI_CDF_06 || 0
-                        ,row.CQI_CDF_07 || 0
-                        ,row.CQI_CDF_08 || 0
-                        ,row.CQI_CDF_09 || 0
-                        ,row.CQI_CDF_10 || 0
-                        ,row.CQI_CDF_11 || 0
-                        ,row.CQI_CDF_12 || 0
-                        ,row.CQI_CDF_13 || 0
-                        ,row.CQI_CDF_14 || 0
-                        ,row.CQI_CDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#graphContainer").highcharts("drawCqiCompGraph",$("input[type=checkbox][name!=checkAll]:checked"),window.resultAfter.rows,$(this).val(),'',function (cqiBeforeExcelData,cqiAfterExcelData) {
+            window.cqiBeforeExcelData = cqiBeforeExcelData;
+            window.cqiAfterExcelData  = cqiAfterExcelData;
         });
-        callback(cqiPDFList,cqiCDFList);
-    }
-
-    $('#cqiModal').on('shown', function () {
-
-        /*초기에 PDF 그래프 보이게 셋팅*/
-        $("input[type=radio][name=cqiFlag]")[0].checked=true;
-        $("#cqiPDFContainer").show();
-        $("#cqiCDFContainer").hide();
-
-        selectCheckedCQIData($("input[type=checkbox][name!=checkAll]:checked"),function(cqiPDFList,cqiCDFList){
-            doCQIChart(cqiPDFList,cqiCDFList);
-        });
-
     });
 
 /*===============================================================================
@@ -292,16 +213,10 @@ $(document).ready(function(){
     //그래프 CQI엑셀파일 다운로드
     $("#cqiModal button[name=excelDownload]").click(function(){
         var param = parseParam(this);
-        param["JSONDATA"] =  (function(checkedTR){
-            var checkedRows = [];
-            checkedTR.each(function(){
-                checkedRows.push($(this).parent().parent().data("row"));
-            });
-            return JSON.stringify({"rows":checkedRows});
-        })($("input[type=checkbox][name!=checkAll]:checked"));
+        param["JSONDATA"]  = JSON.stringify(window.cqiBeforeExcelData);
+        param["JSONDATA2"] = JSON.stringify(window.cqiAfterExcelData);
         param["SEARCHTYPE"] = window.result.SEARCHTYPE;
-
-        jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStatsCQIExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectCellTrafficStatsCompCQIExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
@@ -369,13 +284,13 @@ $(document).ready(function(){
         });
 
     });
-    /*===============================================================================
-     * End For SEARCH
-     *==============================================================================*/
+/*===============================================================================
+ * End For SEARCH
+ *==============================================================================*/
 
-    /*===============================================================================
-     * For 조회대상
-     *==============================================================================*/
+/*===============================================================================
+ * For 조회대상
+ *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
         event.preventDefault();
@@ -514,9 +429,9 @@ $(document).ready(function(){
         setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
     });
 
-    /*===============================================================================
-     * End For 조회대상
-     *==============================================================================*/
+/*===============================================================================
+ * End For 조회대상
+ *==============================================================================*/
 
 });
 

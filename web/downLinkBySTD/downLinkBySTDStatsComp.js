@@ -70,19 +70,25 @@ $(document).ready(function(){
             $('#cqiModal').modal('show');
         //For 용량그래프
         } else if (name === 'showThrpGraph') {
-            window.open("downLinkBySTDStatsCompGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkBySTDStatsCompGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });
 
     //For CQI
     $('#cqiModal').on('shown', function () {
-        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),'PDF');
+        $("#graphContainer").highcharts("drawCqiCompGraph",$("input[type=checkbox][name!=checkAll]:checked"),window.resultAfter.rows,'PDF','',function (cqiBeforeExcelData,cqiAfterExcelData) {
+            window.cqiBeforeExcelData = cqiBeforeExcelData;
+            window.cqiAfterExcelData  = cqiAfterExcelData;
+        });
     });
 
     //For CQI
     $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
+        $("#graphContainer").highcharts("drawCqiCompGraph",$("input[type=checkbox][name!=checkAll]:checked"),window.resultAfter.rows,$(this).val(),'',function (cqiBeforeExcelData,cqiAfterExcelData) {
+            window.cqiBeforeExcelData = cqiBeforeExcelData;
+            window.cqiAfterExcelData  = cqiAfterExcelData;
+        });
     });
 
 /*===============================================================================
@@ -95,9 +101,10 @@ $(document).ready(function(){
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
-        param["JSONDATA"] = JSON.stringify(window.result);
+        param["JSONDATA"]  = JSON.stringify(window.result);
+        param["JSONDATA2"] = JSON.stringify(window.resultAfter);
 
-        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsCompExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
@@ -112,9 +119,11 @@ $(document).ready(function(){
     //화면 CQI엑셀파일 다운로드
     $("#excelDropDown li[name=downCqiExcel]").click(function(){
         var param = parseParam(this);
-        param["JSONDATA"] = JSON.stringify(window.result);
+        param["JSONDATA"]   = JSON.stringify(window.result);
+        param["JSONDATA2"]  = JSON.stringify(window.resultAfter);
         param["SEARCHTYPE"] = window.result.SEARCHTYPE;
-        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsCQIExcelDownload", param, function(result,stat){
+
+        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsCompCQIExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
@@ -129,16 +138,11 @@ $(document).ready(function(){
     //그래프 CQI엑셀파일 다운로드
     $("#cqiModal button[name=excelDownload]").click(function(){
         var param = parseParam(this);
-        param["JSONDATA"] =  (function(checkedTR){
-            var checkedRows = [];
-            checkedTR.each(function(){
-                checkedRows.push($(this).parent().parent().data("row"));
-            });
-            return JSON.stringify({"rows":checkedRows});
-        })($("input[type=checkbox][name!=checkAll]:checked"));
+        param["JSONDATA"]  = JSON.stringify(window.cqiBeforeExcelData);
+        param["JSONDATA2"] = JSON.stringify(window.cqiAfterExcelData);
         param["SEARCHTYPE"] = window.result.SEARCHTYPE;
 
-        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsCQIExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkBySTDStats-selectCellTrafficStatsCompCQIExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);

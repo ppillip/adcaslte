@@ -22,8 +22,6 @@ $(document).ready(function(){
         });
         return duids.join("|");
     })($opener.find("input[type=checkbox][name!=checkAll]:checked")));
-//    console.log('duids');
-//    console.log($("#DUIDs").val());
 
 /*===============================================================================
  * End For 조회대상 셋팅
@@ -52,18 +50,18 @@ $(document).ready(function(){
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $('#datepicker01').datepicker('hide');
-        });
+        $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+        $('#datepicker01').datepicker('hide');
+    });
     $('#datepicker02').val($opener.find("#datepicker02").val()||_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
-            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-            $('#datepicker02').datepicker('hide');
-        });
+        $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+        $('#datepicker02').datepicker('hide');
+    });
 
     //월간 기간 셋팅
     var today = new Date();

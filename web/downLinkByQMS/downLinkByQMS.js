@@ -62,7 +62,7 @@ $(document).ready(function(){
         "YMD"         : "60"
         ,"BTS_NM"     : "220"
         ,"CELL_ID"    : "35"
-        ,"MCID"       : "45"
+        //,"MCID"       : "45"
         ,"FREQ_KIND"  : "55"
         ,"GRAPH"      : "50"
     }
@@ -127,7 +127,7 @@ $(document).ready(function(){
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+row.YMD +"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"+row.BTS_NM + "</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
-                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
+                    //+"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+row.FREQ_KIND+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
                     + (function(_idx, _row){
@@ -145,6 +145,7 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RANK_INDEX  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRP_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI_AVERAGE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.SINR_AVERAGE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRQ_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TXPW_PUCCH )+"</td>"
@@ -186,6 +187,7 @@ $(document).ready(function(){
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RANK_INDEX  )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSRP_AVERAGE)+"</td>"
+                        +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI_AVERAGE)+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].SINR_AVERAGE)+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSRQ_AVERAGE )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].TXPW_PUCCH )+"</td>"

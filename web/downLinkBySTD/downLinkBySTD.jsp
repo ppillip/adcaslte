@@ -291,34 +291,34 @@
                 <tbody>
                 <tr class="info">
                     <td name="YMD"></td>
-                    <td name="BTS_NM">전체평균</td>
+                    <td name="BTS_NM"></td>
                     <td name="CELL_ID"></td>
                     <td name="MCID"></td>
-                    <td name="FREQ_KIND"></td>
+                    <td name="FREQ_KIND">전체평균</td>
                     <td name="GRAPH"></td>
                 </tr>
                 <tr class="info">
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>최대값</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                     <td></td>
                 </tr>
                 <tr class="info">
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td>최소값</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 <tr class="info">
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>표준편차</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                     <td></td>
                 </tr>
                 </tbody>

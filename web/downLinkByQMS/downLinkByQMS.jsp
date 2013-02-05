@@ -15,15 +15,13 @@
     <script src="/adcaslte/common/js/moment.min.js"></script>
     <script src="/adcaslte/common/js/accounting.min.js"></script>
 
-    <script src="common/highchart/js/highcharts.src.js"></script>
-    <script src="common/highchart/js/modules/exporting.js"></script>
+    <script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
+    <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
     <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
 
     <script src="/adcaslte/common/js/jquery.progress.js"></script>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
-    <link href="/adcaslte/common/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./common/bootstrap/css/common.css" />
     <link href="downLinkByQMS.css" rel="stylesheet">
     <script src="downLinkByQMS.js" language="javascript"></script>
     <script src="common.js" language="javascript"></script>
@@ -63,7 +61,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
+                                    <td style="padding: 1px 10px">
 
                                         <div name="divSearch" ID="divSearch" class="" style="margin-top:0px;padding:0; vertical-align:middle;">
                                             <input type="hidden" name="WORKGROUP_YN">
@@ -149,16 +147,16 @@
 <div name="divDailyDataPad" id="divDataPad">
 
 <table name="dailyData">
-<tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+<tr style="vertical-align: top; margin: 0px; padding: 0px;">
     <td><!-- top left   -->
-        <div class="" name="divTopLeft" id="divTopLeft">
+        <div name="divTopLeft" id="divTopLeft">
             <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                 <tbody>
                 <tr style="height:30px;" class="info">
                     <td rowspan="3" name="YMD">날짜</td>
                     <td rowspan="3" name="BTS_NM">DU명</td>
                     <td rowspan="3" name="CELL_ID">CELL ID</td>
-                    <td rowspan="3" name="MCID">MCID</td>
+                    <%--<td rowspan="3" name="MCID">MCID</td>--%>
                     <td rowspan="3" name="FREQ_KIND">주파수구분</td>
                     <td name="GRAPH">GRAPH</td>
                 </tr>
@@ -194,15 +192,17 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">DL<br>Throughput<br>(kbps)</td>
-                    <td rowspan="3">UL<br>Throughput<br>(kbps)</td>
+                    <td rowspan="3">DL<br>Throughput<br>(Mbps)</td>
+                    <td rowspan="3">UL<br>Throughput<br>(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">RI2 비율</td>
                     <td rowspan="3">MCS 평균</td>
                     <td rowspan="3">RSRP 평균</td>
+                    <td rowspan="3">RSSI 평균</td>
                     <td rowspan="3">SINR 평균</td>
                     <td rowspan="3">RSRQ 평균</td>
                     <td rowspan="3">PUCCH Tx<br>평균</td>
@@ -231,9 +231,9 @@
 </tr>
 
 
-<tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+<tr style="vertical-align: top; margin: 0px; padding: 0px;">
     <td><!-- middle left   -->
-        <div class="" name="divMiddleLeft" id="divMiddleLeft">
+        <div name="divMiddleLeft" id="divMiddleLeft">
             <table name="tableMiddleLeft"  id="tableMiddleLeft" class="table table-bordered table-condensed table-striped">
                 <tbody>
                 </tbody>
@@ -244,6 +244,7 @@
         <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
                 <colgroup><col class="col01">
+                    <col class="col01">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -280,7 +281,7 @@
                     <td name="YMD"></td>
                     <td name="BTS_NM">전체평균</td>
                     <td name="CELL_ID"></td>
-                    <td name="MCID"></td>
+                    <%--<td name="MCID"></td>--%>
                     <td name="FREQ_KIND"></td>
                     <td name="GRAPH"></td>
                 </tr>
@@ -290,7 +291,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <%--<td></td>--%>
                 </tr>
                 <tr class="info">
                     <td></td>
@@ -298,7 +299,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <%--<td></td>--%>
                 </tr>
                 <tr class="info">
                     <td></td>
@@ -306,7 +307,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <%--<td></td>--%>
                 </tr>
                 </tbody>
             </table>
@@ -334,31 +335,32 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
+                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr class='info'>
-                    <td>&nbsp;</td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>

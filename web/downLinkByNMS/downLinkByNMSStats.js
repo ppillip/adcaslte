@@ -126,108 +126,22 @@ $(document).ready(function(){
             $('#cqiModal').modal('show');
         //For 용량그래프
         } else if (name === 'showThrpGraph') {
-            window.open("downLinkByNMSStatsGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkByNMSStatsGraph.jsp?chart=showThrpGraph","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         //For HISTOGRAM
         } else if (name === 'showHistogram') {
-            window.open("downLinkByNMSStatsGraph.jsp","showHistogram",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkByNMSStatsGraph.jsp?chart=showHistogram","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });
 
     //For CQI
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
-
-    //For CQI
-    function selectCheckedCQIData(cellList,callback){
-
-        var cqiPDFList = [];
-        var cqiCDFList = [];
-
-        cellList.each(function(idx,element){
-            var _thisRow = $(element).parents("tr:first").data("row");
-            cqiPDFList.push((function(row){
-                return {
-                    name : (function (_row) {
-                        if(_row.TITLE03) {
-                            return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03;
-                        } else if(_row.TITLE02) {
-                            return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02;
-                        } else {
-                            return _row.YMD + ":" + _row.TITLE01;
-                        }
-                    })(row)
-                    ,data : [
-                        row.CQI_PDF_00 || 0
-                        ,row.CQI_PDF_01 || 0
-                        ,row.CQI_PDF_02 || 0
-                        ,row.CQI_PDF_03 || 0
-                        ,row.CQI_PDF_04 || 0
-                        ,row.CQI_PDF_05 || 0
-                        ,row.CQI_PDF_06 || 0
-                        ,row.CQI_PDF_07 || 0
-                        ,row.CQI_PDF_08 || 0
-                        ,row.CQI_PDF_09 || 0
-                        ,row.CQI_PDF_10 || 0
-                        ,row.CQI_PDF_11 || 0
-                        ,row.CQI_PDF_12 || 0
-                        ,row.CQI_PDF_13 || 0
-                        ,row.CQI_PDF_14 || 0
-                        ,row.CQI_PDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-
-            cqiCDFList.push((function(row){
-                return {
-                    name : (function () {
-                        if(row.TITLE03) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02 + ":" + row.TITLE03;
-                        } else if(row.TITLE02) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02;
-                        } else {
-                            return row.YMD + ":" + row.TITLE01;
-                        }
-                    })()
-                    ,data : [
-                        row.CQI_CDF_00 || 0
-                        ,row.CQI_CDF_01 || 0
-                        ,row.CQI_CDF_02 || 0
-                        ,row.CQI_CDF_03 || 0
-                        ,row.CQI_CDF_04 || 0
-                        ,row.CQI_CDF_05 || 0
-                        ,row.CQI_CDF_06 || 0
-                        ,row.CQI_CDF_07 || 0
-                        ,row.CQI_CDF_08 || 0
-                        ,row.CQI_CDF_09 || 0
-                        ,row.CQI_CDF_10 || 0
-                        ,row.CQI_CDF_11 || 0
-                        ,row.CQI_CDF_12 || 0
-                        ,row.CQI_CDF_13 || 0
-                        ,row.CQI_CDF_14 || 0
-                        ,row.CQI_CDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-        });
-        callback(cqiPDFList,cqiCDFList);
-    }
-
-    //For CQI
     $('#cqiModal').on('shown', function () {
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),'PDF');
+    });
 
-        /*초기에 PDF 그래프 보이게 셋팅*/
-        $("input[type=radio][name=cqiFlag]")[0].checked=true;
-        $("#cqiPDFContainer").show();
-        $("#cqiCDFContainer").hide();
-
-        selectCheckedCQIData($("input[type=checkbox][name!=checkAll]:checked"),function(cqiPDFList,cqiCDFList){
-            doCQIChart(cqiPDFList,cqiCDFList);
-        });
-
+    //For CQI
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
     });
 
 /*===============================================================================
@@ -371,14 +285,14 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CON_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CDC_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_DL_MB */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_DL_PRB*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_TRY_CC*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_TIME  */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_DL_MB */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_DL_PRB*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_TRY_CC*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_TIME  */"n/a" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_DL_MB )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_DL_PRB)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TRY_CC)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TIME  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_DL_MB )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_DL_PRB)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TRY_CC)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TIME  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
                     +"</tr>")
@@ -563,18 +477,18 @@ function setLeft(depth) {
     $("#tableMiddleRight tbody").empty();
     $("#tableBottomRight").find("td").html("&nbsp;");
 
-    /*===============================================================================
-     * For SCROLL APPEND
-     *==============================================================================*/
+/*===============================================================================
+ * For SCROLL APPEND
+ *==============================================================================*/
     $("#divMiddleRight").scroll(function(){
         if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
         {
             appendToTable(function(){}); //callback 필요시 삽입
         }
     });
-    /*===============================================================================
-     * End For SCROLL APPEND
-     *==============================================================================*/
+/*===============================================================================
+ * End For SCROLL APPEND
+ *==============================================================================*/
 }
 
 /*===============================================================================
@@ -656,14 +570,14 @@ function appendToTable(callback){
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
             +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_MB */"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_PRB*/"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TRY_CC*/"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TIME  */"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_MB */"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_PRB*/"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TRY_CC*/"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TIME  */"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CC)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME  )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CC)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME  )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
             +"</tr>")
