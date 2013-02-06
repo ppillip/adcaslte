@@ -249,7 +249,7 @@
                 } else if(_thisRow.TITLE01) {
                     name = _thisRow.TITLE01 + ":" + _thisRow.FREQ_KIND;
                 } else {
-                    name = _thisRow.YMD + ":" + _thisRow.BTS_NM + ":" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ ":" + _thisRow.FREQ_KIND;
+                    name = _thisRow.BTS_NM + ":" + _thisRow.CELL_ID+ ":" + _thisRow.MCID+ ":" + _thisRow.FREQ_KIND;
                 }
                 var _thisData = Number(isUndifined(_thisRow[thrpColumn],0).toFixed(1));
 

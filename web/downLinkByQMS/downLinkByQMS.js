@@ -231,10 +231,10 @@ $(document).ready(function(){
             $('#cqiModal').modal('show');
         //For 용량그래프
         } else if (name === 'showThrpGraph') {
-            window.open("downLinkByQMSGraph.jsp","showThrpGraph",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkByQMSGraph.jsp?chart=showThrpGraph","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         //For HISTOGRAM
         } else if (name === 'showHistogram') {
-            window.open("downLinkByQMSGraph.jsp","showHistogram",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            window.open("downLinkByQMSGraph.jsp?chart=showHistogram","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
 
     });
@@ -266,7 +266,8 @@ $(document).ready(function(){
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
             }else{
-                window.location.href=result.downloadurl;
+                var host = location.href.substring(0,location.href.indexOf("/adcaslte"));
+                window.location.href = host+'/adcaslte/'+result.downloadurl;
             }
 
         },"json");
@@ -282,7 +283,8 @@ $(document).ready(function(){
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
             }else{
-                window.location.href=result.downloadurl;
+                var host = location.href.substring(0,location.href.indexOf("/adcaslte"));
+                window.location.href = host+'/adcaslte/'+result.downloadurl;
             }
 
         },"json");
@@ -304,7 +306,8 @@ $(document).ready(function(){
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
             }else{
-                window.location.href=result.downloadurl;
+                var host = location.href.substring(0,location.href.indexOf("/adcaslte"));
+                window.location.href = host+'/adcaslte/'+result.downloadurl;
             }
 
         },"json");

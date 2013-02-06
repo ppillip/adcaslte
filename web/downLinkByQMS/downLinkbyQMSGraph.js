@@ -28,12 +28,18 @@ $(document).ready(function(){
  *==============================================================================*/
 
 /*===============================================================================
- * For 시간대, 최번기준, 통계주기, 주파수, 보기방식 셋팅
+ * For 보기방식, 그래프타입 셋팅
  *==============================================================================*/
     $("input[value="+$opener.find("input[name=VIEWTYPE]:checked").val()+"]").attr("checked","checked");
+    var chart = location.search.substring(location.search.indexOf('=')+1);
+    if (chart === 'showThrpGraph') {
+        $("input[name=CHARTTYPE][value=THROUGHPUT]").attr("checked","checked");
+    } else if (chart === 'showHistogram') {
+        $("input[name=CHARTTYPE][value=HISTOGRAM]").attr("checked","checked");
+    }
 
 /*===============================================================================
- * End For 통계주기, 시간대, 최번기준, 주파수, 보기방식 셋팅
+ * End For 보기방식, 그래프타입 셋팅
  *==============================================================================*/
 
 /*===============================================================================
@@ -125,7 +131,6 @@ $(document).ready(function(){
 /*===============================================================================
  * For EXCEL
  *==============================================================================*/
-    //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
 
         var param = parseParam(this);
@@ -133,10 +138,10 @@ $(document).ready(function(){
         var chartType = $("input[name=CHARTTYPE]:checked").val();
         if (chartType === 'THROUGHPUT') {
             param["JSONDATA"] = JSON.stringify(window.result);
-            url = "/adcaslte/svc/DownLinkByQMS-selectCellTrafficStatsExcelDownload";
+            url = "/adcaslte/svc/DownLinkByQMS-selectCellTrafficExcelDownload";
         } else if (chartType === 'HISTOGRAM') {
             param["JSONDATA"] = JSON.stringify(window.histogramData);
-            url = "/adcaslte/svc/DownLinkByQMS-selectCellTrafficStatsHistogramExcelDownload";
+            url = "/adcaslte/svc/DownLinkByQMS-selectCellTrafficHistogramExcelDownload";
         }
 
         jQuery.post(url, param, function(result,stat){

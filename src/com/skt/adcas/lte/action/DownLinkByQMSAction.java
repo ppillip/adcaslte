@@ -266,76 +266,6 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         return SUCCESS;
     }
 
-    public String selectCellTrafficCompCQIExcelDownload() {
-
-        this.log.debug("selectCellTrafficCompCQIExcelDownload Start");
-
-        FileOutputStream fileOut = null;
-
-        try{
-            parseParam();
-
-            Type type = new TypeToken<Map<String, Object>>(){}.getType();
-            Gson gson = new Gson();
-            Map<String, Object> map      = gson.fromJson(this.JSONDATA, type);
-            Map<String, Object> mapAfter = gson.fromJson(this.JSONDATA2, type);
-
-            Workbook wb = new HSSFWorkbook();
-
-            String sheetName = "전기간 CQI PDF";
-            String safeName = WorkbookUtil.createSafeSheetName(sheetName);
-            Sheet PDFsheet = wb.createSheet(safeName);
-
-            createCellTrafficCQIExcelSheet(PDFsheet, "PDF", map);
-
-            sheetName = "전기간 CQI CDF";
-            safeName = WorkbookUtil.createSafeSheetName(sheetName);
-            Sheet CDFsheet = wb.createSheet(safeName);
-
-            createCellTrafficCQIExcelSheet(CDFsheet, "CDF", map);
-
-            sheetName = "후기간 CQI PDF";
-            safeName = WorkbookUtil.createSafeSheetName(sheetName);
-            Sheet PDFsheetAfter = wb.createSheet(safeName);
-
-            createCellTrafficCQIExcelSheet(PDFsheetAfter, "PDF", mapAfter);
-
-            sheetName = "후기간 CQI CDF";
-            safeName = WorkbookUtil.createSafeSheetName(sheetName);
-            Sheet CDFsheetAfter = wb.createSheet(safeName);
-
-            createCellTrafficCQIExcelSheet(CDFsheetAfter, "CDF", mapAfter);
-
-            String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
-            String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCompCQI(PDF_CDF).xls";
-
-            if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
-                throw new Exception("엑셀파일 생성에 실패 하였습니다.");
-            }
-
-            String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
-            fileOut = new FileOutputStream(xlsFileFullPath);
-            wb.write(fileOut);
-
-            this.msg = "엑셀이 생성 되었습니다";
-            this.status = "SUCCESS";
-            this.downloadurl = "download" + tempFolder + xlsFileName ;
-
-        }catch (Exception e){
-            this.msg = e.getMessage();
-            this.status = "ERROR";
-            this.error = true;
-            e.printStackTrace();
-        }finally{
-            try { if(fileOut!=null) fileOut.close();}
-            catch (IOException e) { e.printStackTrace(); }
-        }
-
-        this.log.debug("selectCellTrafficCompCQIExcelDownload End");
-        return SUCCESS;
-    }
-
     public void createCellTrafficCQIExcelSheet(Sheet sheet, String type, Map<String, Object> map) throws Exception {
 
         this.log.debug("createCellTrafficCQIExcelSheet Start");
@@ -368,7 +298,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("DU명");                 // "BTS_NM"
         hrow0.createCell(a++).setCellValue("CELL ID");             // "CELL_ID"
         hrow0.createCell(a++).setCellValue("CELL 명");             //  "CELL_NM"
-        hrow0.createCell(a++).setCellValue("MCID");                 //  "MCID"
+        //hrow0.createCell(a++).setCellValue("MCID");                 //  "MCID"
         hrow0.createCell(a++).setCellValue("주파수구분");           //  "FREQ_KIND"
         hrow0.createCell(a++).setCellValue(type+"-"+CQINAME[0]);
         hrow0.createCell(a++).setCellValue(type+"-"+CQINAME[1]);
@@ -400,7 +330,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             row.createCell(b++).setCellValue((String) jrow.get("BTS_NM")          );
             row.createCell(b++).setCellValue((String) jrow.get("CELL_ID")         );
             row.createCell(b++).setCellValue((String) jrow.get("CELL_NM")         );
-            row.createCell(b++).setCellValue((String) jrow.get("MCID")            );
+            //row.createCell(b++).setCellValue((String) jrow.get("MCID")            );
             row.createCell(b++).setCellValue((String) jrow.get("FREQ_KIND")      );
 
             row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_00") ? jrow.get("CQI_"+type+"_00").toString():"0"));
@@ -480,66 +410,6 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         return SUCCESS;
     }
 
-    public String selectCellTrafficCompExcelDownload() {
-
-        this.log.debug("selectCellTrafficCompExcelDownload Start");
-        FileOutputStream fileOut = null;
-
-        try{
-
-            Type type = new TypeToken<Map<String, Object>>(){}.getType();
-            Gson gson = new Gson();
-            Map<String, Object> map      = gson.fromJson(this.JSONDATA, type);
-            Map<String, Object> mapAfter = gson.fromJson(this.JSONDATA2, type);
-
-            log.debug("json data : " + this.JSONDATA);
-            log.debug("json data : " + this.JSONDATA2);
-
-            Workbook wb = new HSSFWorkbook();
-            //CreationHelper createHelper = wb.getCreationHelper();
-
-            String sheetName = "전기간";
-            String safeName = WorkbookUtil.createSafeSheetName(sheetName);
-            Sheet sheet = wb.createSheet(safeName);
-
-            createCellTrafficExcelSheet(sheet, map);
-
-            sheetName = "후기간";
-            safeName = WorkbookUtil.createSafeSheetName(sheetName);
-            Sheet sheetAfter = wb.createSheet(safeName);
-
-            createCellTrafficExcelSheet(sheetAfter, mapAfter);
-
-            String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
-            String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCompData.xls";
-
-            if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
-                throw new Exception("엑셀파일 생성에 실패 하였습니다.");
-            }
-
-            String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
-            fileOut = new FileOutputStream(xlsFileFullPath);
-            wb.write(fileOut);
-
-            this.msg = "엑셀이 생성 되었습니다";
-            this.status = "SUCCESS";
-            this.downloadurl = "download" + tempFolder + xlsFileName ;
-
-        }catch (Exception e){
-            this.msg = e.getMessage();
-            this.status = "ERROR";
-            this.error = true;
-            e.printStackTrace();
-        }finally{
-            try { if(fileOut!=null) fileOut.close();}
-            catch (IOException e) { e.printStackTrace(); }
-        }
-
-        this.log.debug("selectCellTrafficCompExcelDownload End");
-        return SUCCESS;
-    }
-
     public void createCellTrafficExcelSheet(Sheet sheet, Map<String, Object> map) throws Exception {
 
         this.log.debug("createCellTrafficExcelSheet Start");
@@ -551,14 +421,20 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("DU명");                   // "BTS_NM"
         hrow0.createCell(a++).setCellValue("CELL ID");               // "CELL_ID"
         hrow0.createCell(a++).setCellValue("CELL 명");               //  "CELL_NM"
-        hrow0.createCell(a++).setCellValue("MCID");                  //  "MCID"
-        hrow0.createCell(a++).setCellValue("주파수구분");            //  "FREQ_KIND"
-        hrow0.createCell(a++).setCellValue("용량(Mbps)");           //   "DL_THRP"
-        hrow0.createCell(a++).setCellValue("기준용량(Mbps)");       //   "THROUGHPUT"
+        //hrow0.createCell(a++).setCellValue("MCID");                //  "MCID"
+        hrow0.createCell(a++).setCellValue("주파수구분");             //  "FREQ_KIND"
+        hrow0.createCell(a++).setCellValue("DL Throughput(Mbps)");  //   "DL_TPUT"
+        hrow0.createCell(a++).setCellValue("UL Throughput(Mbps)");  //   "UL_TPUT"
         hrow0.createCell(a++).setCellValue("CQI 평균");              //   "CQI_AVERAGE"
-        hrow0.createCell(a++).setCellValue("CQI0 비율 ");           //   "CQI0_RATE"
-        hrow0.createCell(a++).setCellValue("RI2 비율");              //   "RI_RATE"
-        hrow0.createCell(a++).setCellValue("DL PRB 사용율");        //   "DL_PRB_RATE"
+        hrow0.createCell(a++).setCellValue("RI2 비율");              //   "RI_RANK_INDEX
+        hrow0.createCell(a++).setCellValue("MCS 평균");              //   "MCS_AVERAGE"
+        hrow0.createCell(a++).setCellValue("RSRP 평균");              //   "RSRP_AVERAGE
+        hrow0.createCell(a++).setCellValue("RSSI 평균");              //   "RSSI_AVERAGE"
+        hrow0.createCell(a++).setCellValue("SINR 평균");              //   "SINR_AVERAGE"
+        hrow0.createCell(a++).setCellValue("RSRQ 평균");              //   "RSRQ_AVERAGE"
+        hrow0.createCell(a++).setCellValue("PUCCH Tx 평균");         //   "TXPW_PUCCH"
+        hrow0.createCell(a++).setCellValue("CQI0 비율");            //   "CQI0_RATE"
+        hrow0.createCell(a++).setCellValue("DL PRB 사용율");         //   "DL_PRB_RATE"
         hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI0_PUCCH"
         hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI1_PUCCH"
         hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI0_PUSCH"
@@ -572,40 +448,52 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow1.createCell(b++).setCellValue("");                // "BTS_NM"
         hrow1.createCell(b++).setCellValue("");                // "CELL_ID"
         hrow1.createCell(b++).setCellValue("");                // "CELL_NM"
-        hrow1.createCell(b++).setCellValue("");                // "MCID"
+        //hrow1.createCell(b++).setCellValue("");                // "MCID"
         hrow1.createCell(b++).setCellValue("");                // "FREQ_KIND"
-        hrow1.createCell(b++).setCellValue("");                // "DL_THRP"
-        hrow1.createCell(b++).setCellValue("");                // "THROUGHPUT"
-        hrow1.createCell(b++).setCellValue("");                // "CQI_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");                // "CQI0_RATE"
-        hrow1.createCell(b++).setCellValue("");                // "RI_RATE"
-        hrow1.createCell(b++).setCellValue("");                // "DL_PRB_RATE"
-        hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "SI0_PUCCH"
-        hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "SI1_PUCCH"
-        hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "SI0_PUSCH"
-        hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "SI1_PUSCH"
-        hrow1.createCell(b++).setCellValue("");                // "LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("");  //   "DL_TPUT"
+        hrow1.createCell(b++).setCellValue("");  //   "UL_TPUT"
+        hrow1.createCell(b++).setCellValue("");  //   "CQI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");  //   "RI_RANK_INDEX
+        hrow1.createCell(b++).setCellValue("");  //   "MCS_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");  //   "RSRP_AVERAGE
+        hrow1.createCell(b++).setCellValue("");  //   "RSSI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");  //   "SINR_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");  //   "RSRQ_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");  //   "TXPW_PUCCH"
+        hrow1.createCell(b++).setCellValue("");  //   "CQI0_RATE"
+        hrow1.createCell(b++).setCellValue("");  //   "DL_PRB_RATE"
+        hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "RSSI0_PUCCH"
+        hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "RSSI1_PUCCH"
+        hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "RSSI0_PUSCH"
+        hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "RSSI1_PUSCH"
+        hrow1.createCell(b++).setCellValue("");  //   "LICENSE_FAIL"
 
         Row hrow2 = sheet.createRow((short) 2 );
         hrow2.setHeightInPoints(20);
         int c = 0;
-        hrow2.createCell(c++).setCellValue("");         // "YMD"
-        hrow2.createCell(c++).setCellValue("");         // "BTS_NM"
-        hrow2.createCell(c++).setCellValue("");         // "CELL_ID"
-        hrow2.createCell(c++).setCellValue("");         // "CELL_NM"
-        hrow2.createCell(c++).setCellValue("");         // "MCID"
-        hrow2.createCell(c++).setCellValue("");         // "FREQ_KIND"
-        hrow2.createCell(c++).setCellValue("");         // "DL_THRP"
-        hrow2.createCell(c++).setCellValue("");         // "THROUGHPUT"
-        hrow2.createCell(c++).setCellValue("");         // "CQI_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");         // "CQI0_RATE"
-        hrow2.createCell(c++).setCellValue("");         // "RI_RATE"
-        hrow2.createCell(c++).setCellValue("");         // "DL_PRB_RATE"
-        hrow2.createCell(c++).setCellValue("최번시");  //  "RI0_PUCCH"
-        hrow2.createCell(c++).setCellValue("최한시");  //  "RI1_PUCCH"
-        hrow2.createCell(c++).setCellValue("최번시");  //  "RI0_PUSCH"
-        hrow2.createCell(c++).setCellValue("최한시");  //  "RI1_PUSCH"
-        hrow2.createCell(c++).setCellValue("");         // "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");  // "YMD"
+        hrow2.createCell(c++).setCellValue("");  // "BTS_NM"
+        hrow2.createCell(c++).setCellValue("");  // "CELL_ID"
+        hrow2.createCell(c++).setCellValue("");  // "CELL_NM"
+        //hrow2.createCell(c++).setCellValue("");  // "MCID"
+        hrow2.createCell(c++).setCellValue("");  // "FREQ_KIND"
+        hrow2.createCell(c++).setCellValue("");  //   "DL_TPUT"
+        hrow2.createCell(c++).setCellValue("");  //   "UL_TPUT"
+        hrow2.createCell(c++).setCellValue("");  //   "CQI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");  //   "RI_RANK_INDEX
+        hrow2.createCell(c++).setCellValue("");  //   "MCS_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");  //   "RSRP_AVERAGE
+        hrow2.createCell(c++).setCellValue("");  //   "RSSI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");  //   "SINR_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");  //   "RSRQ_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");  //   "TXPW_PUCCH"
+        hrow2.createCell(c++).setCellValue("");  //   "CQI0_RATE"
+        hrow2.createCell(c++).setCellValue("");  //   "DL_PRB_RATE"
+        hrow2.createCell(c++).setCellValue("최번시");  // "RSSI0_PUCCH"
+        hrow2.createCell(c++).setCellValue("최한시");  // "RSSI1_PUCCH"
+        hrow2.createCell(c++).setCellValue("최번시");  // "RSSI0_PUSCH"
+        hrow2.createCell(c++).setCellValue("최한시");  // "RSSI1_PUSCH"
+        hrow2.createCell(c++).setCellValue("");  //   "LICENSE_FAIL"
 
         sheet.addMergedRegion(new CellRangeAddress(0,2,0,0));
         sheet.addMergedRegion(new CellRangeAddress(0,2,1,1));
@@ -620,10 +508,15 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         sheet.addMergedRegion(new CellRangeAddress(0,2,9,9));
         sheet.addMergedRegion(new CellRangeAddress(0,2,10,10));
         sheet.addMergedRegion(new CellRangeAddress(0,2,11,11));
-        sheet.addMergedRegion(new CellRangeAddress(0,0,12,15));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,12,13));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,14,15));
+        sheet.addMergedRegion(new CellRangeAddress(0,2,12,12));
+        sheet.addMergedRegion(new CellRangeAddress(0,2,13,13));
+        sheet.addMergedRegion(new CellRangeAddress(0,2,14,14));
+        sheet.addMergedRegion(new CellRangeAddress(0,2,15,15));
         sheet.addMergedRegion(new CellRangeAddress(0,2,16,16));
+        sheet.addMergedRegion(new CellRangeAddress(0,0,17,20));
+        sheet.addMergedRegion(new CellRangeAddress(1,1,17,18));
+        sheet.addMergedRegion(new CellRangeAddress(1,1,19,20));
+        sheet.addMergedRegion(new CellRangeAddress(0,2,21,21));
 
 
         ArrayList list01 = (ArrayList) map.get("rows");
@@ -639,14 +532,20 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             row.createCell(d++).setCellValue((String) jrow.get("BTS_NM")          );
             row.createCell(d++).setCellValue((String) jrow.get("CELL_ID")         );
             row.createCell(d++).setCellValue((String) jrow.get("CELL_NM")         );
-            row.createCell(d++).setCellValue((String) jrow.get("MCID")            );
+            //row.createCell(d++).setCellValue((String) jrow.get("MCID")            );
             row.createCell(d++).setCellValue((String) jrow.get("FREQ_KIND")      );
 
-            row.createCell(d++).setCellValue(Double.parseDouble(parseKey(jrow,"DL_THRP","0")));
-            row.createCell(d++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_TPUT") ?jrow.get("DL_TPUT").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("UL_TPUT") ?jrow.get("UL_TPUT").toString():"0"));
             row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RANK_INDEX")?jrow.get("RANK_INDEX").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSRP_AVERAGE")?jrow.get("RSRP_AVERAGE").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI_AVERAGE")?jrow.get("RSSI_AVERAGE").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("SINR_AVERAGE")?jrow.get("SINR_AVERAGE").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSRQ_AVERAGE")?jrow.get("RSRQ_AVERAGE").toString():"0"));
+            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("TXPW_PUCCH")?jrow.get("TXPW_PUCCH").toString():"0"));
             row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
             row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
             row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
             row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
@@ -661,9 +560,9 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
     }
 
-    public String selectCellTrafficStatsHistogramExcelDownload(){
+    public String selectCellTrafficHistogramExcelDownload(){
 
-        this.log.debug("selectCellTrafficStatsHistogramExcelDownload Start");
+        this.log.debug("selectCellTrafficHistogramExcelDownload Start");
         SqlSession session = null;
         FileOutputStream fileOut = null;
 
@@ -709,11 +608,11 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
                 i++;
             }
 
-            log.debug("selectCellTrafficStatsHistogramExcelDownload : file start");
+            log.debug("selectCellTrafficHistogramExcelDownload : file start");
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsHistogram.xls";
+            String xlsFileName = "/DownLinkHistogram.xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -722,7 +621,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
             fileOut = new FileOutputStream(xlsFileFullPath);
             wb.write(fileOut);
-            log.debug("selectCellTrafficStatsHistogramExcelDownload : file end");
+            log.debug("selectCellTrafficHistogramExcelDownload : file end");
 
             this.msg = "엑셀이 생성 되었습니다";
             this.status = "SUCCESS";
@@ -744,91 +643,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             }
         }
 
-        this.log.debug("selectCellTrafficStatsHistogramExcelDownload End");
-        return SUCCESS;
-    }
-
-    public String selectCellTrafficThrpCompGraphExcelDownload(){
-
-        this.log.debug("selectCellTrafficThrpCompGraphExcelDownload Start");
-        SqlSession session = null;
-        FileOutputStream fileOut = null;
-
-        try{
-            //parseParam();
-            Type type = new TypeToken<Map<String, Object>>(){}.getType();
-            Gson gson = new Gson();
-            Map<String, Object> map = gson.fromJson(this.JSONDATA, type);
-
-            log.debug("json data : " + this.JSONDATA);
-
-            Workbook wb = new HSSFWorkbook();
-            //CreationHelper createHelper = wb.getCreationHelper();
-
-            String sheetName = "기준용량 전후비교";
-            String safeName = WorkbookUtil.createSafeSheetName(sheetName);
-
-            //sheet 만들고
-            Sheet sheet = wb.createSheet(safeName);
-
-            //header 만들자
-            Row hrow0 = sheet.createRow((short) 0 );
-            hrow0.setHeightInPoints(20);
-            hrow0.createCell(0).setCellValue("");
-            hrow0.createCell(1).setCellValue("전("+this.FROMYMD+")");
-            hrow0.createCell(2).setCellValue("후("+this.TOYMD+")");
-
-            StringMap categories   = (StringMap) map.get("categories");
-            StringMap beforeSeries = (StringMap) map.get("beforeSeries");
-            StringMap afterSeries  = (StringMap) map.get("afterSeries");
-
-            short i = 1;
-            for (int j=0; j<categories.size(); j++) {
-                //한줄 만들고 셋팅
-                Row row = sheet.createRow((short) i );
-                row.setHeightInPoints(20);
-                row.createCell(0).setCellValue(categories.get(String.valueOf(j)).toString().replaceAll("<br>"," : "));
-                row.createCell(1).setCellValue(Double.parseDouble(beforeSeries.get(String.valueOf(j)).toString()));
-                row.createCell(2).setCellValue(Double.parseDouble(afterSeries.get(String.valueOf(j)).toString()));
-                i++;
-            }
-
-            log.debug("selectCellTrafficThrpCompGraphExcelDownload : file start");
-
-            String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
-            String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkThrpCompGraph.xls";
-
-            if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
-                throw new Exception("엑셀파일 생성에 실패 하였습니다.");
-            }
-
-            String xlsFileFullPath = writeFolderPath + tempFolder + xlsFileName ;
-            fileOut = new FileOutputStream(xlsFileFullPath);
-            wb.write(fileOut);
-            log.debug("selectCellTrafficThrpCompGraphExcelDownload : file end");
-
-            this.msg = "엑셀이 생성 되었습니다";
-            this.status = "SUCCESS";
-            this.downloadurl = "download" + tempFolder + xlsFileName ;
-
-        }catch (Exception e){
-            this.msg = e.getMessage();
-            this.status = "ERROR";
-            this.error = true;
-            if(session!=null){
-                session.rollback();
-            }
-            e.printStackTrace();
-        }finally{
-            try { if(fileOut!=null) fileOut.close();}
-            catch (IOException e) { e.printStackTrace(); }
-            if(session!=null){
-                session.close();
-            }
-        }
-
-        this.log.debug("selectCellTrafficThrpCompGraphExcelDownload End");
+        this.log.debug("selectCellTrafficHistogramExcelDownload End");
         return SUCCESS;
     }
 
