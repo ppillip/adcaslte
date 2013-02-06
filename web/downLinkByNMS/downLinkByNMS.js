@@ -264,8 +264,7 @@ $(document).ready(function(){
 
 
 
-    $("#divSearch button[name=search]").click(function(){
-
+    $("#divSearch button[name=search]").click(function(e,callback){
 
         $("div[name=divMiddleLeft] table tbody tr").remove();
         $("div[name=divMiddleRight] table tbody tr").remove();
@@ -392,7 +391,7 @@ $(document).ready(function(){
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }
-
+            if( typeof(callback==="function") ) callback();
         },"json");
     });
 
@@ -402,7 +401,8 @@ $(document).ready(function(){
         $("#"+$(this).val()).show();
     })
 
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
+    $("#graphDropDown li[name=showCqiModal]").click(function(e,callback){
+
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
@@ -414,6 +414,8 @@ $(document).ready(function(){
         }
 
         $('#cqiModal').modal('show');
+
+        if(typeof(callback==="function")){callback();}
 
     });
 
@@ -599,7 +601,7 @@ $(document).ready(function(){
 
 
 
-    $("#divSearch button[name=excelDownload]").click(function(){
+    $("#divSearch button[name=excelDownload]").click(function(e,callback){
         var param = parseParam(this);
         param["JSONDATA"] = JSON.stringify(window.result);
 
@@ -609,6 +611,7 @@ $(document).ready(function(){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
             }else{
                 window.location.href="/adcaslte/"+result.downloadurl;
+                if(typeof(callback)==="function"){callback();}
             }
 
         },"json");
@@ -649,14 +652,41 @@ $(document).ready(function(){
 
         },"json");
     });
-
-    /*
-    $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
-    $("input[name=WORKGROUP_YN]").val("Y");
-    $("input[name=WORKGROUP_NAME]").val("테스트모드입니다.");
-    $("#datepicker01").val("2013-01-15");
-    $("#datepicker02").val("2013-01-15");
-
-    $("button[name=search]").trigger("click");
-    */
+    if(window.location.host==="localhost") {goTest();}
 });
+
+function goTest(){
+
+    QUnit.test("초기 셋팅", function() {
+
+        $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
+        $("input[name=WORKGROUP_YN]").val("Y");
+        $("input[name=WORKGROUP_NAME]").val("테스트모드입니다.");
+        $("#datepicker01").val("2013-01-15");
+        $("#datepicker02").val("2013-01-15");
+        ok( true, "셋팅완료" );
+
+        $("button[name=search]").trigger("click",function(){
+            QUnit.test("리턴값확인", function() {
+                deepEqual(true,window.result.rows.length > 0 , window.result.rows.length + " 개 가져옴");
+            });
+
+            QUnit.test("CQI 확인",function(){
+                $("input[type=checkbox][name='1']").attr("checked",true);
+                $("input[type=checkbox][name='2']").attr("checked",true);
+                $("input[type=checkbox][name='3']").attr("checked",true);
+                ok( true, "체크박스 셋팅" );
+                $("#graphDropDown li[name=showCqiModal]").trigger('click',function(){
+                    ok( true, "CQI 클릭" );
+                })
+            });
+
+            $("button[name=excelDownload]").trigger('click',function(){
+                    QUnit.test("엑셀 다운로드 확인",function(){
+                        deepEqual(true,true,"엑셀 가져옴");
+                    });
+            });
+
+        });
+    });
+}
