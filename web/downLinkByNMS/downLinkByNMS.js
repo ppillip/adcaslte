@@ -650,6 +650,37 @@ $(document).ready(function(){
         },"json");
     });
 
+    //솔루션에서 DownLinkByNMS 호출시
+    if(location.search) {
+        var search = parseQueryString(location.search.substring(1));
+        var YMD = search['YMD'];
+        $("input[name=FROMYMD]").val(YMD);
+        $("input[name=TOYMD]").val(YMD);
+        $("#datepicker01").val(YMD.substr(0,4)+'-'+YMD.substr(4,2)+'-'+YMD.substr(6,2));
+        $("#datepicker02").val(YMD.substr(0,4)+'-'+YMD.substr(4,2)+'-'+YMD.substr(6,2));
+        $("input[name=WORKGROUP_NAME]").val(decodeURI(search['WORKGROUP_NAME']));
+        $("input[name=FREQ_KIND]").each(function (idx,element) {
+            if(element.value === search['FREQ_KIND']) {
+                element.checked = true;
+            }
+        });
+        $("input[name=DAYTIME_SEQ]").val(search['DAYTIME_SEQ']);
+        $("input[name=MBTYPE]").val(search['MBTYPE']);
+        jQuery.post("/adcaslte/svc/Solution-selectSolutionCellList",search,function(result,stat){
+            var cellList = [];
+            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
+                var row = result.rows[idx];
+                cellList.push(row.CELL_INFO);
+            }
+            $("input[name=DUIDs]").val(cellList.join("|"));
+            $("input[name=CELLGROUP_YN]").val("Y");
+
+            $("#divSearch button[name=search]").trigger("click")
+
+        },"json");
+
+    }
+
     /*
     $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
     $("input[name=WORKGROUP_YN]").val("Y");

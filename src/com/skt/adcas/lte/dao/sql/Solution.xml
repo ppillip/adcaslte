@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skt.adcas.lte.dao.sql">
+
+    <select id="Solution.selectSolutionList" parameterType="hashmap" resultType="hashmap">
+
+        WITH
+        BONBU_INFO AS
+        (SELECT cell.ymd, bon.bonbu_cd, bon.bonbu_nm, cell.cell_cnt
+           FROM (SELECT ymd, bonbu_cd, count(*) CELL_CNT
+                   FROM LTE_CELL_BAS_DAY
+                  WHERE ymd         = #{YMD}
+                    AND daytime_seq = #{DAYTIME_SEQ}
+                    AND bonbu_cd IS NOT NULL
+                  GROUP BY ymd, bonbu_cd) CELL,
+                LTE_BONBU_INFO BON
+          WHERE cell.bonbu_cd = bon.bonbu_cd),
+        SOLUTION_INFO AS
+        (SELECT sol.ymd, sol.bonbu_cd,
+                SUM(sol.throughput_cnt)   AS THROUGHPUT_CNT,
+                SUM(sol.prb_rate_cnt)     AS PRB_RATE_CNT,
+                SUM(sol.ul_if_power_cnt)  AS UL_IF_POWER_CNT,
+                SUM(sol.license_fail_cnt) AS LICENSE_FAIL_CNT
+           FROM LTE_SOLUTION_PART SOL
+          WHERE sol.ymd         = #{YMD}
+            AND sol.daytime_seq = #{DAYTIME_SEQ}
+            AND sol.rtype_cd    = #{RTYPE_CD}
+          GROUP BY sol.ymd, sol.bonbu_cd)
+        SELECT bon.ymd, bon.bonbu_cd, bon.bonbu_nm,
+               bon.cell_cnt                AS CELL_CNT,
+               NVL(sol.throughput_cnt,0)   AS THROUGHPUT_CNT,
+               NVL(sol.prb_rate_cnt,0)     AS PRB_RATE_CNT,
+               NVL(sol.ul_if_power_cnt,0)  AS UL_IF_POWER_CNT,
+               NVL(sol.license_fail_cnt,0) AS LICENSE_FAIL_CNT
+          FROM BONBU_INFO BON LEFT OUTER JOIN SOLUTION_INFO SOL
+            ON (sol.bonbu_cd = bon.bonbu_cd)
+       ORDER BY bon.bonbu_cd
+
+    </select>
+
+    <select id="Solution.selectSolutionDetail" parameterType="hashmap" resultType="hashmap">
+
+        WITH
+        PART_INFO AS
+        (SELECT cell.ymd, bon.bonbu_cd, bon.bonbu_nm,
+                team.oper_team_cd, team.oper_team_nm,
+                part.part_cd, part.part_nm,
+                cell.freq_kind, cell.cell_cnt
+           FROM (SELECT ymd, bonbu_cd, oper_team_cd, part_cd, freq_kind, count(*) CELL_CNT
+                   FROM LTE_CELL_BAS_DAY
+                  WHERE ymd         = #{YMD}
+                    AND daytime_seq = #{DAYTIME_SEQ}
+                    AND bonbu_cd     IS NOT NULL
+                    AND oper_team_cd IS NOT NULL
+                    AND part_cd      IS NOT NULL
+                  GROUP BY ymd, bonbu_cd, oper_team_cd, part_cd, freq_kind) CELL,
+                LTE_BONBU_INFO BON,
+                LTE_OPER_TEAM_INFO TEAM,
+                LTE_PART_INFO PART
+          WHERE cell.bonbu_cd     = bon.bonbu_cd
+            AND cell.oper_team_cd = team.oper_team_cd
+            AND cell.part_cd      = part.part_cd),
+        SOLUTION_INFO AS
+        (SELECT sol.ymd, sol.bonbu_cd, sol.oper_team_cd, sol.part_cd, sol.freq_kind,
+                SUM(sol.throughput_cnt)   THROUGHPUT_CNT,
+                SUM(sol.prb_rate_cnt)     PRB_RATE_CNT,
+                SUM(sol.ul_if_power_cnt)  UL_IF_POWER_CNT,
+                SUM(sol.license_fail_cnt) LICENSE_FAIL_CNT
+           FROM LTE_SOLUTION_PART SOL
+          WHERE sol.ymd         = #{YMD}
+            AND sol.daytime_seq = #{DAYTIME_SEQ}
+            AND sol.rtype_cd    = #{RTYPE_CD}
+          GROUP BY sol.ymd, sol.bonbu_cd, sol.oper_team_cd, sol.part_cd, sol.freq_kind)
+        SELECT part.ymd,
+               part.bonbu_cd, part.bonbu_nm,
+               part.oper_team_cd, part.oper_team_nm,
+               part.part_cd, part.part_nm,
+               part.freq_kind,
+               part.cell_cnt               AS CELL_CNT,
+               NVL(sol.throughput_cnt,0)   AS THROUGHPUT_CNT,
+               NVL(sol.prb_rate_cnt,0)     AS PRB_RATE_CNT,
+               NVL(sol.ul_if_power_cnt,0)  AS UL_IF_POWER_CNT,
+               NVL(sol.license_fail_cnt,0) AS LICENSE_FAIL_CNT
+          FROM PART_INFO PART LEFT OUTER JOIN SOLUTION_INFO SOL
+            ON (part.bonbu_cd     = sol.bonbu_cd     AND
+                part.oper_team_cd = sol.oper_team_cd AND
+                part.part_cd      = sol.part_cd      AND
+                part.freq_kind    = sol.freq_kind)
+       ORDER BY part.bonbu_cd, part.oper_team_cd, part.part_cd, part.freq_kind
+
+    </select>
+
+    <select id="Solution.selectSolutionCellList" parameterType="hashmap" resultType="hashmap">
+
+        SELECT c_uid||'_'||ingr_erp_cd||'_'||cell_id||'_'||mcid AS CELL_INFO,
+               mfc_cd
+          FROM LTE_SOLUTION_CELL
+         WHERE ymd         = #{YMD}
+           AND daytime_seq = #{DAYTIME_SEQ}
+           AND rtype_cd    = #{RTYPE_CD}
+           AND freq_kind   = #{FREQ_KIND}
+           AND part_cd     = #{PART_CD}
+           AND bad_type    = #{BAD_TYPE}
+        ORDER BY bonbu_cd, oper_team_cd, part_cd, freq_kind
+    </select>
+
+
+</mapper>

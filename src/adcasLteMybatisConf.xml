@@ -25,6 +25,7 @@
         <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkByQMS.xml" />
         <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkBySTD.xml" />
         <mapper resource="com/skt/adcas/lte/dao/sql/DownLinkBySTDStats.xml" />
+        <mapper resource="com/skt/adcas/lte/dao/sql/Solution.xml" />
         <mapper resource="com/skt/adcas/lte/dao/sql/Workgroup.xml" />
         <mapper resource="com/skt/adcas/lte/dao/sql/Environment.xml" />
         <mapper resource="com/skt/adcas/lte/dao/sql/User.xml" />

@@ -93,6 +93,7 @@
                                                         <input type="text" name="WORKGROUP_YN" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:20px; height:18px;font-size:11px;display:none;">
                                                         <input type="text" name="WORKGROUP_ID" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;;display:none;">
                                                         <input type="text" name="DUIDs" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;display:none;">
+                                                        <input type="text" name="CELLGROUP_YN" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:20px; height:18px;font-size:11px;display:none;">
                                                     </td>
                                                 </tr>
                                                 <tr>
