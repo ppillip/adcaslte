@@ -392,7 +392,7 @@ $(document).ready(function(){
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }
-
+            if( typeof(callback==="function") ) callback();
         },"json");
     });
 
@@ -402,7 +402,8 @@ $(document).ready(function(){
         $("#"+$(this).val()).show();
     })
 
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
+    $("#graphDropDown li[name=showCqiModal]").click(function(e,callback){
+
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
@@ -649,6 +650,8 @@ $(document).ready(function(){
 
         },"json");
     });
+    if(window.location.host==="localhost") {goTest();}
+});
 
     //솔루션에서 DownLinkByNMS 호출시
     if(location.search) {
@@ -681,13 +684,38 @@ $(document).ready(function(){
 
     }
 
-    /*
-    $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
-    $("input[name=WORKGROUP_YN]").val("Y");
-    $("input[name=WORKGROUP_NAME]").val("테스트모드입니다.");
-    $("#datepicker01").val("2013-01-15");
-    $("#datepicker02").val("2013-01-15");
+function goTest(){
 
-    $("button[name=search]").trigger("click");
-    */
-});
+    QUnit.test("초기 셋팅", function() {
+
+        $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
+        $("input[name=WORKGROUP_YN]").val("Y");
+        $("input[name=WORKGROUP_NAME]").val("테스트모드입니다.");
+        $("#datepicker01").val("2013-01-15");
+        $("#datepicker02").val("2013-01-15");
+        ok( true, "셋팅완료" );
+
+        $("button[name=search]").trigger("click",function(){
+            QUnit.test("리턴값확인", function() {
+                deepEqual(true,window.result.rows.length > 0 , window.result.rows.length + " 개 가져옴");
+            });
+
+            QUnit.test("CQI 그래프 확인 ",function(){
+                $("input[type=checkbox][name='1']").attr("checked",true);
+                $("input[type=checkbox][name='2']").attr("checked",true);
+                $("input[type=checkbox][name='3']").attr("checked",true);
+                ok( true, "체크박스 셋팅" );
+                $("#graphDropDown li[name=showCqiModal]").trigger('click',function(){
+                    ok( true, "CQI 클릭" );
+                })
+            });
+
+            $("button[name=excelDownload]").trigger('click',function(){
+                    QUnit.test("엑셀 다운로드 확인",function(){
+                        deepEqual(true,true,"엑셀 가져옴");
+                    });
+            });
+
+        });
+    });
+}

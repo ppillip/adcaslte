@@ -23,6 +23,11 @@
     <script src="downLinkByNMS.js" language="javascript"></script>
 
 
+    <link href="http://code.jquery.com/qunit/qunit-git.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+
+
 </head>
 <body>
 <div id="wrap">
@@ -566,5 +571,8 @@
         <!-- button class="btn btn-primary btn-mini">Save changes</button  -->
     </div>
 </div>
+
+<div id='qunit'></div>
+
 </body>
 </html>
