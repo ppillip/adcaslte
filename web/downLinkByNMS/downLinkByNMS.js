@@ -671,7 +671,7 @@ function goTest(){
                 deepEqual(true,window.result.rows.length > 0 , window.result.rows.length + " 개 가져옴");
             });
 
-            QUnit.test("CQI 그래프 확인",function(){
+            QUnit.test("CQI 그래프 확인 ",function(){
                 $("input[type=checkbox][name='1']").attr("checked",true);
                 $("input[type=checkbox][name='2']").attr("checked",true);
                 $("input[type=checkbox][name='3']").attr("checked",true);
