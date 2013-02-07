@@ -650,8 +650,6 @@ $(document).ready(function(){
 
         },"json");
     });
-    if(window.location.host==="localhost") {goTest();}
-});
 
     //솔루션에서 DownLinkByNMS 호출시
     if(location.search) {
@@ -683,6 +681,10 @@ $(document).ready(function(){
         },"json");
 
     }
+
+    if(window.location.host==="localhost") {goTest();}
+});
+
 
 function goTest(){
 
