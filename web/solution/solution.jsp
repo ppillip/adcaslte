@@ -21,7 +21,7 @@
     <div style="margin-bottom:5px;">
         <ul><li>본부/팀별 현황상세</li></ul>
     </div>
-    <div style="height:437px; overflow-y: scroll; margin:15px;">
+    <div style="height:437px; overflow-y: auto; margin:15px;">
         <table id="solutionListTable" class="table table-bordered table-hover table-condensed table-striped">
             <thead>
             <tr class="info">

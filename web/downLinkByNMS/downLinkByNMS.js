@@ -728,7 +728,7 @@ $(document).ready(function(){
 
     }
 
-    //if(window.location.host==="localhost") {goTest();}
+    if(window.location.host==="localhost") {goTest();}
 });
 
 

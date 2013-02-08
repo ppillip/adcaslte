@@ -37,6 +37,10 @@ public class SolutionAction extends ActionSupport4lte {
         this.FREQ_KIND = FREQ_KIND;
     }
 
+    public void setBONBU_CD(String BONBU_CD) {
+        this.BONBU_CD = BONBU_CD;
+    }
+
     public void setPART_CD(String PART_CD) {
         this.PART_CD = PART_CD;
     }
@@ -49,6 +53,7 @@ public class SolutionAction extends ActionSupport4lte {
     private String RTYPE_CD    = "R3";
     private String DAYTIME_SEQ = "1";
     private String FREQ_KIND   = "";
+    private String BONBU_CD    = "";
     private String PART_CD     = "";
     private String BAD_TYPE    = "";
 
@@ -66,6 +71,7 @@ public class SolutionAction extends ActionSupport4lte {
         param.put("RTYPE_CD"   , RTYPE_CD);
         param.put("DAYTIME_SEQ", DAYTIME_SEQ);
         param.put("FREQ_KIND"  , FREQ_KIND);
+        param.put("BONBU_CD"   , BONBU_CD);
         param.put("PART_CD"    , PART_CD);
         param.put("BAD_TYPE"   , BAD_TYPE);
 

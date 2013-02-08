@@ -51,6 +51,7 @@
                    FROM LTE_CELL_BAS_DAY
                   WHERE ymd         = #{YMD}
                     AND daytime_seq = #{DAYTIME_SEQ}
+                    AND bonbu_cd    = #{BONBU_CD}
                     AND bonbu_cd     IS NOT NULL
                     AND oper_team_cd IS NOT NULL
                     AND part_cd      IS NOT NULL

@@ -24,7 +24,8 @@ var parseQueryString = function(queryString) {
  *==============================================================================*/
 function getSolutionDetail(callback) {
     var param = parseQueryString(window.location.search.substring(1));
-
+    delete param['USER_ID'];
+    delete param['USER_PW'];
     jQuery.post("/adcaslte/svc/Solution-selectSolutionDetail",param,function(result,stat){
 
         var $tbody = $("#solutionListTable").find("tbody");
