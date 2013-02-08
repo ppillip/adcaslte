@@ -392,7 +392,7 @@ $(document).ready(function(){
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }
-            if( typeof(callback==="function") ) callback();
+            if(typeof(callback) === "function") callback();
         },"json");
     });
 
@@ -660,29 +660,75 @@ $(document).ready(function(){
         $("#datepicker01").val(YMD.substr(0,4)+'-'+YMD.substr(4,2)+'-'+YMD.substr(6,2));
         $("#datepicker02").val(YMD.substr(0,4)+'-'+YMD.substr(4,2)+'-'+YMD.substr(6,2));
         $("input[name=WORKGROUP_NAME]").val(decodeURI(search['WORKGROUP_NAME']));
-        $("input[name=FREQ_KIND]").each(function (idx,element) {
-            if(element.value === search['FREQ_KIND']) {
-                element.checked = true;
-            }
-        });
+        $("input[name=FREQ_KIND][value='"+search['FREQ_KIND']+"']").attr("checked","checked");
         $("input[name=DAYTIME_SEQ]").val(search['DAYTIME_SEQ']);
         $("input[name=MBTYPE]").val(search['MBTYPE']);
-        jQuery.post("/adcaslte/svc/Solution-selectSolutionCellList",search,function(result,stat){
-            var cellList = [];
-            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
-                var row = result.rows[idx];
-                cellList.push(row.CELL_INFO);
+
+        jQuery.ajax({
+            type: "POST",
+            url: "/adcaslte/svc/Solution-selectSolutionCellList",
+            data: search,
+            dataType: "json",
+            async: false,
+            success: function(result,stat){
+                var cellList  = [];
+                var mfcCDList = [];
+                var mfcNMList = [];
+                for(var idx= 0,max =result.rows.length; idx < max; ++idx){
+                    var row = result.rows[idx];
+                    cellList.push(row.CELL_INFO);
+                    if(!mfcCDList) {
+                        mfcCDList.push(row.MFC_CD);
+                    } else {
+                        if ($.inArray(row.MFC_CD, mfcCDList) === -1) {
+                            mfcCDList.push(row.MFC_CD);
+                        }
+                    }
+                }
+                $("input[name=DUIDs]").val(cellList.join("|"));
+                $("input[name=CELLGROUP_YN]").val("Y");
+                if ($.inArray('MFC00001', mfcCDList) !== -1) {
+                    $("input[name=MFC_CD][value=MFC00001]").attr("checked","checked");
+                } else if ($.inArray('MFC00002', mfcCDList) !== -1) {
+                    $("input[name=MFC_CD][value=MFC00002]").attr("checked","checked");
+                } else if ($.inArray('MFC00002', mfcCDList) !== -1) {
+                    $("input[name=MFC_CD][value=MFC00014]").attr("checked","checked");
+                } else {
+                    $("input[name=MFC_CD][value="+mfcCDList[0]+"]").attr("checked","checked");
+                }
+                if (mfcCDList.length > 1) {
+                    for (var i=0; i<mfcCDList.length; i++) {
+                        if (mfcCDList[i] === 'MFC00001') {
+                            mfcNMList.push("삼성");
+                        } else if (mfcCDList[i] === 'MFC00002') {
+                            mfcNMList.push("ELG");
+                        } else if (mfcCDList[i] === 'MFC00014') {
+                            mfcNMList.push("NSN");
+                        }
+                    }
+                    alert('제조사가 '+mfcNMList.join(',')+' 존재합니다!');
+                }
             }
-            $("input[name=DUIDs]").val(cellList.join("|"));
-            $("input[name=CELLGROUP_YN]").val("Y");
+        });
 
-            $("#divSearch button[name=search]").trigger("click")
+        $("#divSearch button[name=search]").trigger("click");
 
-        },"json");
+//        jQuery.post("/adcaslte/svc/Solution-selectSolutionCellList",search,function(result,stat){
+//            var cellList = [];
+//            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
+//                var row = result.rows[idx];
+//                cellList.push(row.CELL_INFO);
+//            }
+//            $("input[name=DUIDs]").val(cellList.join("|"));
+//            $("input[name=CELLGROUP_YN]").val("Y");
+//
+//            $("#divSearch button[name=search]").trigger("click");
+//
+//        },"json");
 
     }
 
-    if(window.location.host==="localhost") {goTest();}
+    //if(window.location.host==="localhost") {goTest();}
 });
 
 

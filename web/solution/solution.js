@@ -58,6 +58,24 @@ function getSolutionDetail(callback) {
 
 function openDownLinkByNMS(event,badType,obj) {
     event.preventDefault();
+    var param = parseQueryString(window.location.search.substring(1));
+    var _row = $(obj).parents("tr:first").data('row');
+    var title = "";
+
+    if(badType === 'BAD0001') {
+        title = '용량저하 : ';
+    } else if(badType === 'BAD0002') {
+        title = 'PRB사용률불량 : ';
+    } else if(badType === 'BAD0003') {
+        title = 'UL불량 : ';
+    } else if(badType === 'BAD0004') {
+        title = '라이센스실패호 : ';
+    }
+    title += _row.PART_NM;
+    var queryString = '?YMD='+param['YMD']+'&DAYTIME_SEQ='+param['DAYTIME_SEQ']+'&MBTYPE='+param['RTYPE_CD']+'&FREQ_KIND='+_row.FREQ_KIND+'&PART_CD='+_row.PART_CD+'&BAD_TYPE='+badType+'&WORKGROUP_NAME='+title;
+    jQuery.post("/adcaslte/svc/User-login",{USER_ID:param['USER_ID'],USER_PW:param['USER_PW']},function(result,stat){
+        window.open('/adcaslte/downLinkByNMS/downLinkByNMS.jsp'+queryString,'','scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1280,height=700');
+    });
 //    var param = parseQueryString(window.location.search.substring(1));
 //    var _row = $(obj).parents("tr:first").data('row');
 //    param['FREQ_KIND'] = _row.FREQ_KIND;
@@ -94,24 +112,6 @@ function openDownLinkByNMS(event,badType,obj) {
 //        });
 //
 //    },"json");
-    var param = parseQueryString(window.location.search.substring(1));
-    var _row = $(obj).parents("tr:first").data('row');
-    var title = "";
-    if(badType = 'BAD0001') {
-        title = '용량저하 : ';
-    } else if(badType = 'BAD0002') {
-        title = 'PRB사용률불량 : ';
-    } else if(badType = 'BAD0003') {
-        title = 'UL불량 : ';
-    } else if(badType = 'BAD0004') {
-        title = '라이센스실패호 : ';
-    }
-    title += _row.PART_NM;
-    var queryString = '?YMD='+param['YMD']+'&DAYTIME_SEQ='+param['DAYTIME_SEQ']+'&MBTYPE='+param['RTYPE_CD']+'&FREQ_KIND='+_row.FREQ_KIND+'&PART_CD='+_row.PART_CD+'&BAD_TYPE='+badType+'&WORKGROUP_NAME='+title;
-    jQuery.post("/adcaslte/svc/User-login",{USER_ID:param['USER_ID'],USER_PW:param['USER_PW']},function(result,stat){
-        window.open('/adcaslte/downLinkByNMS/downLinkByNMS.jsp'+queryString,'','scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1280,height=700');
-    });
-
 }
 
 function getQueryVariable(variable) {
