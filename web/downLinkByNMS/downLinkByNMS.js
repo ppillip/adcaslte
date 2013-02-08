@@ -713,19 +713,6 @@ $(document).ready(function(){
 
         $("#divSearch button[name=search]").trigger("click");
 
-//        jQuery.post("/adcaslte/svc/Solution-selectSolutionCellList",search,function(result,stat){
-//            var cellList = [];
-//            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
-//                var row = result.rows[idx];
-//                cellList.push(row.CELL_INFO);
-//            }
-//            $("input[name=DUIDs]").val(cellList.join("|"));
-//            $("input[name=CELLGROUP_YN]").val("Y");
-//
-//            $("#divSearch button[name=search]").trigger("click");
-//
-//        },"json");
-
     }
 
     if(window.location.host==="localhost") {goTest();}
