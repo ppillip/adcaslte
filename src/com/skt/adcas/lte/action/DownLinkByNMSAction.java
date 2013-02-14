@@ -93,6 +93,7 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
         this.PART_CD = PART_CD;
     }
 
+    /*다시 커밋*/
     private String WORKGROUP_ID   = "";
     private String TERMTYPE       = "";
     private String DAYTIME_SEQ    = "";
