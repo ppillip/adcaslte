@@ -15,13 +15,16 @@
     <script src="/adcaslte/common/js/moment.min.js"></script>
     <script src="/adcaslte/common/js/accounting.min.js"></script>
 
+    <script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
+    <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
+    <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
+
     <script src="/adcaslte/common/js/jquery.progress.js"></script>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
     <link href="downLinkByQMSStats.css" rel="stylesheet">
     <script src="downLinkByQMSStats.js" language="javascript"></script>
     <script src="common.js" language="javascript"></script>
-    <script src="graph.js" language="javascript"></script>
 </head>
 <body>
 
@@ -34,7 +37,9 @@
     </div>
     <div id="web_container">
         <div id="header">
-            <%--<div id="popup_title">QCAS</div>--%>
+            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
+                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
+            </div>
             <div id="popup_desc">LTE 용량분석 > LTE QMS 기반 섹터 TP > 통계단위별 용량</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
         </div>
@@ -49,14 +54,14 @@
                     <tr>
                         <td background="/adcaslte/common/bootstrap/img/searchbox_center1.png" style="width:6px;">&nbsp;</td>
                         <td>
-                            <table width="1240" height="100" cellspacing="0" cellpadding="0" border="0">
+                            <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
                                         <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
+                                    <td style="padding: 1px 10px">
 
                                         <div name="divSearch" ID="divSearch" style="width:1210px;vertical-align:middle;">
                                             <table border="0">
@@ -75,20 +80,22 @@
                                                     <span class="dropdown" id="graphDropDown">
                                                         <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                                                                <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
+                                                                <li name="showThrpGraph"><a href="#">용량그래프</a></li>
+                                                                <li name="showHistogram"><a href="#">HISTOGRAM</a></li>
+                                                                <%--<li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>--%>
                                                             </ul>
                                                     </span>
                                                     <span class="dropdown" id="excelDropDown">
                                                             <button class="dropdown-toggle btn btn-xmini" id="drop5" role="button" data-toggle="dropdown" href="#"><i class="icon-file"></i> EXCEL <b class="caret"></b> </button>
                                                             <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                                                                <li  name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>
+                                                                <%--<li  name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>--%>
                                                             </ul>
                                                     </span>
                                                     </td>
                                                     <td><b>기간</b></td>
                                                     <td>
-                                                        <input style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" name="FROMYMD" id="datepicker01"/>-
-                                                        <input style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text"  name="TOYMD" id="datepicker02"/>
+                                                        <input type="text" name="FROMYMD" id="datepicker01"/>-
+                                                        <input type="text" name="TOYMD"   id="datepicker02"/>
                                                     </td>
                                                     <td><b>주파수</b></td>
                                                     <td>
@@ -107,6 +114,7 @@
                                                             <li  name="partSearch"><a tabindex="-1" href="#">파트별</a></li>
                                                             <li  name="citySearch"><a tabindex="-1" href="#">도/특별/광역</a></li>
                                                             <li  name="uniSearch"><a tabindex="-1" href="#">시/군/구</a></li>
+                                                            <li  name="emsSearch"><a tabindex="-1" href="#">EMS</a></li>
                                                         </ul>
                                                         <input type="hidden" name="SEARCHTYPE" id="SEARCHTYPE">
                                                     </span>
@@ -119,6 +127,9 @@
                                                         <span   group="searchSelect" id="cityLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">도/특별/광역</span>
                                                         <span   group="searchSelect" id="uniLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">시/군/구</span>
                                                         <select group="searchSelect" name="CITY" id="CITY" style="display:none"></select>
+                                                        <span   group="searchSelect" id="emsLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">EMS</span>
+                                                        <select group="searchSelect" name="MME_GRP_ID" id="MME_GRP_ID" style="display:none;width:100px;"></select>
+                                                        <select group="searchSelect" name="NE_ID" id="NE_ID" style="display:none;width:120px;"></select>
                                                     </span>
                                                     </td>
                                                     <td></td>
@@ -195,18 +206,16 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3">DL 용량<br>(Mbps)</td>
-                    <td rowspan="3">UL 용량<br>(Mbps)</td>
-                    <td rowspan="3">DL Throughput<br>(kbps)</td>
-                    <td rowspan="3">UL Throughput<br>(kbps)</td>
+                    <td rowspan="3">DL Throughput<br>(Mbps)</td>
+                    <td rowspan="3">UL Throughput<br>(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">RI2 비율</td>
                     <td rowspan="3">MCS 평균</td>
                     <td rowspan="3">RSRP<br>평균</td>
+                    <td rowspan="3">RSSI 평균</td>
                     <td rowspan="3">SINR<br>평균</td>
                     <td rowspan="3">RSRQ<br>평균</td>
                     <td rowspan="3">PUCCH<br>Tx 평균</td>
@@ -248,7 +257,6 @@
         <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
                 <colgroup><col class="col01">
-                    <col class="col01">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -341,32 +349,31 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
                 </colgroup>
                 <tbody>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
+                    <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
@@ -381,27 +388,20 @@
 </table>
 
 </div>
-<script src="/adcaslte/common/highchart/js/highcharts.src.js"></script>
-<script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
 
 <!-- Modal -->
 <div id="cqiModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="cqiModalLabel" aria-hidden="true"
-     style="width: 800px; postion:absolute; top:330px; left:400px;">
+     style="width: 1000px; postion:absolute; top:430px; left:450px;">
     <div class="modal-footer" style="height:30px; vertical-align: middle">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <button type="button" class="btn btn-mini pull-left" name="excelDownload"><i class="icon-download"></i> EXCEL Down </button>
         <div class="pull-left" style="margin-left:20px;">
-            CQI PDF graph :<input type="radio" name="cqiFlag" value="cqiPDFContainer" checked="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            CQI CDF graph :<input type="radio" name="cqiFlag" value="cqiCDFContainer">
+            CQI PDF graph :<input type="radio" name="cqiFlag" value="PDF" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            CQI CDF graph :<input type="radio" name="cqiFlag" value="CDF">
         </div>
     </div>
     <div class="modal-body">
-        <div id="cqiPDFContainer" style="width: 760px; height: 400px; margin: 0 0 0 0;"></div>
-        <div id="cqiCDFContainer" style="width: 760px; height: 400px; margin: 0 0 0 0;"></div>
-    </div>
-    <div class="modal-footer" style="height:30px;">
-        <button class="btn btn-mini" data-dismiss="modal" aria-hidden="true">닫기</button>
-        <!-- button class="btn btn-primary btn-mini">Save changes</button -->
+        <div id="graphContainer" style="width: 960px; height: 390px; margin: 0px;"></div>
     </div>
 </div>
 

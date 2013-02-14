@@ -57,109 +57,36 @@ $(document).ready(function(){
 /*===============================================================================
 * For GRAPH
 *==============================================================================*/
-    $("#cqiModal input[name=cqiFlag]").click(function(){
-        $("#cqiPDFContainer").hide();
-        $("#cqiCDFContainer").hide();
-        $("#"+$(this).val()).show();
-    })
-
-    $("#graphDropDown li[name=showCqiModal]").click(function(){
+    $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph],#graphDropDown li[name=showHistogram]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
             alert("Cell 을 선택해 주세요");
             return ;
         }
 
-        $('#cqiModal').modal('show');
+        var name = $(this).attr("name");
+        //For CQI
+        if (name === 'showCqiModal') {
+            $('#cqiModal').modal('show');
+            //For 용량그래프
+        } else if (name === 'showThrpGraph') {
+            window.open("downLinkByQMSStatsGraph.jsp?chart=showThrpGraph","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+            //For HISTOGRAM
+        } else if (name === 'showHistogram') {
+            window.open("downLinkByQMSStatsGraph.jsp?chart=showHistogram","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+        }
 
     });
 
-    function selectCheckedCQIData(cellList,callback){
-
-        var cqiPDFList = [];
-        var cqiCDFList = [];
-
-        cellList.each(function(idx,element){
-            var _thisRow = $(element).parents("tr:first").data("row");
-            cqiPDFList.push((function(row){
-                return {
-                    name : (function (_row) {
-                        if(_row.TITLE03) {
-                            return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02 + ":" + _row.TITLE03;
-                        } else if(_row.TITLE02) {
-                            return _row.YMD + ":" + _row.TITLE01 + ":" + _row.TITLE02;
-                        } else {
-                            return _row.YMD + ":" + _row.TITLE01;
-                        }
-                    })(row)
-                    ,data : [
-                        row.CQI_PDF_00 || 0
-                        ,row.CQI_PDF_01 || 0
-                        ,row.CQI_PDF_02 || 0
-                        ,row.CQI_PDF_03 || 0
-                        ,row.CQI_PDF_04 || 0
-                        ,row.CQI_PDF_05 || 0
-                        ,row.CQI_PDF_06 || 0
-                        ,row.CQI_PDF_07 || 0
-                        ,row.CQI_PDF_08 || 0
-                        ,row.CQI_PDF_09 || 0
-                        ,row.CQI_PDF_10 || 0
-                        ,row.CQI_PDF_11 || 0
-                        ,row.CQI_PDF_12 || 0
-                        ,row.CQI_PDF_13 || 0
-                        ,row.CQI_PDF_14 || 0
-                        ,row.CQI_PDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-
-            cqiCDFList.push((function(row){
-                return {
-                    name : (function () {
-                        if(row.TITLE03) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02 + ":" + row.TITLE03;
-                        } else if(row.TITLE02) {
-                            return row.YMD + ":" + row.TITLE01 + ":" + row.TITLE02;
-                        } else {
-                            return row.YMD + ":" + row.TITLE01;
-                        }
-                    })()
-                    ,data : [
-                        row.CQI_CDF_00 || 0
-                        ,row.CQI_CDF_01 || 0
-                        ,row.CQI_CDF_02 || 0
-                        ,row.CQI_CDF_03 || 0
-                        ,row.CQI_CDF_04 || 0
-                        ,row.CQI_CDF_05 || 0
-                        ,row.CQI_CDF_06 || 0
-                        ,row.CQI_CDF_07 || 0
-                        ,row.CQI_CDF_08 || 0
-                        ,row.CQI_CDF_09 || 0
-                        ,row.CQI_CDF_10 || 0
-                        ,row.CQI_CDF_11 || 0
-                        ,row.CQI_CDF_12 || 0
-                        ,row.CQI_CDF_13 || 0
-                        ,row.CQI_CDF_14 || 0
-                        ,row.CQI_CDF_15 || 0
-                    ]
-                }
-            })(_thisRow));
-        });
-        callback(cqiPDFList,cqiCDFList);
-    }
-
+    //For CQI
     $('#cqiModal').on('shown', function () {
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),'PDF');
+    });
 
-        /*초기에 PDF 그래프 보이게 셋팅*/
-        $("input[type=radio][name=cqiFlag]")[0].checked=true;
-        $("#cqiPDFContainer").show();
-        $("#cqiCDFContainer").hide();
-
-        selectCheckedCQIData($("input[type=checkbox][name!=checkAll]:checked"),function(cqiPDFList,cqiCDFList){
-            doCQIChart(cqiPDFList,cqiCDFList);
-        });
-
-    })
+    //For CQI
+    $("#cqiModal input[name=cqiFlag]").click(function(){
+        $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
+    });
 /*===============================================================================
  * End For GRAPH
  *==============================================================================*/
@@ -172,7 +99,7 @@ $(document).ready(function(){
         var param = parseParam(this);
         param["JSONDATA"] = JSON.stringify(window.result);
 
-        jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectDailyCellTrafficStatsExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkByQMSStats-selectCellTrafficStatsExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
@@ -189,7 +116,7 @@ $(document).ready(function(){
         var param = parseParam(this);
         param["JSONDATA"] = JSON.stringify(window.result);
         param["SEARCHTYPE"] = window.result.SEARCHTYPE;
-        jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectDailyCellTrafficStatsCQIExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkByQMSStats-selectCellTrafficStatsCQIExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
@@ -213,7 +140,7 @@ $(document).ready(function(){
         })($("input[type=checkbox][name!=checkAll]:checked"));
         param["SEARCHTYPE"] = window.result.SEARCHTYPE;
 
-        jQuery.post("/adcaslte/svc/DownLinkByNMSStats-selectDailyCellTrafficStatsCQIExcelDownload", param, function(result,stat){
+        jQuery.post("/adcaslte/svc/DownLinkByQMSStats-selectCellTrafficStatsCQIExcelDownload", param, function(result,stat){
 
             if(result.error){
                 alert("에러가 발생하였습니다. 관리자에게 문의하세요 \n\n" + result.msg);
@@ -232,9 +159,6 @@ $(document).ready(function(){
  * For SEARCH
  *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
-
-        alert("조회결과가 없습니다.");
-        return false;
 
         $("div[name=divMiddleLeft] table tbody tr").remove();
         $("div[name=divMiddleRight] table tbody tr").remove();
@@ -305,36 +229,25 @@ $(document).ready(function(){
                 });
 
                 $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.THROUGHPUT  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_TPUT     )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.UL_TPUT     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RANK2       )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0       )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1       )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_RSSI0    )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_RSSI1    )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RANK_INDEX  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRP_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.SINR_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRQ_AVERAGE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TXPW_PUCCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE)+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUCCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUCCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PDCP_DL_MB  )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PRB_USG_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DRB_USG_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_TIME    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_MB */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_PRB*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TRY_CC*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TIME  */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_MB */"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_PRB*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TRY_CC*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TIME  */"n/a" +"</td>"
-                    /*+"<td class='tdRight'>.</td>"
-                     +"<td class='tdRight'>.</td>"
-                     +"<td class='tdRight'>.</td>"
-                     +"<td class='tdRight'>.</td>"
-                     +"<td class='tdRight'>.</td>"
-                     +"<td class='tdRight'>.</td>"*/
                     +"</tr>")
                     .appendTo($rightTable);
 
@@ -351,30 +264,25 @@ $(document).ready(function(){
             for(var i=0; i < 4; i++) {
                 $("tbody tr:first",$bottomRightTable).remove();
                 $("<tr class='info'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_TPUT     )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].UL_TPUT     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RI_RATE     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_PRB_RATE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI        )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].R2_RSSI     )+"</td>"  /*SS*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MIMO_RATE    )+"</td>"  /*LG*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_THROUGHPUT)+"</td>"  /*LG*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL )+"</td>"  /*LG*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MIMO_RATE )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].PUCCH_AVG )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].R2_PUCCH_AVG )+"</td>" /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].PUSCH_AVG )+"</td>"    /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].R2_PUSCH_AVG )+"</td>" /*NSN*/
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].PDCP_DL_MB  )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].PRB_USG_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DRB_USG_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CON_TIME    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].TRY_CCNT    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CON_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CDC_RATE    )+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RANK_INDEX  )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].MCS_AVERAGE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSRP_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].SINR_AVERAGE)+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSRQ_AVERAGE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].TXPW_PUCCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_PRB_RATE)+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUCCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUCCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+ "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }
@@ -489,6 +397,34 @@ $(document).ready(function(){
         setLeft(2);
 
     });
+
+    //조회대상 : EMS별
+    $("#searchDropDown li[name=emsSearch]").click(function(event){
+        event.preventDefault();
+        $("[group=searchSelect]").hide();
+        var $emsLabel = $("#emsLabel");
+        var $mmeSelect = $("#MME_GRP_ID");
+        var $neSelect = $("#NE_ID");
+        $emsLabel.show();
+        $mmeSelect.show();
+        $neSelect.show();
+
+        setMMEList($mmeSelect,true,setNEList,$neSelect); //true : all 보이도록..); //false : all 보이지 않도록..
+
+        $("[group^=title]").hide();
+        $("[group=title01]").show();
+        $("#title01").html("MME<br>Group");
+        $("[group=title02]").show();
+        $("#title02").text("EMS");
+        $("#SEARCHTYPE").val("EMS");
+        setLeft(2);
+
+    });
+
+    $("#MME_GRP_ID").change(function(){
+        setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
+    });
+
 /*===============================================================================
  * End For 조회대상
  *==============================================================================*/

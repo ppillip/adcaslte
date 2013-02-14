@@ -238,7 +238,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkCQI(PDF_CDF)(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -382,7 +382,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkData.xls";
+            String xlsFileName = "/DownLinkData(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -417,107 +417,113 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         Row hrow0 = sheet.createRow((short) 0 );
         hrow0.setHeightInPoints(20);
         int a = 0;
-        hrow0.createCell(a++).setCellValue("날짜");                   // "YMD"
-        hrow0.createCell(a++).setCellValue("DU명");                   // "BTS_NM"
-        hrow0.createCell(a++).setCellValue("CELL ID");               // "CELL_ID"
-        hrow0.createCell(a++).setCellValue("CELL 명");               //  "CELL_NM"
-        //hrow0.createCell(a++).setCellValue("MCID");                //  "MCID"
-        hrow0.createCell(a++).setCellValue("주파수구분");             //  "FREQ_KIND"
-        hrow0.createCell(a++).setCellValue("DL Throughput(Mbps)");  //   "DL_TPUT"
-        hrow0.createCell(a++).setCellValue("UL Throughput(Mbps)");  //   "UL_TPUT"
-        hrow0.createCell(a++).setCellValue("CQI 평균");              //   "CQI_AVERAGE"
-        hrow0.createCell(a++).setCellValue("RI2 비율");              //   "RI_RANK_INDEX
-        hrow0.createCell(a++).setCellValue("MCS 평균");              //   "MCS_AVERAGE"
-        hrow0.createCell(a++).setCellValue("RSRP 평균");              //   "RSRP_AVERAGE
-        hrow0.createCell(a++).setCellValue("RSSI 평균");              //   "RSSI_AVERAGE"
-        hrow0.createCell(a++).setCellValue("SINR 평균");              //   "SINR_AVERAGE"
-        hrow0.createCell(a++).setCellValue("RSRQ 평균");              //   "RSRQ_AVERAGE"
-        hrow0.createCell(a++).setCellValue("PUCCH Tx 평균");         //   "TXPW_PUCCH"
-        hrow0.createCell(a++).setCellValue("CQI0 비율");            //   "CQI0_RATE"
-        hrow0.createCell(a++).setCellValue("DL PRB 사용율");         //   "DL_PRB_RATE"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI0_PUCCH"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI1_PUCCH"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI0_PUSCH"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI1_PUSCH"
-        hrow0.createCell(a++).setCellValue("License 초과 실패호");  //   "LICENSE_FAIL"
+        hrow0.createCell(a++).setCellValue("날짜");                 // "YMD"
+        hrow0.createCell(a++).setCellValue("DU명");                 // "BTS_NM"
+        hrow0.createCell(a++).setCellValue("CELL ID");              // "CELL_ID"
+        hrow0.createCell(a++).setCellValue("CELL 명");              // "CELL_NM"
+        hrow0.createCell(a++).setCellValue("주파수구분");            // "FREQ_KIND"
+        hrow0.createCell(a++).setCellValue("DL Throughput(Mbps)");  // "DL_TPUT"
+        hrow0.createCell(a++).setCellValue("UL Throughput(Mbps)");  // "UL_TPUT"
+        hrow0.createCell(a++).setCellValue("CQI 평균");             // "CQI_AVERAGE"
+        hrow0.createCell(a++).setCellValue("RI2 비율");             // "RI_RANK_INDEX
+        hrow0.createCell(a++).setCellValue("MCS 평균");             // "MCS_AVERAGE"
+        hrow0.createCell(a++).setCellValue("RSRP 평균");            // "RSRP_AVERAGE
+        hrow0.createCell(a++).setCellValue("RSSI 평균");            // "RSSI_AVERAGE"
+        hrow0.createCell(a++).setCellValue("SINR 평균");            // "SINR_AVERAGE"
+        hrow0.createCell(a++).setCellValue("RSRQ 평균");            // "RSRQ_AVERAGE"
+        hrow0.createCell(a++).setCellValue("PUCCH Tx 평균");        // "TXPW_PUCCH"
+        hrow0.createCell(a++).setCellValue("CQI0 비율");            // "CQI0_RATE"
+        hrow0.createCell(a++).setCellValue("DL PRB 사용율");        // "DL_PRB_RATE"
+        hrow0.createCell(a++).setCellValue("RSSI");                // "RSSI0_PUCCH"
+        hrow0.createCell(a++).setCellValue("RSSI");                // "RSSI1_PUCCH"
+        hrow0.createCell(a++).setCellValue("RSSI");                // "RSSI0_PUSCH"
+        hrow0.createCell(a++).setCellValue("RSSI");                // "RSSI1_PUSCH"
+        hrow0.createCell(a++).setCellValue("License 초과 실패호");  // "LICENSE_FAIL"
+        hrow0.createCell(a++).setCellValue("전송로");               // "전송로"
+        hrow0.createCell(a++).setCellValue("전송로");               // "전송로"
 
         Row hrow1 = sheet.createRow((short) 1 );
         hrow1.setHeightInPoints(20);
         int b = 0;
-        hrow1.createCell(b++).setCellValue("");                // "YMD"
-        hrow1.createCell(b++).setCellValue("");                // "BTS_NM"
-        hrow1.createCell(b++).setCellValue("");                // "CELL_ID"
-        hrow1.createCell(b++).setCellValue("");                // "CELL_NM"
-        //hrow1.createCell(b++).setCellValue("");                // "MCID"
-        hrow1.createCell(b++).setCellValue("");                // "FREQ_KIND"
-        hrow1.createCell(b++).setCellValue("");  //   "DL_TPUT"
-        hrow1.createCell(b++).setCellValue("");  //   "UL_TPUT"
-        hrow1.createCell(b++).setCellValue("");  //   "CQI_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");  //   "RI_RANK_INDEX
-        hrow1.createCell(b++).setCellValue("");  //   "MCS_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");  //   "RSRP_AVERAGE
-        hrow1.createCell(b++).setCellValue("");  //   "RSSI_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");  //   "SINR_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");  //   "RSRQ_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");  //   "TXPW_PUCCH"
-        hrow1.createCell(b++).setCellValue("");  //   "CQI0_RATE"
-        hrow1.createCell(b++).setCellValue("");  //   "DL_PRB_RATE"
+        hrow1.createCell(b++).setCellValue("");              // "YMD"
+        hrow1.createCell(b++).setCellValue("");              // "BTS_NM"
+        hrow1.createCell(b++).setCellValue("");              // "CELL_ID"
+        hrow1.createCell(b++).setCellValue("");              // "CELL_NM"
+        hrow1.createCell(b++).setCellValue("");              // "FREQ_KIND"
+        hrow1.createCell(b++).setCellValue("");              // "DL_TPUT"
+        hrow1.createCell(b++).setCellValue("");              // "UL_TPUT"
+        hrow1.createCell(b++).setCellValue("");              // "CQI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");              // "RI_RANK_INDEX
+        hrow1.createCell(b++).setCellValue("");              // "MCS_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");              // "RSRP_AVERAGE
+        hrow1.createCell(b++).setCellValue("");              // "RSSI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");              // "SINR_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");              // "RSRQ_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");              // "TXPW_PUCCH"
+        hrow1.createCell(b++).setCellValue("");              // "CQI0_RATE"
+        hrow1.createCell(b++).setCellValue("");              // "DL_PRB_RATE"
         hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "RSSI0_PUCCH"
         hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "RSSI1_PUCCH"
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "RSSI0_PUSCH"
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "RSSI1_PUSCH"
-        hrow1.createCell(b++).setCellValue("");  //   "LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("");              // "LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("종류");          // "전송로-종류"
+        hrow1.createCell(b++).setCellValue("갯수");          // "전송로-갯수"
 
         Row hrow2 = sheet.createRow((short) 2 );
         hrow2.setHeightInPoints(20);
         int c = 0;
-        hrow2.createCell(c++).setCellValue("");  // "YMD"
-        hrow2.createCell(c++).setCellValue("");  // "BTS_NM"
-        hrow2.createCell(c++).setCellValue("");  // "CELL_ID"
-        hrow2.createCell(c++).setCellValue("");  // "CELL_NM"
-        //hrow2.createCell(c++).setCellValue("");  // "MCID"
-        hrow2.createCell(c++).setCellValue("");  // "FREQ_KIND"
-        hrow2.createCell(c++).setCellValue("");  //   "DL_TPUT"
-        hrow2.createCell(c++).setCellValue("");  //   "UL_TPUT"
-        hrow2.createCell(c++).setCellValue("");  //   "CQI_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");  //   "RI_RANK_INDEX
-        hrow2.createCell(c++).setCellValue("");  //   "MCS_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");  //   "RSRP_AVERAGE
-        hrow2.createCell(c++).setCellValue("");  //   "RSSI_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");  //   "SINR_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");  //   "RSRQ_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");  //   "TXPW_PUCCH"
-        hrow2.createCell(c++).setCellValue("");  //   "CQI0_RATE"
-        hrow2.createCell(c++).setCellValue("");  //   "DL_PRB_RATE"
+        hrow2.createCell(c++).setCellValue("");        // "YMD"
+        hrow2.createCell(c++).setCellValue("");        // "BTS_NM"
+        hrow2.createCell(c++).setCellValue("");        // "CELL_ID"
+        hrow2.createCell(c++).setCellValue("");        // "CELL_NM"
+        hrow2.createCell(c++).setCellValue("");        // "FREQ_KIND"
+        hrow2.createCell(c++).setCellValue("");        // "DL_TPUT"
+        hrow2.createCell(c++).setCellValue("");        // "UL_TPUT"
+        hrow2.createCell(c++).setCellValue("");        // "CQI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");        // "RI_RANK_INDEX
+        hrow2.createCell(c++).setCellValue("");        // "MCS_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");        // "RSRP_AVERAGE
+        hrow2.createCell(c++).setCellValue("");        // "RSSI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");        // "SINR_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");        // "RSRQ_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");        // "TXPW_PUCCH"
+        hrow2.createCell(c++).setCellValue("");        // "CQI0_RATE"
+        hrow2.createCell(c++).setCellValue("");        // "DL_PRB_RATE"
         hrow2.createCell(c++).setCellValue("최번시");  // "RSSI0_PUCCH"
         hrow2.createCell(c++).setCellValue("최한시");  // "RSSI1_PUCCH"
         hrow2.createCell(c++).setCellValue("최번시");  // "RSSI0_PUSCH"
         hrow2.createCell(c++).setCellValue("최한시");  // "RSSI1_PUSCH"
-        hrow2.createCell(c++).setCellValue("");  //   "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");       // "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");       // "전송로-종류"
+        hrow2.createCell(c++).setCellValue("");       // "전송로-갯수"
 
-        sheet.addMergedRegion(new CellRangeAddress(0,2,0,0));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,1,1));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,2,2));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,3,3));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,4,4));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,5,5));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,6,6));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,7,7));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,8,8));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,8,8));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,9,9));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,10,10));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,11,11));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,12,12));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,13,13));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,14,14));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,15,15));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,16,16));
-        sheet.addMergedRegion(new CellRangeAddress(0,0,17,20));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,17,18));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,19,20));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,21,21));
-
+        int d = 0;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "YMD"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "BTS_NM"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CELL_ID"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CELL_NM"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "FREQ_KIND"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "DL_TPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "UL_TPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CQI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RI_RANK_INDEX
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "MCS_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RSRP_AVERAGE
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RSSI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "SINR_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RSRQ_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "TXPW_PUCCH"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CQI0_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "DL_PRB_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   // "RSSI"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   // "Total(PUCCH)"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3)); // "Total(PUSCH)"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "LICENSE_FAIL"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
 
         ArrayList list01 = (ArrayList) map.get("rows");
         Iterator iterator = (Iterator) list01.iterator();
@@ -527,31 +533,32 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             //한줄 만들고 셋팅
             Row row = sheet.createRow((short) i );
             row.setHeightInPoints(20);
-            int d = 0;
-            row.createCell(d++).setCellValue((String) jrow.get("YMD")             );
-            row.createCell(d++).setCellValue((String) jrow.get("BTS_NM")          );
-            row.createCell(d++).setCellValue((String) jrow.get("CELL_ID")         );
-            row.createCell(d++).setCellValue((String) jrow.get("CELL_NM")         );
-            //row.createCell(d++).setCellValue((String) jrow.get("MCID")            );
-            row.createCell(d++).setCellValue((String) jrow.get("FREQ_KIND")      );
+            int e = 0;
+            row.createCell(e++).setCellValue((String) jrow.get("YMD"));
+            row.createCell(e++).setCellValue((String) jrow.get("BTS_NM"));
+            row.createCell(e++).setCellValue((String) jrow.get("CELL_ID"));
+            row.createCell(e++).setCellValue((String) jrow.get("CELL_NM"));
+            row.createCell(e++).setCellValue((String) jrow.get("FREQ_KIND"));
 
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_TPUT") ?jrow.get("DL_TPUT").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("UL_TPUT") ?jrow.get("UL_TPUT").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RANK_INDEX")?jrow.get("RANK_INDEX").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSRP_AVERAGE")?jrow.get("RSRP_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI_AVERAGE")?jrow.get("RSSI_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("SINR_AVERAGE")?jrow.get("SINR_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSRQ_AVERAGE")?jrow.get("RSRQ_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("TXPW_PUCCH")?jrow.get("TXPW_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_TPUT") ?jrow.get("DL_TPUT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("UL_TPUT") ?jrow.get("UL_TPUT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RANK_INDEX")?jrow.get("RANK_INDEX").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSRP_AVERAGE")?jrow.get("RSRP_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI_AVERAGE")?jrow.get("RSSI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("SINR_AVERAGE")?jrow.get("SINR_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSRQ_AVERAGE")?jrow.get("RSRQ_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("TXPW_PUCCH")?jrow.get("TXPW_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue("n/a");
             i++;
 
         }
@@ -612,7 +619,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkHistogram.xls";
+            String xlsFileName = "/DownLinkHistogram(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");

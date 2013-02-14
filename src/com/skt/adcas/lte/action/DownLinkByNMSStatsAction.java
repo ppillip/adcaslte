@@ -257,7 +257,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF)(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -344,7 +344,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCompCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCompCQI(PDF_CDF)(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -398,9 +398,12 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             hrow0.createCell(a++).setCellValue("파트");
         } else if (searchType.equalsIgnoreCase("CITY")) {
             hrow0.createCell(a++).setCellValue("도/특별/광역");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
+        } else if (searchType.equalsIgnoreCase("UNI")) {
             hrow0.createCell(a++).setCellValue("도/특별/광역");
             hrow0.createCell(a++).setCellValue("시/군/구");
+        } else if (searchType.equalsIgnoreCase("EMS")) {
+            hrow0.createCell(a++).setCellValue("MME GROUP");
+            hrow0.createCell(a++).setCellValue("EMS");
         }
         hrow0.createCell(a++).setCellValue("주파수구분");
         hrow0.createCell(a++).setCellValue(type+"#00");
@@ -430,20 +433,18 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             row.setHeightInPoints(20);
             int b = 0;
             row.createCell(b++).setCellValue((String) jrow.get("YMD"));
-            if (searchType.equalsIgnoreCase("BONBU")) {
+            if (searchType.equalsIgnoreCase("BONBU") ||
+                searchType.equalsIgnoreCase("CITY")) {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("TEAM")) {
+            } else if (searchType.equalsIgnoreCase("TEAM") ||
+                       searchType.equalsIgnoreCase("UNI")  ||
+                       searchType.equalsIgnoreCase("EMS")) {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE02"));
             } else if (searchType.equalsIgnoreCase("PART")) {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE02"));
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE03"));
-            } else if (searchType.equalsIgnoreCase("CITY")) {
-                row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("시/군/구")) {
-                row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(b++).setCellValue((String) jrow.get("TITLE02"));
             }
             row.createCell(b++).setCellValue((String) jrow.get("FREQ_KIND"));
             row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_00") ? jrow.get("CQI_"+type+"_00").toString():"0"));
@@ -502,7 +503,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsData.xls";
+            String xlsFileName = "/DownLinkStatsData(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -578,7 +579,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCompData.xls";
+            String xlsFileName = "/DownLinkStatsCompData(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -622,164 +623,285 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         Row hrow0 = sheet.createRow((short) 0 );
         hrow0.setHeightInPoints(20);
         int a = 0;
-        hrow0.createCell(a++).setCellValue("");  //날짜
-        if (searchType.equalsIgnoreCase("BONBU")) {
-            hrow0.createCell(a++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("TEAM")) {
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("PART")) {
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            hrow0.createCell(a++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
-        }
-        hrow0.createCell(a++).setCellValue("");                  //주파수구분
-        hrow0.createCell(a++).setCellValue("");                  //"용량(Mbps) : THROUGHPUT"
-        hrow0.createCell(a++).setCellValue("");                  //"CQI 평균 : CQI_AVERAGE"
-        hrow0.createCell(a++).setCellValue("");                  //"CQI0 비율 : CQI0_RATE"
-        hrow0.createCell(a++).setCellValue("");                  //"RI2 비율(%) : RI_RATE"
-        hrow0.createCell(a++).setCellValue("");                  //"DL PRB 사용율(%) : DL_PRB_RATE"
-        hrow0.createCell(a++).setCellValue("");                  //"MCS 평균 : MCS_AVERAGE"
-        hrow0.createCell(a++).setCellValue("");                  //"MIMO 비율 : MIMO_RATE"
-        hrow0.createCell(a++).setCellValue("");                  //"DL Throughput(Kbps) : DL_THROUGHPUT"
-        hrow0.createCell(a++).setCellValue("");                  //"License 초과실패호 : LICENSE_FAIL"
-        hrow0.createCell(a++).setCellValue("");                  //"OL MIMO 비율(%) : MIMO_RATE"
-        hrow0.createCell(a++).setCellValue("");                  //"MCS0 비율(%) : MCS_AVERAGE"
-        hrow0.createCell(a++).setCellValue("PUCCH");            //"PUCCH-최번시 : PUCCH_AVG"
-        hrow0.createCell(a++).setCellValue("PUCCH");            //"PUCCH-최한시 : R2_PUCCH_AVG"
-        hrow0.createCell(a++).setCellValue("PUSCH");            //"PUSCH-최번시 : PUSCH_AVG"
-        hrow0.createCell(a++).setCellValue("PUSCH");            //"PUSCH-최한시 : R2_PUSCH_AVG"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-DRB 사용율(%) : DRB_USG_RATE"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-동접자 : CON_TIME"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-시도호수 : TRY_CCNT"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-접속률(%) : CON_RATE"
-        hrow0.createCell(a++).setCellValue("데이터 (dBm)");    //"데이터 (dBm)-CD율(%) : CDC_RATE"
 
+        hrow0.createCell(a++).setCellValue("날짜");
         if (searchType.equalsIgnoreCase("BONBU")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,14,17));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,16,17));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,18,24));
+            hrow0.createCell(a++).setCellValue("본부");
         } else if (searchType.equalsIgnoreCase("TEAM")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,15,16));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,17,18));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,19,25));
+            hrow0.createCell(a++).setCellValue("본부");
+            hrow0.createCell(a++).setCellValue("팀");
         } else if (searchType.equalsIgnoreCase("PART")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,16,17));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,18,19));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,20,26));
+            hrow0.createCell(a++).setCellValue("본부");
+            hrow0.createCell(a++).setCellValue("팀");
+            hrow0.createCell(a++).setCellValue("파트");
         } else if (searchType.equalsIgnoreCase("CITY")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,14,17));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,16,17));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,18,24));
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,15,16));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,17,18));
-            sheet.addMergedRegion(new CellRangeAddress(0,0,19,25));
+            hrow0.createCell(a++).setCellValue("도/특별/광역");
+        } else if (searchType.equalsIgnoreCase("UNI")) {
+            hrow0.createCell(a++).setCellValue("도/특별/광역");
+            hrow0.createCell(a++).setCellValue("시/군/구");
         }
+        hrow0.createCell(a++).setCellValue("주파수구분");
+        hrow0.createCell(a++).setCellValue("용량(Mbps)");           //"용량(Mbps) : THROUGHPUT"
+        hrow0.createCell(a++).setCellValue("CQI 평균");             //"CQI 평균 : CQI_AVERAGE"
+        hrow0.createCell(a++).setCellValue("CQI0 비율");            //"CQI0 비율 : CQI0_RATE"
+        hrow0.createCell(a++).setCellValue("RI2 비율(%)");          //"RI2 비율(%) : RI_RATE"
+        hrow0.createCell(a++).setCellValue("DL PRB 사용율(%)");     //"DL PRB 사용율(%) : DL_PRB_RATE"
+        hrow0.createCell(a++).setCellValue("MCS 평균");             //"MCS 평균 : MCS_AVERAGE"
+        hrow0.createCell(a++).setCellValue("MIMO 비율");            //"MIMO 비율 : MIMO_RATE"
+        hrow0.createCell(a++).setCellValue("DL Throughput(Kbps)");  //"DL Throughput(Kbps) : DL_THROUGHPUT"
+        hrow0.createCell(a++).setCellValue("License 초과실패호");    //"License 초과실패호 : LICENSE_FAIL"
+        hrow0.createCell(a++).setCellValue("OL MIMO 비율(%)");      //"OL MIMO 비율(%) : MIMO_RATE"
+        hrow0.createCell(a++).setCellValue("MCS0 비율(%)");         //"MCS0 비율(%) : MCS_AVERAGE"
+        hrow0.createCell(a++).setCellValue("RSSI");                //"PUCCH-최번시 : PUCCH_AVG"
+        hrow0.createCell(a++).setCellValue("RSSI");                //"PUCCH-최한시 : R2_PUCCH_AVG"
+        hrow0.createCell(a++).setCellValue("RSSI");                //"PUSCH-최번시 : PUSCH_AVG"
+        hrow0.createCell(a++).setCellValue("RSSI");                //"PUSCH-최한시 : R2_PUSCH_AVG"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-DRB 사용율(%) : DRB_USG_RATE"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-동접자 : CON_TIME"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-시도호수 : TRY_CCNT"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-접속률(%) : CON_RATE"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-CD율(%) : CDC_RATE"
+        hrow0.createCell(a++).setCellValue("데이터 (dBm)");         //"데이터 (dBm)-FA 사용율(%)"
+        hrow0.createCell(a++).setCellValue("HD Voice");            //"HD Voice - 트래픽(MB)"
+        hrow0.createCell(a++).setCellValue("HD Voice");            //"HD Voice - PRB 사용률(%)"
+        hrow0.createCell(a++).setCellValue("HD Voice");            //"HD Voice - 시도호수"
+        hrow0.createCell(a++).setCellValue("HD Voice");            //"HD Voice - 점유시간"
+        hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - 트래픽(MB)"
+        hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - PRB 사용률(%)"
+        hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - 시도호수"
+        hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - 점유시간"
+        hrow0.createCell(a++).setCellValue("전송로");               //"전송로"
+        hrow0.createCell(a++).setCellValue("전송로");               //"전송로"
 
         log.debug("createCellTrafficStatsExcelSheet : hrow0 end");
         log.debug("createCellTrafficStatsExcelSheet : hrow1 start");
         Row hrow1 = sheet.createRow((short) 1 );
         hrow1.setHeightInPoints(20);
         int b = 0;
-        hrow1.createCell(b++).setCellValue("날짜");
-        if (searchType.equalsIgnoreCase("BONBU")) {
-            hrow1.createCell(b++).setCellValue("본부");
-        } else if (searchType.equalsIgnoreCase("TEAM")) {
-            hrow1.createCell(b++).setCellValue("본부");
-            hrow1.createCell(b++).setCellValue("팀");
+        hrow1.createCell(b++).setCellValue("");  //날짜
+        if (searchType.equalsIgnoreCase("BONBU") ||
+            searchType.equalsIgnoreCase("CITY")) {
+            hrow1.createCell(b++).setCellValue("");
+        } else if (searchType.equalsIgnoreCase("TEAM") ||
+                   searchType.equalsIgnoreCase("UNI")  ||
+                   searchType.equalsIgnoreCase("EMS")) {
+            hrow1.createCell(b++).setCellValue("");
+            hrow1.createCell(b++).setCellValue("");
         } else if (searchType.equalsIgnoreCase("PART")) {
-            hrow1.createCell(b++).setCellValue("본부");
-            hrow1.createCell(b++).setCellValue("팀");
-            hrow1.createCell(b++).setCellValue("파트");
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            hrow1.createCell(b++).setCellValue("도/특별/광역");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            hrow1.createCell(b++).setCellValue("도/특별/광역");
-            hrow1.createCell(b++).setCellValue("시/군/구");
+            hrow1.createCell(b++).setCellValue("");
+            hrow1.createCell(b++).setCellValue("");
+            hrow1.createCell(b++).setCellValue("");
         }
-        hrow1.createCell(b++).setCellValue("주파수구분");
-        hrow1.createCell(b++).setCellValue("용량(Mbps)");              //"용량(Mbps) : THROUGHPUT"
-        hrow1.createCell(b++).setCellValue("CQI 평균");                //"CQI 평균 : CQI_AVERAGE"
-        hrow1.createCell(b++).setCellValue("CQI0 비율");               //"CQI0 비율 : CQI0_RATE"
-        hrow1.createCell(b++).setCellValue("RI2 비율(%)");             //"RI2 비율(%) : RI_RATE"
-        hrow1.createCell(b++).setCellValue("DL PRB 사용율(%)");       //"DL PRB 사용율(%) : DL_PRB_RATE"
-        hrow1.createCell(b++).setCellValue("MCS 평균");                //"MCS 평균 : MCS_AVERAGE"
-        hrow1.createCell(b++).setCellValue("MIMO 비율");              //"MIMO 비율 : MIMO_RATE"
-        hrow1.createCell(b++).setCellValue("DL Throughput(Kbps)");  //"DL Throughput(Kbps) : DL_THROUGHPUT"
-        hrow1.createCell(b++).setCellValue("License 초과실패호");    //"License 초과실패호 : LICENSE_FAIL"
-        hrow1.createCell(b++).setCellValue("OL MIMO 비율(%)");       //"OL MIMO 비율(%) : MIMO_RATE"
-        hrow1.createCell(b++).setCellValue("MCS0 비율(%)");          //"MCS0 비율(%) : MCS_AVERAGE"
-        hrow1.createCell(b++).setCellValue("최번시");                 //"PUCCH-최번시 : PUCCH_AVG"
-        hrow1.createCell(b++).setCellValue("최한시");                 //"PUCCH-최한시 : R2_PUCCH_AVG"
-        hrow1.createCell(b++).setCellValue("최번시");                 //"PUSCH-최번시 : PUSCH_AVG"
-        hrow1.createCell(b++).setCellValue("최한시");                 //"PUSCH-최한시 : R2_PUSCH_AVG"
-        hrow1.createCell(b++).setCellValue("트래픽(MB)");            //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
-        hrow1.createCell(b++).setCellValue("PRB 사용율(%)");         //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
-        hrow1.createCell(b++).setCellValue("DRB 사용율(%)");         //"데이터 (dBm)-DRB 사용율(%) : DRB_USG_RATE"
-        hrow1.createCell(b++).setCellValue("동접자");                  //"데이터 (dBm)-동접자 : CON_TIME"
-        hrow1.createCell(b++).setCellValue("시도호수");                //"데이터 (dBm)-시도호수 : TRY_CCNT"
-        hrow1.createCell(b++).setCellValue("접속률(%)");               //"데이터 (dBm)-접속률(%) : CON_RATE"
-        hrow1.createCell(b++).setCellValue("CD율(%)");                 //"데이터 (dBm)-CD율(%) : CDC_RATE"
+        hrow1.createCell(b++).setCellValue("");               //주파수구분
+        hrow1.createCell(b++).setCellValue("");               //"용량(Mbps) : THROUGHPUT"
+        hrow1.createCell(b++).setCellValue("");               //"CQI 평균 : CQI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");               //"CQI0 비율 : CQI0_RATE"
+        hrow1.createCell(b++).setCellValue("");               //"RI2 비율(%) : RI_RATE"
+        hrow1.createCell(b++).setCellValue("");               //"DL PRB 사용율(%) : DL_PRB_RATE"
+        hrow1.createCell(b++).setCellValue("");               //"MCS 평균 : MCS_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");               //"MIMO 비율 : MIMO_RATE"
+        hrow1.createCell(b++).setCellValue("");               //"DL Throughput(Kbps) : DL_THROUGHPUT"
+        hrow1.createCell(b++).setCellValue("");               //"License 초과실패호 : LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("");               //"OL MIMO 비율(%) : MIMO_RATE"
+        hrow1.createCell(b++).setCellValue("");               //"MCS0 비율(%) : MCS_AVERAGE"
+        hrow1.createCell(b++).setCellValue("PUCCH");          //"PUCCH-최번시 : PUCCH_AVG"
+        hrow1.createCell(b++).setCellValue("PUCCH");          //"PUCCH-최한시 : R2_PUCCH_AVG"
+        hrow1.createCell(b++).setCellValue("PUSCH");          //"PUSCH-최번시 : PUSCH_AVG"
+        hrow1.createCell(b++).setCellValue("PUSCH");          //"PUSCH-최한시 : R2_PUSCH_AVG"
+        hrow1.createCell(b++).setCellValue("트래픽(MB)");      //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
+        hrow1.createCell(b++).setCellValue("PRB 사용율(%)");   //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
+        hrow1.createCell(b++).setCellValue("DRB 사용율(%)");   //"데이터 (dBm)-DRB 사용율(%) : DRB_USG_RATE"
+        hrow1.createCell(b++).setCellValue("동접자");          //"데이터 (dBm)-동접자 : CON_TIME"
+        hrow1.createCell(b++).setCellValue("시도호수");        //"데이터 (dBm)-시도호수 : TRY_CCNT"
+        hrow1.createCell(b++).setCellValue("접속률(%)");       //"데이터 (dBm)-접속률(%) : CON_RATE"
+        hrow1.createCell(b++).setCellValue("CD율(%)");        //"데이터 (dBm)-CD율(%) : CDC_RATE"
+        hrow1.createCell(b++).setCellValue("FA 사용율(%)");    //"데이터 (dBm)-FA 사용율(%)"
+        hrow1.createCell(b++).setCellValue("트래픽(MB)");      //"HD Voice - 트래픽(MB)"
+        hrow1.createCell(b++).setCellValue("PRB 사용률(%)");   //"HD Voice - PRB 사용률(%)"
+        hrow1.createCell(b++).setCellValue("시도호수");        //"HD Voice - 시도호수"
+        hrow1.createCell(b++).setCellValue("점유시간");        //"HD Voice - 점유시간"
+        hrow1.createCell(b++).setCellValue("트래픽(MB)");      //"영상통화 - 트래픽(MB)"
+        hrow1.createCell(b++).setCellValue("PRB 사용률(%)");   //"영상통화 - PRB 사용률(%)"
+        hrow1.createCell(b++).setCellValue("시도호수");        //"영상통화 - 시도호수"
+        hrow1.createCell(b++).setCellValue("점유시간");        //"영상통화 - 점유시간"
+        hrow1.createCell(b++).setCellValue("종류");           //"전송로-종류"
+        hrow1.createCell(b++).setCellValue("갯수");           //"전송로-갯수"
+
         log.debug("createCellTrafficStatsExcelSheet : hrow1 end");
+
+        log.debug("createCellTrafficStatsExcelSheet : hrow2 start");
+        Row hrow2 = sheet.createRow((short) 2 );
+        hrow2.setHeightInPoints(20);
+        int c = 0;
+        hrow2.createCell(c++).setCellValue("");  //날짜
+        if (searchType.equalsIgnoreCase("BONBU") ||
+            searchType.equalsIgnoreCase("CITY")) {
+            hrow2.createCell(c++).setCellValue("");
+        } else if (searchType.equalsIgnoreCase("TEAM") ||
+                   searchType.equalsIgnoreCase("UNI")  ||
+                   searchType.equalsIgnoreCase("EMS")) {
+            hrow2.createCell(c++).setCellValue("");
+            hrow2.createCell(c++).setCellValue("");
+        } else if (searchType.equalsIgnoreCase("PART")) {
+            hrow2.createCell(c++).setCellValue("");
+            hrow2.createCell(c++).setCellValue("");
+            hrow2.createCell(c++).setCellValue("");
+        }
+        hrow2.createCell(c++).setCellValue("");               //주파수구분
+        hrow2.createCell(c++).setCellValue("");               //"용량(Mbps) : THROUGHPUT"
+        hrow2.createCell(c++).setCellValue("");               //"CQI 평균 : CQI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");               //"CQI0 비율 : CQI0_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"RI2 비율(%) : RI_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"DL PRB 사용율(%) : DL_PRB_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"MCS 평균 : MCS_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");               //"MIMO 비율 : MIMO_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"DL Throughput(Kbps) : DL_THROUGHPUT"
+        hrow2.createCell(c++).setCellValue("");               //"License 초과실패호 : LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");               //"OL MIMO 비율(%) : MIMO_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"MCS0 비율(%) : MCS_AVERAGE"
+        hrow2.createCell(c++).setCellValue("최번시");          //"PUCCH-최번시 : PUCCH_AVG"
+        hrow2.createCell(c++).setCellValue("최한시");          //"PUCCH-최한시 : R2_PUCCH_AVG"
+        hrow2.createCell(c++).setCellValue("최번시");          //"PUSCH-최번시 : PUSCH_AVG"
+        hrow2.createCell(c++).setCellValue("최한시");          //"PUSCH-최한시 : R2_PUSCH_AVG"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-DRB 사용율(%) : DRB_USG_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-동접자 : CON_TIME"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-시도호수 : TRY_CCNT"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-접속률(%) : CON_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-CD율(%) : CDC_RATE"
+        hrow2.createCell(c++).setCellValue("");               //"데이터 (dBm)-FA 사용율(%)"
+        hrow2.createCell(c++).setCellValue("");               //"HD Voice - 트래픽(MB)"
+        hrow2.createCell(c++).setCellValue("");               //"HD Voice - PRB 사용률(%)"
+        hrow2.createCell(c++).setCellValue("");               //"HD Voice - 시도호수"
+        hrow2.createCell(c++).setCellValue("");               //"HD Voice - 점유시간"
+        hrow2.createCell(c++).setCellValue("");               //"영상통화 - 트래픽(MB)"
+        hrow2.createCell(c++).setCellValue("");               //"영상통화 - PRB 사용률(%)"
+        hrow2.createCell(c++).setCellValue("");               //"영상통화 - 시도호수"
+        hrow2.createCell(c++).setCellValue("");               //"영상통화 - 점유시간"
+        hrow2.createCell(c++).setCellValue("");               //"전송로-종류"
+        hrow2.createCell(c++).setCellValue("");               //"전송로-갯수"
+
+        int d = 0;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "날짜"
+        if (searchType.equalsIgnoreCase("BONBU") ||
+            searchType.equalsIgnoreCase("CITY")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+        } else if (searchType.equalsIgnoreCase("TEAM") ||
+                   searchType.equalsIgnoreCase("UNI")  ||
+                   searchType.equalsIgnoreCase("EMS")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+        } else if (searchType.equalsIgnoreCase("PART")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+        }
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //주파수구분
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"용량(Mbps) : THROUGHPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"CQI 평균 : CQI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"CQI0 비율 : CQI0_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"RI2 비율(%) : RI_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"DL PRB 사용율(%) : DL_PRB_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"MCS 평균 : MCS_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"MIMO 비율 : MIMO_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"DL Throughput(Kbps) : DL_THROUGHPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"License 초과실패호 : LICENSE_FAIL"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"OL MIMO 비율(%) : MIMO_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"MCS0 비율(%) : MCS_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   //"RSSI"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   //"Total(PUCCH)"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3)); // "Total(PUSCH)"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+7));   //"데이터 (dBm)"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+2,d+2)); //"데이터 (dBm)-DRB 사용율(%) : DRB_USG_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+3,d+3)); //"데이터 (dBm)-동접자 : CON_TIME"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+4,d+4)); //"데이터 (dBm)-시도호수 : TRY_CCNT"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+5,d+5)); //"데이터 (dBm)-접속률(%) : CON_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+6,d+6)); //"데이터 (dBm)-CD율(%) : CDC_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+7,d+7)); //"데이터 (dBm)-FA 사용율(%)"
+        d += 8;
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   //"HD Voice"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     //"HD Voice - 트래픽(MB)"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); //"HD Voice - PRB 사용률(%)"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+2,d+2)); //"HD Voice - 시도호수"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+3,d+3)); //"HD Voice - 점유시간"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   //"영상통화"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     //"영상통화 - 트래픽(MB)"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); //"영상통화 - PRB 사용률(%)"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+2,d+2)); //"영상통화 - 시도호수"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+3,d+3)); //"영상통화 - 점유시간"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
+
+        log.debug("createCellTrafficStatsExcelSheet : hrow2 end");
 
         log.debug("createCellTrafficStatsExcelSheet : row start");
         ArrayList list01 = (ArrayList) map.get("rows");
         Iterator iterator = (Iterator) list01.iterator();
-        short i = 2;
+        short i = 3;
         while (iterator.hasNext()) {
             StringMap jrow = (StringMap)iterator.next();
             //한줄 만들고 셋팅
             Row row = sheet.createRow((short) i );
             row.setHeightInPoints(20);
-            int c = 0;
-            row.createCell(c++).setCellValue((String) jrow.get("YMD"));
-            if (searchType.equalsIgnoreCase("BONBU")) {
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("TEAM")) {
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE02"));
+            int e = 0;
+            row.createCell(e++).setCellValue((String) jrow.get("YMD"));
+            if (searchType.equalsIgnoreCase("BONBU") ||
+                searchType.equalsIgnoreCase("CITY")) {
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE01"));
+            } else if (searchType.equalsIgnoreCase("TEAM") ||
+                       searchType.equalsIgnoreCase("UNI")  ||
+                       searchType.equalsIgnoreCase("EMS")) {
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE01"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE02"));
             } else if (searchType.equalsIgnoreCase("PART")) {
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE02"));
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE03"));
-            } else if (searchType.equalsIgnoreCase("CITY")) {
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("시/군/구")) {
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(c++).setCellValue((String) jrow.get("TITLE02"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE01"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE02"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE03"));
             }
-            row.createCell(c++).setCellValue((String) jrow.get("FREQ_KIND"));
+            row.createCell(e++).setCellValue((String) jrow.get("FREQ_KIND"));
 
-            row.createCell(c++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("DL_THROUGHPUT")?jrow.get("DL_THROUGHPUT").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("PUCCH_AVG")?jrow.get("PUCCH_AVG").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("R2_PUCCH_AVG")?jrow.get("R2_PUCCH_AVG").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("PUSCH_AVG")?jrow.get("PUSCH_AVG").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("R2_PUSCH_AVG")?jrow.get("R2_PUSCH_AVG").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("PDCP_DL_MB")?jrow.get("PDCP_DL_MB").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("PRB_USG_RATE")?jrow.get("PRB_USG_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("DRB_USG_RATE")?jrow.get("DRB_USG_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("CON_TIME")?jrow.get("CON_TIME").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("TRY_CCNT")?jrow.get("TRY_CCNT").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("CON_RATE")?jrow.get("CON_RATE").toString():"0"));
-            row.createCell(c++).setCellValue(Double.parseDouble(jrow.containsKey("CDC_RATE")?jrow.get("CDC_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_THROUGHPUT")?jrow.get("DL_THROUGHPUT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PUCCH_AVG")?jrow.get("PUCCH_AVG").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("R2_PUCCH_AVG")?jrow.get("R2_PUCCH_AVG").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PUSCH_AVG")?jrow.get("PUSCH_AVG").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("R2_PUSCH_AVG")?jrow.get("R2_PUSCH_AVG").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PDCP_DL_MB")?jrow.get("PDCP_DL_MB").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PRB_USG_RATE")?jrow.get("PRB_USG_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DRB_USG_RATE")?jrow.get("DRB_USG_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CON_TIME")?jrow.get("CON_TIME").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("TRY_CCNT")?jrow.get("TRY_CCNT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CON_RATE")?jrow.get("CON_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CDC_RATE")?jrow.get("CDC_RATE").toString():"0"));
+            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_DL_MB")?jrow.get("VOICE_DL_MB").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_DL_PRB")?jrow.get("VOICE_DL_PRB").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_TRY_CCNT")?jrow.get("VOICE_TRY_CCNT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_TIME")?jrow.get("VOICE_TIME").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_DL_MB")?jrow.get("IMAGE_DL_MB").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_DL_PRB")?jrow.get("IMAGE_DL_PRB").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_TRY_CCNT")?jrow.get("IMAGE_TRY_CCNT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_TIME")?jrow.get("IMAGE_TIME").toString():"0"));
+            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue("n/a");
             i++;
         }
 
@@ -841,7 +963,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsHistogram.xls";
+            String xlsFileName = "/DownLinkStatsHistogram(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -925,7 +1047,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsThrpCompGraph.xls";
+            String xlsFileName = "/DownLinkStatsThrpCompGraph(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
