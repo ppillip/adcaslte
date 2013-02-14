@@ -21,8 +21,8 @@
     <link href="downLinkByNMS.css" rel="stylesheet">
     <script src="common.js" language="javascript"></script>
     <script src="downLinkByNMS.js" language="javascript"></script>
-    <%--<link href="http://code.jquery.com/qunit/qunit-git.css" rel="stylesheet" type="text/css" />--%>
-    <%--<script src="http://code.jquery.com/qunit/qunit-git.js"></script>--%>
+    <!--link href="http://code.jquery.com/qunit/qunit-git.css" rel="stylesheet" type="text/css" /-->
+    <!--script src="http://code.jquery.com/qunit/qunit-git.js"></script-->
 </head>
 <body>
 <div id="wrap">
