@@ -17,7 +17,9 @@
 <div id="wrap">
     <div id="web_container">
         <div id="header">
-            <%--<div id="popup_title">QCAS</div>--%>
+            <div id="popup_title" style="vertical-align: top;margin-left:20px;padding-top: 0px;">
+                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
+            </div>
             <div id="popup_desc">LTE 용량분석 > 관리자 환경변수 > UL Interference 평균값</div>
         </div>
         <div id="middle">
