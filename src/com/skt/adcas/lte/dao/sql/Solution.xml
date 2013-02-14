@@ -93,9 +93,16 @@
     </select>
 
     <select id="Solution.selectSolutionCellList" parameterType="hashmap" resultType="hashmap">
+        <include refid="Solution.selectSolutionCellListSql"/>
+    </select>
 
-        SELECT c_uid||'_'||ingr_erp_cd||'_'||cell_id||'_'||mcid AS CELL_INFO,
-               mfc_cd
+    <sql id="Solution.selectSolutionCellListSql">
+        SELECT
+                 C_UID
+                ,INGR_ERP_CD
+                ,CELL_ID
+                ,MCID
+                ,MFC_CD
           FROM LTE_SOLUTION_CELL
          WHERE ymd         = #{YMD}
            AND daytime_seq = #{DAYTIME_SEQ}
@@ -103,8 +110,6 @@
            AND freq_kind   = #{FREQ_KIND}
            AND part_cd     = #{PART_CD}
            AND bad_type    = #{BAD_TYPE}
-        ORDER BY bonbu_cd, oper_team_cd, part_cd, freq_kind
-    </select>
-
+    </sql>
 
 </mapper>

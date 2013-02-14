@@ -85,9 +85,43 @@
         <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
         AND FREQ_KIND = #{FREQ_KIND}
         </if>
+        AND MFC_CD = #{MFC_CD}
 
         <choose>
-            <when test="CELLGROUP_YN.equalsIgnoreCase('Y')">
+            <when test="SEARCHTYPE.equalsIgnoreCase('WORKGROUP')">
+                AND (C_UID,INGR_ERP_CD) IN
+                (
+                SELECT C_UID , INGR_ERP_CD
+                FROM LTE_WORK_GROUP_DU
+                WHERE WORKGROUP_ID = #{WORKGROUP_ID}
+                /*AND USER_ID = 'qcas'*/
+                )
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('DULIST')">
+                AND (C_UID,INGR_ERP_CD) IN
+                <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
+                    <![CDATA[
+                          (
+                           split(#{item},1,'_')
+                          ,split(#{item},2,'_')
+                          )
+                        ]]>
+                </foreach>
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('SOLUTIONGROUP')">
+                AND (C_UID,INGR_ERP_CD,CELL_ID,MCID) IN
+                (
+                   SELECT C_UID ,INGR_ERP_CD ,CELL_ID ,MCID
+                     FROM LTE_SOLUTION_CELL
+                    WHERE ymd  BETWEEN #{FROMYMD} AND #{TOYMD}
+                      AND daytime_seq = #{DAYTIME_SEQ}
+                      AND rtype_cd    = #{MBTYPE}
+                      AND freq_kind   = #{FREQ_KIND}
+                      AND part_cd     = #{PART_CD}
+                      AND bad_type    = #{BAD_TYPE}
+                )
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CELLLIST')">
                 AND (C_UID,INGR_ERP_CD,CELL_ID,MCID) IN
                 <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
                     <![CDATA[
@@ -100,35 +134,8 @@
                         ]]>
                 </foreach>
             </when>
-            <otherwise>
-                AND (C_UID,INGR_ERP_CD) IN
-                <choose>
-                    <when test="WORKGROUP_YN.equalsIgnoreCase('Y')">
-                        (
-                        SELECT C_UID , INGR_ERP_CD
-                        FROM LTE_WORK_GROUP_DU
-                        WHERE WORKGROUP_ID = #{WORKGROUP_ID}
-                        /*AND USER_ID = 'qcas'*/
-                        )
-                    </when>
-                    <when test="WORKGROUP_YN.equalsIgnoreCase('N')">
-                        <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
-                            <![CDATA[
-                          (
-                           split(#{item},1,'_')
-                          ,split(#{item},2,'_')
-                          )
-                        ]]>
-                        </foreach>
-                    </when>
-                    <otherwise>
-                        (select null as C_UID ,null as INGR_ERP_CD from dual)
-                    </otherwise>
-                </choose>
-            </otherwise>
+            <otherwise/>
         </choose>
-
-        AND MFC_CD = #{MFC_CD}
 
     </sql>
 
@@ -252,20 +259,6 @@
         order by data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
     </select>
 
-    <select id="DownLinkByNMS.selectDailyCellTrafficSummary" parameterType="hashmap" resultType="hashmap">/*DownLinkByNMS.selectDailyCellTrafficSummary*/
-
-        SELECT
-        <include refid="DownLinkByNMS.sqlFromPartSummary"/>
-        FROM (
-        <include refid="DownLinkByNMS.selectDailyCellTrafficORG"/>
-        )  V,
-        <![CDATA[
-        (SELECT LEVEL NUM FROM DUAL CONNECT BY LEVEL <=4) N
-        ]]>
-        GROUP BY NUM
-        order by 1
-    </select>
-
     <select id="DownLinkByNMS.selectDailyCellTrafficAVG" parameterType="hashmap" resultType="hashmap">
         select du.BTS_NM,cell.CELL_NM, data.* from (
             SELECT
@@ -319,6 +312,5 @@
         GROUP BY NUM
         order by 1
     </select>
-
 
 </mapper>

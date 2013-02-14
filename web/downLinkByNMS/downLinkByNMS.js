@@ -652,6 +652,7 @@ $(document).ready(function(){
     });
 
     //솔루션에서 DownLinkByNMS 호출시
+
     if(location.search) {
         var search = parseQueryString(location.search.substring(1));
         var YMD = search['YMD'];
@@ -662,8 +663,14 @@ $(document).ready(function(){
         $("input[name=WORKGROUP_NAME]").val(decodeURI(search['WORKGROUP_NAME']));
         $("input[name=FREQ_KIND][value='"+search['FREQ_KIND']+"']").attr("checked","checked");
         $("input[name=DAYTIME_SEQ]").val(search['DAYTIME_SEQ']);
-        $("input[name=MBTYPE]").val(search['MBTYPE']);
+        $("select[name=MBTYPE]").val(search['MBTYPE']);
+        $("input[name=SEARCHTYPE]").val('SOLUTIONGROUP');
 
+        $SCH = $("#divSearch");
+        $SCH.append("<input type=hidden name='PART_CD' value='"+search['PART_CD']+"'>");
+        $SCH.append("<input type=hidden name='BAD_TYPE' value='"+search['BAD_TYPE']+"'>");
+
+        /*제조사 셋팅하는 용도로만 씀*/
         jQuery.ajax({
             type: "POST",
             url: "/adcaslte/svc/Solution-selectSolutionCellList",
@@ -685,8 +692,8 @@ $(document).ready(function(){
                         }
                     }
                 }
-                $("input[name=DUIDs]").val(cellList.join("|"));
-                $("input[name=CELLGROUP_YN]").val("Y");
+                //$("input[name=DUIDs]").val(cellList.join("|"));
+                //$("input[name=CELLGROUP_YN]").val("Y");
                 if ($.inArray('MFC00001', mfcCDList) !== -1) {
                     $("input[name=MFC_CD][value=MFC00001]").attr("checked","checked");
                 } else if ($.inArray('MFC00002', mfcCDList) !== -1) {
@@ -715,7 +722,7 @@ $(document).ready(function(){
 
     }
 
-    if(window.location.host==="localhost") {goTest();}
+    //if(window.location.host==="localhost") {goTest();}
 });
 
 

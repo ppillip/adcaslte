@@ -19,9 +19,9 @@ function formatNumber(obj){
 
 function setWorkgroup(workgroupID, duIDs, workgroupName, mfcCD) {
     if(workgroupID)  {
-        $("input[name=WORKGROUP_YN]").val("Y");
+        $("input[name=SEARCHTYPE]").val("WORKGROUP");
     } else {
-        $("input[name=WORKGROUP_YN]").val("N");
+        $("input[name=SEARCHTYPE]").val("DULIST");
     }
     $("input[name=WORKGROUP_ID]").val(workgroupID);
     $("input[name=DUIDs]").val(duIDs);

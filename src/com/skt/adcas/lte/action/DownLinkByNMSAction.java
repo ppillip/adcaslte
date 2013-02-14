@@ -62,14 +62,6 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
         this.FREQ_KIND = FREQ_KIND;
     }
 
-    public void setWORKGROUP_YN(String WORKGROUP_YN) {
-        this.WORKGROUP_YN = WORKGROUP_YN;
-    }
-
-    public void setCELLGROUP_YN(String CELLGROUP_YN) {
-        this.CELLGROUP_YN = CELLGROUP_YN;
-    }
-
     public void setFROMYMD(String FROMYMD) {
         this.FROMYMD = FROMYMD;
     }
@@ -90,13 +82,22 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
         this.JSONDATAAFTER = JSONDATAAFTER;
     }
 
+    public void setSEARCHTYPE(String SEARCHTYPE) {
+        this.SEARCHTYPE = SEARCHTYPE;
+    }
+    public void setBAD_TYPE(String BAD_TYPE) {
+        this.BAD_TYPE = BAD_TYPE;
+    }
+
+    public void setPART_CD(String PART_CD) {
+        this.PART_CD = PART_CD;
+    }
+
     private String WORKGROUP_ID   = "";
     private String TERMTYPE       = "";
     private String DAYTIME_SEQ    = "";
     private String VIEWTYPE       = "";
     private String FREQ_KIND      = "";
-    private String WORKGROUP_YN   = "N";
-    private String CELLGROUP_YN   ="N";
     private String FROMYMD         = "";
     private String TOYMD           = "";
     private String MBTYPE           = "R3";
@@ -105,6 +106,13 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
     private String JSONDATA = "";
     private String JSONDATAAFTER = "";
     private HashMap adminCriticalValues;
+
+    private String SEARCHTYPE = "WORKGROUP";
+    private String PART_CD    = ""  ;
+    private String BAD_TYPE   = ""  ;
+
+
+
 
     public HashMap getAdminCriticalValues() {
         return (HashMap)request.getSession().getAttribute("ADMIN_CRITICAL_VALUES");
@@ -126,13 +134,16 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
         param.put("DAYTIME_SEQ"   , DAYTIME_SEQ   );
         param.put("VIEWTYPE"      , VIEWTYPE      );
         param.put("FREQ_KIND"     , FREQ_KIND     );
-        param.put("WORKGROUP_YN" , WORKGROUP_YN  );
-        param.put("CELLGROUP_YN" , CELLGROUP_YN  );
         param.put("FROMYMD"       , FROMYMD.replace("-","").replace(".","").replace("/","")  );
         param.put("TOYMD"         , TOYMD.replace("-","").replace(".","").replace("/","")  );
         param.put("USER_ID"       ,  USER_ID  );
         param.put("MBTYPE"       ,  MBTYPE  );
         param.put("MFC_CD"       ,  MFC_CD  );
+
+        param.put("SEARCHTYPE"   , SEARCHTYPE     );
+        param.put("PART_CD"      , PART_CD     );
+        param.put("BAD_TYPE"     , BAD_TYPE     );
+
        ArrayList<String> alist = new ArrayList<String>();
         String temp01[] = DUIDs.split("\\|");
 
@@ -166,11 +177,6 @@ public class DownLinkByNMSAction extends ActionSupport4lte{
             //this.param.put("BTS_NM_CMS",BTS_NM_CMS);
             this.log.debug("###################### 트레픽 데이터 가져오는중 ");
             this.rows = session.selectList("DownLinkByNMS.selectDailyCellTraffic"+VIEWTYPE,param);
-
-            /*
-            this.log.debug("###################### Summary 데이터 가져오는중");
-            this.STATS = session.selectList("DownLinkByNMS.selectDailyCellTrafficSummary"+VIEWTYPE,param);
-            */
 
             this.log.debug("###################### 세션커밋");
             //session.commit();

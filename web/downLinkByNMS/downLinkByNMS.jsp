@@ -21,13 +21,8 @@
     <link href="downLinkByNMS.css" rel="stylesheet">
     <script src="common.js" language="javascript"></script>
     <script src="downLinkByNMS.js" language="javascript"></script>
-
-
-    <link href="http://code.jquery.com/qunit/qunit-git.css" rel="stylesheet" type="text/css" />
-    <script src="http://code.jquery.com/qunit/qunit-git.js"></script>
-
-
-
+    <%--<link href="http://code.jquery.com/qunit/qunit-git.css" rel="stylesheet" type="text/css" />--%>
+    <%--<script src="http://code.jquery.com/qunit/qunit-git.js"></script>--%>
 </head>
 <body>
 <div id="wrap">
@@ -95,10 +90,9 @@
                                                         <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
                                                         <input type="radio" name="TERMTYPE" value="WK">주간
                                                         <input type="radio" name="TERMTYPE" value="MON">월간
-                                                        <input type="text" name="WORKGROUP_YN" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:20px; height:18px;font-size:11px;display:none;">
-                                                        <input type="text" name="WORKGROUP_ID" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;;display:none;">
-                                                        <input type="text" name="DUIDs" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:100px; height:18px;font-size:11px;display:none;">
-                                                        <input type="text" name="CELLGROUP_YN" style="text-align: center;padding:0 0 0 0; margin: 0 0 0 0; width:20px; height:18px;font-size:11px;display:none;">
+                                                        <input type="text" name="WORKGROUP_ID" style="display:none;">
+                                                        <input type="text" name="DUIDs" style="display:none;">
+                                                        <input type="text" name="SEARCHTYPE" style="display:none;">
                                                     </td>
                                                 </tr>
                                                 <tr>
