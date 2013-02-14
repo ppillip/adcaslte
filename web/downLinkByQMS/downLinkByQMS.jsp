@@ -91,7 +91,7 @@
                                                         <span class="dropdown" id="excelDropDown">
                                                                 <button class="dropdown-toggle btn btn-xmini" id="drop5" role="button" data-toggle="dropdown" href="#"><i class="icon-file"></i> EXCEL <b class="caret"></b> </button>
                                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                                                                    <li  name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>
+                                                                    <%--<li  name="downCqiExcel"><a tabindex="-1" href="#">CQI(PDF/CDF) Download</a></li>--%>
                                                                 </ul>
                                                         </span>
                                                     </td>
@@ -172,8 +172,6 @@
         <div class="" name="divTopRight" id="divTopRight">
             <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
                 <colgroup>
-                    <col class="col01">
-                    <col class="col01">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
