@@ -238,7 +238,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkCQI(PDF_CDF)(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -382,7 +382,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkData.xls";
+            String xlsFileName = "/DownLinkData(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -498,31 +498,32 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow2.createCell(c++).setCellValue("");       // "전송로-종류"
         hrow2.createCell(c++).setCellValue("");       // "전송로-갯수"
 
-        sheet.addMergedRegion(new CellRangeAddress(0,2,0,0));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,1,1));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,2,2));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,3,3));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,4,4));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,5,5));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,6,6));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,7,7));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,8,8));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,8,8));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,9,9));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,10,10));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,11,11));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,12,12));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,13,13));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,14,14));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,15,15));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,16,16));
-        sheet.addMergedRegion(new CellRangeAddress(0,0,17,20));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,17,18));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,19,20));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,21,21));
-        sheet.addMergedRegion(new CellRangeAddress(0,0,22,23));
-        sheet.addMergedRegion(new CellRangeAddress(1,2,22,22));
-        sheet.addMergedRegion(new CellRangeAddress(1,2,23,23));
+        int d = 0;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "YMD"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "BTS_NM"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CELL_ID"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CELL_NM"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "FREQ_KIND"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "DL_TPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "UL_TPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CQI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RI_RANK_INDEX
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "MCS_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RSRP_AVERAGE
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RSSI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "SINR_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "RSRQ_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "TXPW_PUCCH"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "CQI0_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "DL_PRB_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   // "RSSI"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   // "Total(PUCCH)"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3)); // "Total(PUSCH)"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "LICENSE_FAIL"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
 
         ArrayList list01 = (ArrayList) map.get("rows");
         Iterator iterator = (Iterator) list01.iterator();
@@ -532,32 +533,32 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             //한줄 만들고 셋팅
             Row row = sheet.createRow((short) i );
             row.setHeightInPoints(20);
-            int d = 0;
-            row.createCell(d++).setCellValue((String) jrow.get("YMD"));
-            row.createCell(d++).setCellValue((String) jrow.get("BTS_NM"));
-            row.createCell(d++).setCellValue((String) jrow.get("CELL_ID"));
-            row.createCell(d++).setCellValue((String) jrow.get("CELL_NM"));
-            row.createCell(d++).setCellValue((String) jrow.get("FREQ_KIND"));
+            int e = 0;
+            row.createCell(e++).setCellValue((String) jrow.get("YMD"));
+            row.createCell(e++).setCellValue((String) jrow.get("BTS_NM"));
+            row.createCell(e++).setCellValue((String) jrow.get("CELL_ID"));
+            row.createCell(e++).setCellValue((String) jrow.get("CELL_NM"));
+            row.createCell(e++).setCellValue((String) jrow.get("FREQ_KIND"));
 
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_TPUT") ?jrow.get("DL_TPUT").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("UL_TPUT") ?jrow.get("UL_TPUT").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RANK_INDEX")?jrow.get("RANK_INDEX").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSRP_AVERAGE")?jrow.get("RSRP_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI_AVERAGE")?jrow.get("RSSI_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("SINR_AVERAGE")?jrow.get("SINR_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSRQ_AVERAGE")?jrow.get("RSRQ_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("TXPW_PUCCH")?jrow.get("TXPW_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
-            row.createCell(d++).setCellValue("n/a");
-            row.createCell(d++).setCellValue("n/a");
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_TPUT") ?jrow.get("DL_TPUT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("UL_TPUT") ?jrow.get("UL_TPUT").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RANK_INDEX")?jrow.get("RANK_INDEX").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSRP_AVERAGE")?jrow.get("RSRP_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI_AVERAGE")?jrow.get("RSSI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("SINR_AVERAGE")?jrow.get("SINR_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSRQ_AVERAGE")?jrow.get("RSRQ_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("TXPW_PUCCH")?jrow.get("TXPW_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue("n/a");
             i++;
 
         }
@@ -618,7 +619,7 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkHistogram.xls";
+            String xlsFileName = "/DownLinkHistogram(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");

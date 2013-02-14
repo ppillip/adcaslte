@@ -242,7 +242,7 @@ public class DownLinkByQMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF)(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -404,7 +404,7 @@ public class DownLinkByQMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsData.xls";
+            String xlsFileName = "/DownLinkStatsData(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -605,9 +605,8 @@ public class DownLinkByQMSStatsAction extends ActionSupport4lte {
         sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "DL_PRB_RATE"
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   // "RSSI"
         sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   // "Total(PUCCH)"
-        d = d + 2;
-        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   // "Total(PUSCH)"
-        d = d + 2;
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3)); // "Total(PUSCH)"
+        d += 4;
         sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "LICENSE_FAIL"
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
@@ -721,7 +720,7 @@ public class DownLinkByQMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsHistogram.xls";
+            String xlsFileName = "/DownLinkStatsHistogram(QMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");

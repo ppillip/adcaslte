@@ -250,7 +250,7 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkBySTDStatsCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF)(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -324,7 +324,7 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkBySTDStatsCompCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCompCQI(PDF_CDF)(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -371,9 +371,12 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
             hrow0.createCell(a++).setCellValue("파트");
         } else if (searchType.equalsIgnoreCase("CITY")) {
             hrow0.createCell(a++).setCellValue("도/특별/광역");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
+        } else if (searchType.equalsIgnoreCase("UNI")) {
             hrow0.createCell(a++).setCellValue("도/특별/광역");
             hrow0.createCell(a++).setCellValue("시/군/구");
+        } else if (searchType.equalsIgnoreCase("EMS")) {
+            hrow0.createCell(a++).setCellValue("MME GROUP");
+            hrow0.createCell(a++).setCellValue("EMS");
         }
         hrow0.createCell(a++).setCellValue("주파수구분");
         hrow0.createCell(a++).setCellValue(type+"#00");
@@ -403,20 +406,18 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
             row.setHeightInPoints(20);
             int b = 0;
             row.createCell(b++).setCellValue((String) jrow.get("YMD"));
-            if (searchType.equalsIgnoreCase("BONBU")) {
+            if (searchType.equalsIgnoreCase("BONBU") ||
+                searchType.equalsIgnoreCase("CITY")) {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("TEAM")) {
+            } else if (searchType.equalsIgnoreCase("TEAM") ||
+                       searchType.equalsIgnoreCase("UNI")  ||
+                       searchType.equalsIgnoreCase("EMS")) {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE02"));
             } else if (searchType.equalsIgnoreCase("PART")) {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE02"));
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE03"));
-            } else if (searchType.equalsIgnoreCase("CITY")) {
-                row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("시/군/구")) {
-                row.createCell(b++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(b++).setCellValue((String) jrow.get("TITLE02"));
             }
             row.createCell(b++).setCellValue((String) jrow.get("FREQ_KIND"));
             row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_00") ? jrow.get("CQI_"+type+"_00").toString():"0"));
@@ -471,7 +472,7 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkBySTDStatsData.xls";
+            String xlsFileName = "/DownLinkStatsData(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -533,7 +534,7 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkBySTDStatsCompData.xls";
+            String xlsFileName = "/DownLinkStatsCompData(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -568,127 +569,130 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
         Row hrow0 = sheet.createRow((short) 0 );
         hrow0.setHeightInPoints(20);
         int a = 0;
-        hrow0.createCell(a++).setCellValue("");
+        hrow0.createCell(a++).setCellValue("날짜");
         if (searchType.equalsIgnoreCase("BONBU")) {
-            hrow0.createCell(a++).setCellValue("");
+            hrow0.createCell(a++).setCellValue("본부");
         } else if (searchType.equalsIgnoreCase("TEAM")) {
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
+            hrow0.createCell(a++).setCellValue("본부");
+            hrow0.createCell(a++).setCellValue("팀");
         } else if (searchType.equalsIgnoreCase("PART")) {
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
+            hrow0.createCell(a++).setCellValue("본부");
+            hrow0.createCell(a++).setCellValue("팀");
+            hrow0.createCell(a++).setCellValue("파트");
         } else if (searchType.equalsIgnoreCase("CITY")) {
-            hrow0.createCell(a++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            hrow0.createCell(a++).setCellValue("");
-            hrow0.createCell(a++).setCellValue("");
+            hrow0.createCell(a++).setCellValue("도/특별/광역");
+        } else if (searchType.equalsIgnoreCase("UNI")) {
+            hrow0.createCell(a++).setCellValue("도/특별/광역");
+            hrow0.createCell(a++).setCellValue("시/군/구");
+        } else if (searchType.equalsIgnoreCase("EMS")) {
+            hrow0.createCell(a++).setCellValue("MME GROUP");
+            hrow0.createCell(a++).setCellValue("EMS");
         }
-        hrow0.createCell(a++).setCellValue("");         //  주파수구분
-        hrow0.createCell(a++).setCellValue("");         //   "DL_THRP"
-        hrow0.createCell(a++).setCellValue("");         //   "THROUGHPUT"
-        hrow0.createCell(a++).setCellValue("");         //   "CQI_AVERAGE"
-        hrow0.createCell(a++).setCellValue("");         //   "CQI0_RATE"
-        hrow0.createCell(a++).setCellValue("");         //   "RI_RATE"
-        hrow0.createCell(a++).setCellValue("");         //   "DL_PRB_RATE"
-        hrow0.createCell(a++).setCellValue("RSSI");    //   "RSSI0_PUCCH"
-        hrow0.createCell(a++).setCellValue("RSSI");    //   "RSSI1_PUCCH"
-        hrow0.createCell(a++).setCellValue("RSSI");    //   "RSSI0_PUSCH"
-        hrow0.createCell(a++).setCellValue("RSSI");    //   "RSSI1_PUSCH"
-        hrow0.createCell(a++).setCellValue("");        //   "LICENSE_FAIL"
-
-        if (searchType.equalsIgnoreCase("BONBU")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,9,12));
-        } else if (searchType.equalsIgnoreCase("TEAM")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,10,13));
-        } else if (searchType.equalsIgnoreCase("PART")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,11,14));
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,9,12));
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            sheet.addMergedRegion(new CellRangeAddress(0,0,10,13));
-        }
+        hrow0.createCell(a++).setCellValue("주파수구분");              // "FREQ_KIND"
+        hrow0.createCell(a++).setCellValue("기준용량(Mbps)");          // "THROUGHPUT"
+        hrow0.createCell(a++).setCellValue("CQI 평균");                // "CQI_AVERAGE"
+        hrow0.createCell(a++).setCellValue("CQI0 비율 ");              // "CQI0_RATE"
+        hrow0.createCell(a++).setCellValue("RI2 비율");                // "RI_RATE"
+        hrow0.createCell(a++).setCellValue("DL PRB 사용율");           // "DL_PRB_RATE"
+        hrow0.createCell(a++).setCellValue("RSSI");                   // "RSSI0_PUCCH"
+        hrow0.createCell(a++).setCellValue("RSSI");                   // "RSSI1_PUCCH"
+        hrow0.createCell(a++).setCellValue("RSSI");                   // "RSSI0_PUSCH"
+        hrow0.createCell(a++).setCellValue("RSSI");                   // "RSSI1_PUSCH"
+        hrow0.createCell(a++).setCellValue("License 초과 실패호");     // "LICENSE_FAIL"
+        hrow0.createCell(a++).setCellValue("전송로");                 // "전송로"
+        hrow0.createCell(a++).setCellValue("전송로");                 // "전송로"
 
         Row hrow1 = sheet.createRow((short) 1 );
         hrow1.setHeightInPoints(20);
         int b = 0;
         hrow1.createCell(b++).setCellValue("");
-        if (searchType.equalsIgnoreCase("BONBU")) {
+        if (searchType.equalsIgnoreCase("BONBU") ||
+            searchType.equalsIgnoreCase("CITY")) {
             hrow1.createCell(b++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("TEAM")) {
+        } else if (searchType.equalsIgnoreCase("TEAM") ||
+                   searchType.equalsIgnoreCase("UNI")  ||
+                   searchType.equalsIgnoreCase("EMS")) {
             hrow1.createCell(b++).setCellValue("");
             hrow1.createCell(b++).setCellValue("");
         } else if (searchType.equalsIgnoreCase("PART")) {
             hrow1.createCell(b++).setCellValue("");
             hrow1.createCell(b++).setCellValue("");
             hrow1.createCell(b++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            hrow1.createCell(b++).setCellValue("");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            hrow1.createCell(b++).setCellValue("");
-            hrow1.createCell(b++).setCellValue("");
         }
-        hrow1.createCell(b++).setCellValue("");
-        hrow1.createCell(b++).setCellValue("");       //   "DL_THRP"
-        hrow1.createCell(b++).setCellValue("");       //   "THROUGHPUT"
-        hrow1.createCell(b++).setCellValue("");         //   "CQI_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");         //   "CQI0_RATE"
-        hrow1.createCell(b++).setCellValue("");         //   "RI_RATE"
-        hrow1.createCell(b++).setCellValue("");         //   "DL_PRB_RATE"
-        hrow1.createCell(b++).setCellValue("Total(PUCCH)");                  //   "RSSI0_PUCCH"
-        hrow1.createCell(b++).setCellValue("Total(PUCCH)");                  //   "RSSI1_PUCCH"
-        hrow1.createCell(b++).setCellValue("Total(PUSCH)");                  //   "RSSI0_PUSCH"
-        hrow1.createCell(b++).setCellValue("Total(PUSCH)");                  //   "RSSI1_PUSCH"
-        hrow1.createCell(b++).setCellValue("");     //   "LICENSE_FAIL"
-
-        if (searchType.equalsIgnoreCase("BONBU")) {
-            sheet.addMergedRegion(new CellRangeAddress(1,1,9,10));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,11,12));
-        } else if (searchType.equalsIgnoreCase("TEAM")) {
-            sheet.addMergedRegion(new CellRangeAddress(1,1,10,11));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,12,13));
-        } else if (searchType.equalsIgnoreCase("PART")) {
-            sheet.addMergedRegion(new CellRangeAddress(1,1,11,12));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,13,14));
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            sheet.addMergedRegion(new CellRangeAddress(1,1,9,10));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,11,12));
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            sheet.addMergedRegion(new CellRangeAddress(1,1,10,11));
-            sheet.addMergedRegion(new CellRangeAddress(1,1,12,13));
-        }
+        hrow1.createCell(b++).setCellValue("");               // "FREQ_KIND"
+        hrow1.createCell(b++).setCellValue("");               // "THROUGHPUT"
+        hrow1.createCell(b++).setCellValue("");               // "CQI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");               // "CQI0_RATE"
+        hrow1.createCell(b++).setCellValue("");               // "RI_RATE"
+        hrow1.createCell(b++).setCellValue("");               // "DL_PRB_RATE"
+        hrow1.createCell(b++).setCellValue("Total(PUCCH)");   // "RSSI0_PUCCH"
+        hrow1.createCell(b++).setCellValue("Total(PUCCH)");   // "RSSI1_PUCCH"
+        hrow1.createCell(b++).setCellValue("Total(PUSCH)");   // "RSSI0_PUSCH"
+        hrow1.createCell(b++).setCellValue("Total(PUSCH)");   // "RSSI1_PUSCH"
+        hrow1.createCell(b++).setCellValue("");               // "LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("종류");           // "전송로"
+        hrow1.createCell(b++).setCellValue("갯수");           // "전송로"
 
         Row hrow2 = sheet.createRow((short) 2 );
         hrow2.setHeightInPoints(20);
         int c = 0;
-        hrow2.createCell(c++).setCellValue("날짜");
-        if (searchType.equalsIgnoreCase("BONBU")) {
-            hrow2.createCell(c++).setCellValue("본부");
-        } else if (searchType.equalsIgnoreCase("TEAM")) {
-            hrow2.createCell(c++).setCellValue("본부");
-            hrow2.createCell(c++).setCellValue("팀");
+        hrow2.createCell(c++).setCellValue("");
+        if (searchType.equalsIgnoreCase("BONBU") ||
+            searchType.equalsIgnoreCase("CITY")) {
+            hrow2.createCell(c++).setCellValue("");
+        } else if (searchType.equalsIgnoreCase("TEAM") ||
+                   searchType.equalsIgnoreCase("UNI")  ||
+                   searchType.equalsIgnoreCase("EMS")) {
+            hrow2.createCell(c++).setCellValue("");
+            hrow2.createCell(c++).setCellValue("");
         } else if (searchType.equalsIgnoreCase("PART")) {
-            hrow2.createCell(c++).setCellValue("본부");
-            hrow2.createCell(c++).setCellValue("팀");
-            hrow2.createCell(c++).setCellValue("파트");
-        } else if (searchType.equalsIgnoreCase("CITY")) {
-            hrow2.createCell(c++).setCellValue("도/특별/광역");
-        } else if (searchType.equalsIgnoreCase("시/군/구")) {
-            hrow2.createCell(c++).setCellValue("도/특별/광역");
-            hrow2.createCell(c++).setCellValue("시/군/구");
+            hrow2.createCell(c++).setCellValue("");
+            hrow2.createCell(c++).setCellValue("");
+            hrow2.createCell(c++).setCellValue("");
         }
-        hrow2.createCell(c++).setCellValue("주파수구분");
-        hrow2.createCell(c++).setCellValue("용량(Mbps)");       //   "DL_THRP"
-        hrow2.createCell(c++).setCellValue("기준용량(Mbps)");       //   "THROUGHPUT"
-        hrow2.createCell(c++).setCellValue("CQI 평균");         //   "CQI_AVERAGE"
-        hrow2.createCell(c++).setCellValue("CQI0 비율 ");         //   "CQI0_RATE"
-        hrow2.createCell(c++).setCellValue("RI2 비율");         //   "RI_RATE"
-        hrow2.createCell(c++).setCellValue("DL PRB 사용율");         //   "DL_PRB_RATE"
-        hrow2.createCell(c++).setCellValue("최번시");                  //   "RSSI0_PUCCH"
-        hrow2.createCell(c++).setCellValue("최한시");                  //   "RSSI1_PUCCH"
-        hrow2.createCell(c++).setCellValue("최번시");                  //   "RSSI0_PUSCH"
-        hrow2.createCell(c++).setCellValue("최한시");                  //   "RSSI1_PUSCH"
-        hrow2.createCell(c++).setCellValue("License 초과 실패호");     //   "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");        // "FREQ_KIND"
+        hrow2.createCell(c++).setCellValue("");        // "THROUGHPUT"
+        hrow2.createCell(c++).setCellValue("");        // "CQI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");        // "CQI0_RATE"
+        hrow2.createCell(c++).setCellValue("");        // "RI_RATE"
+        hrow2.createCell(c++).setCellValue("");        // "DL_PRB_RATE"
+        hrow2.createCell(c++).setCellValue("최번시");   // "RSSI0_PUCCH"
+        hrow2.createCell(c++).setCellValue("최한시");   // "RSSI1_PUCCH"
+        hrow2.createCell(c++).setCellValue("최번시");   // "RSSI0_PUSCH"
+        hrow2.createCell(c++).setCellValue("최한시");   // "RSSI1_PUSCH"
+        hrow2.createCell(c++).setCellValue("");        // "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");        // "전송로-종류"
+        hrow2.createCell(c++).setCellValue("");        // "전송로-갯수"
+
+        int d = 0;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "날짜"
+        if (searchType.equalsIgnoreCase("BONBU") ||
+                searchType.equalsIgnoreCase("CITY")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+        } else if (searchType.equalsIgnoreCase("TEAM") ||
+                searchType.equalsIgnoreCase("UNI")  ||
+                searchType.equalsIgnoreCase("EMS")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+        } else if (searchType.equalsIgnoreCase("PART")) {
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+            sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));
+        }
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "FREQ_KIND"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "THROUGHPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "CQI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "CQI0_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "RI_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "DL_PRB_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));    //"RSSI"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));    //"Total(PUCCH)"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3));  // "Total(PUSCH)"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "LICENSE_FAIL"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
 
         ArrayList list01 = (ArrayList) map.get("rows");
         Iterator iterator = (Iterator) list01.iterator();
@@ -698,36 +702,35 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
             //한줄 만들고 셋팅
             Row row = sheet.createRow((short) i );
             row.setHeightInPoints(20);
-            int d = 0;
-            row.createCell(d++).setCellValue((String) jrow.get("YMD"));
-            if (searchType.equalsIgnoreCase("BONBU")) {
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("TEAM")) {
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE02"));
+            int e = 0;
+            row.createCell(e++).setCellValue((String) jrow.get("YMD"));
+            if (searchType.equalsIgnoreCase("BONBU") ||
+                searchType.equalsIgnoreCase("CITY")) {
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE01"));
+            } else if (searchType.equalsIgnoreCase("TEAM") ||
+                       searchType.equalsIgnoreCase("UNI")  ||
+                       searchType.equalsIgnoreCase("EMS")) {
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE01"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE02"));
             } else if (searchType.equalsIgnoreCase("PART")) {
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE02"));
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE03"));
-            } else if (searchType.equalsIgnoreCase("CITY")) {
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE01"));
-            } else if (searchType.equalsIgnoreCase("시/군/구")) {
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE01"));
-                row.createCell(d++).setCellValue((String) jrow.get("TITLE02"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE01"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE02"));
+                row.createCell(e++).setCellValue((String) jrow.get("TITLE03"));
             }
-            row.createCell(d++).setCellValue((String) jrow.get("FREQ_KIND"));
+            row.createCell(e++).setCellValue((String) jrow.get("FREQ_KIND"));
 
-            row.createCell(d++).setCellValue(Double.parseDouble(parseKey(jrow,"DL_THRP","0")));
-            row.createCell(d++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue("n/a");
             i++;
 
         }
@@ -784,7 +787,7 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkThrpCompGraph.xls";
+            String xlsFileName = "/DownLinkThrpCompGraph(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");

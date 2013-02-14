@@ -239,7 +239,7 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkCQI(PDF_CDF)(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -309,7 +309,7 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCompCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkCompCQI(PDF_CDF)(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -397,12 +397,12 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
                 Row row = sheet.createRow((short) i );
                 row.setHeightInPoints(20);
                 int b = 0;
-                row.createCell(b++).setCellValue((String) jrow.get("YMD")             );
-                row.createCell(b++).setCellValue((String) jrow.get("BTS_NM")          );
-                row.createCell(b++).setCellValue((String) jrow.get("CELL_ID")         );
-                row.createCell(b++).setCellValue((String) jrow.get("CELL_NM")         );
-                row.createCell(b++).setCellValue((String) jrow.get("MCID")            );
-                row.createCell(b++).setCellValue((String) jrow.get("FREQ_KIND")      );
+                row.createCell(b++).setCellValue((String) jrow.get("YMD"));
+                row.createCell(b++).setCellValue((String) jrow.get("BTS_NM"));
+                row.createCell(b++).setCellValue((String) jrow.get("CELL_ID"));
+                row.createCell(b++).setCellValue((String) jrow.get("CELL_NM"));
+                row.createCell(b++).setCellValue((String) jrow.get("MCID"));
+                row.createCell(b++).setCellValue((String) jrow.get("FREQ_KIND"));
 
                 row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_00") ? jrow.get("CQI_"+type+"_00").toString():"0"));
                 row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_01") ? jrow.get("CQI_"+type+"_01").toString():"0"));
@@ -453,7 +453,7 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkData.xls";
+            String xlsFileName = "/DownLinkData(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -513,7 +513,7 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkCompData.xls";
+            String xlsFileName = "/DownLinkCompData(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -548,83 +548,93 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
         Row hrow0 = sheet.createRow((short) 0 );
         hrow0.setHeightInPoints(20);
         int a = 0;
-        hrow0.createCell(a++).setCellValue("날짜");                   // "YMD"
-        hrow0.createCell(a++).setCellValue("DU명");                   // "BTS_NM"
-        hrow0.createCell(a++).setCellValue("CELL ID");               // "CELL_ID"
-        hrow0.createCell(a++).setCellValue("CELL 명");               //  "CELL_NM"
-        hrow0.createCell(a++).setCellValue("MCID");                  //  "MCID"
-        hrow0.createCell(a++).setCellValue("주파수구분");            //  "FREQ_KIND"
-        hrow0.createCell(a++).setCellValue("용량(Mbps)");           //   "DL_THRP"
-        hrow0.createCell(a++).setCellValue("기준용량(Mbps)");       //   "THROUGHPUT"
-        hrow0.createCell(a++).setCellValue("CQI 평균");              //   "CQI_AVERAGE"
-        hrow0.createCell(a++).setCellValue("CQI0 비율 ");           //   "CQI0_RATE"
-        hrow0.createCell(a++).setCellValue("RI2 비율");              //   "RI_RATE"
-        hrow0.createCell(a++).setCellValue("DL PRB 사용율");        //   "DL_PRB_RATE"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI0_PUCCH"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI1_PUCCH"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI0_PUSCH"
-        hrow0.createCell(a++).setCellValue("RSSI");                  //   "RSSI1_PUSCH"
-        hrow0.createCell(a++).setCellValue("License 초과 실패호");  //   "LICENSE_FAIL"
+        hrow0.createCell(a++).setCellValue("날짜");                // "YMD"
+        hrow0.createCell(a++).setCellValue("DU명");                // "BTS_NM"
+        hrow0.createCell(a++).setCellValue("CELL ID");             // "CELL_ID"
+        hrow0.createCell(a++).setCellValue("CELL 명");             // "CELL_NM"
+        hrow0.createCell(a++).setCellValue("MCID");               // "MCID"
+        hrow0.createCell(a++).setCellValue("주파수구분");           // "FREQ_KIND"
+        hrow0.createCell(a++).setCellValue("용량(Mbps)");          // "DL_THRP"
+        hrow0.createCell(a++).setCellValue("기준용량(Mbps)");      // "THROUGHPUT"
+        hrow0.createCell(a++).setCellValue("CQI 평균");            // "CQI_AVERAGE"
+        hrow0.createCell(a++).setCellValue("CQI0 비율 ");          // "CQI0_RATE"
+        hrow0.createCell(a++).setCellValue("RI2 비율");            // "RI_RATE"
+        hrow0.createCell(a++).setCellValue("DL PRB 사용율");       // "DL_PRB_RATE"
+        hrow0.createCell(a++).setCellValue("RSSI");               // "RSSI0_PUCCH"
+        hrow0.createCell(a++).setCellValue("RSSI");               // "RSSI1_PUCCH"
+        hrow0.createCell(a++).setCellValue("RSSI");               // "RSSI0_PUSCH"
+        hrow0.createCell(a++).setCellValue("RSSI");               // "RSSI1_PUSCH"
+        hrow0.createCell(a++).setCellValue("License 초과 실패호"); // "LICENSE_FAIL"
+        hrow0.createCell(a++).setCellValue("전송로");             // "전송로"
+        hrow0.createCell(a++).setCellValue("전송로");             // "전송로"
 
         Row hrow1 = sheet.createRow((short) 1 );
         hrow1.setHeightInPoints(20);
         int b = 0;
-        hrow1.createCell(b++).setCellValue("");                // "YMD"
-        hrow1.createCell(b++).setCellValue("");                // "BTS_NM"
-        hrow1.createCell(b++).setCellValue("");                // "CELL_ID"
-        hrow1.createCell(b++).setCellValue("");                // "CELL_NM"
-        hrow1.createCell(b++).setCellValue("");                // "MCID"
-        hrow1.createCell(b++).setCellValue("");                // "FREQ_KIND"
-        hrow1.createCell(b++).setCellValue("");                // "DL_THRP"
-        hrow1.createCell(b++).setCellValue("");                // "THROUGHPUT"
-        hrow1.createCell(b++).setCellValue("");                // "CQI_AVERAGE"
-        hrow1.createCell(b++).setCellValue("");                // "CQI0_RATE"
-        hrow1.createCell(b++).setCellValue("");                // "RI_RATE"
-        hrow1.createCell(b++).setCellValue("");                // "DL_PRB_RATE"
+        hrow1.createCell(b++).setCellValue("");              // "YMD"
+        hrow1.createCell(b++).setCellValue("");              // "BTS_NM"
+        hrow1.createCell(b++).setCellValue("");              // "CELL_ID"
+        hrow1.createCell(b++).setCellValue("");              // "CELL_NM"
+        hrow1.createCell(b++).setCellValue("");              // "MCID"
+        hrow1.createCell(b++).setCellValue("");              // "FREQ_KIND"
+        hrow1.createCell(b++).setCellValue("");              // "DL_THRP"
+        hrow1.createCell(b++).setCellValue("");              // "THROUGHPUT"
+        hrow1.createCell(b++).setCellValue("");              // "CQI_AVERAGE"
+        hrow1.createCell(b++).setCellValue("");              // "CQI0_RATE"
+        hrow1.createCell(b++).setCellValue("");              // "RI_RATE"
+        hrow1.createCell(b++).setCellValue("");              // "DL_PRB_RATE"
         hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "SI0_PUCCH"
         hrow1.createCell(b++).setCellValue("Total(PUCCH)");  // "SI1_PUCCH"
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "SI0_PUSCH"
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "SI1_PUSCH"
-        hrow1.createCell(b++).setCellValue("");                // "LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("");              // "LICENSE_FAIL"
+        hrow1.createCell(b++).setCellValue("종류");          // "전송로-종류"
+        hrow1.createCell(b++).setCellValue("갯수");          // "전송로-갯수"
 
         Row hrow2 = sheet.createRow((short) 2 );
         hrow2.setHeightInPoints(20);
         int c = 0;
-        hrow2.createCell(c++).setCellValue("");         // "YMD"
-        hrow2.createCell(c++).setCellValue("");         // "BTS_NM"
-        hrow2.createCell(c++).setCellValue("");         // "CELL_ID"
-        hrow2.createCell(c++).setCellValue("");         // "CELL_NM"
-        hrow2.createCell(c++).setCellValue("");         // "MCID"
-        hrow2.createCell(c++).setCellValue("");         // "FREQ_KIND"
-        hrow2.createCell(c++).setCellValue("");         // "DL_THRP"
-        hrow2.createCell(c++).setCellValue("");         // "THROUGHPUT"
-        hrow2.createCell(c++).setCellValue("");         // "CQI_AVERAGE"
-        hrow2.createCell(c++).setCellValue("");         // "CQI0_RATE"
-        hrow2.createCell(c++).setCellValue("");         // "RI_RATE"
-        hrow2.createCell(c++).setCellValue("");         // "DL_PRB_RATE"
+        hrow2.createCell(c++).setCellValue("");       // "YMD"
+        hrow2.createCell(c++).setCellValue("");       // "BTS_NM"
+        hrow2.createCell(c++).setCellValue("");       // "CELL_ID"
+        hrow2.createCell(c++).setCellValue("");       // "CELL_NM"
+        hrow2.createCell(c++).setCellValue("");       // "MCID"
+        hrow2.createCell(c++).setCellValue("");       // "FREQ_KIND"
+        hrow2.createCell(c++).setCellValue("");       // "DL_THRP"
+        hrow2.createCell(c++).setCellValue("");       // "THROUGHPUT"
+        hrow2.createCell(c++).setCellValue("");       // "CQI_AVERAGE"
+        hrow2.createCell(c++).setCellValue("");       // "CQI0_RATE"
+        hrow2.createCell(c++).setCellValue("");       // "RI_RATE"
+        hrow2.createCell(c++).setCellValue("");       // "DL_PRB_RATE"
         hrow2.createCell(c++).setCellValue("최번시");  //  "RI0_PUCCH"
         hrow2.createCell(c++).setCellValue("최한시");  //  "RI1_PUCCH"
         hrow2.createCell(c++).setCellValue("최번시");  //  "RI0_PUSCH"
         hrow2.createCell(c++).setCellValue("최한시");  //  "RI1_PUSCH"
-        hrow2.createCell(c++).setCellValue("");         // "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");       // "LICENSE_FAIL"
+        hrow2.createCell(c++).setCellValue("");       // "전송로-종류"
+        hrow2.createCell(c++).setCellValue("");       // "전송로-갯수"
 
-        sheet.addMergedRegion(new CellRangeAddress(0,2,0,0));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,1,1));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,2,2));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,3,3));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,4,4));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,5,5));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,6,6));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,7,7));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,8,8));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,8,8));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,9,9));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,10,10));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,11,11));
-        sheet.addMergedRegion(new CellRangeAddress(0,0,12,15));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,12,13));
-        sheet.addMergedRegion(new CellRangeAddress(1,1,14,15));
-        sheet.addMergedRegion(new CellRangeAddress(0,2,16,16));
+        int d = 0;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "YMD"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "BTS_NM"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "CELL_ID"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "CELL_NM"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "MCID"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "FREQ_KIND"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "DL_THRP"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "THROUGHPUT"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "CQI_AVERAGE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "CQI0_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "RI_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "DL_PRB_RATE"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));    // "RSSI"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));    // "Total(PUCCH)"
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3));  // "Total(PUSCH)"
+        d += 4;
+        sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));    // "LICENSE_FAIL"
+        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));    // "전송로"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));      // "전송로-종류"
+        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1));  // "전송로-갯수"
 
 
         ArrayList list01 = (ArrayList) map.get("rows");
@@ -635,25 +645,27 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
             //한줄 만들고 셋팅
             Row row = sheet.createRow((short) i );
             row.setHeightInPoints(20);
-            int d = 0;
-            row.createCell(d++).setCellValue((String) jrow.get("YMD")             );
-            row.createCell(d++).setCellValue((String) jrow.get("BTS_NM")          );
-            row.createCell(d++).setCellValue((String) jrow.get("CELL_ID")         );
-            row.createCell(d++).setCellValue((String) jrow.get("CELL_NM")         );
-            row.createCell(d++).setCellValue((String) jrow.get("MCID")            );
-            row.createCell(d++).setCellValue((String) jrow.get("FREQ_KIND")      );
+            int e = 0;
+            row.createCell(e++).setCellValue((String) jrow.get("YMD"));
+            row.createCell(e++).setCellValue((String) jrow.get("BTS_NM"));
+            row.createCell(e++).setCellValue((String) jrow.get("CELL_ID"));
+            row.createCell(e++).setCellValue((String) jrow.get("CELL_NM"));
+            row.createCell(e++).setCellValue((String) jrow.get("MCID"));
+            row.createCell(e++).setCellValue((String) jrow.get("FREQ_KIND"));
 
-            row.createCell(d++).setCellValue(Double.parseDouble(parseKey(jrow,"DL_THRP","0")));
-            row.createCell(d++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
-            row.createCell(d++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(parseKey(jrow,"DL_THRP","0")));
+            row.createCell(e++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUCCH")?jrow.get("RSSI0_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUCCH")?jrow.get("RSSI1_PUCCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI0_PUSCH")?jrow.get("RSSI0_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RSSI1_PUSCH")?jrow.get("RSSI1_PUSCH").toString():"0"));
+            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
+            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue("n/a");
             i++;
 
         }
@@ -711,7 +723,7 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkThrpCompGraph.xls";
+            String xlsFileName = "/DownLinkThrpCompGraph(STD).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");

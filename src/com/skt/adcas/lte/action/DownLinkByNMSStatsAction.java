@@ -257,7 +257,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCQI(PDF_CDF)(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -344,7 +344,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCompCQI(PDF_CDF).xls";
+            String xlsFileName = "/DownLinkStatsCompCQI(PDF_CDF)(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -503,7 +503,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsData.xls";
+            String xlsFileName = "/DownLinkStatsData(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -579,7 +579,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsCompData.xls";
+            String xlsFileName = "/DownLinkStatsCompData(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -813,9 +813,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   //"MCS0 비율(%) : MCS_AVERAGE"
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   //"RSSI"
         sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   //"Total(PUCCH)"
-        d = d + 2;
-        sheet.addMergedRegion(new CellRangeAddress(1,1,d,d+1));   // "Total(PUSCH)"
-        d = d + 2;
+        sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3)); // "Total(PUSCH)"
+        d += 4;
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+7));   //"데이터 (dBm)"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     //"데이터 (dBm)-트래픽(MB) : PDCP_DL_MB"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); //"데이터 (dBm)-PRB 사용율(%) : PRB_USG_RATE"
@@ -825,19 +824,19 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+5,d+5)); //"데이터 (dBm)-접속률(%) : CON_RATE"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+6,d+6)); //"데이터 (dBm)-CD율(%) : CDC_RATE"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+7,d+7)); //"데이터 (dBm)-FA 사용율(%)"
-        d = d + 8;
+        d += 8;
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   //"HD Voice"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     //"HD Voice - 트래픽(MB)"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); //"HD Voice - PRB 사용률(%)"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+2,d+2)); //"HD Voice - 시도호수"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+3,d+3)); //"HD Voice - 점유시간"
-        d = d + 4;
+        d += 4;
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+3));   //"영상통화"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     //"영상통화 - 트래픽(MB)"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); //"영상통화 - PRB 사용률(%)"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+2,d+2)); //"영상통화 - 시도호수"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+3,d+3)); //"영상통화 - 점유시간"
-        d = d + 4;
+        d += 4;
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
@@ -964,7 +963,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsHistogram.xls";
+            String xlsFileName = "/DownLinkStatsHistogram(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
@@ -1048,7 +1047,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
 
             String writeFolderPath = (String) super.properties.get("TEMP_FOLDER_PATH");
             String tempFolder = "/" + UUID.randomUUID().toString();
-            String xlsFileName = "/DownLinkStatsThrpCompGraph.xls";
+            String xlsFileName = "/DownLinkStatsThrpCompGraph(NMS).xls";
 
             if(!(new File(writeFolderPath + tempFolder)).mkdir() ){
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
