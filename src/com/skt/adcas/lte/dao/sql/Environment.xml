@@ -25,7 +25,7 @@
         ,A.CQI_13
         ,A.CQI_14
         ,A.CQI_15
-        FROM LTE_CONST_CQI_THRP A, MFC_INFO B
+        FROM LTE_CONST_CQI_THRP A, LTE_MFC_INFO B
        WHERE A.MFC_CD = B.MFC_CD(+)
        ORDER BY A.MFC_CD, A.RRU_TYPE
 
@@ -190,7 +190,7 @@
         ,A.RSSI_14
         ,A.RSSI_15
         ,A.RSSI_16
-        FROM LTE_CONST_RSSI A, MFC_INFO B
+        FROM LTE_CONST_RSSI A, LTE_MFC_INFO B
        WHERE A.MFC_CD = B.MFC_CD(+)
        ORDER BY A.MFC_CD
 
