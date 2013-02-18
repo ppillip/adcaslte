@@ -651,6 +651,16 @@ $(document).ready(function(){
         },"json");
     });
 
+    $("#graphDropDown li[name=showThrpGraph],#graphDropDown li[name=showHistogram]").click(function(){
+        var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
+        if( checkedList.length === 0 ) {
+            alert("Cell 을 선택해 주세요");
+            return ;
+        }
+        var name = $(this).attr("name");
+        window.open("downLinkByNMSGraph.jsp?chart="+name,"",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
+    });
+
     //솔루션에서 DownLinkByNMS 호출시
 
     if(location.search) {
