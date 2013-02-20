@@ -35,7 +35,7 @@
             <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
                 <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
             </div>
-            <div id="popup_desc">LTE 용량분석 > LTE QMS 기반 섹터 TP > 국소별 용량 그래프</div>
+            <div id="popup_desc">LTE 용량분석 > NMS 기반 섹터 TP > CELL별 용량 그래프</div>
         </div>
         <div id="middle">
             <div id='search_table'>
@@ -59,43 +59,66 @@
 
                                         <div name="divSearch" ID="divSearch" style="width:1000px;vertical-align:middle;">
                                             <table border="0">
-                                                <colgroup>
-                                                    <col width="60px">
-                                                    <col width="360px">
-                                                    <col width="60px">
-                                                    <col width="250px">
-                                                    <col width="60px">
-                                                    <col width="200px">
-                                                </colgroup>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <button class="btn btn-xmini btn-inverse" name="search" id="searchBtn"><i class="icon-search icon-white"></i>&nbsp;조 회</button>
-                                                        <button class="btn btn-xmini btn-inverse" name="excelDownload" id="excelDownload"><i class="icon-file icon-white"></i>&nbsp;EXCEL</button>
+                                                        <button class="btn btn-xmini btn-inverse" id="searchBtn"><i class="icon-search icon-white"></i>&nbsp;조 회</button>
+                                                        <button class="btn btn-xmini btn-inverse" name="excelDownload" id="excelDownload"><i class="icon-file icon-white"></i>&nbsp;엑셀저장</button>
                                                     </td>
-                                                    <td><b>기간</b></td>
-                                                    <td>
-                                                        <input type="text" name="FROMYMD" id="datepicker01">
-                                                        <span style="margin-left: 5px;margin-right: 5px;">-</span>
-                                                        <input type="text" name="TOYMD"   id="datepicker02">
+                                                    <td style="font-size: 11px;" width="50px;"></td>
+                                                    <td style="font-size: 11px;" width="320px;"></td>
+                                                    <td style="font-size: 11px;" width="70px;"><b>통계주기</b></td>
+                                                    <td style="font-size: 11px;" width="200px;">
+                                                        <input type="radio" name="TERMTYPE" value="DAY" checked="true">일간
+                                                        <input type="radio" name="TERMTYPE" value="WK">주간
+                                                        <input type="radio" name="TERMTYPE" value="MON">월간
+                                                        <input type="text" name="WORKGROUP_ID" id="WORKGROUP_ID" style="display:none;">
+                                                        <input type="text" name="DUIDs" id="DUIDs" style="display:none;">
+                                                        <input type="text" name="SEARCHTYPE" id="SEARCHTYPE" style="display:none;">
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>조회대상</b></td>
-                                                    <td>
-                                                        <span id="WORKGROUP_NAME"></span>
-                                                        <input type="hidden" name="DUIDs" id="DUIDs">
-                                                        <input type="hidden" name="CELLGROUP_YN" value="Y">
-                                                        <input type="hidden" name="FREQ_KIND" value="ALL">
+                                                    <td style="font-size: 11px;" width="80px;"> <b>조회대상</b> </td>
+                                                    <td width="400px;">
+                                                        <span id="WORKGROUP_NAME" class='label'/>
                                                     </td>
-                                                    <td><b>보기방식</b></td>
+                                                    <td style="font-size: 11px;" ><b>시간대</b></td>
                                                     <td>
+                                                        <input type="radio" name="DAYTIME_SEQ" value="1" checked="true">전일(全日)
+                                                        <input type="radio" name="DAYTIME_SEQ" value="2">09~20시
+                                                    </td>
+                                                    <td style="font-size: 11px;" ><b>최번기준</b></td>
+                                                    <td style="font-size: 11px;" >
+                                                        <select name="MBTYPE" style="height:24px; width:140px;font-size:11px;margin: 0 0 0 0;">
+                                                            <option value="R3" selected>PRB최번(Cell기준)</option>
+                                                            <option value="R5"  >Data최번(Cell기준)</option>
+                                                            <option value="R15" >동접자최번(Cell기준)</option>
+                                                            <option value="R3D" >PRB최번(DU기준)</option>
+                                                            <option value="R5D" >Data최번(DU기준)</option>
+                                                            <option value="R15D">동접자최번(DU기준)</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 11px;" ><b>기간</b></td>
+                                                    <td>
+                                                        <input  group="TERMTYPE" id="datepicker01" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="dash" style="margin-left: 5px;margin-right: 5px;">-</span>
+                                                        <input  group="TERMTYPE" id="datepicker02" style="text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;" type="text" />
+                                                        <span   group="TERMTYPE" id="fromto" style="display:none; margin-left: 10px;"></span>
+                                                        <select group="TERMTYPE" id="fromYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="fromMonth" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toYear" style="display:none;width:80px;"></select>
+                                                        <select group="TERMTYPE" id="toMonth" style="display:none;width:80px;"></select>
+                                                        <input type="hidden" name="FROMYMD"/>
+                                                        <input type="hidden" name="TOYMD"/>
+                                                    </td>
+                                                    <td style="font-size: 11px;" ></td>
+                                                    <td style="font-size: 11px;" ></td>
+                                                    <td style="font-size: 11px;" ><b>보기방식</b></td>
+                                                    <td style="font-size: 11px;" >
                                                         <input type="radio" name="VIEWTYPE" value="" checked="true"> 추세
                                                         <input type="radio" name="VIEWTYPE" value="AVG"> 평균
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
                                                 </tr>
                                             </table>
 

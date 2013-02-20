@@ -82,10 +82,13 @@
         WHERE
         YMD BETWEEN #{FROMYMD} AND #{TOYMD}
         AND DAYTIME_SEQ = #{DAYTIME_SEQ}
-        <if test = "!FREQ_KIND.equalsIgnoreCase('ALL')">
+        <if test = "!FREQ_KIND.equalsIgnoreCase('ALL') and !FREQ_KIND.equalsIgnoreCase('')">
         AND FREQ_KIND = #{FREQ_KIND}
         </if>
+        <if test = "!MFC_CD.equalsIgnoreCase('')">
         AND MFC_CD = #{MFC_CD}
+        </if>
+
 
         <choose>
             <when test="SEARCHTYPE.equalsIgnoreCase('WORKGROUP')">
