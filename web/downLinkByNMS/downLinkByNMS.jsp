@@ -70,6 +70,8 @@
                                                 <button class="dropdown-toggle btn btn-xmini" id="drop1" role="button" data-toggle="dropdown" href="#"><i class="icon-plane"></i> 그래프 <b class="caret"></b> </button>
                                                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
                                                         <li name="showCqiModal"><a href="#" role="button" data-toggle="modal" tabindex="-1" >CQI</a></li>
+                                                        <li name="showThrpGraph"><a href="#">용량그래프</a></li>
+                                                        <li name="showHistogram"><a href="#">HISTOGRAM</a></li>
                                                     </ul>
                                             </span>
                                             <span class="dropdown" id="excelDropDown">
