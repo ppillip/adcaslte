@@ -1,4 +1,11 @@
+//Workgroup조회, 임시조회, 관심국소조회, Trouble국소조회 구분자
+var callType = window.name;
+//For Scroll Append
+var currentPosition = 0;
+var appendCount = 40;
+
 var workgroup;
+var resultRows = [];
 
 $(document).ready(function(){
 
@@ -28,17 +35,44 @@ $(document).ready(function(){
                 if(height) $(this).css({"height": height + "px"});
             });
 
-            var callType = window.name; //location.href.substring(location.href.indexOf('=')+1);
-            if(callType === 'workgroup') {
+            if(callType === 'workgroup') { //Workgroup
                 $(".workgroup").show();
                 $(".tempgroup").hide();
-            } else {
+                getWorkGroup();
+                setTreeByTeam();
+            } else if (callType === 'tempsearch') { //임시조회
                 $(".workgroup").hide();
                 $(".tempgroup").show();
+                setTreeByTeam();
+            } else if (callType === 'interest') { //관심국소
+                $(".solution").show();
+                $("#selectedWorkgroupTitle").hide();
+                getWorkGroup(function () {
+                    workgroup.$selectedWorkgroup.text("관심국소")
+                        .data("workgroupID","INTEREST");
+                    getDuList("INTEREST",function () {
+                        setTreeByTeam(function () {
+                            workgroup.showDUTree();
+                        });
+                    } );
+                });
+            } else if (callType === 'trouble') { //Trouble국소
+                $(".solution").show();
+                $("#selectedWorkgroupTitle").hide();
+                getWorkGroup(function () {
+                    workgroup.$selectedWorkgroup.text("Trouble국소")
+                        .data("workgroupID","TROUBLE");
+                    getDuList("TROUBLE",function () {
+                        setTreeByTeam(function () {
+                            workgroup.showDUTree();
+                        });
+                    } );
+                });
             }
         },
         setDuCount : function() {
-            this.$duCount.text(this.$duListTable.find('tr').length);
+//            this.$duCount.text(this.$duListTable.find('tr').length);
+            this.$duCount.text(resultRows.length);
         },
         resetDuList : function(tempSearchString) {
             this.$workgroupTable.find("tr").removeClass("error");
@@ -80,7 +114,7 @@ $(document).ready(function(){
                 callback($newWorkgroup);
             }
         },
-        addDuRow : function(row,callback) {
+        addDuRow : function(type,row,callback) {
             var $tbody = this.$duListTable.find("tbody");
             var $newDU =
                 $("<tr>"
@@ -94,7 +128,6 @@ $(document).ready(function(){
                     +"</tr>")
                     .data("row",row)
                     .css("cursor","pointer")
-                    .prependTo($tbody)
                     .children('td:first').addClass(function() {
                         var className = '';
                         if (row.MFC_CD === 'MFC00001') {
@@ -106,10 +139,16 @@ $(document).ready(function(){
                         }
                         return className;
                     }).end();
+            if(type === 'add') {
+                $newDU.prependTo($tbody)
+            } else if (type === 'append') {
+                $newDU.appendTo($tbody);
+            }
 
 
             if(typeof(callback) === 'function') {
-                callback($newDU);
+                //callback($newDU);
+                callback();
             }
         },
         getTreeID : function() {
@@ -123,7 +162,7 @@ $(document).ready(function(){
         },
         showDUTree : function() {
             //DU Tree 다시 접히도록...
-            var selectedTree = this.getTreeID();
+            var selectedTree = workgroup.getTreeID();
             if(selectedTree) {
                 $("#"+selectedTree).dynatree("getRoot").visit(function(node){
                     node.select(false);
@@ -244,8 +283,12 @@ $(document).ready(function(){
      * DU Tree 화면 닫기 버튼 클릭 이벤트 설정
      *
      *==============================================================================*/
-    $("#closeDuListBtn").click(function(){
-        workgroup.hideDUTree();
+    $("#closeDuListBtn").click(function(event){
+        if (callType === 'interest' || callType === 'trouble') {
+            window.close();
+        } else {
+            workgroup.hideDUTree();
+        }
     });
 
     /*===============================================================================
@@ -276,18 +319,6 @@ $(document).ready(function(){
         $("#searchAddressDiv").show();
         workgroup.$searchDuTable.find("tbody tr").remove();
     });
-
-    /*===============================================================================
-     * WorkGroup 가져오기
-     *
-     *==============================================================================*/
-    getWorkGroup();
-
-    /*===============================================================================
-     * 팀별 DU Tree 가져오기
-     *
-     *==============================================================================*/
-    setTreeByTeam();
 
     /*===============================================================================
      * DU Tree 탭 클릭시 이벤트 설정
@@ -369,7 +400,35 @@ $(document).ready(function(){
         }
 
     });
+
+    /*===============================================================================
+     * For SCROLL APPEND
+     *==============================================================================*/
+    $("#divDuList").scroll(function(){
+        if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight()) {
+            appendToTable(function(){}); //callback 필요시 삽입
+        }
+    });
+    /*===============================================================================
+     * End For SCROLL APPEND
+     *==============================================================================*/
+
 });
+
+/*===============================================================================
+ * For SCROLL APPEND
+ *
+ *==============================================================================*/
+function appendToTable(callback){
+    for(var idx=currentPosition; idx<(currentPosition + appendCount) && idx<resultRows.length; idx++){
+        row = resultRows[idx];
+        workgroup.addDuRow('append',row);
+    }
+
+    if (typeof(callback) === 'function') callback();
+    window.currentPosition = window.currentPosition + window.appendCount;
+
+}
 
 /*===============================================================================
  * 선택 버튼 클릭 이벤트 핸들러
@@ -402,15 +461,20 @@ function sendData(event) {
             return false;
         };
 
-        var duList = $.map(workgroup.$duListTable.find("tr"),function(row,index) {
-            return $(row).data("row").C_UID+"_"+$(row).data("row").INGR_ERP_CD;
+//        var duList = $.map(workgroup.$duListTable.find("tr"),function(row,index) {
+//            return $(row).data("row").C_UID+"_"+$(row).data("row").INGR_ERP_CD;
+//        });
+//
+//        var duCount = workgroup.$duListTable.find("tr").length;
+        var duList = $.map(resultRows,function(row,index) {
+            return row.C_UID+"_"+row.INGR_ERP_CD;
         });
 
-        var duCount = workgroup.$duListTable.find("tr").length;
+        var duCount = resultRows.length;
         if (duCount === 1) {
             selectedWorkgroupName = workgroup.$duListTable.find("td:eq(1)").text().replace("삭제","");
         } else {
-            selectedWorkgroupName = workgroup.$duListTable.find("td:eq(1)").text().replace("삭제"," 外 ") + (duCount-1) + "곳";
+            selectedWorkgroupName = workgroup.$duListTable.find("td:eq(1)").text().replace("삭제"," + ") + (duCount-1) + "곳";
         }
         if (mfcCDList.length > 1) {
             alert('제조사가 '+mfcNMList.join(',')+' 존재합니다!');
@@ -427,7 +491,13 @@ function sendData(event) {
 function getWorkGroup(callback) {
 
     var param = {};
-    param["WORKGROUP_NAME"] = $("#searchWorkGroup").val();
+    if(callType === 'interest') {  //관심국소
+        param["WORKGROUP_ID"] = "INTEREST";
+    } else if(callType === 'trouble') {  //Trouble국소
+        param["WORKGROUP_ID"] = "TROUBLE";
+    } else {  //Workgroup
+        param["WORKGROUP_NAME"] = $("#searchWorkGroup").val();
+    }
 
     jQuery.post("/adcaslte/svc/Workgroup-selectWorkgroup",param,function(result,stat){
 
@@ -527,13 +597,18 @@ function getDuList(workgroupID, callback) {
     var param = {};
     param["WORKGROUP_ID"] = workgroupID;
 
+    var $tbody = $("#duListTable tbody");
+    $("tr",$tbody).remove();
+
+    window.currentPosition = 0;
     jQuery.post("/adcaslte/svc/Workgroup-selectDUListByWorkgroup",param,function(result,stat){
-        var treeData = [];
-        var $tbody = $("#duListTable tbody");
-        $("tr",$tbody).remove();
-        $(result.rows).each(function(idx,row){
-            workgroup.addDuRow(row);
-        });
+//        $(result.rows).each(function(idx,row){
+//            workgroup.addDuRow(row);
+//        });
+        resultRows = result.rows;
+        //테이블 랜더링
+        appendToTable(function(){});
+
         workgroup.setDuCount();
 
         if(typeof(callback) === 'function') {
@@ -571,7 +646,7 @@ function addDuList(node,type,callback) {
                 MFC_NM:node.data.mfcNM};
             rows[0] = row;
         }
-        //search일 경우
+    //search일 경우
     } else {
         var row  =  {INGR_ERP_CD:$(node).data("row").INGR_ERP_CD,
             BTS_NM_CMS:$(node).data("row").BTS_NM_CMS,
@@ -582,20 +657,33 @@ function addDuList(node,type,callback) {
     }
 
     //DU List에 없는 DU만 추가
-    var duList = $.map($("#duListTable tbody tr").toArray(), function(du,index){
-        return $(du).data("row").INGR_ERP_CD;
+//    var duList = $.map($("#duListTable tbody tr").toArray(), function(du,index){
+//        return $(du).data("row").INGR_ERP_CD;
+//    });
+    var duList = $.map(resultRows, function(row,index){
+        return row.INGR_ERP_CD;
     });
 
     $.each(rows,function(index,row) {
         var inList = $.inArray(row.INGR_ERP_CD, duList);
         if (inList === -1) {
-            workgroup.addDuRow(row,function($newDU){
-                $newDU.data("new",'Y');
+//            workgroup.addDuRow(row,function($newDU){
+            workgroup.addDuRow('add',row,function(){
+                //$newDU.data("new",'Y');
+                row.new = 'Y';
+                resultRows.unshift(row);
+                var $tr = workgroup.$duListTable.find("tbody tr");
+                $tr.each(function (idx,element) {
+                    if(idx>=appendCount) $(element).remove();
+                });
+
             });
         }
     });
-
     workgroup.setDuCount();
+    //Du추가시 스크룰 상단으로 이동시키고 currentPosition도 한번 셋팅한 값으로 셋팅
+    $("#divDuList").scrollTop(0);
+    window.currentPosition = 20;
 
     //callback : insertDuList
     if(typeof(callback) === 'function') {
@@ -617,9 +705,14 @@ function insertDuList() {
 
     if (param["WORKGROUP_ID"]) {
 
-        var newNodes = $.map($duListTableTR, function(element,index){
-            if($(element).data("new") === 'Y')
-                return $(element).data("row").C_UID+"_"+$(element).data("row").INGR_ERP_CD;
+//        var newNodes = $.map($duListTableTR, function(element,index){
+//            if($(element).data("new") === 'Y')
+//                return $(element).data("row").C_UID+"_"+$(element).data("row").INGR_ERP_CD;
+//        });
+        var newNodes = $.map(resultRows, function(row,index){
+            if(row.new === 'Y') {
+                return row.C_UID+"_"+row.INGR_ERP_CD;
+            }
         });
 
         param["DUIDs"] = newNodes.reverse().join('|');
@@ -661,17 +754,38 @@ function deleteDU(event,$obj,callback) {
         jQuery.post("/adcaslte/svc/Workgroup-deleteWorkgroupDU",param,function(result,stat){
             if (result.status == "SUCCESS") {
                 if($obj.attr("id") !== 'delDuBtn') {
+                    for(var i= 0,max=resultRows.length; i<max; i++) {
+                        var row = resultRows[i];
+                        if(row.INGR_ERP_CD === param["INGR_ERP_CD"] &&
+                           row.C_UID === param["C_UID"]) {
+                            resultRows.splice(i,1);
+                            break;
+                        }
+                    }
+                    workgroup.setDuCount();
                     $obj.remove();
                 } else {
+                    resultRows = [];
+                    workgroup.setDuCount();
                     $duListTR.remove();
                 }
-                workgroup.setDuCount();
             }
         });
     }  else {  //임시워크그룹일 경우
         if($obj.attr("id") !== 'delDuBtn') {
+            for(var i= 0,max=resultRows.length; i<max; i++) {
+                var row = resultRows[i];
+                if(row.INGR_ERP_CD === param["INGR_ERP_CD"] &&
+                   row.C_UID === param["C_UID"]) {
+                    resultRows.splice(i,1);
+                    break;
+                }
+            }
+            workgroup.setDuCount();
             $obj.remove();
         } else {
+            resultRows = [];
+            workgroup.setDuCount();
             $duListTR.remove();
         }
     }
@@ -721,7 +835,7 @@ function searchDUList(type) {
  * 팀별 DU Tree 셋팅하는 Function
  *
  *==============================================================================*/
-function setTreeByTeam() {
+function setTreeByTeam(callback) {
 
     jQuery.post("/adcaslte/svc/Workgroup-selectBonbuList",{},function(result,stat){
 
@@ -774,6 +888,10 @@ function setTreeByTeam() {
                 });
             }
         });
+
+        if(typeof(callback) === 'function') {
+            callback();
+        }
 
     },"json");
 

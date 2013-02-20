@@ -24,7 +24,7 @@ input[type=text] {text-align: center;padding:0 0 0 0; margin: 0 0 0 0; height:24
 .alignCenter {text-align: center;}
 .alignLeft {text-align: left;}
 .alignRight {text-align: right;}
-.tempGroup, .workgroup {display:none;}
+.tempgroup, .workgroup {display:none;}
 
 .MFC00001 {color : blue}
 .MFC00002 {color : red}

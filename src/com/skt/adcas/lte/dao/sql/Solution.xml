@@ -112,4 +112,47 @@
            AND bad_type    = #{BAD_TYPE}
     </sql>
 
+    <sql id="Solution.selectDailyCellTraffic">
+        SELECT /*+ no_merge */
+               YMD
+               ,${MBTYPE + "_MB_TIME    "} AS MB_TIME
+               ,INGR_ERP_CD
+               ,C_UID
+               ,CELL_ID
+               ,MCID
+               ,FREQ_KIND
+               ,MFC_CD
+               ,round(${MBTYPE + "_THROUGHPUT"},1)                         AS THROUGHPUT
+               ,round(${MBTYPE + "_DL_PRB_RATE"},1)                        AS DL_PRB_RATE
+               ,round(NVL(${MBTYPE + "_RSSI"},${MBTYPE + "_PUCCH_AVG"}),1) AS RSSI
+          FROM VIEW_LTE_CELL_DAY
+         WHERE YMD = #{YMD}
+           AND DAYTIME_SEQ = #{DAYTIME_SEQ}
+           AND (C_UID,INGR_ERP_CD) IN (SELECT C_UID , INGR_ERP_CD
+                                         FROM LTE_WORK_GROUP_DU
+                                        WHERE WORKGROUP_ID = #{WORKGROUP_ID}
+                                          AND USER_ID = #{USER_ID})
+        <if test="WORKGROUP_ID.equalsIgnoreCase('TROUBLE')">
+           <![CDATA[
+           AND (TO_NUMBER(${MBTYPE + "_THROUGHPUT"}) < TO_NUMBER(#{DL_RRU_VAL1}) OR
+                TO_NUMBER(${MBTYPE + "_DL_PRB_RATE"}) > TO_NUMBER(#{PRB_USG_VAL1}) OR
+                TO_NUMBER(NVL(${MBTYPE + "_RSSI"},${MBTYPE + "_PUCCH_AVG"})) > TO_NUMBER(#{UL_POWER_VAL1}))
+           ]]>
+           </if>
+    </sql>
+
+    <select id="Solution.selectInterestTroubleList" parameterType="hashmap" resultType="hashmap">
+        SELECT ROWNUM SEQ,
+               TROUBLE.*
+          FROM (SELECT DU.BTS_NM AS BTS_NM
+                       ,DATA.*
+                       ,COUNT(*) OVER (PARTITION BY 1) TOTAL_COUNT
+                  FROM (<include refid="Solution.selectDailyCellTraffic"/>) DATA
+                       ,LTE_BTS_DU_INFO DU
+                 WHERE DATA.INGR_ERP_CD  = DU.INGR_ERP_CD
+                   AND DATA.C_UID        = DU.C_UID
+                 ORDER BY DATA.YMD ASC, DATA.INGR_ERP_CD asc ,DATA.C_UID ASC ,DATA.CELL_ID ,DATA.MCID ASC
+               ) TROUBLE
+    </select>
+
 </mapper>

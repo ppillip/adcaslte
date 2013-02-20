@@ -77,8 +77,8 @@
     <table style="height:30px;">
         <tr>
             <td>
-                <div class="floatLeft workgroup">
-                    <i class="icon-home"></i>&nbsp;선택된 WorkGroup 명 :&nbsp;&nbsp;
+                <div class="floatLeft workgroup solution">
+                    <i class="icon-home"></i><span id="selectedWorkgroupTitle" style="margin-left:10px; margin-right:10px;">선택된 WorkGroup 명 :</span>
                     <b><span id="selectedWorkgroup" name="selectedWorkgroup">WorkGroup을 선택하세요</span></b>
                 </div>
                 <div class="tempgroup">
@@ -127,7 +127,7 @@
 </div>
 <%-- WORKGROUP List --%>
 <%-- DU Tree --%>
-<div class="span5 floatLeft tempgroup" id="divDU">
+<div class="span5 floatLeft tempgroup solution" id="divDU">
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul id="duTab" class="nav nav-tabs">
             <li id="tabEms"><a href="#tabContent0" data-toggle="tab">EMS별</a></li>
@@ -238,7 +238,7 @@
         </tr>
         </tbody>
     </table>
-    <div class="divDuList">
+    <div class="divDuList" id="divDuList">
         <table id="duListTable" class="table table-bordered table-hover table-condensed table-striped">
             <tbody></tbody>
         </table>

@@ -48,6 +48,18 @@
 
     </select>
 
+    <select id="User.selectUserInfoFromQCAS" parameterType="hashmap" resultType="hashmap">
+        SELECT USER_ID, USER_NAME, PASSWD, DECODE(USER_GRADE,'0','A','1','B','2','C','3','D') GRADE
+          FROM QCAS.T_QCAS_USER@QCAS_LINK.REGRESS.RDBMS.DEV.US.ORACLE.COM
+         WHERE USER_ID = #{USER_ID}
+    </select>
+
+    <insert id="User.insertUserInfoByQCAS" parameterType="hashmap">
+        INSERT INTO USER_INFO
+               (USER_ID,USER_NAME,USER_PW,"LEVEL",LOGIN)
+        VALUES(#{USER_ID},#{USER_NAME},#{USER_PW},#{LEVEL},SYSDATE)
+    </insert>
+
     <select id="User.selectUserGroupDesc1" parameterType="hashmap" resultType="hashmap">
         SELECT
         MAX(GROUP_ID) AS GROUP_ID

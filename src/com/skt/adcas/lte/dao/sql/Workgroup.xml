@@ -160,7 +160,7 @@
            AND c.ingr_erp_cd = b.ingr_erp_cd
            AND c.c_uid = b.c_uid
            AND c.mfc_cd = d.mfc_cd(+)
-         ORDER BY b.order_seq ASC, c.bts_nm_cms
+         ORDER BY b.order_seq DESC, c.bts_nm_cms
 
     </select>
 
@@ -181,9 +181,14 @@
                        AND ROWNUM = 1),' ')  MFC_INFO
           FROM LTE_WORK_GROUP A
          WHERE a.user_id = #{USER_ID}
-        <if test="WORKGROUP_ID != null">
-           AND a.workgroup_id = #{WORKGROUP_ID}
-        </if>
+        <choose>
+            <when test="WORKGROUP_ID != null">
+                AND a.workgroup_id = #{WORKGROUP_ID}
+            </when>
+            <otherwise>
+                AND a.workgroup_id NOT IN ('INTEREST','TROUBLE')
+            </otherwise>
+        </choose>
         <if test="WORKGROUP_NAME != null">
            AND a.workgroup_name LIKE '%'||#{WORKGROUP_NAME}||'%'
         </if>

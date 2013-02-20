@@ -19,7 +19,7 @@ var parseQueryString = function(queryString) {
 };
 
 /*===============================================================================
- * //본부/팀별 현황표 상세 데이타 가져오는 Function
+ * 본부/팀별 현황표 상세 데이타 가져오는 Function
  *
  *==============================================================================*/
 function getSolutionDetail(callback) {
@@ -41,10 +41,10 @@ function getSolutionDetail(callback) {
                 +"<td style='text-align:center'>"+row.OPER_TEAM_NM+"</td>"
                 +"<td style='text-align:center'>"+row.PART_NM+"</td>"
                 +"<td style='text-align:center'>"+row.FREQ_KIND+"</td>"
-                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0001\",this);'>"+isUndifined(accounting.formatNumber(new Number(row.THROUGHPUT_CNT), 0, ","),"-")+"</td>"
-                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0002\",this);'>"+isUndifined(accounting.formatNumber(new Number(row.PRB_RATE_CNT), 0, ","),"-")+"</td>"
-                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0003\",this);'>"+isUndifined(accounting.formatNumber(new Number(row.UL_IF_POWER_CNT), 0, ","),"-")+"</td>"
-                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0004\",this);'>"+isUndifined(accounting.formatNumber(new Number(row.LICENSE_FAIL_CNT), 0, ","),"-")+"</td>"
+                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0001\",this);'>"+formatNumber(row.THROUGHPUT_CNT,0)+"</td>"
+                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0002\",this);'>"+formatNumber(row.PRB_RATE_CNT,0)+"</td>"
+                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0003\",this);'>"+formatNumber(row.UL_IF_POWER_CNT,0)+"</td>"
+                +"<td style='text-align:right; cursor:pointer;' onclick='javascript:openDownLinkByNMS(event,\"BAD0004\",this);'>"+formatNumber(row.LICENSE_FAIL_CNT,0)+"</td>"
                 +"</tr>")
                 .data("row",row)
                 .appendTo($tbody);
@@ -125,54 +125,4 @@ function getQueryVariable(variable) {
         }
     }
     console.log('Query variable %s not found', variable);
-}
-
-function getQuerystring2(key, default_)
-{
-    if (default_==null)
-    {
-        default_="";
-    }
-    var search = unescape(location.search);
-    if (search == "")
-    {
-        return default_;
-    }
-    search = search.substr(1);
-    var params = search.split("&");
-    for (var i = 0; i < params.length; i++)
-    {
-        var pairs = params[i].split("=");
-        if(pairs[0] == key)
-        {
-            return pairs[1];
-        }
-    }
-
-
-    return default_;
-}
-
-/*===============================================================================
- * show User Info (create & modfity)
- *
- *==============================================================================*/
-function showUserInfo(userID) {
-    if(userID) {
-        window.open('/adcaslte/user/userInfo.jsp?USER_ID='+userID,'modify','scrollbars=no,status=no,toolbar=no,resizable=no,location=no,menu=no,width=800,height=400');
-    } else {
-        window.open('/adcaslte/user/userInfo.jsp','create','scrollbars=no,status=no,toolbar=no,resizable=no,location=no,menu=no,width=800,height=400');
-    }
-}
-
-/*===============================================================================
- * undefined item 처리 Function
- *
- *==============================================================================*/
-function isUndifined(obj,str){
-    if(typeof(obj)==="undefined"){
-        return str;
-    }else{
-        return obj;
-    }
 }

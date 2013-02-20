@@ -14,6 +14,7 @@
 
     <link href="solution.css" rel="stylesheet">
     <script src="solution.js" language="javascript"></script>
+    <script src="common.js" language="javascript"></script>
 </head>
 <body>
 

@@ -32,6 +32,7 @@ public class UserAction extends ActionSupport4lte {
     /* 추가 셋업 끝*/
 
     public void parseParam() {
+        param.clear();
         Map<String,Object> parameters = ActionContext.getContext().getParameters();
         for (Map.Entry<String, Object> paraEntry : parameters.entrySet() ) {
             String key = paraEntry.getKey();
@@ -47,43 +48,73 @@ public class UserAction extends ActionSupport4lte {
         this.log.debug("login Start");
         SqlSession session = null;
         try{
-            if (request.getSession().getAttribute("USER_ID") == null) {
-                this.log.debug("logining...");
-                parseParam();
+            this.log.debug("logining...");
+            parseParam();
+            if (request.getSession().getAttribute("USER_ID") == null ||
+                !request.getSession().getAttribute("USER_ID").equals((String)param.get("USER_ID"))) {
                 session = SqlSessionManager.getSqlSession().openSession();
                 this.rows = session.selectList("User.selectUserList",param);
 
                 if (this.rows.size() == 1) {
                     HashMap row = this.rows.get(0);
-                    if(row.get("CONFIRM_FLAG").equals("Y")) {
-                        if (param.get("USER_PW").equals(row.get("USER_PW"))) {
-                            this.status = "SUCCESS";
-                            this.forwardURL = "index.jsp";
-                            this.msg = "로그인되었습니다";
-                            request.getSession().setAttribute("USER_ID",row.get("USER_ID"));
-                            request.getSession().setAttribute("USER_INFO",row);
-                            HashMap<String,String> param2 = new HashMap<String, String>();
-                            param2.put("USE_TYPE","ADMIN");
-                            List<HashMap> criticalValue = session.selectList("Environment.selectCriticalValue",param2);
-                            request.getSession().setAttribute("ADMIN_CRITICAL_VALUES",criticalValue.get(0));
-                        } else {
-                            this.status = "FAIL";
-                            this.target = "USER_PW";
-                            this.msg = "비밀번호가 틀립니다.";
-                        }
-                    } else if(row.get("CONFIRM_FLAG").equals("N")) {
+                    if (param.get("USER_PW").equals(row.get("USER_PW"))) {
+                        this.status = "SUCCESS";
+                        this.forwardURL = "index.jsp";
+                        this.msg = "로그인되었습니다";
+                        request.getSession().setAttribute("USER_ID",row.get("USER_ID"));
+                        request.getSession().setAttribute("USER_INFO",row);
+                        HashMap<String,String> param2 = new HashMap<String, String>();
+                        param2.put("USE_TYPE","ADMIN");
+                        List<HashMap> criticalValue = session.selectList("Environment.selectCriticalValue",param2);
+                        request.getSession().setAttribute("ADMIN_CRITICAL_VALUES",criticalValue.get(0));
+                    } else {
                         this.status = "FAIL";
-                        this.target = "USER_ID";
-                        this.msg = "아직 승인되지 않은 사용자 계정입니다.";
-                    } else if(row.get("CONFIRM_FLAG").equals("R")) {
-                        this.status = "FAIL";
-                        this.target = "USER_ID";
-                        this.msg = "승인 거부된 사용자 계정입니다.";
+                        this.target = "USER_PW";
+                        this.msg = "비밀번호가 틀립니다.";
                     }
+//                    if(row.get("CONFIRM_FLAG").equals("Y")) {
+//                        if (param.get("USER_PW").equals(row.get("USER_PW"))) {
+//                            this.status = "SUCCESS";
+//                            this.forwardURL = "index.jsp";
+//                            this.msg = "로그인되었습니다";
+//                            request.getSession().setAttribute("USER_ID",row.get("USER_ID"));
+//                            request.getSession().setAttribute("USER_INFO",row);
+//                            HashMap<String,String> param2 = new HashMap<String, String>();
+//                            param2.put("USE_TYPE","ADMIN");
+//                            List<HashMap> criticalValue = session.selectList("Environment.selectCriticalValue",param2);
+//                            request.getSession().setAttribute("ADMIN_CRITICAL_VALUES",criticalValue.get(0));
+//                        } else {
+//                            this.status = "FAIL";
+//                            this.target = "USER_PW";
+//                            this.msg = "비밀번호가 틀립니다.";
+//                        }
+//                    } else if(row.get("CONFIRM_FLAG").equals("N")) {
+//                        this.status = "FAIL";
+//                        this.target = "USER_ID";
+//                        this.msg = "아직 승인되지 않은 사용자 계정입니다.";
+//                    } else if(row.get("CONFIRM_FLAG").equals("R")) {
+//                        this.status = "FAIL";
+//                        this.target = "USER_ID";
+//                        this.msg = "승인 거부된 사용자 계정입니다.";
+//                    }
                 } else if (this.rows.size() == 0) {
-                    this.status = "FAIL";
-                    this.target = "USER_ID";
-                    this.msg = "일치하는 사용자 계정이 없습니다.";
+                    List<HashMap> qcas = session.selectList("User.selectUserInfoFromQCAS",param);
+                    if(qcas.size() == 0) {
+                        this.status = "FAIL";
+                        this.target = "USER_ID";
+                        this.msg = "일치하는 사용자 계정이 없습니다.";
+                    } else {
+                        HashMap qcasUserInfo = qcas.get(0);
+                        HashMap<String,String> param2 = new HashMap<String, String>();
+                        param2.put("USER_ID",(String)qcasUserInfo.get("USER_ID"));
+                        param2.put("USER_NAME",(String)qcasUserInfo.get("USER_NAME"));
+                        param2.put("USER_PW",(String)qcasUserInfo.get("PASSWD"));
+                        param2.put("LEVEL",(String)qcasUserInfo.get("GRADE"));
+                        this.log.debug("##############param2="+param2.toString());
+                        session.insert("User.insertUserInfoByQCAS",param2);
+                        session.commit();
+                        login();
+                    }
                 }
             } else {
                 this.log.debug("logined");
@@ -91,7 +122,7 @@ public class UserAction extends ActionSupport4lte {
                 this.msg = "로그인된 상태입니다.";
             }
         } catch (Exception e) {
-            this.msg = e.getMessage();
+            this.msg = "LTE 서버 로그인을 실패하였습니다.\n"+e.getMessage();
             this.status = "ERROR";
             this.error = true;
             if(session != null) {

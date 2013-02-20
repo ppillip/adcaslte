@@ -53,7 +53,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectBonbuList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -77,7 +77,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectOperTeamList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -101,7 +101,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectPartList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -125,7 +125,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectCityList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -149,7 +149,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectGuList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -173,7 +173,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectDongList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -197,7 +197,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectMMEList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -221,7 +221,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectNEList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -245,7 +245,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectDUList",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -269,7 +269,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectDUListByWorkgroup",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -292,8 +292,22 @@ public class WorkgroupAction extends ActionSupport4lte {
             parseParam();
             session = SqlSessionManager.getSqlSession().openSession();
             this.rows = session.selectList("Workgroup.selectWorkgroup",this.param);
-            session.commit();
-            this.msg = "생성되었습니다";
+            if(this.rows.size() == 0) {
+                if (param.get("WORKGROUP_ID").equalsIgnoreCase("INTEREST")) { //관심국소
+                    param.put("WORKGROUP_ID", "INTEREST");
+                    param.put("WORKGROUP_NAME", "관심국소");
+                    int no = session.insert("Workgroup.insertWorkgroup",this.param);
+                    session.commit();
+                    this.rows = session.selectList("Workgroup.selectWorkgroup",this.param);
+                } else if (param.get("WORKGROUP_ID").equalsIgnoreCase("TROUBLE")) { //Trouble국소
+                    param.put("WORKGROUP_ID", "TROUBLE");
+                    param.put("WORKGROUP_NAME", "Trouble국소");
+                    int no = session.insert("Workgroup.insertWorkgroup",this.param);
+                    session.commit();
+                    this.rows = session.selectList("Workgroup.selectWorkgroup",this.param);
+                }
+            }
+            this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();
@@ -455,7 +469,7 @@ public class WorkgroupAction extends ActionSupport4lte {
             session = SqlSessionManager.getSqlSession().openSession();
             int no = session.delete("Workgroup.deleteWorkgroupDU",this.param);
             session.commit();
-            this.msg = "생성되었습니다";
+            this.msg = "삭제되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
             this.msg = e.getMessage();

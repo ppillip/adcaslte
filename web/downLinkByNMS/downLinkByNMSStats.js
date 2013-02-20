@@ -533,35 +533,43 @@ function appendToTable(callback){
         $("<tr name='" + row.ROWIDX + "'>"
             +"<td style='text-align: right;font-size:11px;'>"
             +(function(value,sign,critical) {
-            if(Number(value) && critical != null && eval(value+sign+critical)) {
-                return "<span style='color:red'>"+value+"</span>";
-            } else {
-                return value;
-            }
-        })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                if(Number(value) && critical != null && eval(value+sign+critical)) {
+                    return "<span style='color:red'>"+value+"</span>";
+                } else {
+                    return value;
+                }
+            })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
             +"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"
             +(function(value,sign,critical) {
-            if(Number(value) && critical != null && eval(value+sign+critical)) {
-                return "<span style='color:red'>"+value+"</span>";
-            } else {
-                return value;
-            }
-        })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                if(Number(value) && critical != null && eval(value+sign+critical)) {
+                    return "<span style='color:red'>"+value+"</span>";
+                } else {
+                    return value;
+                }
+            })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
             +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"   /*SS*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"  /*LG*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"  /*LG*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"  /*LG*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE )+"</td>"    /*NSN*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"    /*NSN*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )+"</td>"    /*NSN*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>" /*NSN*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"    /*NSN*/
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>" /*NSN*/
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE    )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_THROUGHPUT)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )
+            +(function(value,sign,critical) {
+                if(Number(value) && critical != null && eval(value+sign+critical)) {
+                    return "<span style='color:red'>"+value+"</span>";
+                } else {
+                    return value;
+                }
+            })(formatNumber(row.PUCCH_AVG),'>',result.adminCriticalValues && result.adminCriticalValues.UL_POWER_VAL1)
+            +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUCCH_AVG )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUSCH_AVG )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.R2_PUSCH_AVG )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PDCP_DL_MB  )+ "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PRB_USG_RATE)+ "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DRB_USG_RATE)+ "</td>"
