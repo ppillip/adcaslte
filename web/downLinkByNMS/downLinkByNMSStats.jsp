@@ -19,9 +19,9 @@
     <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
     <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
 
+    <script src="/adcaslte/common/js/jquery.menu.js"></script>
     <script src="/adcaslte/common/js/jquery.progress.js"></script>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
-    <script src="/adcaslte/common/js/jquery.menu.js"></script>
 
     <link href="downLinkByNMSStats.css" rel="stylesheet">
     <script src="downLinkByNMSStats.js" language="javascript"></script>

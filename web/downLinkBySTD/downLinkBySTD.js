@@ -12,6 +12,9 @@ function scrollY() {
 
 $(document).ready(function(){
 
+    //For Quick Menu
+    $("#quickmenu_container").quickMenuForLTE();
+
     //GRAHP ALL Check
     $("input[name=checkAll]").click(function(){
         if($(this).attr("checked")){

@@ -32,13 +32,14 @@
         var $this = $(this);
 
         var setQuickMenu = function () {
-            var quickMenu = "<div style=\"float:left;\">";
-            quickMenu = quickMenu +
+            var quickMenu =
+            "<div style=\"float:left;\">" +
                 "<div style=\"margin:10px 15px; color:white; font-size:15px; font-weight:bold\">" +
-                "<i class=\"icon-list icon-white\"></i>&nbsp;&nbsp;LTE 용량 분석" +
-                "</div>" +
+                    "<i class=\"icon-list icon-white\"></i><span style=\"margin-left:5px;\">LTE 용량 분석</span>" +
+                "</div>";
+            quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
                     "<dl>" +
@@ -50,84 +51,84 @@
                     "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
             quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<dl>" +
-                "<dt style=\"color:white\">LTE QMS 기반 섹터 TP</dt>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByQMS/downLinkByQMS.jsp','1280-700')\">국소별 용량</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByQMS/downLinkByQMSStats.jsp','1280-700')\">통계단위별 용량</span></dd>" +
-                "</dl>" +
+                    "<dl>" +
+                        "<dt style=\"color:white\">LTE QMS 기반 섹터 TP</dt>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByQMS/downLinkByQMS.jsp','1280-700')\">국소별 용량</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByQMS/downLinkByQMSStats.jsp','1280-700')\">통계단위별 용량</span></dd>" +
+                    "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
             quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<dl>" +
-                "<dt style=\"color:white\">LTE 기준 용량분석</dt>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTD.jsp','1280-700')\">DownLink</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTDStats.jsp','1280-700')\">DownLink 통계</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTDComp.jsp','1280-700')\">DownLink 전후비교</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTDStatsComp.jsp','1280-700')\">DownLink 통계 전후비교</span></dd>" +
-                "</dl>" +
+                    "<dl>" +
+                        "<dt style=\"color:white\">LTE 기준 용량분석</dt>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTD.jsp','1280-700')\">DownLink</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTDStats.jsp','1280-700')\">DownLink 통계</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTDComp.jsp','1280-700')\">DownLink 전후비교</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkBySTD/downLinkBySTDStatsComp.jsp','1280-700')\">DownLink 통계 전후비교</span></dd>" +
+                    "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
             quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<dl>" +
-                "<dt style=\"color:white\">MAP</dt>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('http://150.23.13.142/ciss_2012/map/qcasMap.php','1280-700')\">MAP</span></dd>" +
-                "</dl>" +
+                    "<dl>" +
+                        "<dt style=\"color:white\">MAP</dt>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('http://150.23.13.142/ciss_2012/map/qcasMap.php','1280-700')\">MAP</span></dd>" +
+                    "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
             quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<dl>" +
-                "<dt style=\"color:white\">관리자 환경변수</dt>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constCqiThrp.jsp','1010-500')\">CQI vs Throughput Table</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constUplinkRsrp.jsp','550-630')\">RSRP vs Throughput Table</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constTable.jsp','550-500')\">DownLink 사용환경 비율</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constUplink.jsp','550-500')\">UpLink 사용환경 비율</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','ADMIN')\">임계치 설정</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constRssi.jsp','1010-500')\">UL Interference 평균값</span></dd>" +
-                "</dl>" +
+                    "<dl>" +
+                        "<dt style=\"color:white\">관리자 환경변수</dt>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constCqiThrp.jsp','1010-500')\">CQI vs Throughput Table</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constUplinkRsrp.jsp','550-630')\">RSRP vs Throughput Table</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constTable.jsp','550-500')\">DownLink 사용환경 비율</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constUplink.jsp','550-500')\">UpLink 사용환경 비율</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','ADMIN')\">임계값 설정</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/constRssi.jsp','1010-500')\">UL Interference 평균값</span></dd>" +
+                    "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
             quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<dl>" +
-                "<dt style=\"color:white\">사용자 환경변수</dt>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/workgroup/workgroup.jsp','860-700')\">WorkGroup 관리</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','USER')\">임계치 설정</span></dd>" +
-                "</dl>" +
+                    "<dl>" +
+                        "<dt style=\"color:white\">사용자 환경변수</dt>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/workgroup/workgroup.jsp','860-700')\">WorkGroup 관리</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','USER')\">임계값 설정</span></dd>" +
+                    "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
             quickMenu = quickMenu +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<dl>" +
-                "<dt style=\"color:white\">도움말</dt>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/temp')\">도움말 보기</span></dd>" +
-                "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/temp','USER')\">Download</span></dd>" +
-                "</dl>" +
+                    "<dl>" +
+                        "<dt style=\"color:white\">도움말</dt>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/temp')\">도움말 보기</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/temp','USER')\">Download</span></dd>" +
+                    "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
-                "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
 

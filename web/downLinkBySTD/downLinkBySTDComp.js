@@ -22,9 +22,8 @@ function scrollYAfter() {
 
 $(document).ready(function(){
 
-    $("input[name=WORKGROUP_YN]").hide();
-    $("input[name=WORKGROUP_ID]").hide();
-    $("input[name=DUIDs]").hide();
+    //For Quick Menu
+    $("#quickmenu_container").quickMenuForLTE();
 
     //GRAHP ALL Check
     $("input[name=checkAll]").click(function(){
