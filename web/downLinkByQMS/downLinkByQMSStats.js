@@ -12,9 +12,8 @@ function scrollY() {
 
 $(document).ready(function(){
 
-    $("input[name=WORKGROUP_YN]").hide();
-    $("input[name=WORKGROUP_ID]").hide();
-    $("input[name=DUIDs]").hide();
+    //For Quick Menu
+    $("#quickmenu_container").quickMenuForLTE();
 
     //GRAPH ALL Check
     $("input[name=checkAll]").click(function(){

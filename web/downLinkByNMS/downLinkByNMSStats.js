@@ -13,7 +13,9 @@ function scrollY() {
 
 $(document).ready(function(){
 
-    $("#quickmenu_container").quickMenuForLTE('qcas','tbvjqcas');
+    //For Quick Menu
+    $("#quickmenu_container").quickMenuForLTE();
+
     //GRAHP ALL Check
     $("input[name=checkAll]").click(function(){
         if($(this).attr("checked")){

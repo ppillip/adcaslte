@@ -19,10 +19,9 @@
     <script src="/adcaslte/common/highchart/js/modules/exporting.js"></script>
     <script src="/adcaslte/common/js/jquery.highcharts.js"></script>
     <%--<script src="/adcaslte/common/js/jquery.progress.js"></script>--%>
+    <script src="/adcaslte/common/js/jquery.menu.js"></script>
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
 
-    <link href="/adcaslte/common/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./common/bootstrap/css/common.css" />
     <link href="downLinkBySTDComp.css" rel="stylesheet">
     <script src="downLinkBySTDComp.js" language="javascript"></script>
     <script src="common.js" language="javascript"></script>
@@ -31,7 +30,6 @@
 
 <div id="wrap">
     <div id="quickmenu_container">
-        퀵메뉴 작업중입니다.
         <div style="float:right;margin-top:279px;">
             <a href="javascript:close_quickmenu();"><img src="/adcaslte/common/bootstrap/img/bt_close_quickmenu.png"></a>
         </div>
