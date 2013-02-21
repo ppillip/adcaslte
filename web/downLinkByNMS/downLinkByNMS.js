@@ -248,6 +248,8 @@ function appendToTable(callback){
 }
 $(document).ready(function(){
 
+    $("#quickmenu_container").quickMenuForLTE();
+
     $("#divMiddleRight").scroll(function(){
         if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
         {

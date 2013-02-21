@@ -229,6 +229,8 @@ function getSaturday(strDate) {
 
 $(document).ready(function(){
 
+    $("#quickmenu_container").quickMenuForLTE();
+
     var topLeftWidth = {
         "YMD"          : "60"
         ,"MB_TIME" : "35"

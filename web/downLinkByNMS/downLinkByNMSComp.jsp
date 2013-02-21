@@ -17,6 +17,7 @@
 
     <!-- <script src="/adcaslte/common/js/jquery.progress.js"></script> -->
     <script src="/adcaslte/common/js/jquery.checkIEversion.js"></script>
+    <script src="/adcaslte/common/js/jquery.menu.js"></script>
 
     <link href="downLinkByNMSComp.css" rel="stylesheet">
     <script src="downLinkByNMSComp.js" language="javascript"></script>
@@ -39,7 +40,6 @@
 <body>
 <div id="wrap">
     <div id="quickmenu_container">
-        퀵메뉴 작업중입니다.
         <div style="float:right;margin-top:279px;">
             <a href="javascript:close_quickmenu();"><img src="/adcaslte/common/bootstrap/img/bt_close_quickmenu.png"></a>
         </div>
