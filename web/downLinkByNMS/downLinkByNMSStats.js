@@ -13,6 +13,7 @@ function scrollY() {
 
 $(document).ready(function(){
 
+    $("#quickmenu_container").quickMenuForLTE('qcas','tbvjqcas');
     //GRAHP ALL Check
     $("input[name=checkAll]").click(function(){
         if($(this).attr("checked")){
