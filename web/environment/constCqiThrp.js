@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+    //CQI Validation
+    $(document).on('keyup', 'input[name^=CQI_]', function(e) {
+        valiateNumField(this);
+    });
+    //CQI Number Format
+    $(document).on('change', 'input[name^=CQI_]', function(e) {
+        formatNumField(this,2);
+    });
+
     //제조사별 CQI THRP 보기
     $("#mfcSelect").change(function() {
         toggleDataByMFC(toggleDataByRRU);
@@ -90,22 +99,22 @@ function selectCqiThrp() {
                 +"<td class='tdCenter'>"+row.LASTUPDATE+"</td>"
                 +"<td class='tdCenter'>"+row.MFC_NM+"</td>"
                 +"<td class='tdCenter'>"+row.RRU_TYPE+"</td>"
-                +"<td class='tdRight'>"+row.CQI_00+"</td>"
-                +"<td class='tdRight'>"+row.CQI_01+"</td>"
-                +"<td class='tdRight'>"+row.CQI_02+"</td>"
-                +"<td class='tdRight'>"+row.CQI_03+"</td>"
-                +"<td class='tdRight'>"+row.CQI_04+"</td>"
-                +"<td class='tdRight'>"+row.CQI_05+"</td>"
-                +"<td class='tdRight'>"+row.CQI_06+"</td>"
-                +"<td class='tdRight'>"+row.CQI_07+"</td>"
-                +"<td class='tdRight'>"+row.CQI_08+"</td>"
-                +"<td class='tdRight'>"+row.CQI_09+"</td>"
-                +"<td class='tdRight'>"+row.CQI_10+"</td>"
-                +"<td class='tdRight'>"+row.CQI_11+"</td>"
-                +"<td class='tdRight'>"+row.CQI_12+"</td>"
-                +"<td class='tdRight'>"+row.CQI_13+"</td>"
-                +"<td class='tdRight'>"+row.CQI_14+"</td>"
-                +"<td class='tdRight'>"+row.CQI_15+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_00,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_01,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_02,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_03,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_04,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_05,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_06,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_07,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_08,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_09,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_10,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_11,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_12,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_13,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_14,2)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.CQI_15,2)+"</td>"
                 +"</tr>")
                 .data("row",row)
                 .appendTo($tbody);
@@ -214,10 +223,11 @@ function uploadCQI(event) {
             return false;
         }
         for(var j= 0, max = row.length; j < max; j++) {
-            $("input[name=CQI_"+(row[j].length === 1 ? '0'+j : j)+"]").val(row[j])
+            $("input[name=CQI_"+(j < 10 ? '0'+j : j)+"]").val(formatNumber(row[j],2))
         }
         return false; // 한번만 적용
     }
+    alert('적용되었습니다.');
 }
 
 /*===============================================================================
@@ -226,8 +236,13 @@ function uploadCQI(event) {
  *==============================================================================*/
 function saveCqiThrp() {
 
-    var param = $('form[id=cqiThrpForm]').serialize();
-
+    var param = $('form[id=cqiThrpForm]').serializeArray();
+    var regexp = /^(CQI_)/;
+    for(var i= 0, max=param.length; i<max; i++) {
+        if(regexp.test(param[i].name)) {
+            param[i].value = param[i].value.replace(/,/g,"");
+        }
+    }
     jQuery.post("/adcaslte/svc/Environment-updateConstCqiThrp",param,function(result,stat){
 
         if (result.status == "SUCCESS") {

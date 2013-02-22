@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+    //RSSI Validation
+    $(document).on('keyup', 'input[name^=RSSI_]', function(e) {
+        valiateNumField(this);
+    });
+    //RSSI Number Format
+    $(document).on('change', 'input[name^=RSSI_]', function(e) {
+        formatNumField(this,1);
+    });
+
     //제조사별 RSSI 보기
     $("#mfcSelect").change(function() {
         toggleDataByMFC();
@@ -47,22 +56,22 @@ function selectRssi() {
                 +"</td>"
                 +"<td class='tdCenter'>"+row.LASTUPDATE+"</td>"
                 +"<td class='tdCenter'>"+row.MFC_NM+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_01+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_02+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_03+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_04+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_05+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_06+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_07+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_08+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_09+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_10+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_11+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_12+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_13+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_14+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_15+"</td>"
-                +"<td class='tdRight'>"+row.RSSI_16+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_01,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_02,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_03,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_04,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_05,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_06,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_07,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_08,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_09,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_10,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_11,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_12,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_13,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_14,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_15,1)+"</td>"
+                +"<td class='tdRight'>"+formatNumber(row.RSSI_16,1)+"</td>"
                 +"</tr>")
                 .data("row",row)
                 .appendTo($tbody);
@@ -164,10 +173,11 @@ function uploadRssi(event) {
             return false;
         }
         for(var j= 1, max = row.length; j <= max; j++) {
-            $("input[name=RSSI_"+(row[j].length === 1 ? '0'+j : j)+"]").val(row[j])
+            $("input[name=RSSI_"+(j < 10 ? '0'+j : j)+"]").val(formatNumber(row[j-1],1))
         }
         return false; // 한번만 적용
     }
+    alert('적용되었습니다.');
 }
 
 /*===============================================================================
@@ -176,7 +186,13 @@ function uploadRssi(event) {
  *==============================================================================*/
 function saveRssi() {
 
-    var param = $('form[id=rssiForm]').serialize();
+    var param = $('form[id=rssiForm]').serializeArray();
+    var regexp = /^(RSSI_)/;
+    for(var i= 0, max=param.length; i<max; i++) {
+        if(regexp.test(param[i].name)) {
+            param[i].value = param[i].value.replace(/,/g,"");
+        }
+    }
 
     jQuery.post("/adcaslte/svc/Environment-updateConstRssi",param,function(result,stat){
 

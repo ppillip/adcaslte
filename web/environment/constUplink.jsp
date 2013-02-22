@@ -9,9 +9,11 @@
 
     <script src="/adcaslte/common/js/jquery-latest.js"></script>
     <script src="/adcaslte/common/bootstrap/js/bootstrap.js"></script>
+    <script src="/adcaslte/common/js/accounting.min.js"></script>
 
     <link href="constUplink.css" rel="stylesheet">
     <script src="constUplink.js" language="javascript"></script>
+    <script src="common.js" language="javascript"></script>
 </head>
 <body>
 <div id="wrap">

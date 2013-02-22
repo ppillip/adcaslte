@@ -9,9 +9,11 @@
 
     <script src="/adcaslte/common/js/jquery-latest.js"></script>
     <script src="/adcaslte/common/bootstrap/js/bootstrap.js"></script>
+    <script src="/adcaslte/common/js/accounting.min.js"></script>
 
     <link href="constCqiThrp.css" rel="stylesheet">
     <script src="constCqiThrp.js" language="javascript"></script>
+    <script src="common.js" language="javascript"></script>
 </head>
 <body>
 <div id="wrap">
@@ -33,7 +35,7 @@
                     <tr>
                         <td background="/adcaslte/common/bootstrap/img/searchbox_center1.png" style="width:6px;">&nbsp;</td>
                         <td>
-                            <table width="985px" height="80" cellspacing="0" cellpadding="0" border="0">
+                            <table width="985px" height="50" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
                                         <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
@@ -55,6 +57,7 @@
                                                 <option value="ALL" selected>ALL</option>
                                                 <option value="MIMO">MIMO</option>
                                                 <option value="SIMO">SIMO</option>
+                                                <option value="STDS">STDS</option>
                                             </select>
                                         </div>
                                     </td>
@@ -75,7 +78,7 @@
     </div>
 </div>
 
-<table id="cqiThrpTable" class="table table-bordered table-hover table-condensed table-striped" style="width:1000px; margin: 0 5px;">
+<table id="cqiThrpTable" class="table table-bordered table-condensed table-striped" style="width:1000px; margin: 0 5px;">
     <thead>
     <tr>
         <td></td>

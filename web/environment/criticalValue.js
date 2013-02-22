@@ -10,6 +10,26 @@ $(document).ready(function(){
         $("#popup_desc").text("LTE 용량분석 > 관리자 환경변수 > 임계치 설정");
     }
 
+    //DL_RRU_VAL Validation
+    $(document).on("keyup", "input[name^=DL_RRU_]", function(e) {
+        valiateNumField(this,/[^\d.]/g);
+    });
+
+    //DL_REPEATER_VAL Validation
+    $(document).on('keyup', 'input[name^=DL_REPEATER_]', function(e) {
+        valiateNumField(this,/[^\d.]/g);
+    });
+
+    //DPRB_USG_VAL Validation
+    $(document).on('keyup', 'input[name^=PRB_USG_]', function(e) {
+        valiateNumField(this,/[^\d.]/g);
+    });
+
+    //UL_POWER_VAL Validation
+    $(document).on('keyup', 'input[name^=UL_POWER_]', function(e) {
+        valiateNumField(this,/[^\d-]/g);
+    });
+
     jQuery.post("/adcaslte/svc/Environment-selectCriticalValue",{USE_TYPE:USE_TYPE},function(result,stat){
 
         var $tbody = $("#criticalValueTable").find("tbody");
@@ -79,8 +99,7 @@ $(document).ready(function(){
                 +"<div style='float:left; width:20px;'> ≥ </div>"
                 +"<div style='float:left; width:25px; height:25px; background-color: green;'></div>"
                 +"</td>"
-                //+"<td class='tdCenter'>"+row.UL_POWER_UNIT+"</td>"
-                +"<td class='tdCenter'></td>"
+                +"<td class='tdCenter'>"+row.UL_POWER_UNIT+"</td>"
                 +"</tr>")
                 .appendTo($tbody);
 

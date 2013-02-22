@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    //Validation
+    $(document).on('keyup', 'input[name=CONST_VAL]', function(e) {
+        valiateNumField(this);
+    });
+
     $("#modifyBtn").click(function(event){
         event.preventDefault();
         changeMode('edit');
@@ -41,7 +46,7 @@ function selectConstUplink() {
                 +"<tr name='edit' style='display:none'>"
                 +"<input type='hidden' name='CONST_TYPE' value='"+row.CONST_TYPE+"'>"
                 +"<td><input type='text' name='RAMARK' style='width:150px;' value='"+row.RAMARK+"'></td>"
-                +"<td><input type='text' name='CONST_VAL' style='width:70px; text-align: right;' value='"+row.CONST_VAL+"'></td>"
+                +"<td><input type='text' name='CONST_VAL' style='width:60px; text-align: right;' value='"+row.CONST_VAL+"'></td>"
                 +"<td class='col3 tdCenter'>"+row.LASTUPDATE+"</td>"
                 +"</tr>")
                 .data("row",row)

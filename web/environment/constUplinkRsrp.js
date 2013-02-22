@@ -1,5 +1,15 @@
 $(document).ready(function(){
 
+    //RSRP Validation
+    $(document).on('keyup', 'input[name=RSRP]', function(e) {
+        valiateNumField(this,/[^\d-]/g);
+    });
+
+    //THRP Validation
+    $(document).on('keyup', 'input[name=THRP]', function(e) {
+        valiateNumField(this);
+    });
+
     $("#modifyBtn").click(function(event){
         event.preventDefault();
         changeMode('edit');
@@ -13,6 +23,7 @@ $(document).ready(function(){
     $("#cancelBtn").click(function(event){
         event.preventDefault();
         changeMode('view');
+        selectConstUplinkRsrp();
     });
 
     //CONST UPLINK RSRP 쿼리
@@ -38,8 +49,8 @@ function selectConstUplinkRsrp() {
                 +"<td class='col2 tdCenter'>"+row.THRP+"</td>"
                 +"</tr>"
                 +"<tr name='edit' style='display:none'>"
-                +"<td class='tdCenter'><input type='text' name='RSRP' style='width:90px;' value='"+row.RSRP+"'></td>"
-                +"<td class='tdCenter'><input type='text' name='THRP' style='width:180px; text-align: center;' value='"+row.THRP+"'></td>"
+                +"<td class='tdCenter'><input type='text' name='RSRP' style='width:90px;  margin: 1px;' value='"+row.RSRP+"'></td>"
+                +"<td class='tdCenter'><input type='text' name='THRP' style='width:180px; margin: 1px;' value='"+row.THRP+"'></td>"
                 +"</tr>")
                 .appendTo($tbody);
 
@@ -77,8 +88,8 @@ function uploadRsrp(event) {
             +"<td class='col2 tdCenter'>"+row[1]+"</td>"
             +"</tr>"
             +"<tr name='edit'>"
-            +"<td class='tdCenter'><input type='text' name='RSRP' style='width:90px;' value='"+row[0]+"'></td>"
-            +"<td class='tdCenter'><input type='text' name='THRP' style='width:180px;' value='"+row[1]+"'></td>"
+            +"<td class='tdCenter'><input type='text' name='RSRP' style='width:90px;  margin: 1px;' value='"+row[0]+"'></td>"
+            +"<td class='tdCenter'><input type='text' name='THRP' style='width:180px; margin: 1px;' value='"+row[1]+"'></td>"
             +"</tr>")
             .appendTo($tbody);
 

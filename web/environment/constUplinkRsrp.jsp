@@ -9,9 +9,11 @@
 
     <script src="/adcaslte/common/js/jquery-latest.js"></script>
     <script src="/adcaslte/common/bootstrap/js/bootstrap.js"></script>
+    <script src="/adcaslte/common/js/accounting.min.js"></script>
 
     <link href="constUplinkRsrp.css" rel="stylesheet">
     <script src="constUplinkRsrp.js" language="javascript"></script>
+    <script src="common.js" language="javascript"></script>
 </head>
 <body>
 <div id="wrap">
@@ -31,7 +33,7 @@
         <button class="btn btn-info btn-mini" style="display:none" id="saveBtn"><i class="icon-ok"></i>&nbsp;저장</button>
         <button class="btn btn-info btn-mini" style="display:none" id="cancelBtn"><i class="icon-remove"></i>&nbsp;취소</button>
     </div>
-    <div style="width:400px;  height:380px; margin:0 auto; overflow-y: auto;">
+    <div style="width:400px; height:380px; margin:0 auto; overflow-y: auto;">
         <table id="constUplinkRsrp" class="table table-bordered table-condensed">
             <thead>
             <tr>
