@@ -186,7 +186,7 @@
                 AND a.workgroup_id = #{WORKGROUP_ID}
             </when>
             <otherwise>
-                AND a.workgroup_id NOT IN ('INTEREST','TROUBLE')
+                AND a.workgroup_id != 'INTEREST'
             </otherwise>
         </choose>
         <if test="WORKGROUP_NAME != null">

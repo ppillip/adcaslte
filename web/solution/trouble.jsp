@@ -52,7 +52,6 @@
                                 <tr>
                                     <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
                                         <div name="divSearch" ID="divSearch" class="" style="margin-top:0px;padding:0; vertical-align:middle;">
-                                            <input type="hidden" name="WORKGROUP_ID" value="TROUBLE">
                                             <table border="0">
                                                 <colgroup>
                                                     <col width="200px">

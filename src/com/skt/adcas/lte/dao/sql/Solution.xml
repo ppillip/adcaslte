@@ -132,7 +132,7 @@
                                          FROM LTE_WORK_GROUP_DU
                                         WHERE WORKGROUP_ID = #{WORKGROUP_ID}
                                           AND USER_ID = #{USER_ID})
-        <if test="WORKGROUP_ID.equalsIgnoreCase('TROUBLE')">
+        <if test="QUERY_TYPE.equalsIgnoreCase('TROUBLE')">
            <![CDATA[
            AND (TO_NUMBER(${MBTYPE + "_THROUGHPUT"}) < TO_NUMBER(#{DL_RRU_VAL1}) OR
                 TO_NUMBER(${MBTYPE + "_DL_PRB_RATE"}) > TO_NUMBER(#{PRB_USG_VAL1}) OR
@@ -141,9 +141,9 @@
            </if>
     </sql>
 
-    <select id="Solution.selectInterestTroubleList" parameterType="hashmap" resultType="hashmap">
+    <select id="Solution.selectInterestList" parameterType="hashmap" resultType="hashmap">
         SELECT ROWNUM SEQ,
-               TROUBLE.*
+               INTEREST.*
           FROM (SELECT DU.BTS_NM AS BTS_NM
                        ,DATA.*
                        ,COUNT(*) OVER (PARTITION BY 1) TOTAL_COUNT
@@ -152,7 +152,7 @@
                  WHERE DATA.INGR_ERP_CD  = DU.INGR_ERP_CD
                    AND DATA.C_UID        = DU.C_UID
                  ORDER BY DATA.YMD ASC, DATA.INGR_ERP_CD asc ,DATA.C_UID ASC ,DATA.CELL_ID ,DATA.MCID ASC
-               ) TROUBLE
+               ) INTEREST
     </select>
 
 </mapper>

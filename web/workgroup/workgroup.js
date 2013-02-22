@@ -56,18 +56,6 @@ $(document).ready(function(){
                         });
                     } );
                 });
-            } else if (callType === 'trouble') { //Trouble국소
-                $(".solution").show();
-                $("#selectedWorkgroupTitle").hide();
-                getWorkGroup(function () {
-                    workgroup.$selectedWorkgroup.text("Trouble국소")
-                        .data("workgroupID","TROUBLE");
-                    getDuList("TROUBLE",function () {
-                        setTreeByTeam(function () {
-                            workgroup.showDUTree();
-                        });
-                    } );
-                });
             }
         },
         setDuCount : function() {
@@ -239,7 +227,11 @@ $(document).ready(function(){
      *==============================================================================*/
     $("#addWorkgroupName").keydown(function(event){
         if((event.keyCode) && (event.keyCode==13)){
-            event.preventDefault();
+            if(event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
             //alert('addWorkgroupName keydown');
             $("#saveWorkGroupBtn").trigger('click');
         }
@@ -254,7 +246,11 @@ $(document).ready(function(){
     })
     $("#saveWorkGroupBtn").click(function(event) {
         //alert('saveWorkGroupBtn click');
-        event.preventDefault();
+        if(event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
         addWorkGroup(function() {
             $('#addWorkgroupModal').modal('hide');
             //$("#addDuListBtn").trigger('click');
@@ -284,7 +280,7 @@ $(document).ready(function(){
      *
      *==============================================================================*/
     $("#closeDuListBtn").click(function(event){
-        if (callType === 'interest' || callType === 'trouble') {
+        if (callType === 'interest') {
             window.close();
         } else {
             workgroup.hideDUTree();
@@ -342,7 +338,11 @@ $(document).ready(function(){
      var href = e.target.href;
      var selectedTab = href.substring(href.indexOf("#")+1);*/
     $('#duTab a').click(function (event) {
-        event.preventDefault();
+        if(event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
         var selectedTab = $(this).attr('href');
 
         //SCROLL 설정 변경
@@ -493,8 +493,6 @@ function getWorkGroup(callback) {
     var param = {};
     if(callType === 'interest') {  //관심국소
         param["WORKGROUP_ID"] = "INTEREST";
-    } else if(callType === 'trouble') {  //Trouble국소
-        param["WORKGROUP_ID"] = "TROUBLE";
     } else {  //Workgroup
         param["WORKGROUP_NAME"] = $("#searchWorkGroup").val();
     }

@@ -38,6 +38,8 @@ $(document).ready(function(){
         }
 
         var param = parseParam(this);
+        param["WORKGROUP_ID"] = "INTEREST";
+        param["QUERY_TYPE"]   = "INTEREST";
 
         var btn = $(this);
         btn.button('loading');
@@ -45,7 +47,7 @@ $(document).ready(function(){
         var $tbody = $("#interestListTable").find("tbody");
         $tbody.find("tr").remove();
         window.resultRows = [];
-        jQuery.post("/adcaslte/svc/Solution-selectInterestTroubleList",param,function(result,stat){
+        jQuery.post("/adcaslte/svc/Solution-selectInterestList",param,function(result,stat){
 
             if(result.error || result.rows.length === 0){
                 btn.button('reset');

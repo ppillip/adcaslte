@@ -299,12 +299,6 @@ public class WorkgroupAction extends ActionSupport4lte {
                     int no = session.insert("Workgroup.insertWorkgroup",this.param);
                     session.commit();
                     this.rows = session.selectList("Workgroup.selectWorkgroup",this.param);
-                } else if (param.get("WORKGROUP_ID").equalsIgnoreCase("TROUBLE")) { //Trouble국소
-                    param.put("WORKGROUP_ID", "TROUBLE");
-                    param.put("WORKGROUP_NAME", "Trouble국소");
-                    int no = session.insert("Workgroup.insertWorkgroup",this.param);
-                    session.commit();
-                    this.rows = session.selectList("Workgroup.selectWorkgroup",this.param);
                 }
             }
             this.msg = "조회되었습니다";
