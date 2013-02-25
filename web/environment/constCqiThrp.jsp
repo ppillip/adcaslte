@@ -110,8 +110,8 @@
     <div class="modal-body" style="overflow-y:hidden">
     </div>
     <div class="modal-footer">
-        <button class="btn btn-info btn-mini" onclick="saveCqiThrp();"><i class="icon-ok"></i>&nbsp;저장</button>
-        <button class="btn btn-info btn-mini" data-dismiss="modal"><i class="icon-off"></i>&nbsp;닫기</button>
+        <a class="btn btn-info btn-mini" onclick="saveCqiThrp();"><i class="icon-ok"></i>&nbsp;저장</a>
+        <a class="btn btn-info btn-mini" data-dismiss="modal"><i class="icon-off"></i>&nbsp;닫기</a>
     </div>
 </div>
 

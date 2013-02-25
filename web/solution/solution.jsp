@@ -10,7 +10,6 @@
     <script src="/adcaslte/common/js/jquery-latest.js"></script>
     <script src="/adcaslte/common/bootstrap/js/bootstrap.js"></script>
     <script src="/adcaslte/common/js/accounting.min.js"></script>
-    <%--<script src="/adcaslte/common/js/jQuery.paging.js"></script>--%>
 
     <link href="solution.css" rel="stylesheet">
     <script src="solution.js" language="javascript"></script>
@@ -22,7 +21,7 @@
     <div style="margin-bottom:5px;">
         <ul><li>본부/팀별 현황상세</li></ul>
     </div>
-    <div style="height:437px; overflow-y: auto; margin:15px;">
+    <div style="height:437px; overflow-y: auto; margin:15px 1px;">
         <table id="solutionListTable" class="table table-bordered table-hover table-condensed table-striped">
             <thead>
             <tr class="info">

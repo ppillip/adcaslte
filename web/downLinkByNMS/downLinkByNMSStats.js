@@ -315,7 +315,7 @@ $(document).ready(function(){
  *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $bonbuLabel = $("#bonbuLabel");
         $bonbuLabel.show();
@@ -329,7 +329,7 @@ $(document).ready(function(){
 
     //조회대상 : 팀별
     $("#searchDropDown li[name=teamSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $teamLabel = $("#teamLabel");
         var $bonbuSelect = $("#BONBU_CD");
@@ -354,7 +354,7 @@ $(document).ready(function(){
 
     //조회대상 : 파트별
     $("#searchDropDown li[name=partSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $partLabel = $("#partLabel");
         var $bonbuSelect = $("#BONBU_CD");
@@ -379,7 +379,7 @@ $(document).ready(function(){
 
     //조회대상 : 도/특별/광역별
     $("#searchDropDown li[name=citySearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $cityLabel = $("#cityLabel");
         $cityLabel.show();
@@ -394,7 +394,7 @@ $(document).ready(function(){
 
     //조회대상 : 시/군/구
     $("#searchDropDown li[name=uniSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $uniLabel = $("#uniLabel");
         var $citySelect = $("#CITY");
@@ -415,7 +415,7 @@ $(document).ready(function(){
 
     //조회대상 : EMS별
     $("#searchDropDown li[name=emsSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $emsLabel = $("#emsLabel");
         var $mmeSelect = $("#MME_GRP_ID");
@@ -561,7 +561,7 @@ function appendToTable(callback){
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_RATE )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.PUCCH_AVG )
+            +"<td style='text-align: right;font-size:11px;'>"
             +(function(value,sign,critical) {
                 if(Number(value) && critical != null && eval(value+sign+critical)) {
                     return "<span style='color:red'>"+value+"</span>";

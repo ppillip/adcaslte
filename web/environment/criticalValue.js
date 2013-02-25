@@ -108,7 +108,7 @@ $(document).ready(function(){
     },"json");
 
     $("#modifyBtn").click(function (event) {
-        event.preventDefault();
+        preventDefault(event);
         saveCriticalValue(USE_TYPE);
     })
 

@@ -214,7 +214,7 @@ function modifyCqiThrp($obj) {
  *
  *==============================================================================*/
 function uploadCQI(event) {
-    event.preventDefault();
+    preventDefault(event);
     var rows = $("#cqi").val().split(/[\n\f\r]/);
     for(var i= 0, max = rows.length; i < max; i++) {
         var row = rows[i].split(/[\t]/);

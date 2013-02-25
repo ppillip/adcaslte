@@ -52,8 +52,8 @@ public class SolutionAction extends ActionSupport4lte {
             }
         }
         param.put("USER_ID",USER_ID);
-        this.log.debug("###################### 파라미터 가져오기 ");
-        this.log.debug(param.toString());
+        this.log.info("###################### 파라미터 가져오기 ");
+        this.log.info(param.toString());
 
     }
 
@@ -129,7 +129,7 @@ public class SolutionAction extends ActionSupport4lte {
 
     public String selectSolutionCellList() {
 
-        this.log.debug("selectSolutionCellList Start");
+        this.log.info("selectSolutionCellList Start");
         SqlSession session = null;
 
         try{
@@ -141,7 +141,7 @@ public class SolutionAction extends ActionSupport4lte {
             this.log.debug("######################데이터 가져오는중 ");
             this.rows = session.selectList("Solution.selectSolutionCellList",param);
 
-            this.log.debug("###################### 조회완료");
+            this.log.info("###################### 조회완료");
             this.msg = "조회되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){

@@ -164,7 +164,7 @@ function modifyRssi($obj) {
  *
  *==============================================================================*/
 function uploadRssi(event) {
-    event.preventDefault();
+    preventDefault(event);
     var rows = $("#rssi").val().split(/[\n\f\r]/);
     for(var i= 0, max = rows.length; i < max; i++) {
         var row = rows[i].split(/[\t]/);

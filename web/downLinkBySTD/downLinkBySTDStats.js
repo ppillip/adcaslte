@@ -338,7 +338,7 @@ $(document).ready(function(){
  *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $bonbuLabel = $("#bonbuLabel");
         $bonbuLabel.show();
@@ -352,7 +352,7 @@ $(document).ready(function(){
 
     //조회대상 : 팀별
     $("#searchDropDown li[name=teamSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $teamLabel = $("#teamLabel");
         var $bonbuSelect = $("#BONBU_CD");
@@ -377,7 +377,7 @@ $(document).ready(function(){
 
     //조회대상 : 파트별
     $("#searchDropDown li[name=partSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $partLabel = $("#partLabel");
         var $bonbuSelect = $("#BONBU_CD");
@@ -402,7 +402,7 @@ $(document).ready(function(){
 
     //조회대상 : 도/특별/광역별
     $("#searchDropDown li[name=citySearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $cityLabel = $("#cityLabel");
         $cityLabel.show();
@@ -417,7 +417,7 @@ $(document).ready(function(){
 
     //조회대상 : 시/군/구
     $("#searchDropDown li[name=uniSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $uniLabel = $("#uniLabel");
         var $citySelect = $("#CITY");
@@ -438,7 +438,7 @@ $(document).ready(function(){
 
     //조회대상 : EMS별
     $("#searchDropDown li[name=emsSearch]").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         $("[group=searchSelect]").hide();
         var $emsLabel = $("#emsLabel");
         var $mmeSelect = $("#MME_GRP_ID");

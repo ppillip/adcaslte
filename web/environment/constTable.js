@@ -15,17 +15,17 @@ $(document).ready(function(){
     });
 
     $("#modifyBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         changeMode('edit');
     });
 
     $("#saveBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         saveConstTable();
     });
 
     $("#cancelBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         changeMode('view');
     });
 

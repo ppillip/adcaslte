@@ -6,17 +6,17 @@ $(document).ready(function(){
     });
 
     $("#modifyBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         changeMode('edit');
     });
 
     $("#saveBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         saveConstUplink();
     });
 
     $("#cancelBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         changeMode('view');
     });
 

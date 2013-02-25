@@ -11,17 +11,17 @@ $(document).ready(function(){
     });
 
     $("#modifyBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         changeMode('edit');
     });
 
     $("#saveBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         saveConstUplinkRsrp();
     });
 
     $("#cancelBtn").click(function(event){
-        event.preventDefault();
+        preventDefault(event);
         changeMode('view');
         selectConstUplinkRsrp();
     });
@@ -64,7 +64,7 @@ function selectConstUplinkRsrp() {
  *
  *==============================================================================*/
 function uploadRsrp(event) {
-    event.preventDefault();
+    preventDefault(event);
 
     var $tbody = $("#constUplinkRsrp").find("tbody");
     $tbody.find("tr").remove();

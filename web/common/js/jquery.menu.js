@@ -84,7 +84,7 @@
                 "<div style=\"float:left; margin:6px;\">" +
                     "<dl>" +
                         "<dt style=\"color:white\">MAP</dt>" +
-                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('http://150.23.13.142/ciss_2012/map/qcasMap.php','1280-700')\">MAP</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('http://150.23.13.142/ciss/map/qcasMap.php','1280-700')\">MAP</span></dd>" +
                     "</dl>" +
                 "</div>" +
                 "<div style=\"float:left; margin:6px;\">" +
@@ -191,7 +191,7 @@
                     "</div>" +
                     "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
                         "<ul>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('http://150.23.13.142/ciss_2012/map/qcasMap.php','1280-700')\">MAP</span></li>" +
+                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('http://150.23.13.142/ciss/map/qcasMap.php','1280-700')\">MAP</span></li>" +
                         "</ul>" +
                     "</div>" +
                     "<div class='menu1 depth_1' id='"+i+j+"'>관리자 환경변수" +

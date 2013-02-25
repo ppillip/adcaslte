@@ -53,3 +53,10 @@ function formatNumField(obj,point,delimiter) {
     obj.value = formatNumber(obj.value, point,delimiter);
 }
 
+function preventDefault(event) {
+    if(event.preventDefault) {
+        event.preventDefault();
+    } else {
+        event.returnValue = false;
+    }
+}

@@ -668,7 +668,7 @@ function addDuList(node,type,callback) {
 //            workgroup.addDuRow(row,function($newDU){
             workgroup.addDuRow('add',row,function(){
                 //$newDU.data("new",'Y');
-                row.new = 'Y';
+                row.newRow = 'Y';
                 resultRows.unshift(row);
                 var $tr = workgroup.$duListTable.find("tbody tr");
                 $tr.each(function (idx,element) {
@@ -708,7 +708,7 @@ function insertDuList() {
 //                return $(element).data("row").C_UID+"_"+$(element).data("row").INGR_ERP_CD;
 //        });
         var newNodes = $.map(resultRows, function(row,index){
-            if(row.new === 'Y') {
+            if(row.newRow === 'Y') {
                 return row.C_UID+"_"+row.INGR_ERP_CD;
             }
         });
@@ -719,9 +719,12 @@ function insertDuList() {
         jQuery.post("/adcaslte/svc/Workgroup-insertWorkgroupDU",param,function(result,stat){
             if (result.status == "SUCCESS") {
                 $.each($duListTableTR, function(index,element){
-                    if($(element).data("new") === 'Y') {
-                        $.removeData(element,"new");
+                    if($(element).data("row").newRow === 'Y') {
+                        delete $(element).data("row").newRow;
                     }
+//                    if($(element).data("new") === 'Y') {
+//                        $.removeData(element,"new");
+//                    }
                 });
             }
         });
