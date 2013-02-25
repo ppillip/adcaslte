@@ -1,5 +1,6 @@
-
-var screenMaxRow = 500; //화면에 보일 max tr 수 입니다.
+//For Scroll Append
+var currentPosition = 0;
+var appendCount = 20;
 
 function scrollX() {
     document.all.divTopRight.scrollLeft = document.all.divBottomRight.scrollLeft;
@@ -28,30 +29,28 @@ $(document).ready(function(){
         }
     });
 
-    $("#workgroup").click(function(){
-        window.open('/adcaslte/workgroup/workgroup.jsp','workgroup','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=1000,height=700');
-    });
-
-    $("#tempsearch").click(function(){
-        window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=1000,height=700');
-    });
-
+/*===============================================================================
+ * For 기간
+ *==============================================================================*/
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
 
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     )
-        .on('changeDate', function(){
-            $('#datepicker01').datepicker('hide');
-        });
+    .on('changeDate', function(){
+        $('#datepicker01').datepicker('hide');
+    });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     )
-        .on('changeDate', function(){
-            $('#datepicker02').datepicker('hide');
-        });
+    .on('changeDate', function(){
+        $('#datepicker02').datepicker('hide');
+    });
+/*===============================================================================
+ * End For 기간
+ *==============================================================================*/
 
 /*===============================================================================
 * For GRAPH
@@ -169,6 +168,7 @@ $(document).ready(function(){
 
         var param = parseParam(this);
 
+        window.currentPosition = 0;
         jQuery.post("/adcaslte/svc/DownLinkByQMSStats-selectCellTrafficStats",param,function(result,stat){
 
             $("input[name=checkAll]").attr("checked",false); //전체선택된거 원위치
@@ -176,88 +176,23 @@ $(document).ready(function(){
             //윈도우에 서버로 부터 온 데이터 버퍼링
             window.result = result;
 
-            $leftTable = $("#tableMiddleLeft tbody");
-            $rightTable = $("#tableMiddleRight tbody");
-            $bottomRightTable = $("#tableBottomRight");
-
             if(result.error || result.rows.length === 0){
                 btn.button('reset');
                 alert(result.msg);
                 return;
             }
 
-            //각항목 배열
-            var propertiesArray = {};
-            //for 문으로 튜닝한다
-            for(idx=0;idx<result.rows.length;idx++){
+            //테이블 랜더링
+            appendToTable(function(){});
 
-                row = result.rows[idx];
-
-                //각 항목별 배열만들기
-                propertiesArray = getPropertiesArray(row,propertiesArray);
-
-                var $tr = $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='width:70px;text-align:center;font-size:11px;'>"+row.YMD +"</td>"
-                    +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title01'>"+isUndifined(row.TITLE01,"-") + "</td>"
-                    +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title02'>"+isUndifined(row.TITLE02,"-") + "</td>"
-                    +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"+isUndifined(row.TITLE03,"-") +"</td>"
-                    +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
-                    +"<td style='width:60px;text-align:center;font-size:11px;'>"
-                    + (function(_idx, _row){
-                    if(_row.YMD.length != 8){
-                        return "&nbsp;";
-                    }else{
-                        return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                    }
-                })(idx, row)
-                    +"</td>"
-                    +"</tr>")
-                    .data("row",row)
-                    .appendTo($leftTable);
-
-                $tr.children("td[group^=title]").each(function(index,childTd){
-                    if($("#title01").is(":visible") && $(childTd).is("[group=title01]")) {
-                        $(childTd).show();
-                    }
-                    if($("#title02").is(":visible") && $(childTd).is("[group=title02]")) {
-                        $(childTd).show();
-                    }
-                    if($("#title03").is(":visible") && $(childTd).is("[group=title03]")) {
-                        $(childTd).show();
-                    }
-                });
-
-                $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_TPUT     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.UL_TPUT     )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RANK_INDEX  )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRP_AVERAGE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI_AVERAGE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.SINR_AVERAGE)+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRQ_AVERAGE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TXPW_PUCCH )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUCCH )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUCCH )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                    +"</tr>")
-                    .appendTo($rightTable);
-
-//                    if(idx>=screenMaxRow){
-//                        if(idx % screenMaxRow === 0){
-//                            return confirm("계속 하시겠습니까? [" + idx + "/" + result.rows.length + "]") ? true:false;
-//                        }
-//                    }
-            }
+            $bottomRightTable = $("#tableBottomRight");
 
             //각항목 배열 통계
+            var propertiesArray = {};
+            for(var idx= 0,max =result.rows.length; idx < max; ++idx){
+                var row = result.rows[idx];
+                propertiesArray = getPropertiesArray(row,propertiesArray);
+            }
             var statsArray = getStatsArray(propertiesArray);
 
             for(var i=0; i < 4; i++) {
@@ -464,4 +399,90 @@ function setLeft(depth) {
     $("#tableMiddleRight tbody").empty();
     $("#tableBottomRight").find("td").html("&nbsp;");
 
+/*===============================================================================
+ * For SCROLL APPEND
+ *==============================================================================*/
+    $("#divMiddleRight").scroll(function(){
+        if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
+        {
+            appendToTable(function(){}); //callback 필요시 삽입
+        }
+    });
+/*===============================================================================
+ * End For SCROLL APPEND
+ *==============================================================================*/
 }
+
+/*===============================================================================
+ * For SCROLL APPEND
+ *
+ *==============================================================================*/
+function appendToTable(callback){
+
+    $leftTable = $("#tableMiddleLeft tbody");
+    $rightTable = $("#tableMiddleRight tbody");
+
+    for(var idx=currentPosition; idx<(currentPosition + appendCount) && idx<result.rows.length; idx++){
+        row = result.rows[idx];
+
+        var $tr = $("<tr name='" + row.ROWIDX + "'>"
+            +"<td style='width:70px;text-align:center;font-size:11px;'>"+row.YMD +"</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title01'>"+isUndifined(row.TITLE01,"-") + "</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title02'>"+isUndifined(row.TITLE02,"-") + "</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"+isUndifined(row.TITLE03,"-") +"</td>"
+            +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
+            +"<td style='width:60px;text-align:center;font-size:11px;'>"
+            + (function(_idx, _row){
+                if(_row.YMD.length != 8){
+                    return "&nbsp;";
+                }else{
+                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+                }
+            })(idx, row)
+            +"</td>"
+            +"</tr>")
+            .data("row",row)
+            .appendTo($leftTable);
+
+        $tr.children("td[group^=title]").each(function(index,childTd){
+            if($("#title01").is(":visible") && $(childTd).is("[group=title01]")) {
+                $(childTd).show();
+            }
+            if($("#title02").is(":visible") && $(childTd).is("[group=title02]")) {
+                $(childTd).show();
+            }
+            if($("#title03").is(":visible") && $(childTd).is("[group=title03]")) {
+                $(childTd).show();
+            }
+        });
+
+        $("<tr name='" + row.ROWIDX + "'>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_TPUT     )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.UL_TPUT     )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RANK_INDEX  )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MCS_AVERAGE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRP_AVERAGE)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI_AVERAGE)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.SINR_AVERAGE)+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSRQ_AVERAGE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TXPW_PUCCH )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_PRB_RATE)+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUCCH )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUCCH )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
+            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+            +"</tr>")
+            .appendTo($rightTable);
+
+    }
+
+    if (typeof(callback) === 'function') callback();
+    window.currentPosition = window.currentPosition + window.appendCount;
+
+}
+
