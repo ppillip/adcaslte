@@ -40,10 +40,10 @@
                         <td style="padding-left:10px;padding-right:10px;padding-bottom:1px;">
 
                             <div class="span10" style="padding:5px;">
-                                <div class="floatLeft">
+                                <div class="pull-left">
                                     <button data-toggle="modal" href="#addWorkgroupModal" class="btn btn-mini btn-info"><i class="icon-plus"></i>&nbsp;신규 WorkGroup 생성</button>
                                 </div>
-                                <div class="floatRight">
+                                <div class="pull-right">
                                     <button class="btn btn-mini btn-info" name="selectWorkgroupBtn" id="selectWorkgroupBtn"><i class="icon-ok"></i>&nbsp;WorkGroiup 선택</button>
                                 </div>
                             </div>
@@ -73,11 +73,11 @@
 <div class="clearBoth"></div>
 
 <%--WorkGroup, DU Tree Head--%>
-<div class="span5 floatLeft">
+<div class="span5 pull-left">
     <table style="height:30px;">
         <tr>
             <td>
-                <div class="floatLeft workgroup solution">
+                <div class="pull-left workgroup solution">
                     <i class="icon-home"></i><span id="selectedWorkgroupTitle" style="margin-left:10px; margin-right:10px;">선택된 WorkGroup 명 :</span>
                     <b><span id="selectedWorkgroup" name="selectedWorkgroup">WorkGroup을 선택하세요</span></b>
                 </div>
@@ -90,13 +90,13 @@
 </div>
 <%--WorkGroup, DU Tree Head--%>
 <%--DU List Head--%>
-<div class="span5 floatLeft">
+<div class="span5 pull-left">
     <table style="height:30px;">
         <tr>
             <td style="width:250px">
                 <button class="btn btn-mini btn-info workgroup" name="addDuListBtn" id="addDuListBtn"><i class="icon-plus"></i>&nbsp;&nbsp;&nbsp;DU 추가</button>
                 <button class="btn btn-mini btn-info tempgroup" name="selectDuListBtn" id="selectDuListBtn"><i class="icon-ok"></i>&nbsp;선택</button>
-                <button class="btn btn-mini btn-info hide" name="closeDuListBtn" id="closeDuListBtn"><i class="icon-off"></i>&nbsp;닫기</button>
+                <a class="btn btn-mini btn-info hide" name="closeDuListBtn" id="closeDuListBtn"><i class="icon-off"></i>&nbsp;닫기</a>
             </td>
             <td>
                 선택된 DU 수 :&nbsp;&nbsp;<span id="duCount"></span>
@@ -109,7 +109,7 @@
 <div class="clearBoth"></div>
 
 <%-- WORKGROUP List --%>
-<div class="span5 floatLeft workgroup" id="divWorkgroup">
+<div class="span5 pull-left workgroup" id="divWorkgroup">
     <div>
         <table class="table table-bordered table-condensed">
             <tbody>
@@ -127,7 +127,7 @@
 </div>
 <%-- WORKGROUP List --%>
 <%-- DU Tree --%>
-<div class="span5 floatLeft tempgroup solution" id="divDU">
+<div class="span5 pull-left tempgroup solution" id="divDU">
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul id="duTab" class="nav nav-tabs">
             <li id="tabEms"><a href="#tabContent0" data-toggle="tab">EMS별</a></li>
@@ -225,13 +225,13 @@
 <%-- DU Tree --%>
 
 <%-- DU List --%>
-<div class="span5" style="float:left">
+<div class="span5 pull-left">
     <table class="table table-bordered table-condensed">
         <tbody>
         <tr class="info">
             <td style="width:250px; text-align: center;">
                 DU 명
-                <div class="floatRight alignRight">
+                <div class="pull-right alignRight">
                     <a class="btn btn-mini" id="delDuBtn"><i class="icon-minus"></i>모두삭제</a>&nbsp;&nbsp;
                 </div>
             </td>
@@ -243,17 +243,6 @@
             <tbody></tbody>
         </table>
     </div>
-    <%--
-            <table class="table table-bordered table-condensed hide" id="addDuListTable">
-                <tbody>
-                <tr>
-                    <td style="text-align:right!important;">
-                        <button class="btn btn-mini btn-info" name="addDuListBtn" id="addDuListBtn"><i class="icon-plus"></i>&nbsp;<span></span>&nbsp;&nbsp;DU 추가</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-    --%>
     <div class="well well-small" style="font-weight: bold;">
         DU 삭제시 DU명 옆 X 아이콘을 클릭하세요.
     </div>

@@ -15,7 +15,7 @@ $(document).ready(function(){
     /*===============================================================================
      * For 기간
      *==============================================================================*/
-    var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
+    var _yesterday = moment().add('d', -2).format("YYYY-MM-DD").toString();
 
     $('#datepicker01').val(_yesterday)
         .datepicker(
