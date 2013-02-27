@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.skt.adcas.lte.dao.sql">
-
+    <select id="diskStatus" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				 u.tablespace_name tableSpace
+			    ,u.bytes / 1048576 sizeM
+			    ,(u.bytes - sum(nvl(f.bytes,0))) / 1048576 usingM
+				,(sum(nvl(f.bytes,0))) / 1048576 usableM
+				,trunc((sum(nvl(f.bytes,0)) / u.bytes) * 100,2) usableRate
+				,u.file_name AS fileName
+			FROM DBA_FREE_SPACE f, DBA_DATA_FILES u
+			WHERE f.file_id(+) = u.file_id
+			GROUP BY u.tablespace_name, u.file_name, u.bytes
+			ORDER BY u.tablespace_name
+		]]>
+	</select>
     <sql id="DownLinkByNMS.selectDailyCellTrafficORG">
         SELECT /*+ no_merge */
          YMD
@@ -79,28 +93,28 @@
         ,round( NVL( ${MBTYPE + "_CQI_PDF_00    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_01    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_02    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_03    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_04    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_05    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_06    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_07    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_08    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_09    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_10    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_11    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_12    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_13    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_14    "} ,0) + NVL( ${MBTYPE + "_CQI_PDF_15    "} ,0)  ,3) * 100  AS CQI_CDF_15
 
         FROM VIEW_LTE_CELL_${TERMTYPE}
-        WHERE
-        YMD BETWEEN #{FROMYMD} AND #{TOYMD}
-        AND DAYTIME_SEQ = #{DAYTIME_SEQ}
-        <if test = "!FREQ_KIND.equalsIgnoreCase('ALL') and !FREQ_KIND.equalsIgnoreCase('')">
-        AND FREQ_KIND = #{FREQ_KIND}
-        </if>
-        <if test = "!MFC_CD.equalsIgnoreCase('')">
-        AND MFC_CD = #{MFC_CD}
-        </if>
+        WHERE  YMD BETWEEN #{FROMYMD} AND #{TOYMD}
+                AND DAYTIME_SEQ = #{DAYTIME_SEQ}
+                <if test = "!FREQ_KIND.equalsIgnoreCase('ALL') and !FREQ_KIND.equalsIgnoreCase('')">
+                AND FREQ_KIND = #{FREQ_KIND}
+                </if>
+                <if test = "!MFC_CD.equalsIgnoreCase('')">
+                AND MFC_CD = #{MFC_CD}
+                </if>
 
-
+        /* CELL GROUP CONDITION START */
         <choose>
             <when test="SEARCHTYPE.equalsIgnoreCase('WORKGROUP')">
                 AND (C_UID,INGR_ERP_CD) IN
                 (
-                SELECT C_UID , INGR_ERP_CD
-                FROM LTE_WORK_GROUP_DU
-                WHERE WORKGROUP_ID = #{WORKGROUP_ID}
+                    SELECT C_UID , INGR_ERP_CD
+                    FROM LTE_WORK_GROUP_DU
+                    WHERE WORKGROUP_ID = #{WORKGROUP_ID}
                 /*AND USER_ID = 'qcas'*/
                 )
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('DULIST')">
+                /* DULIST */
                 AND (C_UID,INGR_ERP_CD) IN
                 <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
                     <![CDATA[
@@ -112,6 +126,7 @@
                 </foreach>
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('SOLUTIONGROUP')">
+                /* SOLUTIONGROUP */
                 AND (C_UID,INGR_ERP_CD,CELL_ID,MCID) IN
                 (
                    SELECT C_UID ,INGR_ERP_CD ,CELL_ID ,MCID
@@ -125,6 +140,7 @@
                 )
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('CELLLIST')">
+                /* CELLLIST */
                 AND (C_UID,INGR_ERP_CD,CELL_ID,MCID) IN
                 <foreach item="item" index="index" collection="DUIDs" open="(" separator="," close=")">
                     <![CDATA[
@@ -137,8 +153,31 @@
                         ]]>
                 </foreach>
             </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('BONBU')">
+                /*BONBU*/
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('TEAM')">
+                /*TEAM*/
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
+                /*PART*/
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">
+                /*CITY*/
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
+                /*UNI*/
+            </when>
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
+                /*EMS*/
+                AND MME_GRP_ID = ${MME_GRP_ID}
+                <if test="!NE_ID.equalsIgnoreCase('ALL')">
+                AND NE_ID = #{NE_ID}
+                </if>
+            </when>
             <otherwise/>
         </choose>
+        /* CELL GROUP CONDITION END */
 
     </sql>
 
@@ -243,7 +282,7 @@
     </sql>
 
 
-    <select id="DownLinkByNMS.selectDailyCellTraffic" parameterType="hashmap" resultType="hashmap"> /*DownLinkByNMS.selectDailyCellTraffic*/
+    <select id="DownLinkByNMS.selectDailyCellTraffic" parameterType="hashmap" resultType="hashmap">
 
         select
            ROWNUM AS ROWIDX
@@ -314,6 +353,26 @@
         ]]>
         GROUP BY NUM
         order by 1
+    </select>
+
+
+
+    <select id="BigDownload.selectBasicData" parameterType="hashmap" resultType="hashmap">
+        select
+        ROWNUM AS ROWIDX
+        ,du.BTS_NM             AS BTS_NM
+        ,cell.CELL_NM          AS CELL_NM
+        ,data.*
+        from (
+        <include refid="DownLinkByNMS.selectDailyCellTrafficORG"/>
+        ) data , LTE_BTS_DU_INFO du , LTE_BTS_CELL_INFO cell
+        where
+        data.INGR_ERP_CD  = du.INGR_ERP_CD
+        and data.C_UID        = du.C_UID
+        and data.INGR_ERP_CD  = cell.INGR_ERP_CD
+        and data.C_UID        = cell.C_UID
+        and data.CELL_ID      = cell.CELL_ID
+        order by data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
     </select>
 
 </mapper>

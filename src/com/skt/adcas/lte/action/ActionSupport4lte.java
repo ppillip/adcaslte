@@ -29,7 +29,7 @@ public class ActionSupport4lte extends ActionSupport implements ServletRequestAw
     protected HttpServletRequest request;
     protected HttpServletResponse response;
 
-    public Properties properties = SqlSessionManager.getSqlSession().getConfiguration().getVariables();
+    public static Properties properties = SqlSessionManager.getSqlSession().getConfiguration().getVariables();
 
     public ActionSupport4lte() {
 
