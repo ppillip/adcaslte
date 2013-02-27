@@ -605,7 +605,9 @@ function getDuList(workgroupID, callback) {
 //        });
         resultRows = result.rows;
         //테이블 랜더링
-        appendToTable(function(){});
+        if (result.rows) {
+            appendToTable(function(){});
+        }
 
         workgroup.setDuCount();
 

@@ -41,8 +41,8 @@ public class WorkgroupAction extends ActionSupport4lte {
             param.put(key, value[0]);
         }
         param.put("USER_ID",USER_ID);
-        this.log.debug("###################### 파라미터 가져오기 ");
-        this.log.debug(param.toString());
+        this.log.info("###################### 파라미터 가져오기 ");
+        this.log.info(param.toString());
     }
 
     public String selectBonbuList(){
