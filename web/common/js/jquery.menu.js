@@ -111,7 +111,7 @@
                 "<div style=\"float:left; margin:6px;\">" +
                     "<dl>" +
                         "<dt style=\"color:white\">사용자 환경변수</dt>" +
-                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/workgroup/workgroup.jsp','860-700')\">WorkGroup 관리</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/workgroup/workgroup.jsp','860-700','workgroup')\">WorkGroup 관리</span></dd>" +
                         "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','USER')\">임계값 설정</span></dd>" +
                     "</dl>" +
                 "</div>" +
@@ -212,7 +212,7 @@
                     "</div>" +
                     "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
                         "<ul>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/workgroup/workgroup.jsp','860-700')\">WorkGroup 관리</span></li>" +
+                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/workgroup/workgroup.jsp','860-700','workgroup')\">WorkGroup 관리</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','USER')\">임계값 설정</span></li>" +
                         "</ul>" +
                     "</div>" +
