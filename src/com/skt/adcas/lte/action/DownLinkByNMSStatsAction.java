@@ -220,6 +220,11 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         return jrow.containsKey(Key)?jrow.get(Key).toString():None;
     }
 
+    //Double 값들중 있는것만 넣기위함
+    public void setCellDoubleIfExistValue(Cell cell, StringMap map, String str){
+        if(map.containsKey(str)) cell.setCellValue(Double.parseDouble(map.get(str).toString()));
+    }
+
     public String selectCellTrafficStatsCQIExcelDownload(){
 
         this.log.debug("selectCellTrafficStatsCQIExcelDownload Start");
@@ -447,22 +452,22 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
                 row.createCell(b++).setCellValue((String) jrow.get("TITLE03"));
             }
             row.createCell(b++).setCellValue((String) jrow.get("FREQ_KIND"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_00") ? jrow.get("CQI_"+type+"_00").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_01") ? jrow.get("CQI_"+type+"_01").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_02") ? jrow.get("CQI_"+type+"_02").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_03") ? jrow.get("CQI_"+type+"_03").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_04") ? jrow.get("CQI_"+type+"_04").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_05") ? jrow.get("CQI_"+type+"_05").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_06") ? jrow.get("CQI_"+type+"_06").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_07") ? jrow.get("CQI_"+type+"_07").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_08") ? jrow.get("CQI_"+type+"_08").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_09") ? jrow.get("CQI_"+type+"_09").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_10") ? jrow.get("CQI_"+type+"_10").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_11") ? jrow.get("CQI_"+type+"_11").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_12") ? jrow.get("CQI_"+type+"_12").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_13") ? jrow.get("CQI_"+type+"_13").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_14") ? jrow.get("CQI_"+type+"_14").toString():"0"));
-            row.createCell(b++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_"+type+"_15") ? jrow.get("CQI_"+type+"_15").toString():"0"));
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_00");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_01");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_02");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_03");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_04");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_05");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_06");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_07");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_08");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_09");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_10");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_11");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_12");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_13");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_14");
+            setCellDoubleIfExistValue(row.createCell(b++),jrow,"CQI_"+type+"_15");
 
             i++;
         }
@@ -869,37 +874,37 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             }
             row.createCell(e++).setCellValue((String) jrow.get("FREQ_KIND"));
 
-            row.createCell(e++).setCellValue(Double.parseDouble(parseKey(jrow,"THROUGHPUT","0")));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI_AVERAGE") ?jrow.get("CQI_AVERAGE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CQI0_RATE") ?jrow.get("CQI0_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("RI_RATE")?jrow.get("RI_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_PRB_RATE")?jrow.get("DL_PRB_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DL_THROUGHPUT")?jrow.get("DL_THROUGHPUT").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("LICENSE_FAIL")?jrow.get("LICENSE_FAIL").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MIMO_RATE")?jrow.get("MIMO_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("MCS_AVERAGE")?jrow.get("MCS_AVERAGE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PUCCH_AVG")?jrow.get("PUCCH_AVG").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("R2_PUCCH_AVG")?jrow.get("R2_PUCCH_AVG").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PUSCH_AVG")?jrow.get("PUSCH_AVG").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("R2_PUSCH_AVG")?jrow.get("R2_PUSCH_AVG").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PDCP_DL_MB")?jrow.get("PDCP_DL_MB").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("PRB_USG_RATE")?jrow.get("PRB_USG_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("DRB_USG_RATE")?jrow.get("DRB_USG_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CON_TIME")?jrow.get("CON_TIME").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("TRY_CCNT")?jrow.get("TRY_CCNT").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CON_RATE")?jrow.get("CON_RATE").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("CDC_RATE")?jrow.get("CDC_RATE").toString():"0"));
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"THROUGHPUT");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"CQI_AVERAGE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"CQI0_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"RI_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"DL_PRB_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"MCS_AVERAGE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"MIMO_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"DL_THROUGHPUT");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"LICENSE_FAIL");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"MIMO_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"MCS_AVERAGE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"PUCCH_AVG");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"R2_PUCCH_AVG");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"PUSCH_AVG");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"R2_PUSCH_AVG");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"PDCP_DL_MB");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"PRB_USG_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"DRB_USG_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"CON_TIME");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"TRY_CCNT");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"CON_RATE");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"CDC_RATE");
             row.createCell(e++).setCellValue("n/a");
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_DL_MB")?jrow.get("VOICE_DL_MB").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_DL_PRB")?jrow.get("VOICE_DL_PRB").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_TRY_CCNT")?jrow.get("VOICE_TRY_CCNT").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("VOICE_TIME")?jrow.get("VOICE_TIME").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_DL_MB")?jrow.get("IMAGE_DL_MB").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_DL_PRB")?jrow.get("IMAGE_DL_PRB").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_TRY_CCNT")?jrow.get("IMAGE_TRY_CCNT").toString():"0"));
-            row.createCell(e++).setCellValue(Double.parseDouble(jrow.containsKey("IMAGE_TIME")?jrow.get("IMAGE_TIME").toString():"0"));
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_DL_MB");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_DL_PRB");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_TRY_CCNT");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_TIME");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_DL_MB");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_DL_PRB");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_TRY_CCNT");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_TIME");
             row.createCell(e++).setCellValue("n/a");
             row.createCell(e++).setCellValue("n/a");
             i++;
