@@ -16,6 +16,7 @@ import org.apache.poi.ss.util.WorkbookUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -50,31 +51,130 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
     private String JSONDATA       = "";
 
     public void handleResult(ResultContext context) {
-        //todo 파일포인터 받아서 Write 만 하기
-        /*
-             rs.write(m.get("BTS_NM")+","+m.get("BTS_CD")+"\n\r")
-         */
         if(this.fileType.equals("EMS")){
             this.writeEMSLine(context);
         }
-
-
-        System.out.println(context.getResultObject().toString());
-
+    }
+    public static String nvl(Object obj,String str){
+        if(obj==null) return str;
+        else return obj.toString();
     }
 
     private void writeEMSLine(ResultContext context) {
         HashMap map = (HashMap) context.getResultObject();
-        String txt = map.get("BTS_NM") + "," + map.get("CELL_NM") + "," + map.get("THROUGHPUT");
+        String txt = "";
         String txt2 = "\n";
         try {
+            txt = (String)  map.get("YMD")                              //날짜
+                          + "," + nvl(map.get("MB_TIME")       ,"")   //최번시간
+                          + "," + nvl(map.get("INGR_ERP_CD")  ,"")   //ERP 코드
+                          + "," + nvl(map.get("C_UID")         ,"")   //C_UID
+                          + "," + nvl(map.get("MFC_CD")         ,"")  //제조사코드
+                          + "," + nvl(map.get("BTS_NM")        ,"")   //DU 명
+                          + "," + nvl(map.get("CELL_ID")       ,"")   //CELL_ID
+                          + "," + nvl(map.get("CELL_NM")       ,"")   //CELL 명
+                          + "," + nvl(map.get("MCID")          ,"")   // MCID
+                          + "," + nvl(map.get("FREQ_KIND")     ,"")  // 주파수구분
+                          + "," + nvl(map.get("MIMO_TYPE")     ,"")  // MIMO 구분
+                          + "," + nvl(map.get("THROUGHPUT")    ,"")  // 용량(Mbps)
+                          + "," + nvl(map.get("CQI_AVERAGE")   ,"")  // CQI 평균");
+                          + "," + nvl(map.get("CQI0_RATE")     ,"")  // CQI0 비율(%)
+                          + "," + nvl(map.get("RI_RATE")       ,"")  // RI2 비율(%)
+                          + "," + nvl(map.get("DL_PRB_RATE")   ,"")  // DL PRB사용률(%)
+                          + "," + nvl(map.get("MCS_AVERAGE")   ,"")  // MCS평균");               //SS
+                          + "," + nvl(map.get("RSSI")          ,"")   // RSSI 최번시");          //SS
+                          + "," + nvl(map.get("R2_RSSI")       ,"")  // RSSI 최한시");          //SS
+                          + "," + nvl(map.get("MIMO_RATE")     ,"")  // MIMO 비율");            //    ELG
+                          + "," + nvl(map.get("DL_THROUGHPUT") ,"") // DL Throughput(kbps)");  //    ELG
+                          + "," + nvl(map.get("LICENSE_FAIL")  ,"") // License 초과 실패호");  //    ELG
+                          + "," + nvl(map.get("MIMO_RATE")     ,"") // OL MIMO 비율(%)");      //ELG + NSN
+                          + "," + nvl(map.get("MCS_AVERAGE")   ,"") // MCS0 비율(%)");         //ELG + NSN
+                          + "," + nvl(map.get("PUCCH_AVG")     ,"") // RSSI PUCCH 최번시");    //ELG + NSN
+                          + "," + nvl(map.get("R2_PUCCH_AVG")  ,"") // RSSI PUCCH 최한시");     //NSN
+                          + "," + nvl(map.get("PUSCH_AVG")     ,"") // RSSI PUSCH 최번시");    //NSN
+                          + "," + nvl(map.get("R2_PUSCH_AVG")  ,"") // RSSI PUSCH 최한시");     //NSN
+                          + "," + nvl(map.get("PDCP_DL_MB")    ,"") // 데이터 트래픽(MB)");
+                          + "," + nvl(map.get("PRB_USG_RATE")  ,"") // 데이터 PRB사용률(%)");
+                          + "," + nvl(map.get("DRB_USG_RATE")  ,"") // 데이터 DPR사용률(%)");
+                          + "," + nvl(map.get("CON_TIME")      ,"") // 데이터 동접자(Erl)");
+                          + "," + nvl(map.get("TRY_CCNT")      ,"") // 데이터 시도호수");
+                          + "," + nvl(map.get("CON_RATE")      ,"") // 데이터 접속률(%)");
+                          + "," + nvl(map.get("CDC_RATE")      ,"") // 데이터 CD율(%)");
+                          + "," + nvl(map.get("VOICE_DL_MB")   ,"") // HD Voice 다운로드
+                          + "," + nvl(map.get("VOICE_DL_PRB")  ,"") // HD Voice PRB 사용률(%)");
+                          + "," + nvl(map.get("VOICE_TRY_CC")  ,"") // HD Voice 시도호수");
+                          + "," + nvl(map.get("VOICE_TIME")    ,"") // HD Voice 점유시간");
+                          + "," + nvl(map.get("IMAGE_DL_MB")   ,"") // 영상통화 트래픽 (MB)");
+                          + "," + nvl(map.get("IMAGE_DL_PRB")  ,"") // 영상통화 PRB사용률(%)");
+                          + "," + nvl(map.get("IMAGE_TRY_CC")  ,"") // 영상통화 시도호수");
+                          + "," + nvl(map.get("IMAGE_TIME")    ,"") // 영상통화 점유시간");
+                          ;
+
             fileOut.write(txt.getBytes());
             fileOut.write(txt2.getBytes());
+
+            System.out.println(txt);
+
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
+    private void writeEMSHeader() {
+        String txt = "";
+        String txt2 = "\n";
+        try {
+            txt =    "날짜"
+                    +"," + "최번시간"
+                    +"," + "ERP 코드"
+                    +"," + "C_UID"
+                    +"," + "제조사코드"
+                    +"," + "DU 명"
+                    +"," + "CELL_ID"
+                    +"," + "CELL 명"
+                    +"," + "MCID"
+                    +"," + "주파수구분"
+                    +"," + "MIMO 구분"
+                    +"," + "용량(Mbps)"
+                    +"," + "CQI 평균"
+                    +"," + "CQI0 비율(%)"
+                    +"," + "RI2 비율(%)"
+                    +"," + "DL PRB사용률(%)"
+                    +"," + "MCS평균"                 //SS
+                    +"," + "RSSI 최번시"            //SS
+                    +"," + "RSSI 최한시"            //SS
+                    +"," + "MIMO 비율"              //    ELG
+                    +"," + "DL Throughput(kbps)"  //    ELG
+                    +"," + "License 초과 실패호"  //    ELG
+                    +"," + "OL MIMO 비율(%)"      //ELG + NSN
+                    +"," + "MCS0 비율(%)"         //ELG + NSN
+                    +"," + "RSSI PUCCH 최번시"    //ELG + NSN
+                    +"," + "RSSI PUCCH 최한시"    //NSN
+                    +"," + "RSSI PUSCH 최번시"    //NSN
+                    +"," + "RSSI PUSCH 최한시"    //NSN
+                    +"," + "데이터 트래픽(MB)"
+                    +"," + "데이터 PRB사용률(%)"
+                    +"," + "데이터 DPR사용률(%)"
+                    +"," + "데이터 동접자(Erl)"
+                    +"," + "데이터 시도호수"
+                    +"," + "데이터 접속률(%)"
+                    +"," + "데이터 CD율(%)"
+                    +"," + "HD Voice 다운로드"
+                    +"," + "HD Voice PRB 사용률(%)"
+                    +"," + "HD Voice 시도호수"
+                    +"," + "HD Voice 점유시간"
+                    +"," + "영상통화 트래픽 (MB)"
+                    +"," + "영상통화 PRB사용률(%)"
+                    +"," + "영상통화 시도호수"
+                    +"," + "영상통화 점유시간"
+            ;
 
+            fileOut.write(txt.getBytes());
+            fileOut.write(txt2.getBytes());
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
     public HashMap getAdminCriticalValues() {
         return (HashMap)request.getSession().getAttribute("ADMIN_CRITICAL_VALUES");
     }
@@ -100,6 +200,7 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
             this.fileOut = new FileOutputStream(xlsFileFullPath);
 
             this.fileType = "EMS";
+            writeEMSHeader();
             session.select("BigDownload.selectBasicData", param, this);
 
             fileOut.close();
@@ -123,6 +224,11 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
         }
         return SUCCESS;
     }
+
+
+
+
+
 
     private void parseParam() throws Exception {
 
@@ -159,8 +265,6 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
         String temp01[] = parseKey(map,"DUIDs","").split("\\|");
 
         for(int i=0;i<temp01.length;i++){
-            System.out.println(temp01[i]);
-
             alist.add(temp01[i]);
         }
         param.put("DUIDs",alist);

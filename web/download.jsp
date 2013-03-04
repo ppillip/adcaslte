@@ -2,14 +2,10 @@
 <%@ page import="com.skt.adcas.lte.action.ActionSupport4lte" %>
 <%
 
-    String fileTpath = request.getParameter("o");
+    String fileTpath = request.getParameter("fp");
+    String dnFilename = request.getParameter("fn");
 
     String path = ActionSupport4lte.properties.get("TEMP_FOLDER_PATH") + fileTpath ;
-
-    //out.println(path);
-
-    String dnFilename = "result.csv";
-
 
 
     try

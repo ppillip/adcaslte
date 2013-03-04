@@ -45,6 +45,7 @@
                     "<dl>" +
                         "<dt style=\"color:white\">LTE NMS 기반 섹터 TP</dt>" +
                         "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMS.jsp','1280-700')\">DownLink</span></dd>" +
+                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByNMS/csvDownload.jsp','1280-400')\">DownLink CSV 다운로드</span></dd>" +
                         "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMSStats.jsp','1280-700')\">DownLink 통계</span></dd>" +
                         "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMSComp.jsp','1280-700')\">DownLink 전후비교</span></dd>" +
                         "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMSStatsComp.jsp','1280-700')\">DownLink 통계 전후비교</span></dd>" +
@@ -161,6 +162,7 @@
                     "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
                         "<ul>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMS.jsp','1280-700')\">DownLink</span></li>" +
+                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/downLinkByNMS/csvDownload.jsp','1280-400')\">DownLink CSV 다운로드</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMSStats.jsp','1280-700')\">DownLink 통계</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMSComp.jsp','1280-700')\">DownLink 전후비교</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/downLinkByNMS/downLinkByNMSStatsComp.jsp','1280-700')\">DownLink 통계 전후비교</span></li>" +
