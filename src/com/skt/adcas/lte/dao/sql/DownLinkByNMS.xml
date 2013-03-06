@@ -161,15 +161,21 @@
             </when>
             <when test="SEARCHTYPE.equalsIgnoreCase('PART')">
                 /*PART*/
+                AND BONBU_CD = #{BONBU_CD}
+                <if test="!OPER_TEAM_CD.equalsIgnoreCase('ALL')">
+                AND OPER_TEAM_CD = #{OPER_TEAM_CD}
+                </if>
+                <if test="!PART_CD.equalsIgnoreCase('ALL') and !PART_CD.equalsIgnoreCase('')">
+                AND PART_CD = #{PART_CD}
+                </if>
             </when>
-            <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">
-                /*CITY*/
+            <when test="SEARCHTYPE.equalsIgnoreCase('CITY')">/*CITY*/
+
             </when>
-            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">
-                /*UNI*/
+            <when test="SEARCHTYPE.equalsIgnoreCase('UNI')">/*UNI*/
+                AND CITY_CD = #{CITY_CD}
             </when>
-            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">
-                /*EMS*/
+            <when test="SEARCHTYPE.equalsIgnoreCase('EMS')">/*EMS*/
                 AND MME_GRP_ID = ${MME_GRP_ID}
                 <if test="!NE_ID.equalsIgnoreCase('ALL')">
                 AND NE_ID = #{NE_ID}
@@ -357,7 +363,7 @@
 
 
 
-    <select id="BigDownload.selectBasicData" parameterType="hashmap" resultType="hashmap">
+    <sql id="BigDownload.selectBasicDataORG">
         select
         ROWNUM AS ROWIDX
         ,du.BTS_NM             AS BTS_NM
@@ -372,7 +378,20 @@
         and data.INGR_ERP_CD  = cell.INGR_ERP_CD
         and data.C_UID        = cell.C_UID
         and data.CELL_ID      = cell.CELL_ID
+        /* <![CDATA[ and ROWNUM < 10 ]]> */
         order by data.YMD ASC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
+    </sql>
+
+    <select id="BigDownload.selectBasicData_EMS" parameterType="hashmap" resultType="hashmap">
+        <include refid="BigDownload.selectBasicDataORG"/>
+    </select>
+
+    <select id="BigDownload.selectBasicData_PART" parameterType="hashmap" resultType="hashmap">
+        <include refid="BigDownload.selectBasicDataORG"/>
+    </select>
+
+    <select id="BigDownload.selectBasicData_UNI" parameterType="hashmap" resultType="hashmap">
+        <include refid="BigDownload.selectBasicDataORG"/>
     </select>
 
 </mapper>

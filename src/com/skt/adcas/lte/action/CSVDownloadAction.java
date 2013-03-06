@@ -1,29 +1,20 @@
 package com.skt.adcas.lte.action;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.StringMap;
 import com.google.gson.reflect.TypeToken;
 import com.skt.adcas.lte.db.SqlSessionManager;
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.WorkbookUtil;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
 public class CSVDownloadAction extends ActionSupport4lte implements ResultHandler {
 
     private static final long serialVersionUID = 1L;
-    private FileOutputStream fileOut;
+    private BufferedWriter fileOut;
     private String fileType;
 
     /* 기본 셋업 시작*/
@@ -51,9 +42,15 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
     private String JSONDATA       = "";
 
     public void handleResult(ResultContext context) {
-        if(this.fileType.equals("EMS")){
+
+        if(this.param.get("SEARCHTYPE").equals("EMS")){
+            this.writeEMSLine(context);
+        }else if(this.param.get("SEARCHTYPE").equals("PART")){
+            this.writeEMSLine(context);
+        }else if(this.param.get("SEARCHTYPE").equals("UNI")){
             this.writeEMSLine(context);
         }
+
     }
     public static String nvl(Object obj,String str){
         if(obj==null) return str;
@@ -73,7 +70,7 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                           + "," + nvl(map.get("BTS_NM")        ,"")   //DU 명
                           + "," + nvl(map.get("CELL_ID")       ,"")   //CELL_ID
                           + "," + nvl(map.get("CELL_NM")       ,"")   //CELL 명
-                          + "," + nvl(map.get("MCID")          ,"")   // MCID
+                          + "," + (nvl(map.get("MCID"),"").equals("T")?"":nvl(map.get("MCID"),""))   // MCID
                           + "," + nvl(map.get("FREQ_KIND")     ,"")  // 주파수구분
                           + "," + nvl(map.get("MIMO_TYPE")     ,"")  // MIMO 구분
                           + "," + nvl(map.get("THROUGHPUT")    ,"")  // 용량(Mbps)
@@ -110,8 +107,8 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                           + "," + nvl(map.get("IMAGE_TIME")    ,"") // 영상통화 점유시간");
                           ;
 
-            fileOut.write(txt.getBytes());
-            fileOut.write(txt2.getBytes());
+            fileOut.write(txt);
+            fileOut.newLine();
 
             System.out.println(txt);
 
@@ -168,8 +165,8 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                     +"," + "영상통화 점유시간"
             ;
 
-            fileOut.write(txt.getBytes());
-            fileOut.write(txt2.getBytes());
+            fileOut.write(txt);
+            fileOut.newLine();
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -197,11 +194,18 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                 throw new Exception("엑셀파일 생성에 실패 하였습니다.");
             }
 
-            this.fileOut = new FileOutputStream(xlsFileFullPath);
+            //this.fileOut = new FileOutputStream(xlsFileFullPath);
 
-            this.fileType = "EMS";
-            writeEMSHeader();
-            session.select("BigDownload.selectBasicData", param, this);
+            FileOutputStream fos = new FileOutputStream(xlsFileFullPath);
+            OutputStreamWriter osw=new OutputStreamWriter(fos,"EUC-KR");
+            this.fileOut =new BufferedWriter(osw);
+            //this.fileOut = new BufferedWriter(new FileWriter(xlsFileFullPath));
+
+            writeHeader();
+
+            log.debug(param);
+
+            session.select("BigDownload.selectBasicData_"+param.get("SEARCHTYPE"), param, this);
 
             fileOut.close();
 
@@ -213,11 +217,11 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
             this.msg = "생성되었습니다";
             this.status = "SUCCESS";
         }catch (Exception e){
+            e.printStackTrace();
             this.msg = e.getMessage();
             this.status = "ERROR";
             this.error = true;
             session.rollback();
-            e.printStackTrace();
 
         }finally{
             session.close();
@@ -225,9 +229,9 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
         return SUCCESS;
     }
 
-
-
-
+    private void writeHeader() {
+        writeEMSHeader();
+    }
 
 
     private void parseParam() throws Exception {
@@ -251,15 +255,20 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
         param.put("DAYTIME_SEQ"   , parseKey(map,"DAYTIME_SEQ",""));
         param.put("VIEWTYPE"      , parseKey(map,"VIEWTYPE",""));
         param.put("FREQ_KIND"     , parseKey(map,"FREQ_KIND",""));
-        param.put("FROMYMD"       , parseKey(map,"FROMYMD","").replace("-","").replace(".","").replace("/","")  );
-        param.put("TOYMD"         , parseKey(map,"TOYMD","").replace("-","").replace(".","").replace("/","")  );
+        param.put("FROMYMD"       , parseKey(map,"FROMYMD","").replace("-","").replace(".","").replace("/", "")  );
+        param.put("TOYMD"         , parseKey(map,"TOYMD","").replace("-","").replace(".","").replace("/", "")  );
         param.put("USER_ID"       ,  USER_ID  );
         param.put("MBTYPE"        ,  parseKey(map,"MBTYPE",""));
         param.put("MFC_CD"        ,  parseKey(map,"MFC_CD",""));
         param.put("SEARCHTYPE"    , parseKey(map,"SEARCHTYPE",""));
         param.put("MME_GRP_ID"    ,  parseKey(map,"MME_GRP_ID",""));
         param.put("NE_ID"          ,  parseKey(map,"NE_ID",""));
+
         param.put("PART_CD"        ,  parseKey(map,"PART_CD",""));
+        param.put("BONBU_CD"       ,  parseKey(map,"BONBU_CD",""));
+        param.put("OPER_TEAM_CD"  ,  parseKey(map,"OPER_TEAM_CD",""));
+
+        param.put("CITY_CD"        ,  parseKey(map,"CITY",""));
 
         ArrayList<String> alist = new ArrayList<String>();
         String temp01[] = parseKey(map,"DUIDs","").split("\\|");
@@ -274,7 +283,12 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
     }
 
     private String parseKey(Map <String, Object> map, String Key, String None){
-        return map.containsKey(Key)?map.get(Key).toString():None;
+        if(map.containsKey(Key)){
+            if( map.get(Key) == null ) return None;
+            else return map.get(Key).toString();
+        }else{
+            return None;
+        }
     }
 
 }

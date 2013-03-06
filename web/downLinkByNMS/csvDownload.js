@@ -102,6 +102,9 @@ $(document).ready(function(){
         btn.button('loading');
 
         var param = parseParam(this);
+
+        param.TOYMD = param.FROMYMD;
+
         window.currentPosition = 0;
         jQuery.post("/adcaslte/svc/CSVDownload-selectBasicData",{"JSONDATA":JSON.stringify(param)},function(result,stat){
 
@@ -157,8 +160,15 @@ $(document).ready(function(){
     });
 
     $("#BONBU_CD").change(function(){
+        $("#PART_CD").hide().empty();
         setOperTeamList($("#OPER_TEAM_CD"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
     });
+
+    $("#OPER_TEAM_CD").change(function(){
+        setPartList($("#PART_CD"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
+    });
+
+
 
     //조회대상 : 파트별
     $("#searchDropDown li[name=partSearch]").click(function(event){
@@ -209,7 +219,7 @@ $(document).ready(function(){
         $uniLabel.show();
         $citySelect.show();
 
-        setCityList($citySelect,true); //true : all 보이도록..
+        setCityList($citySelect,false); //true : all 보이도록..
 
         $("[group^=title]").hide();
         $("[group=title01]").show();

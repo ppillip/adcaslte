@@ -93,11 +93,11 @@
                                                     <span class="dropdown" id="searchDropDown">
                                                         <button class="dropdown-toggle btn btn-mini" id="drop2" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> 조회대상 <b class="caret"></b> </button>
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                                                            <%--<li  name="bonbuSearch"><a tabindex="-1" href="#">본부별</a></li>--%>
+                                                            <%--<li  name="bonbuSearch"><a tabindex="-1" href="#">본부별</a></li>-->
                                                             <%--<li  name="teamSearch"><a tabindex="-1" href="#">팀별</a></li>--%>
-                                                            <%--<li  name="partSearch"><a tabindex="-1" href="#">파트별</a></li>--%>
+                                                            <li  name="partSearch"><a tabindex="-1" href="#">파트별</a></li>
                                                             <%--<li  name="citySearch"><a tabindex="-1" href="#">도/특별/광역</a></li>--%>
-                                                            <%--<li  name="uniSearch"><a tabindex="-1" href="#">시/군/구</a></li>--%>
+                                                            <li  name="uniSearch"><a tabindex="-1" href="#">시/군/구</a></li>
                                                             <li  name="emsSearch"><a tabindex="-1" href="#">EMS</a></li>
                                                         </ul>
                                                         <input type="hidden" name="SEARCHTYPE" id="SEARCHTYPE">
@@ -108,6 +108,7 @@
                                                         <span   group="searchSelect" id="partLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">파트별</span>
                                                         <select group="searchSelect" name="BONBU_CD" id="BONBU_CD" style="display:none;width:100px;"></select>
                                                         <select group="searchSelect" name="OPER_TEAM_CD" id="OPER_TEAM_CD" style="display:none;width:100px;"></select>
+                                                        <select group="searchSelect" name="PART_CD"       id="PART_CD" style="display:none;width:100px;"></select>
                                                         <span   group="searchSelect" id="cityLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">도/특별/광역</span>
                                                         <span   group="searchSelect" id="uniLabel" class="label" style="display:none;font-size: 14px;margin-left:5px">시/군/구</span>
                                                         <select group="searchSelect" name="CITY" id="CITY" style="display:none"></select>

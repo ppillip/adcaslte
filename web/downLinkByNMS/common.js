@@ -137,6 +137,34 @@ function setOperTeamList($select,allChk,upperValue) {
 
 }
 
+
+/*===============================================================================
+ * Part Select Setting  (For 통계)
+ *
+ *==============================================================================*/
+function setPartList($select,allChk,upperValue) {
+    jQuery.post("/adcaslte/svc/Workgroup-selectPartList",{OPER_TEAM_CD:upperValue},function(result,stat){
+        $select.show();
+        $select.empty();
+        if(allChk) {
+            $("<option value='ALL'>전체</option>")
+                .appendTo($select);
+        }
+        $(result.rows).each(function(idx,row){
+            $("<option value='"+row.PART_CD+"'>" +
+                row.PART_NM +
+                "</option>")
+                .appendTo($select);
+        });
+
+    },"json");
+
+}
+
+
+
+
+
 /*===============================================================================
  * City Select Setting (For 통계)
  *
@@ -162,6 +190,34 @@ function setCityList($select,allChk) {
 
     },"json");
 }
+
+
+/*===============================================================================
+ * GU Select Setting (For 통계)
+ *
+ *==============================================================================*/
+function setGUList($select,allChk) {
+
+    jQuery.post("/adcaslte/svc/Workgroup-selectGuList",{},function(result,stat){
+        $select.empty();
+        if(allChk) {
+            $("<option value='ALL'>전체</option>")
+                .appendTo($select);
+        }
+        $(result.rows).each(function(idx,row){
+            $("<option value='"+row.GU_CD+"'>" +
+                row.GU_NM +
+                "</option>")
+                .appendTo($select);
+        });
+
+        if(typeof(callback) === 'function') {
+            callback($subSelect,true,$select.val());
+        }
+
+    },"json");
+}
+
 
 /*===============================================================================
  * MME Select Setting (For 통계)
