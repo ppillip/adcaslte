@@ -71,6 +71,7 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                           + "," + nvl(map.get("CELL_ID")       ,"")   //CELL_ID
                           + "," + nvl(map.get("CELL_NM")       ,"")   //CELL 명
                           + "," + (nvl(map.get("MCID"),"").equals("T")?"":nvl(map.get("MCID"),""))   // MCID
+                          + "," + nvl(map.get("UNI")     ,"")          // 시/군/구
                           + "," + nvl(map.get("FREQ_KIND")     ,"")  // 주파수구분
                           + "," + nvl(map.get("MIMO_TYPE")     ,"")  // MIMO 구분
                           + "," + nvl(map.get("THROUGHPUT")    ,"")  // 용량(Mbps)
@@ -110,7 +111,10 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
             fileOut.write(txt);
             fileOut.newLine();
 
-            System.out.println(txt);
+            if (isLocalHost()) {
+                System.out.println(txt);
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -129,6 +133,7 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                     +"," + "CELL_ID"
                     +"," + "CELL 명"
                     +"," + "MCID"
+                    +"," + "시/군/구"
                     +"," + "주파수구분"
                     +"," + "MIMO 구분"
                     +"," + "용량(Mbps)"

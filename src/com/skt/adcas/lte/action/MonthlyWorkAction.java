@@ -68,7 +68,7 @@ public class MonthlyWorkAction extends ActionSupport4lte{
         /*★★★★★★★★ 여기고쳐 바로 실행 ★★★★★★★★★*/
         /*★★★★★★★★★★★★★★★★★★★★★★★★★★★*/
         /*★★★★★★★★★★★★★★★★★★★★★★★★★★★*/
-        param.put("YM","201301");
+        param.put("YM","201303");
 
 
 

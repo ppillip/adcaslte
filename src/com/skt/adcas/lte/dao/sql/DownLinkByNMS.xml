@@ -25,6 +25,7 @@
         ,C_UID
         ,CELL_ID
         ,MCID
+        ,UNI
         ,FREQ_KIND
         ,MFC_CD
         ,MIMO_TYPE
