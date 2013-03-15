@@ -36,13 +36,13 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
+        <!-- div id="header">
             <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
                 <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
             </div>
             <div id="popup_desc">LTE 용량분석 > NMS 기반 섹터 TP > DownLink</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
+        </div -->
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -56,8 +56,8 @@
                         <td>
                             <table width="1240" height="110" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
-                                    <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                    <td style="padding:0px;border-bottom:2px #ff713a solid;height:20px;" valign="bottom" align="left">
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"><strong style="font-size:15px;">&nbsp;&nbsp;LTE 용량분석 > NMS 기반 섹터 TP > DownLink</strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -183,19 +183,19 @@
         <div class="" name="divTopLeft" id="divTopLeft">
             <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="3" name="YMD">날짜</td>
-                    <td rowspan="3" name="MB_TIME">최번시간</td>
+                    <td rowspan="3" name="MB_TIME">최번<br>시간</td>
                     <td rowspan="3" name="BTS_NM">DU명</td>
-                    <td rowspan="3" name="CELL_ID">CELL ID</td>
+                    <td rowspan="3" name="CELL_ID">CELL<BR>ID</td>
                     <td rowspan="3" name="MCID">MCID</td>
-                    <td rowspan="3" name="FREQ_KIND">주파수구분</td>
-                    <td name="GRAPH">GRAPH</td>
+                    <td rowspan="3" name="FREQ_KIND">주파수</td>
+                    <td name="GRAPH"><i class="icon-signal"></i></td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
                 </tr>
-                <tr style="height:30px;" class="info"></tr>
+                <tr style="height:23px;" class="info"></tr>
                 </tbody>
             </table>
         </div>
@@ -204,7 +204,7 @@
         <div class="" name="divTopRight" id="divTopRight">
             <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
                 <colgroup>
-                    <col class="col01">
+                    <col class="colMIMO">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -242,8 +242,8 @@
                     <col class="col01">
                 </colgroup>
                 <tbody>
-                <tr style="height:30px;" class="info">
-                    <td rowspan="3">MIMO 구분</td>
+                <tr style="height:23px;" class="info">
+                    <td rowspan="3">MIMO<br>구분</td>
                     <td rowspan="3" name="so">용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3"><span id="cqi0_rate_text">CQI0</span><br/>비율(%)</td>
@@ -266,7 +266,7 @@
                     <td colspan="2">전송로</td>
 
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUCCH</td>
                     <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUSCH</td>
 
@@ -290,7 +290,7 @@
                     <td rowspan="2">종류</td>
                     <td rowspan="2">갯수</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td class='mnf MFC00001'>최번시</td>
                     <td class='mnf MFC00001'>최한시</td>
                     <td class='mnf MFC00002 MFC00014' style="display:none;" >최번시</td>
@@ -326,7 +326,8 @@
     <td><!--  middle right   -->
         <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
-                <colgroup><col class="col01">
+                <colgroup>
+                    <col class="colMIMO">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -421,7 +422,7 @@
         <div class="" name="divBottomRight" id="divBottomRight" onscroll="javascript:scrollX();">
             <table name="tableBottomRight" id="tableBottomRight" class="table table-bordered table-condensed table-striped">
                 <colgroup>
-                    <col class="col01">
+                    <col class="colMIMO">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">

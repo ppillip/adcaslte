@@ -13,17 +13,20 @@ div[name=divDailyDataPad] {width:1279px;height:500px;margin-left: 3px;}
 div[name=divDailyDataPad] tr.info td {text-align: center;font-size:11px;}
 
 div[name=divTopLeft]     {   }
-div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:620px; }
+div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden;                                            width:710px; }
 
-div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:220px; width:636px; /*col00 변경시 수정*/}
-div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll;                 height:220px; width:636px;                          }
+div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;height:340px; width:536px; /*col00 변경시 수정*/}
+div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll;height:340px;                               width:726px; }
 
-div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:620px;}
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden;                                             width:710px;}
 
 div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 
-.col01 {width:70px;}
-
+.col01 {width:65px;}
+.colMIMO {width:50px;}
 select {height:23px; width:140px;font-size:11px; margin: 0px;}
 
 
+.table-bordered td {
+    padding: 1px 3px !important;
+}

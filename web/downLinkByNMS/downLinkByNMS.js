@@ -13,13 +13,13 @@ function scrollY() {
 }
 
 var topLeftWidth = {
-    "YMD"          : "60"
-    ,"MB_TIME" : "35"
-    ,"BTS_NM"     : "220"
-    ,"CELL_ID"    : "35"
-    ,"MCID"        : "45"
-    ,"FREQ_KIND"  : "55"
-    ,"GRAPH"       : "50"
+    "YMD"          : "58"
+    ,"MB_TIME"     : "30"
+    ,"BTS_NM"      : "140"
+    ,"CELL_ID"     : "30"
+    ,"MCID"        : "30"
+    ,"FREQ_KIND"   : "45"
+    ,"GRAPH"       : "20"
 };
 
 var cqiPDFChart = null;
@@ -136,16 +136,19 @@ function appendToTable(callback){
         row = result.rows[idx];
         //console.log("idx : " + idx + "/ ROWIDX : " + row.ROWIDX);
         var $tr = $("<tr name='" + row.ROWIDX + "'>"
-            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+ row.YMD +"</td>"
+            +"<td style='padding:0;height:13px!important;text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+ row.YMD +"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MB_TIME+"px;'>"+isUndifined(row.MB_TIME,"-") + "</td>"
-            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>" + row.BTS_NM + "<!--"+ row.C_UID +"-->" + "</td>"
+            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"
+            +"<div style='text-align:center;margin:0px;padding:0px;height:15px;width:95%;overflow-x:hidden;overflow-y:hidden;'>"
+            + row.BTS_NM + "</div>"
+            + "</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
             + (function(_idx, _row){
-                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-              })(idx, row)
+            return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+        })(idx, row)
             +"</td>"
             +"</tr>")
             .data("row",row)
@@ -633,7 +636,7 @@ $(document).ready(function(){
     });
 
     $("#cqiModal button[name=excelDownload]").click(function(){  /**/
-        var param = parseParam(this);
+    var param = parseParam(this);
         param["JSONDATA"] =  (function(checkedTR){
             var checkedRows = [];
             checkedTR.each(function(){
@@ -765,9 +768,9 @@ function goTest(){
             });
 
             $("button[name=excelDownload]").trigger('click',function(){
-                    QUnit.test("엑셀 다운로드 확인",function(){
-                        deepEqual(true,true,"엑셀 가져옴");
-                    });
+                QUnit.test("엑셀 다운로드 확인",function(){
+                    deepEqual(true,true,"엑셀 가져옴");
+                });
             });
 
         });
