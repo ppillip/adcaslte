@@ -36,13 +36,13 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
+        <!-- div id="header">
             <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
                 <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
             </div>
             <div id="popup_desc">LTE 용량분석 > LTE NMS 기반 섹터 TP > DownLink CSV 다운로드</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
+        </div -->
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -57,7 +57,7 @@
                             <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"><strong style="font-size:15px;">&nbsp;&nbsp;LTE 용량분석 > LTE NMS 기반 섹터 TP > DownLink CSV 다운로드</strong>
                                     </td>
                                 </tr>
                                 <tr>

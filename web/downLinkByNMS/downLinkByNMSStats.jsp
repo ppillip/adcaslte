@@ -36,13 +36,6 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
-            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
-                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
-            </div>
-            <div id="popup_desc">LTE 용량분석 > LTE NMS 기반 섹터 TP > DownLink 통계</div>
-            <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -57,7 +50,7 @@
                             <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"><strong style="font-size:15px;">&nbsp;&nbsp;LTE 용량분석 > LTE NMS 기반 섹터 TP > DownLink 통계</strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -203,13 +196,13 @@
         <div class="" name="divTopLeft" id="divTopLeft">
             <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                 <tbody>
-                <tr style="height:30px;" class="info">
-                    <td rowspan="3" id="titleYMD" style="width:70px;font-size:11px;">날짜</td>
-                    <td rowspan="3" group="title01" id="title01" style="width:100px;font-size:11px;">본부</td>
-                    <td rowspan="3" group="title02" id="title02" style="width:100px;font-size:11px;">팀</td>
-                    <td rowspan="3" group="title03" id="title03" style="width:100px;font-size:11px;">파트</td>
-                    <td rowspan="3" id="titleFREQ" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:60px;font-size:11px;">GRAPH</td>
+                <tr style="height:30px;" class="info" id="leftTitle">
+                    <td rowspan="3"                   id="titleYMD"  style="width:70px;font-size:11px;">날짜</td>
+                    <td rowspan="3" group="title01"   id="title01"   style="width:60px;font-size:11px;">본부</td>
+                    <td rowspan="3" group="title02"   id="title02"   style="width:100px;font-size:11px;">팀</td>
+                    <td rowspan="3" group="title03"   id="title03"   style="width:130px;font-size:11px;">파트</td>
+                    <td rowspan="3"                   id="titleFREQ" style="width:45px;font-size:11px;">주파수</td>
+                    <td                               id="titleIcon" style="width:30px;font-size:11px;"><i class="icon-signal"></i></td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
@@ -259,56 +252,56 @@
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
-                    <td rowspan="3" name="so">용량(Mbps)</td>
-                    <td rowspan="3">CQI 평균</td>
-                    <td rowspan="3">CQI0 비율<br/>(%)</td>
-                    <td rowspan="3">RI2 비율<br/>(%)</td>
-                    <td rowspan="3">DL PRB<br/>사용률(%)</td>
+                    <td rowspan="3" name="so" style="font-size:11px;">용량(Mbps)</td>
+                    <td rowspan="3" style="font-size:11px;">CQI 평균</td>
+                    <td rowspan="3" style="font-size:11px;">CQI0 비율<br/>(%)</td>
+                    <td rowspan="3" style="font-size:11px;">RI2 비율<br/>(%)</td>
+                    <td rowspan="3" style="font-size:11px;">DL PRB<br/>사용률(%)</td>
 
-                    <td rowspan="3">MCS평균</td>
-                    <td rowspan="3">MIMO<br>비율</td>
-                    <td rowspan="3">DL <br/>Throughput<br/>(Kbps)</td>
-                    <td rowspan="3">License<br/>초과<br>실패호</td>
-                    <td rowspan="3">OL MIMO <br>비율(%)</td>
-                    <td rowspan="3">MCS0 <br>비율(%)</td>
-                    <td colspan="4">RSSI</td>
+                    <td rowspan="3" style="font-size:11px;">MCS평균</td>
+                    <td rowspan="3" style="font-size:11px;">MIMO<br>비율</td>
+                    <td rowspan="3" style="font-size:11px;">DL <br/>Throughput<br/>(Kbps)</td>
+                    <td rowspan="3" style="font-size:11px;">License<br/>초과<br>실패호</td>
+                    <td rowspan="3" style="font-size:11px;">OL MIMO <br>비율(%)</td>
+                    <td rowspan="3" style="font-size:11px;">MCS0 <br>비율(%)</td>
+                    <td colspan="4" style="font-size:11px;">RSSI</td>
 
-                    <td colspan="8">데이터 (dBm)</td>
-                    <td colspan="4">HD Voice</td>
-                    <td colspan="4">영상통화</td>
+                    <td colspan="8" style="font-size:11px;">데이터 (dBm)</td>
+                    <td colspan="4" style="font-size:11px;">HD Voice</td>
+                    <td colspan="4" style="font-size:11px;">영상통화</td>
 
-                    <td colspan="2">전송로</td>
+                    <td colspan="2" style="font-size:11px;">전송로</td>
 
                 </tr>
                 <tr style="height:30px;" class="info">
-                    <td colspan="2">PUCCH</td>
-                    <td colspan="2">PUSCH</td>
+                    <td colspan="2" style="font-size:11px;">PUCCH</td>
+                    <td colspan="2" style="font-size:11px;">PUSCH</td>
 
-                    <td rowspan="2">트래픽<br/>(MB)</td>
-                    <td rowspan="2">PRB<br/>사용률(%)</td>
-                    <td rowspan="2">DRB<br/>사용률(%)</td>
-                    <td rowspan="2">동접자<br/>(Erl)</td>
-                    <td rowspan="2">시도호수</td>
-                    <td rowspan="2">접속률<br/>(%)</td>
-                    <td rowspan="2">CD율<br/>(%)</td>
-                    <td rowspan="2">FA사용률<br/>(%)</td>
-                    <td rowspan="2">트래픽<br/>(MB)</td>
-                    <td rowspan="2">PRB<br/>사용률(%)</td>
-                    <td rowspan="2">시도호수</td>
-                    <td rowspan="2">점유시간</td>
-                    <td rowspan="2">트래픽<br/>(MB)</td>
-                    <td rowspan="2">PRB<br/>사용률(%)</td>
-                    <td rowspan="2">시도호수</td>
-                    <td rowspan="2">점유시간</td>
+                    <td rowspan="2" style="font-size:11px;">트래픽<br/>(MB)</td>
+                    <td rowspan="2" style="font-size:11px;">PRB<br/>사용률(%)</td>
+                    <td rowspan="2" style="font-size:11px;">DRB<br/>사용률(%)</td>
+                    <td rowspan="2" style="font-size:11px;">동접자<br/>(Erl)</td>
+                    <td rowspan="2" style="font-size:11px;">시도호수</td>
+                    <td rowspan="2" style="font-size:11px;">접속률<br/>(%)</td>
+                    <td rowspan="2" style="font-size:11px;">CD율<br/>(%)</td>
+                    <td rowspan="2" style="font-size:11px;">FA사용률<br/>(%)</td>
+                    <td rowspan="2" style="font-size:11px;">트래픽<br/>(MB)</td>
+                    <td rowspan="2" style="font-size:11px;">PRB<br/>사용률(%)</td>
+                    <td rowspan="2" style="font-size:11px;">시도호수</td>
+                    <td rowspan="2" style="font-size:11px;">점유시간</td>
+                    <td rowspan="2" style="font-size:11px;">트래픽<br/>(MB)</td>
+                    <td rowspan="2" style="font-size:11px;">PRB<br/>사용률(%)</td>
+                    <td rowspan="2" style="font-size:11px;">시도호수</td>
+                    <td rowspan="2" style="font-size:11px;">점유시간</td>
 
-                    <td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>
+                    <td rowspan="2" style="font-size:11px;">종류</td>
+                    <td rowspan="2" style="font-size:11px;">갯수</td>
                 </tr>
                 <tr style="height:30px;" class="info">
-                    <td>최번시</td>
-                    <td>최한시</td>
-                    <td>최번시</td>
-                    <td>최한시</td>
+                    <td style="font-size:11px;">최번시</td>
+                    <td style="font-size:11px;">최한시</td>
+                    <td style="font-size:11px;">최번시</td>
+                    <td style="font-size:11px;">최한시</td>
                 </tr>
                 </tbody>
             </table>
@@ -379,35 +372,35 @@
                 <tbody>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
-                    <td group="title01" style="width:100px;font-size:11px;"></td>
+                    <td group="title01" style="width:60px;font-size:11px;"></td>
                     <td group="title02" style="width:100px;font-size:11px;"></td>
-                    <td group="title03" style="width:100px;font-size:11px;"></td>
-                    <td style="width:70px;font-size:11px;">전체평균</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td group="title03" style="width:130px;font-size:11px;"></td>
+                    <td style="width:45px;font-size:11px;">전체평균</td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
-                    <td group="title01" style="width:100px;font-size:11px;"></td>
+                    <td group="title01" style="width:60px;font-size:11px;"></td>
                     <td group="title02" style="width:100px;font-size:11px;"></td>
-                    <td group="title03" style="width:100px;font-size:11px;"></td>
-                    <td style="width:70px;font-size:11px;">최대값</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td group="title03" style="width:130px;font-size:11px;"></td>
+                    <td style="width:45px;font-size:11px;">최대값</td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
-                    <td group="title01" style="width:100px;font-size:11px;"></td>
+                    <td group="title01" style="width:60px;font-size:11px;"></td>
                     <td group="title02" style="width:100px;font-size:11px;"></td>
-                    <td group="title03" style="width:100px;font-size:11px;"></td>
-                    <td style="width:70px;font-size:11px;">최소값</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td group="title03" style="width:130px;font-size:11px;"></td>
+                    <td style="width:45px;font-size:11px;">최소값</td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
-                    <td group="title01" style="width:100px;font-size:11px;"></td>
+                    <td group="title01" style="width:60px;font-size:11px;"></td>
                     <td group="title02" style="width:100px;font-size:11px;"></td>
-                    <td group="title03" style="width:100px;font-size:11px;"></td>
-                    <td style="width:70px;font-size:11px;">표준편차</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td group="title03" style="width:130px;font-size:11px;"></td>
+                    <td style="width:45px;font-size:11px;">표준편차</td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 </tbody>
             </table>
