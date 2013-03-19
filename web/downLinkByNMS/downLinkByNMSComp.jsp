@@ -45,11 +45,11 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
-            <!-- <div id="popup_title">QCAS</div> -->
+        <!--div id="header">
+            
             <div id="popup_desc">LTE 용량분석 > NMS 기반 섹터 TP > DownLink 전후비교</div>
             <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
+        </div -->
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -64,7 +64,7 @@
                             <table width="1240" height="110" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> <strong style="font-size:15px;">&nbsp;&nbsp;LTE 용량분석 > NMS 기반 섹터 TP > DownLink 전후비교</strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -201,234 +201,157 @@
 
 <div name="divDailyDataPad" id="divDataPad">
 
-<table name="dailyData">
-    <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
-        <td><!-- top left   -->
-            <div class="" name="divTopLeft" id="divTopLeft">
-                <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
-                    <tbody>
-                    <tr style="height:30px;" class="info">
-                        <td rowspan="3" name="YMD">날짜</td>
-                        <td rowspan="3" name="MB_TIME">최번시간</td>
-                        <td rowspan="3" name="BTS_NM">DU명</td>
-                        <td rowspan="3" name="CELL_ID">CELL ID</td>
-                        <td rowspan="3" name="MCID">MCID</td>
-                        <td rowspan="3" name="FREQ_KIND">주파수구분</td>
-                        <td name="GRAPH">GRAPH</td>
-                    </tr>
-                    <tr style="height:30px;" class="info">
-                        <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
-                    </tr>
-                    <tr style="height:30px;" class="info"></tr>
-                    </tbody>
-                </table>
-            </div>
-        </td>
-        <td><!--  top right   -->
-            <div class="" name="divTopRight" id="divTopRight">
-                <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
-                    <colgroup>
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                    </colgroup>
-                    <tbody>
-                    <tr style="height:30px;" class="info">
-                        <td rowspan="3">MIMO 구분</td>
-                        <td rowspan="3" name="so">용량(Mbps)</td>
-                        <td rowspan="3">CQI 평균</td>
-                        <td rowspan="3"><span id="cqi0_rate_text">CQI0</span><br/>비율(%)</td>
-                        <td rowspan="3">RI2 비율<br/>(%)</td>
-                        <td rowspan="3">DL PRB<br/>사용률(%)</td>
-
-                        <td class='mnf MFC00001' rowspan="3">MCS평균</td>
-                        <td class='mnf MFC00001' rowspan="2" colspan="2">RSSI (dBm)</td>
-                        <td class='mnf MFC00002' style="display:none;" rowspan="3">OL MIMO <br>비율(%)</td>
-                        <td class='mnf MFC00002' style="display:none;" rowspan="3">DL <br/>Throughput<br/>(kbps)</td>
-                        <td class='mnf MFC00002' style="display:none;" rowspan="3">License<br/>초과<br>실패호</td>
-                        <td class='mnf MFC00014' style="display:none;" rowspan="3">OL MIMO <br>비율(%)</td>
-                        <td class='mnf MFC00014' style="display:none;" rowspan="3">MCS0 <br>비율(%)</td>
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="4">RSSI</td>
-
-                        <td colspan="8">데이터 (dBm)</td>
-                        <td colspan="4">HD Voice</td>
-                        <td colspan="4">영상통화</td>
-
-                        <td colspan="2">전송로</td>
-
-                    </tr>
-                    <tr style="height:30px;" class="info">
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUCCH</td>
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUSCH</td>
-
-                        <td rowspan="2">트래픽<br/>(MB)</td>
-                        <td rowspan="2">PRB사용률<br/>(%)</td>
-                        <td rowspan="2">DRB사용률<br/>(%)</td>
-                        <td rowspan="2">동접자<br/>(Erl)</td>
-                        <td rowspan="2">시도호수</td>
-                        <td rowspan="2">접속률<br/>(%)</td>
-                        <td rowspan="2">CD율<br/>(%)</td>
-                        <td rowspan="2">FA사용률<br/>(%)</td>
-                        <td rowspan="2">트래픽<br/>(MB)</td>
-                        <td rowspan="2">PRB사용률<br/>(%)</td>
-                        <td rowspan="2">시도호수</td>
-                        <td rowspan="2">점유시간</td>
-                        <td rowspan="2">트래픽<br/>(MB)</td>
-                        <td rowspan="2">PRB사용률<br/>(%)</td>
-                        <td rowspan="2">시도호수</td>
-                        <td rowspan="2">점유시간</td>
-
-                        <td rowspan="2">종류</td>
-                        <td rowspan="2">갯수</td>
-                    </tr>
-                    <tr style="height:30px;" class="info">
-                        <td class='mnf MFC00001'>최번시</td>
-                        <td class='mnf MFC00001'>최한시</td>
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" >최번시</td>
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" >최한시</td>
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" >최번시</td>
-                        <td class='mnf MFC00002 MFC00014' style="display:none;" >최한시</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </td>
-    </tr>
-
-
-    <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
-        <td><!-- middle left   -->
-            <div class="" name="divMiddleLeft" id="divMiddleLeft">
-                <table name="tableMiddleLeft"  id="tableMiddleLeft" class="table table-bordered table-condensed table-striped">
-                    <colgroup>
-                        <col class="col01">
-                        <col class="col02">
-                        <col class="col03">
-                        <col class="col04">
-                        <col class="col05">
-                        <col class="col06">
-                        <col class="col07">
-                        <col class="col08">
-                    </colgroup>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </td>
-        <td><!--  middle right   -->
-            <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
-                <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
-                    <colgroup><col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                        <col class="col01">
-                    </colgroup>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
-</div>
-
-
-<div name="divDailyDataPadAfter" id="divDataPadAfter">
-
-    <table name="dailyDataAfter">
+    <table name="dailyData">
         <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
             <td><!-- top left   -->
-                <div class="" name="divTopLeftAfter" id="divTopLeftAfter">
-                    <table name="tableTopLeftAfter" id="tableTopLeftAfter" class="table table-bordered table-condensed">
+                <div class="" name="divTopLeft" id="divTopLeft">
+                    <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                         <tbody>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="3" name="YMD">날짜</td>
                             <td rowspan="3" name="MB_TIME">최번시간</td>
                             <td rowspan="3" name="BTS_NM">DU명</td>
                             <td rowspan="3" name="CELL_ID">CELL ID</td>
                             <td rowspan="3" name="MCID">MCID</td>
-                            <td rowspan="3" name="FREQ_KIND">주파수구분</td>
-                            <td name="GRAPH">GRAPH</td>
+                            <td rowspan="3" name="FREQ_KIND">주파수</td>
+                            <td name="GRAPH"><i class="icon-signal"></i></td>
                         </tr>
-                        <tr style="height:30px;" class="info">
-                            <td rowspan="2"></td>
+                        <tr style="height:23px;" class="info">
+                            <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
                         </tr>
-                        <tr style="height:30px;" class="info"></tr>
+                        <tr style="height:23px;" class="info"></tr>
                         </tbody>
                     </table>
                 </div>
             </td>
             <td><!--  top right   -->
-                <div class="" name="divTopRightAfter" id="divTopRightAfter">
-                    <table name="tableTopRightAfter" id="tableTopRightAfter" class="table table-bordered table-condensed">
+                <div class="" name="divTopRight" id="divTopRight">
+                    <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
                         <colgroup>
+                            <col class="colMIMO">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                        </colgroup>
+                        <tbody>
+                        <tr style="height:23px;" class="info">
+                            <td rowspan="3">MIMO 구분</td>
+                            <td rowspan="3" name="so">용량(Mbps)</td>
+                            <td rowspan="3">CQI 평균</td>
+                            <td rowspan="3"><span id="cqi0_rate_text">CQI0</span><br/>비율(%)</td>
+                            <td rowspan="3">RI2 비율<br/>(%)</td>
+                            <td rowspan="3">DL PRB<br/>사용률(%)</td>
+
+                            <td class='mnf MFC00001' rowspan="3">MCS평균</td>
+                            <td class='mnf MFC00001' rowspan="2" colspan="2">RSSI (dBm)</td>
+                            <td class='mnf MFC00002' style="display:none;" rowspan="3">OL MIMO <br>비율(%)</td>
+                            <td class='mnf MFC00002' style="display:none;" rowspan="3">DL <br/>Throughput<br/>(kbps)</td>
+                            <td class='mnf MFC00002' style="display:none;" rowspan="3">License<br/>초과<br>실패호</td>
+                            <td class='mnf MFC00014' style="display:none;" rowspan="3">OL MIMO <br>비율(%)</td>
+                            <td class='mnf MFC00014' style="display:none;" rowspan="3">MCS0 <br>비율(%)</td>
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="4">RSSI</td>
+
+                            <td colspan="8">데이터 (dBm)</td>
+                            <td colspan="4">HD Voice</td>
+                            <td colspan="4">영상통화</td>
+
+                            <td colspan="2">전송로</td>
+
+                        </tr>
+                        <tr style="height:23px;" class="info">
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUCCH</td>
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUSCH</td>
+
+                            <td rowspan="2">트래픽<br/>(MB)</td>
+                            <td rowspan="2">PRB사용률<br/>(%)</td>
+                            <td rowspan="2">DRB사용률<br/>(%)</td>
+                            <td rowspan="2">동접자<br/>(Erl)</td>
+                            <td rowspan="2">시도호수</td>
+                            <td rowspan="2">접속률<br/>(%)</td>
+                            <td rowspan="2">CD율<br/>(%)</td>
+                            <td rowspan="2">FA사용률<br/>(%)</td>
+                            <td rowspan="2">트래픽<br/>(MB)</td>
+                            <td rowspan="2">PRB사용률<br/>(%)</td>
+                            <td rowspan="2">시도호수</td>
+                            <td rowspan="2">점유시간</td>
+                            <td rowspan="2">트래픽<br/>(MB)</td>
+                            <td rowspan="2">PRB사용률<br/>(%)</td>
+                            <td rowspan="2">시도호수</td>
+                            <td rowspan="2">점유시간</td>
+
+                            <td rowspan="2">종류</td>
+                            <td rowspan="2">갯수</td>
+                        </tr>
+                        <tr style="height:23px;" class="info">
+                            <td class='mnf MFC00001'>최번시</td>
+                            <td class='mnf MFC00001'>최한시</td>
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" >최번시</td>
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" >최한시</td>
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" >최번시</td>
+                            <td class='mnf MFC00002 MFC00014' style="display:none;" >최한시</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+
+
+        <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+            <td><!-- middle left   -->
+                <div class="" name="divMiddleLeft" id="divMiddleLeft">
+                    <table name="tableMiddleLeft"  id="tableMiddleLeft" class="table table-bordered table-condensed table-striped">
+                        <colgroup>
+                            <col class="col01">
+                            <col class="col02">
+                            <col class="col03">
+                            <col class="col04">
+                            <col class="col05">
+                            <col class="col06">
+                            <col class="col07">
+                            <col class="col08">
+                        </colgroup>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td><!--  middle right   -->
+                <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
+                    <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
+                        <colgroup><col class="colMIMO">
                             <col class="col01">
                             <col class="col01">
                             <col class="col01">
@@ -467,7 +390,84 @@
                             <col class="col01">
                         </colgroup>
                         <tbody>
-                        <tr style="height:30px;" class="info">
+
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<div name="divDailyDataPadAfter" id="divDataPadAfter">
+
+    <table name="dailyDataAfter">
+        <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+            <td><!-- top left   -->
+                <div class="" name="divTopLeftAfter" id="divTopLeftAfter">
+                    <table name="tableTopLeftAfter" id="tableTopLeftAfter" class="table table-bordered table-condensed">
+                        <tbody>
+                        <tr style="height:23px;" class="info">
+                            <td rowspan="3" name="YMD">날짜</td>
+                            <td rowspan="3" name="MB_TIME">최번시간</td>
+                            <td rowspan="3" name="BTS_NM">DU명</td>
+                            <td rowspan="3" name="CELL_ID">CELL ID</td>
+                            <td rowspan="3" name="MCID">MCID</td>
+                            <td rowspan="3" name="FREQ_KIND">주파수</td>
+                            <td name="GRAPH"><i class="icon-signal"></i></td>
+                        </tr>
+                        <tr style="height:23px;" class="info">
+                            <td rowspan="2"></td>
+                        </tr>
+                        <tr style="height:23px;" class="info"></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td><!--  top right   -->
+                <div class="" name="divTopRightAfter" id="divTopRightAfter">
+                    <table name="tableTopRightAfter" id="tableTopRightAfter" class="table table-bordered table-condensed">
+                        <colgroup>
+                            <col class="colMIMO">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                        </colgroup>
+                        <tbody>
+                        <tr style="height:23px;" class="info">
                             <td rowspan="3">MIMO 구분</td>
                             <td rowspan="3" name="so">용량(Mbps)</td>
                             <td rowspan="3">CQI 평균</td>
@@ -491,7 +491,7 @@
                             <td colspan="2">전송로</td>
 
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUCCH</td>
                             <td class='mnf MFC00002 MFC00014' style="display:none;" colspan="2">PUSCH</td>
 
@@ -515,7 +515,7 @@
                             <td rowspan="2">종류</td>
                             <td rowspan="2">갯수</td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td class='mnf MFC00001'>최번시</td>
                             <td class='mnf MFC00001'>최한시</td>
                             <td class='mnf MFC00002 MFC00014' style="display:none;" >최번시</td>
@@ -552,7 +552,7 @@
             <td><!--  middle right   -->
                 <div name="divMiddleRightAfter" id="divMiddleRightAfter" onscroll="javascript:scrollYAfter();">
                     <table name="tableMiddleRightAfter" id="tableMiddleRightAfter" class="table table-bordered table-condensed table-striped">
-                        <colgroup><col class="col01">
+                        <colgroup><col class="colMIMO">
                             <col class="col01">
                             <col class="col01">
                             <col class="col01">

@@ -8,8 +8,8 @@
 #search_table {width:1270px;padding:10px;padding-top:5px;padding-left:3px;margin:0px;}
 
 
-div[name=divDailyDataPad] {width:1279px;height:213px;margin-left: 3px;}
-div[name=divDailyDataPadAfter] {width:1279px;height:315px;margin-left: 3px;}
+div[name=divDailyDataPad] {width:1279px;height:253px;margin-left: 3px;}
+div[name=divDailyDataPadAfter] {width:1279px;height:355px;margin-left: 3px;}
 
 div[name=divDailyDataPad] tr.info td {text-align: center;font-size:11px;}
 div[name=divDailyDataPadAfter] tr.info td {text-align: center;font-size:11px;}
@@ -17,22 +17,26 @@ div[name=divDailyDataPadAfter] tr.info td {text-align: center;font-size:11px;}
 div[name=divTopLeft] {}
 div[name=divTopLeftAfter] {}
 
-div[name=divTopRight]          {overflow-x:hidden ;overflow-y: hidden; width:620px; }
-div[name=divTopRightAfter]    {overflow-x:hidden ;overflow-y: hidden; width:620px; }
+div[name=divTopRight]          {overflow-x:hidden ;overflow-y: hidden; width:710px; }
+div[name=divTopRightAfter]    {overflow-x:hidden ;overflow-y: hidden; width:710px; }
 
-div[name=divMiddleLeft]        {overflow-x:hidden;overflow-y: hidden;                 height:118px; width:636px; /*col00 변경시 수정*/}
-div[name=divMiddleLeftAfter]  {overflow-x:hidden;overflow-y: hidden;                 height:118px; width:636px; /*col00 변경시 수정*/}
+div[name=divMiddleLeft]        {overflow-x:hidden;overflow-y: hidden;                 height:173px; width:536px; /*col00 변경시 수정*/}
+div[name=divMiddleLeftAfter]  {overflow-x:hidden;overflow-y: hidden;                  height:173px; width:536px; /*col00 변경시 수정*/}
 
-div[name=divMiddleRight]       {overflow-x:hidden;overflow-y: scroll; width:636px;   height:118px;                                                            }
-div[name=divMiddleRightAfter] {overflow-x:scroll;overflow-y: scroll; width:636px;   height:134px;                                                            }
+div[name=divMiddleRight]       {overflow-x:hidden;overflow-y: scroll; width:726px;    height:173px;                                                            }
+div[name=divMiddleRightAfter] {overflow-x:scroll;overflow-y: scroll; width:726px;     height:189px;                                                            }
 
-div[name=divBottomRight]       {overflow-x:scroll;overflow-y: hidden; width:620px;}
-div[name=divBottomRightAfter] {overflow-x:scroll;overflow-y: hidden; width:620px;}
+div[name=divBottomRight]       {overflow-x:scroll;overflow-y: hidden; width:710px;}
+div[name=divBottomRightAfter] {overflow-x:scroll;overflow-y: hidden; width:710px;}
 
 div[name=divDailyDataPad] table       {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 div[name=divDailyDataPadAfter] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 
-.col01 {width:70px;}
+.col01 {width:65px;}
+.colMIMO {width:50px;}
 
 select {height:23px; width:140px;font-size:11px; margin: 0px;}
 
+.table-bordered td {
+    padding: 1px 3px !important;
+}

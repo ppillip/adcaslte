@@ -232,13 +232,13 @@ $(document).ready(function(){
     $("#quickmenu_container").quickMenuForLTE();
 
     var topLeftWidth = {
-        "YMD"          : "60"
-        ,"MB_TIME" : "35"
-        ,"BTS_NM"     : "220"
-        ,"CELL_ID"    : "35"
-        ,"MCID"        : "45"
-        ,"FREQ_KIND"  : "55"
-        ,"GRAPH"       : "50"
+        "YMD"          : "58"
+        ,"MB_TIME"     : "30"
+        ,"BTS_NM"      : "140"
+        ,"CELL_ID"     : "30"
+        ,"MCID"        : "30"
+        ,"FREQ_KIND"   : "45"
+        ,"GRAPH"       : "20"
     }
     $("#tableTopLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
@@ -308,16 +308,19 @@ $(document).ready(function(){
                 row = result.rows[idx];
 
                 var $tr = $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+row.YMD +"</td>"
+                    +"<td style='padding:0;height:13px!important;text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+ row.YMD +"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MB_TIME+"px;'>"+isUndifined(row.MB_TIME,"-") + "</td>"
-                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"+row.BTS_NM + "<!--"+ row.C_UID +"-->" + "</td>"
+                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"
+                    +"<div style='text-align:center;margin:0px;padding:0px;height:15px;width:95%;overflow-x:hidden;overflow-y:hidden;'>"
+                    + row.BTS_NM + "</div>"
+                    + "</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
                     + (function(_idx, _row){
-                        return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                        })(idx, row)
+                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+                })(idx, row)
                     +"</td>"
                     +"</tr>")
                     .data("row",row)
@@ -327,24 +330,24 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
-                        if(Number(value) && critical != null && eval(value+sign+critical)) {
-                            return "<span style='color:red'>"+value+"</span>";
-                        } else {
-                            return value;
-                        }
-                    })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                    if(Number(value) && critical != null && eval(value+sign+critical)) {
+                        return "<span style='color:red'>"+value+"</span>";
+                    } else {
+                        return value;
+                    }
+                })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
                     +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
-                        if(Number(value) && critical != null && eval(value+sign+critical)) {
-                            return "<span style='color:red'>"+value+"</span>";
-                        } else {
-                            return value;
-                        }
-                    })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                    if(Number(value) && critical != null && eval(value+sign+critical)) {
+                        return "<span style='color:red'>"+value+"</span>";
+                    } else {
+                        return value;
+                    }
+                })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
                     + "</td>"
                     + (function(row){
                     if(param.MFC_CD==="MFC00001"){
@@ -549,9 +552,12 @@ $(document).ready(function(){
                 row = result.rows[idx];
 
                 var $tr = $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+row.YMD +"</td>"
+                    +"<td style='padding:0;height:13px!important;text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+ row.YMD +"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MB_TIME+"px;'>"+isUndifined(row.MB_TIME,"-") + "</td>"
-                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"+row.BTS_NM + "<!--"+ row.C_UID +"-->" + "</td>"
+                    +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"
+                    +"<div style='text-align:center;margin:0px;padding:0px;height:15px;width:95%;overflow-x:hidden;overflow-y:hidden;'>"
+                    + row.BTS_NM + "</div>"
+                    + "</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
                     +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
@@ -565,24 +571,24 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
-                        if(Number(value) && critical != null && eval(value+sign+critical)) {
-                            return "<span style='color:red'>"+value+"</span>";
-                        } else {
-                            return value;
-                        }
-                    })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
+                    if(Number(value) && critical != null && eval(value+sign+critical)) {
+                        return "<span style='color:red'>"+value+"</span>";
+                    } else {
+                        return value;
+                    }
+                })(formatNumber(row.THROUGHPUT),'<',result.adminCriticalValues && result.adminCriticalValues.DL_RRU_VAL1)
                     +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI0_RATE   )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RI_RATE     )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
-                        if(Number(value) && critical != null && eval(value+sign+critical)) {
-                            return "<span style='color:red'>"+value+"</span>";
-                        } else {
-                            return value;
-                        }
-                    })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
+                    if(Number(value) && critical != null && eval(value+sign+critical)) {
+                        return "<span style='color:red'>"+value+"</span>";
+                    } else {
+                        return value;
+                    }
+                })(formatNumber(row.DL_PRB_RATE),'>',result.adminCriticalValues && result.adminCriticalValues.PRB_USG_VAL1)
                     + "</td>"
 
                     + (function(row){
@@ -1057,10 +1063,10 @@ $(document).ready(function(){
 
     /* 테스트용 셋팅 */
     /*
-    $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
-    $("input[name=WORKGROUP_YN]").val("Y");
-    $("#datepicker01").val("2012-12-01");
-    $("#datepicker02").val("2012-12-01");
+     $("input[name=WORKGROUP_ID]").val("b849c85e-be04-40b9-9787-570afdf52dc8");
+     $("input[name=WORKGROUP_YN]").val("Y");
+     $("#datepicker01").val("2012-12-01");
+     $("#datepicker02").val("2012-12-01");
      */
 
 });
