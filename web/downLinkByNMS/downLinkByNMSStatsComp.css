@@ -7,20 +7,26 @@
 #quickmenu_container {position:absolute;top:0px;left:0px;width:100%;height:300px;border:1px solid;display:none;z-index:999;background-color:#4a4543;border-bottom:3px #ff713a solid;}
 #search_table {width:1270px;padding:10px;padding-top:5px;padding-left:3px;margin:0px;}
 
-div[name=divDailyDataPad] {/*width:1279px;*/height:500px;margin-left: 3px;}
+div[name=divDailyDataPad] {/*width:1279px;*/height:550px;margin-left: 3px;}
 div[name=divDailyDataPad] tr.info td {text-align: center;}
 div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 
 div[name=divTopLeft]     {}
 div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:760px; /*변경시 setLeft 함수도 수정*/}
 
-div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:120px; /*width:501px;*/ /*col00 변경시 수정*/}
-div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:776px;   height:120px;                                                            }
+div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:165px; /*width:501px;*/ /*col00 변경시 수정*/}
+div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:776px;    height:165px;                                                            }
 
-div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:760px;}
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:760px; height:20px;}
 
-.col01 {width:70px;}
+.col01 {width:65px;}
 
 select {width:140px; height:20px; font-size:11px; margin: 0px; padding: 1px 4px}
 
 input[type=text] {text-align: center;padding:0px; margin: 0px; width:80px; height:18px;font-size:11px;}
+
+table[name=tableTopRight] tr td {font-size:11px}
+
+.table-bordered td {
+    padding: 1px 5px !important;
+}
