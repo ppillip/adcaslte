@@ -12,14 +12,20 @@ div[name=divDailyDataPad] tr.info td {text-align: center;font-size:11px;}
 div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 
 div[name=divTopLeft]     {}
-div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:780px; }
+div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:880px; }
 
-div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden; height:220px;}
-div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:796px; height:220px;                                                            }
+div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden; height:340px;}
+div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:896px; height:340px;                                                            }
 
-div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:780px;}
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:880px;}
 
-.col01 {width:70px;}
+.col01 {width:65px;}
 
 input[type=text] {text-align: center; padding:0px; margin: 0px; width:80px; height:18px; font-size:11px;}
 select {width:140px; height:20px; font-size:11px; margin: 0px; padding: 1px 4px}
+
+
+.table-bordered td {
+    padding: 1px 3px !important; line-height:23px;
+
+}

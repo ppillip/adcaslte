@@ -4,11 +4,10 @@ var appendCount = 20;
 //Left Title Width
 var topLeftWidth = {
     "YMD"         : "60"
-    ,"BTS_NM"     : "220"
+    ,"BTS_NM"     : "140"
     ,"CELL_ID"    : "35"
-    //,"MCID"       : "45"
     ,"FREQ_KIND"  : "55"
-    ,"GRAPH"      : "50"
+    ,"GRAPH"      : "30"
 }
 
 function scrollX() {
@@ -47,43 +46,43 @@ $(document).ready(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=820,height=700');
     });
 
-/*===============================================================================
- * For 기간
- *==============================================================================*/
+    /*===============================================================================
+     * For 기간
+     *==============================================================================*/
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
 
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-        $('#datepicker01').datepicker('hide');
-    });
+            $('#datepicker01').datepicker('hide');
+        });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-        $('#datepicker02').datepicker('hide');
-    });
-/*===============================================================================
- * End For 기간
- *==============================================================================*/
+            $('#datepicker02').datepicker('hide');
+        });
+    /*===============================================================================
+     * End For 기간
+     *==============================================================================*/
 
-/*===============================================================================
-* For Left Title Setting
-*==============================================================================*/
+    /*===============================================================================
+     * For Left Title Setting
+     *==============================================================================*/
     $("#tableTopLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
     });
     $("#tableBottomLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
     });
-/*===============================================================================
- * End For Left Title Setting
- *==============================================================================*/
+    /*===============================================================================
+     * End For Left Title Setting
+     *==============================================================================*/
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         if(!$("#WORKGROUP_NAME").val()) {
@@ -133,7 +132,7 @@ $(document).ready(function(){
                 for(var i=0; i < 4; i++) {
                     $("tbody tr:first",$bottomRightTable).remove();
                     $("<tr class='info'>"
-                        +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_TPUT     )+"</td>"
+                        +"<td style='height:23px;text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_TPUT     )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].UL_TPUT     )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RANK_INDEX  )+"</td>"
@@ -162,13 +161,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * End For SEARCH
+     *==============================================================================*/
 
-/*===============================================================================
- * For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
 
     $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph],#graphDropDown li[name=showHistogram]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
@@ -181,10 +180,10 @@ $(document).ready(function(){
         //For CQI
         if (name === 'showCqiModal') {
             $('#cqiModal').modal('show');
-        //For 용량그래프
+            //For 용량그래프
         } else if (name === 'showThrpGraph') {
             window.open("downLinkByQMSGraph.jsp?chart=showThrpGraph","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
-        //For HISTOGRAM
+            //For HISTOGRAM
         } else if (name === 'showHistogram') {
             window.open("downLinkByQMSGraph.jsp?chart=showHistogram","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
@@ -201,13 +200,13 @@ $(document).ready(function(){
         $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
     });
 
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -264,22 +263,22 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * End For EXCEL
+     *==============================================================================*/
 
-/*===============================================================================
- * For SCROLL APPEND
- *==============================================================================*/
+    /*===============================================================================
+     * For SCROLL APPEND
+     *==============================================================================*/
     $("#divMiddleRight").scroll(function(){
         if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
         {
             appendToTable(function(){}); //callback 필요시 삽입
         }
     });
-/*===============================================================================
- * End For SCROLL APPEND
- *==============================================================================*/
+    /*===============================================================================
+     * End For SCROLL APPEND
+     *==============================================================================*/
 
 });
 
@@ -296,22 +295,24 @@ function appendToTable(callback){
         row = result.rows[idx];
 
         var $tr = $("<tr name='" + row.ROWIDX + "'>"
-            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+row.YMD +"</td>"
-            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"+row.BTS_NM + "</td>"
+            +"<td style='height:23px; text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+row.YMD +"</td>"
+            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"
+            + "<div style='text-align:center;margin:0px;padding:0px;height:15px;width:95%;overflow-x:hidden;overflow-y:hidden;'>" + row.BTS_NM +  "</div>"
+            +"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
             //+"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+row.FREQ_KIND+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
             + (function(_idx, _row){
-                return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-            })(idx, row)
+            return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+        })(idx, row)
             +"</td>"
             +"</tr>")
             .data("row",row)
             .appendTo($leftTable);
 
         $("<tr name='" + row.ROWIDX + "'>"
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_TPUT     )+"</td>"
+            +"<td style='height:23px;text-align: right;font-size:11px;'>"+formatNumber(row.DL_TPUT     )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.UL_TPUT     )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CQI_AVERAGE )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RANK_INDEX  )+"</td>"

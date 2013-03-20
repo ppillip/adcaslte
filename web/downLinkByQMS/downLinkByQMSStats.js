@@ -29,32 +29,32 @@ $(document).ready(function(){
         }
     });
 
-/*===============================================================================
- * For 기간
- *==============================================================================*/
+    /*===============================================================================
+     * For 기간
+     *==============================================================================*/
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
 
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     )
-    .on('changeDate', function(){
-        $('#datepicker01').datepicker('hide');
-    });
+        .on('changeDate', function(){
+            $('#datepicker01').datepicker('hide');
+        });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     )
-    .on('changeDate', function(){
-        $('#datepicker02').datepicker('hide');
-    });
-/*===============================================================================
- * End For 기간
- *==============================================================================*/
+        .on('changeDate', function(){
+            $('#datepicker02').datepicker('hide');
+        });
+    /*===============================================================================
+     * End For 기간
+     *==============================================================================*/
 
-/*===============================================================================
-* For GRAPH
-*==============================================================================*/
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
     $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph],#graphDropDown li[name=showHistogram]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
@@ -85,13 +85,13 @@ $(document).ready(function(){
     $("#cqiModal input[name=cqiFlag]").click(function(){
         $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
     });
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -149,13 +149,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * End For EXCEL
+     *==============================================================================*/
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         $("div[name=divMiddleLeft] table tbody tr").remove();
@@ -225,13 +225,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * End For SEARCH
+     *==============================================================================*/
 
-/*===============================================================================
- * For 조회대상
- *==============================================================================*/
+    /*===============================================================================
+     * For 조회대상
+     *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
         preventDefault(event);
@@ -359,9 +359,9 @@ $(document).ready(function(){
         setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
     });
 
-/*===============================================================================
- * End For 조회대상
- *==============================================================================*/
+    /*===============================================================================
+     * End For 조회대상
+     *==============================================================================*/
 
 });
 
@@ -370,7 +370,7 @@ $(document).ready(function(){
  *
  *==============================================================================*/
 function setLeft(depth) {
-    var leftWidth = (depth * 100) + 70 + 70 + 60; //날짜, 주파수, 그래프
+    var leftWidth = (depth * 100) + 70 + 70 + 30; //날짜, 주파수, 그래프
 
     $("#tableTopLeft").css("width",leftWidth);
     $("#tableMiddleLeft").css("width",leftWidth);
@@ -381,7 +381,7 @@ function setLeft(depth) {
     $("#tableBottomLeft").unwrap();
     $("#tableBottomLeft").wrap("<div name='divBottomLeft' id='divBottomLeft'></div>");
 
-    var middleWidth = 690 + 100 * (3-depth);  //620 : css에서 div[name=divTopRight] width 값, 100 : title 그룹의 width 값
+    var middleWidth = 720 + 100 * (3-depth);  //620 : css에서 div[name=divTopRight] width 값, 100 : title 그룹의 width 값
     //hide 된 td의 padding & margin 분 추가
     if(depth === 1) {
         middleWidth += 20;
@@ -399,18 +399,18 @@ function setLeft(depth) {
     $("#tableMiddleRight tbody").empty();
     $("#tableBottomRight").find("td").html("&nbsp;");
 
-/*===============================================================================
- * For SCROLL APPEND
- *==============================================================================*/
+    /*===============================================================================
+     * For SCROLL APPEND
+     *==============================================================================*/
     $("#divMiddleRight").scroll(function(){
         if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
         {
             appendToTable(function(){}); //callback 필요시 삽입
         }
     });
-/*===============================================================================
- * End For SCROLL APPEND
- *==============================================================================*/
+    /*===============================================================================
+     * End For SCROLL APPEND
+     *==============================================================================*/
 }
 
 /*===============================================================================
@@ -429,16 +429,18 @@ function appendToTable(callback){
             +"<td style='width:70px;text-align:center;font-size:11px;'>"+row.YMD +"</td>"
             +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title01'>"+isUndifined(row.TITLE01,"-") + "</td>"
             +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title02'>"+isUndifined(row.TITLE02,"-") + "</td>"
-            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"+isUndifined(row.TITLE03,"-") +"</td>"
+            +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"
+            + "<div style='text-align:center;margin:0px;padding:0px;height:15px;width:95%;overflow-x:hidden;overflow-y:hidden;'>" + isUndifined(row.TITLE03,"-") +"</div>"
+            +"</td>"
             +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
-            +"<td style='width:60px;text-align:center;font-size:11px;'>"
+            +"<td style='width:30px;text-align:center;font-size:11px;'>"
             + (function(_idx, _row){
-                if(_row.YMD.length != 8){
-                    return "&nbsp;";
-                }else{
-                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                }
-            })(idx, row)
+            if(_row.YMD.length != 8){
+                return "&nbsp;";
+            }else{
+                return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+            }
+        })(idx, row)
             +"</td>"
             +"</tr>")
             .data("row",row)

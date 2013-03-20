@@ -36,13 +36,6 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
-            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
-                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
-            </div>
-            <div id="popup_desc">LTE 용량분석 > LTE QMS 기반 섹터 TP > 국소별 용량</div>
-            <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -57,7 +50,7 @@
                             <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> <strong>&nbsp;&nbsp;LTE 용량분석 > LTE QMS 기반 섹터 TP > 국소별 용량</strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -152,18 +145,18 @@
         <div name="divTopLeft" id="divTopLeft">
             <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:25px;" class="info">
                     <td rowspan="3" name="YMD">날짜</td>
                     <td rowspan="3" name="BTS_NM">DU명</td>
                     <td rowspan="3" name="CELL_ID">CELL ID</td>
                     <%--<td rowspan="3" name="MCID">MCID</td>--%>
                     <td rowspan="3" name="FREQ_KIND">주파수구분</td>
-                    <td name="GRAPH">GRAPH</td>
+                    <td name="GRAPH"><i class="icon-signal"></i></td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:25px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
                 </tr>
-                <tr style="height:30px;" class="info"></tr>
+                <tr style="height:27px;" class="info"></tr>
                 </tbody>
             </table>
         </div>
@@ -193,7 +186,7 @@
                     <col class="col01">
                 </colgroup>
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="3">DL<br>Throughput<br>(Mbps)</td>
                     <td rowspan="3">UL<br>Throughput<br>(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
@@ -210,13 +203,13 @@
                     <td rowspan="3">License<br>초과<br>실패호</td>
                     <td colspan="2">전송로</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
                     <td rowspan="2">종류</td>
                     <td rowspan="2">갯수</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td>최번시</td>
                     <td>최한시</td>
                     <td>최번시</td>
@@ -336,7 +329,7 @@
                     <col class="col01">
                 </colgroup>
                 <tbody>
-                <tr class='info'>
+                <tr class='info' style="height:25px;">
                     <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>

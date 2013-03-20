@@ -12,14 +12,23 @@ div[name=divDailyDataPad] tr.info td {text-align: center;}
 div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse; margin:0 0 0 0; padding: 0 0 0 0;}
 
 div[name=divTopLeft]     {}
-div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:690px; /*변경시 setLeft 함수도 수정*/}
+div[name=divTopRight]    {overflow-x:hidden ;overflow-y: hidden; width:720px; /*변경시 setLeft 함수도 수정*/}
 
-div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:220px; /*width:501px;*/ /*col00 변경시 수정*/}
-div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:706px;   height:220px;                                                            }
+div[name=divMiddleLeft]  {overflow-x:hidden;overflow-y: hidden;                 height:340px; /*width:501px;*/ /*col00 변경시 수정*/}
+div[name=divMiddleRight] {overflow-x:hidden;overflow-y: scroll; width:736px;   height:340px;                                                            }
 
-div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:690px;}
+div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:720px;}
 
-.col01 {width:70px;}
+.col01 {width:65px;}
 
 input[type=text] {text-align: center; padding:0px; margin: 0px; width:80px; height:18px; font-size:11px;}
 select {height:23px; width:140px;font-size:11px; margin: 0px;}
+
+
+.table-bordered td {
+    padding: 1px 3px !important;
+}
+
+
+table[name=tableTopRight] tr td {font-size:11px}
+

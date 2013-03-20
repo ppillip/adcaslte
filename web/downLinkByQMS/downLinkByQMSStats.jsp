@@ -36,13 +36,6 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
-            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
-                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
-            </div>
-            <div id="popup_desc">LTE 용량분석 > LTE QMS 기반 섹터 TP > 통계단위별 용량</div>
-            <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -57,7 +50,7 @@
                             <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> <strong>&nbsp;&nbsp;LTE 용량분석 > LTE QMS 기반 섹터 TP > 통계단위별 용량 </strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,7 +166,7 @@
                     <td rowspan="3" group="title02" id="title02" style="width:100px;font-size:11px;">팀</td>
                     <td rowspan="3" group="title03" id="title03" style="width:100px;font-size:11px;">파트</td>
                     <td rowspan="3" id="titleFREQ" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:60px;font-size:11px;">GRAPH</td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
@@ -296,7 +289,7 @@
                     <td group="title02" style="width:100px;font-size:11px;"></td>
                     <td group="title03" style="width:100px;font-size:11px;"></td>
                     <td style="width:70px;font-size:11px;">전체평균</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
@@ -304,7 +297,7 @@
                     <td group="title02" style="width:100px;font-size:11px;"></td>
                     <td group="title03" style="width:100px;font-size:11px;"></td>
                     <td style="width:70px;font-size:11px;">최대값</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
@@ -312,7 +305,7 @@
                     <td group="title02" style="width:100px;font-size:11px;"></td>
                     <td group="title03" style="width:100px;font-size:11px;"></td>
                     <td style="width:70px;font-size:11px;">최소값</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr class="info">
                     <td style="width:70px;font-size:11px;"></td>
@@ -320,7 +313,7 @@
                     <td group="title02" style="width:100px;font-size:11px;"></td>
                     <td group="title03" style="width:100px;font-size:11px;"></td>
                     <td style="width:70px;font-size:11px;">표준편차</td>
-                    <td style="width:60px;font-size:11px;"></td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 </tbody>
             </table>
