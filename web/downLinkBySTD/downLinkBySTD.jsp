@@ -36,13 +36,6 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
-            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
-                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
-            </div>
-            <div id="popup_desc">LTE 용량분석 > LTE 기준 용량분석 > DownLink</div>
-            <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -57,7 +50,7 @@
                             <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> <strong>&nbsp;&nbsp;LTE 용량분석 > LTE 기준 용량분석 > DownLink</strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,12 +91,12 @@
                                                         <input type="radio" name="TERMTYPE" value="WK" checked="true">주간
                                                         <input type="radio" name="TERMTYPE" value="MON">월간
                                                     </td>
-                                                <%--<td style="font-size: 11px;" width="50px;"><b>제조사</b></td>
-                                                    <td style="font-size: 11px;" width="320px;">
-                                                        <input type="radio" name="MFC_CD" value="MFC00001" checked="true"> SS
-                                                        <input type="radio" name="MFC_CD" value="MFC00002"> ELG
-                                                        <input type="radio" name="MFC_CD" value="MFC00014"> NSN
-                                                    </td>--%>
+                                                    <%--<td style="font-size: 11px;" width="50px;"><b>제조사</b></td>
+                                                        <td style="font-size: 11px;" width="320px;">
+                                                            <input type="radio" name="MFC_CD" value="MFC00001" checked="true"> SS
+                                                            <input type="radio" name="MFC_CD" value="MFC00002"> ELG
+                                                            <input type="radio" name="MFC_CD" value="MFC00014"> NSN
+                                                        </td>--%>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
@@ -182,196 +175,196 @@
 
 <div name="divDailyDataPad" id="divDataPad">
 
-<table name="dailyData">
-<tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
-    <td><!-- top left   -->
-        <div class="" name="divTopLeft" id="divTopLeft">
-            <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
-                <tbody>
-                <tr style="height:30px;" class="info">
-                    <td rowspan="3" name="YMD">날짜</td>
-                    <td rowspan="3" name="BTS_NM">DU명</td>
-                    <td rowspan="3" name="CELL_ID">CELL ID</td>
-                    <td rowspan="3" name="MCID">MCID</td>
-                    <td rowspan="3" name="FREQ_KIND">주파수구분</td>
-                    <td name="GRAPH">GRAPH</td>
-                </tr>
-                <tr style="height:30px;" class="info">
-                    <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
-                </tr>
-                <tr style="height:30px;" class="info"></tr>
-                </tbody>
-            </table>
-        </div>
-    </td>
-    <td><!--  top right   -->
-        <div class="" name="divTopRight" id="divTopRight">
-            <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
-                <colgroup>
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                </colgroup>
-                <tbody>
-                <tr style="height:30px;" class="info">
-                    <td rowspan="3">기준용량<br>(Mbps)</td>
-                    <td rowspan="3">CQI 평균</td>
-                    <td rowspan="3">CQI0 비율</td>
-                    <td rowspan="3">RI2 비율</td>
-                    <td rowspan="3">DL PRB<br>사용율(%)</td>
-                    <td colspan="4">RSSI</td>
-                    <td rowspan="3">License<br>초과<br>실패호</td>
-                    <td colspan="2">전송로</td>
-                </tr>
-                <tr style="height:30px;" class="info">
-                    <td colspan="2">Total(PUCCH)</td>
-                    <td colspan="2">Total(PUSCH)</td>
-                    <td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>
-                </tr>
-                <tr style="height:30px;" class="info">
-                    <td>최번시</td>
-                    <td>최한시</td>
-                    <td>최번시</td>
-                    <td>최한시</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </td>
-</tr>
+    <table name="dailyData">
+        <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+            <td><!-- top left   -->
+                <div class="" name="divTopLeft" id="divTopLeft">
+                    <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
+                        <tbody>
+                        <tr style="height:30px;" class="info">
+                            <td rowspan="3" name="YMD">날짜</td>
+                            <td rowspan="3" name="BTS_NM">DU명</td>
+                            <td rowspan="3" name="CELL_ID">CELL ID</td>
+                            <td rowspan="3" name="MCID">MCID</td>
+                            <td rowspan="3" name="FREQ_KIND">주파수구분</td>
+                            <td name="GRAPH"><i class="icon-signal"></i></td>
+                        </tr>
+                        <tr style="height:30px;" class="info">
+                            <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
+                        </tr>
+                        <tr style="height:30px;" class="info"></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td><!--  top right   -->
+                <div class="" name="divTopRight" id="divTopRight">
+                    <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
+                        <colgroup>
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                        </colgroup>
+                        <tbody>
+                        <tr style="height:30px;" class="info">
+                            <td rowspan="3">기준용량<br>(Mbps)</td>
+                            <td rowspan="3">CQI 평균</td>
+                            <td rowspan="3">CQI0 비율</td>
+                            <td rowspan="3">RI2 비율</td>
+                            <td rowspan="3">DL PRB<br>사용율(%)</td>
+                            <td colspan="4">RSSI</td>
+                            <td rowspan="3">License<br>초과<br>실패호</td>
+                            <td colspan="2">전송로</td>
+                        </tr>
+                        <tr style="height:30px;" class="info">
+                            <td colspan="2">Total(PUCCH)</td>
+                            <td colspan="2">Total(PUSCH)</td>
+                            <td rowspan="2">종류</td>
+                            <td rowspan="2">갯수</td>
+                        </tr>
+                        <tr style="height:30px;" class="info">
+                            <td>최번시</td>
+                            <td>최한시</td>
+                            <td>최번시</td>
+                            <td>최한시</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
 
 
-<tr style="vertical-align: top; margin: 0px; padding: 0px;">
-    <td><!-- middle left   -->
-        <div class="" name="divMiddleLeft" id="divMiddleLeft">
-            <table name="tableMiddleLeft"  id="tableMiddleLeft" class="table table-bordered table-condensed table-striped">
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </td>
-    <td><!--  middle right   -->
-        <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
-            <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
-                <colgroup><col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                </colgroup>
-                <tbody>
+        <tr style="vertical-align: top; margin: 0px; padding: 0px;">
+            <td><!-- middle left   -->
+                <div class="" name="divMiddleLeft" id="divMiddleLeft">
+                    <table name="tableMiddleLeft"  id="tableMiddleLeft" class="table table-bordered table-condensed table-striped">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td><!--  middle right   -->
+                <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
+                    <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
+                        <colgroup><col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                        </colgroup>
+                        <tbody>
 
-                </tbody>
-            </table>
-        </div>
-    </td>
-</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
 
-<tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
-    <td><!-- bottom left   -->
-        <div name="divBottomLeft" id="divBottomLeft">
-            <table name="tableBottomLeft" id="tableBottomLeft" class="table table-bordered table-condensed table-striped">
-                <tbody>
-                <tr class="info">
-                    <td name="YMD"></td>
-                    <td name="BTS_NM"></td>
-                    <td name="CELL_ID"></td>
-                    <td name="MCID"></td>
-                    <td name="FREQ_KIND">전체평균</td>
-                    <td name="GRAPH"></td>
-                </tr>
-                <tr class="info">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>최대값</td>
-                    <td></td>
-                </tr>
-                <tr class="info">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>최소값</td>
-                    <td></td>
-                </tr>
-                <tr class="info">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>표준편차</td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </td>
-    <td><!--  top right   -->
-        <div class="" name="divBottomRight" id="divBottomRight" onscroll="javascript:scrollX();">
-            <table name="tableBottomRight" id="tableBottomRight" class="table table-bordered table-condensed table-striped">
-                <colgroup>
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
-                </colgroup>
-                <tbody>
-                <tr class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                </tr>
-                <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                </tr>
-                <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                </tr>
-                <tr  class='info'>
-                    <td>&nbsp;</td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </td>
-</tr>
+        <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
+            <td><!-- bottom left   -->
+                <div name="divBottomLeft" id="divBottomLeft">
+                    <table name="tableBottomLeft" id="tableBottomLeft" class="table table-bordered table-condensed table-striped">
+                        <tbody>
+                        <tr class="info">
+                            <td name="YMD"></td>
+                            <td name="BTS_NM"></td>
+                            <td name="CELL_ID"></td>
+                            <td name="MCID"></td>
+                            <td name="FREQ_KIND">전체평균</td>
+                            <td name="GRAPH"></td>
+                        </tr>
+                        <tr class="info">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>최대값</td>
+                            <td></td>
+                        </tr>
+                        <tr class="info">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>최소값</td>
+                            <td></td>
+                        </tr>
+                        <tr class="info">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>표준편차</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td><!--  top right   -->
+                <div class="" name="divBottomRight" id="divBottomRight" onscroll="javascript:scrollX();">
+                    <table name="tableBottomRight" id="tableBottomRight" class="table table-bordered table-condensed table-striped">
+                        <colgroup>
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                            <col class="col01">
+                        </colgroup>
+                        <tbody>
+                        <tr class='info'>
+                            <td>&nbsp;</td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr  class='info'>
+                            <td>&nbsp;</td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr  class='info'>
+                            <td>&nbsp;</td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr  class='info'>
+                            <td>&nbsp;</td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
 
-</table>
+    </table>
 
 </div>
 

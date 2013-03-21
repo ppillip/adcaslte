@@ -4,11 +4,11 @@ var appendCount = 20;
 //Left Title Width
 var topLeftWidth = {
     "YMD"         : "60"
-    ,"BTS_NM"     : "220"
+    ,"BTS_NM"     : "140"
     ,"CELL_ID"    : "35"
     ,"MCID"       : "45"
     ,"FREQ_KIND"  : "55"
-    ,"GRAPH"      : "50"
+    ,"GRAPH"      : "30"
 }
 
 function scrollX() {
@@ -46,27 +46,27 @@ $(document).ready(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=820,height=700');
     });
 
-/*===============================================================================
- * For 기간
- *==============================================================================*/
+    /*===============================================================================
+     * For 기간
+     *==============================================================================*/
     //최초 기간 셋팅 (통계주기 주간)
     var _yesterday = moment().add('d', -1).format("YYYY-MM-DD").toString();
     $('#datepicker01').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-        $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
-        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-        $('#datepicker01').datepicker('hide');
-    });
+            $("input[name=FROMYMD]").val(getSunday($("#datepicker01").val()).replace(/-/gi,''));
+            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            $('#datepicker01').datepicker('hide');
+        });
     $('#datepicker02').val(_yesterday)
         .datepicker(
         {format : "yyyy-mm-dd"}
     ).on('changeDate', function(){
-        $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
-        $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
-        $('#datepicker02').datepicker('hide');
-    });
+            $("input[name=TOYMD]").val(getSaturday($("#datepicker02").val()).replace(/-/gi,''));
+            $("#fromto").text('[ '+getSunday($("#datepicker01").val())+' ~ '+getSaturday($("#datepicker02").val())+' ]');
+            $('#datepicker02').datepicker('hide');
+        });
     $("#fromto").text('[ '+getSunday(_yesterday)+' ~ '+getSaturday(_yesterday)+' ]');
     $("input[name=FROMYMD]").val(getSunday(_yesterday).replace(/-/gi,''));
     $("input[name=TOYMD]").val(getSaturday(_yesterday).replace(/-/gi,''));
@@ -110,26 +110,26 @@ $(document).ready(function(){
         }
     });
 
-/*===============================================================================
- * End For 기간
- *==============================================================================*/
+    /*===============================================================================
+     * End For 기간
+     *==============================================================================*/
 
-/*===============================================================================
-* For Left Title Setting
-*==============================================================================*/
+    /*===============================================================================
+     * For Left Title Setting
+     *==============================================================================*/
     $("#tableTopLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
     });
     $("#tableBottomLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
     });
-/*===============================================================================
- * End For Left Title Setting
- *==============================================================================*/
+    /*===============================================================================
+     * End For Left Title Setting
+     *==============================================================================*/
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         if(!$("#WORKGROUP_NAME").val()) {
@@ -201,13 +201,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * End For SEARCH
+     *==============================================================================*/
 
-/*===============================================================================
- * For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
     $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph]").click(function(){
 
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
@@ -223,7 +223,7 @@ $(document).ready(function(){
         //For CQI
         if (name === 'showCqiModal') {
             $('#cqiModal').modal('show');
-        //For 용량그래프
+            //For 용량그래프
         } else if (name === 'showThrpGraph') {
             window.open("downLinkBySTDGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
@@ -240,13 +240,13 @@ $(document).ready(function(){
         $("#graphContainer").highcharts("drawCqiGraph",$("input[type=checkbox][name!=checkAll]:checked"),$(this).val());
     });
 
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -303,22 +303,22 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * End For EXCEL
+     *==============================================================================*/
 
-/*===============================================================================
- * For SCROLL APPEND
- *==============================================================================*/
+    /*===============================================================================
+     * For SCROLL APPEND
+     *==============================================================================*/
     $("#divMiddleRight").scroll(function(){
         if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
         {
             appendToTable(function(){}); //callback 필요시 삽입
         }
     });
-/*===============================================================================
- * End For SCROLL APPEND
- *==============================================================================*/
+    /*===============================================================================
+     * End For SCROLL APPEND
+     *==============================================================================*/
 
 });
 
@@ -336,7 +336,9 @@ function appendToTable(callback){
 
         var $tr = $("<tr name='" + row.ROWIDX + "'>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.YMD+"px;'>"+row.YMD +"</td>"
-            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"+row.BTS_NM + "</td>"
+            +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.BTS_NM+"px;'>"
+            +"<div style='text-align:center;margin:0px;padding:0px;height:15px;width:99%;overflow-x:hidden;overflow-y:hidden;'>" + row.BTS_NM + "</div>"
+            +"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.CELL_ID+"px;'>"+row.CELL_ID+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.MCID+"px;'>"+(row.MCID==="T"?"":row.MCID)+"</td>"
             +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
