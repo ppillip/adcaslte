@@ -203,7 +203,7 @@
                     <td rowspan="3" group="title02" id="title02" style="width:100px;font-size:11px;">팀</td>
                     <td rowspan="3" group="title03" id="title03" style="width:100px;font-size:11px;">파트</td>
                     <td rowspan="3" id="titleFREQ" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:60px;font-size:11px;">GRAPH</td>
+                    <td style="width:30px;font-size:11px;"><i class="icon-signal"></i></td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
@@ -375,7 +375,7 @@
                     <td rowspan="3" group="title02" id="title02After" style="width:100px;font-size:11px;">팀</td>
                     <td rowspan="3" group="title03" id="title03After" style="width:100px;font-size:11px;">파트</td>
                     <td rowspan="3" id="titleFREQAfter" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:60px;font-size:11px;">GRAPH</td>
+                    <td style="width:30px;font-size:11px;"></td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td rowspan="2"></td>
@@ -547,7 +547,7 @@
                     <td group="title02" style="width:100px;"></td>
                     <td group="title03" style="width:100px;"></td>
                     <td style="width:70px;"></td>
-                    <td style="width:60px;"></td>
+                    <td style="width:30px;"></td>
                 </tr>
                 </tbody>
             </table>

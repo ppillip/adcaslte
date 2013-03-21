@@ -443,7 +443,7 @@ $(document).ready(function(){
  *
  *==============================================================================*/
 function setLeft(depth) {
-    var leftWidth = (depth * 100) + 70 + 60; // 주파수, 그래프
+    var leftWidth = (depth * 100) + 70 + 30; // 주파수, 그래프
 
     $("#tableTopLeft").css("width",leftWidth);
     $("#tableTopLeftAfter").css("width",leftWidth);
@@ -458,7 +458,7 @@ function setLeft(depth) {
     $("#tableBottomLeft").unwrap();
     $("#tableBottomLeft").wrap("<div name='divBottomLeft' id='divBottomLeft'></div>");
 
-    var middleWidth = 760 + 100 * (3-depth);  //620 : css에서 div[name=divTopRight] width 값, 100 : title 그룹의 width 값
+    var middleWidth = 790 + 100 * (3-depth);  //620 : css에서 div[name=divTopRight] width 값, 100 : title 그룹의 width 값
     //hide 된 td의 padding & margin 분 추가
     if(depth === 1) {
         middleWidth += 20;
