@@ -181,7 +181,7 @@
                 <div class="" name="divTopLeft" id="divTopLeft">
                     <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                         <tbody>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="3" name="YMD">날짜</td>
                             <td rowspan="3" name="BTS_NM">DU명</td>
                             <td rowspan="3" name="CELL_ID">CELL ID</td>
@@ -189,10 +189,10 @@
                             <td rowspan="3" name="FREQ_KIND">주파수구분</td>
                             <td name="GRAPH"><i class="icon-signal"></i></td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
                         </tr>
-                        <tr style="height:30px;" class="info"></tr>
+                        <tr style="height:23px;" class="info"></tr>
                         </tbody>
                     </table>
                 </div>
@@ -215,7 +215,7 @@
                             <col class="col01">
                         </colgroup>
                         <tbody>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="3">기준용량<br>(Mbps)</td>
                             <td rowspan="3">CQI 평균</td>
                             <td rowspan="3">CQI0 비율</td>
@@ -225,13 +225,13 @@
                             <td rowspan="3">License<br>초과<br>실패호</td>
                             <td colspan="2">전송로</td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td colspan="2">Total(PUCCH)</td>
                             <td colspan="2">Total(PUSCH)</td>
                             <td rowspan="2">종류</td>
                             <td rowspan="2">갯수</td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td>최번시</td>
                             <td>최한시</td>
                             <td>최번시</td>

@@ -47,9 +47,9 @@ $(document).ready(function(){
         window.open('/adcaslte/workgroup/workgroup.jsp','tempsearch','scrollbars=no,status=no,toolbar=no,resizable=no,location=no,menu=no,width=820,height=700');
     });
 
-/*===============================================================================
-* For 전기간, 후기간 셋팅
-*==============================================================================*/
+    /*===============================================================================
+     * For 전기간, 후기간 셋팅
+     *==============================================================================*/
     var today = new Date();
     var year  = Number(today.getFullYear());
     var month = Number(today.getMonth())+1;
@@ -63,19 +63,19 @@ $(document).ready(function(){
     }
     $("#FROM_MONTH1,#FROM_MONTH2").val(month-1>9?month-1:'0'+(month-1));
     $("#TO_MONTH1,#TO_MONTH2").val(month);
-/*===============================================================================
- * End For 전기간, 후기간 셋팅
- *==============================================================================*/
+    /*===============================================================================
+     * End For 전기간, 후기간 셋팅
+     *==============================================================================*/
 
-/*===============================================================================
- * For Left Title Setting
- *==============================================================================*/
+    /*===============================================================================
+     * For Left Title Setting
+     *==============================================================================*/
     var topLeftWidth = {
         "BTS_NM"     : "220"
         ,"CELL_ID"   : "35"
         ,"MCID"      : "45"
         ,"FREQ_KIND" : "55"
-        ,"GRAPH"     : "50"
+        ,"GRAPH"     : "30"
     }
     $("#tableTopLeft tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
@@ -83,13 +83,13 @@ $(document).ready(function(){
     $("#tableTopLeftAfter tbody tr:nth-child(1) td").each(function(idx,obj){
         $(obj).css("width",+topLeftWidth[$(obj).attr("name")]);
     });
-/*===============================================================================
- * End For Left Title Setting
- *==============================================================================*/
+    /*===============================================================================
+     * End For Left Title Setting
+     *==============================================================================*/
 
-/*===============================================================================
- * For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
     $("#graphDropDown li[name=showCqiModal],#graphDropDown li[name=showThrpGraph]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
@@ -104,7 +104,7 @@ $(document).ready(function(){
         //For CQI
         if (name === 'showCqiModal') {
             $('#cqiModal').modal('show');
-        //For 용량그래프
+            //For 용량그래프
         } else if (name === 'showThrpGraph') {
             window.open("downLinkBySTDCompGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
@@ -126,13 +126,13 @@ $(document).ready(function(){
             window.cqiAfterExcelData  = cqiAfterExcelData;
         });
     });
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -187,13 +187,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         if(!$("#WORKGROUP_NAME").val()) {
@@ -212,7 +212,7 @@ $(document).ready(function(){
         param["FROMYMD"] = param["FROM_YEAR1"]+param["FROM_MONTH1"];
         param["TOYMD"]   = param["TO_YEAR1"]+param["TO_MONTH1"];
         window.result = null;
-        toggleProgress('show','progress_result','340px');
+        toggleProgress('show','progress_result','300px');
         getData(param, $("#tableMiddleLeft tbody"), $("#tableMiddleRight tbody"), topLeftWidth, function (_result) {
             window.result = _result;
             if(_result.error || _result.rows.length === 0){
@@ -241,9 +241,9 @@ $(document).ready(function(){
         });
 
     });
-/*===============================================================================
- * End For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * End For SEARCH
+     *==============================================================================*/
 
 });
 
@@ -278,11 +278,11 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.FREQ_KIND+"px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
                 +"<td style='text-align: center;font-size:11px;width: "+topLeftWidth.GRAPH+"px;'>"
                 + (function(_idx, _row){
-                    if ($rightTable.parent().attr("id").match(/After/g)) {
-                        return "&nbsp;";
-                    } else {
-                        return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
-                    }
+                if ($rightTable.parent().attr("id").match(/After/g)) {
+                    return "&nbsp;";
+                } else {
+                    return "<input onclick='checkedGraph(this)' type='checkbox' style='margin: 0 0 0 0;' name='"+_row.ROWIDX+"'>";
+                }
             })(idx, row)
                 +"</td>"
                 +"</tr>")

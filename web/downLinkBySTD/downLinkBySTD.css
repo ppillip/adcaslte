@@ -14,8 +14,8 @@ div[name=divDailyDataPad] table {table-layout: fixed; border-collapse: collapse;
 div[name=divTopLeft]     {}
 div[name=divTopRight]    {overflow-x:hidden; overflow-y: hidden; width:825px;}
 
-div[name=divMiddleLeft]  {overflow-x:hidden; overflow-y: hidden; height:340px;}
-div[name=divMiddleRight] {overflow-x:hidden; overflow-y: scroll; width:841px; height:340px;}
+div[name=divMiddleLeft]  {overflow-x:hidden; overflow-y: hidden; height:360px;}
+div[name=divMiddleRight] {overflow-x:hidden; overflow-y: scroll; width:841px; height:360px;}
 
 div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:825px;}
 

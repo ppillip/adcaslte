@@ -14,14 +14,18 @@ div[name=divDataPad] table {table-layout: fixed; border-collapse: collapse; marg
 div[name=divTopLeft]     {}
 div[name=divTopRight]    {overflow-x:hidden; overflow-y: hidden; width:795px;}
 
-div[name=divMiddleLeft]  {overflow-x:hidden; overflow-y: hidden; height:120px;}
-div#divMiddleRight       {overflow-x:hidden; overflow-y: scroll; width:811px; height:120px;}
-div#divMiddleRightAfter  {overflow-x:hidden; overflow-y: scroll; width:811px; height:120px;}
+div[name=divMiddleLeft]  {overflow-x:hidden; overflow-y: hidden; height:190px;}
+div#divMiddleRight       {overflow-x:hidden; overflow-y: scroll; width:811px; height:190px;}
+div#divMiddleRightAfter  {overflow-x:hidden; overflow-y: scroll; width:811px; height:190px;}
 
 div[name=divBottomRight] {overflow-x:scroll;overflow-y: hidden; width:795px;}
 
-.col01 {width:70px;}
+.col01 {width:65px;}
 
 select {width:70px; height:20px; font-size:11px; margin: 0px; padding: 1px 4px}
 
 
+
+.table-bordered td {
+    padding: 1px 3px !important;
+}
