@@ -518,7 +518,7 @@ function getData(param, $leftTable, $rightTable, callback) {
 
 
                 +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
-                +"<td style='width:60px;text-align:center;font-size:11px;'>"
+                +"<td style='width:30px;text-align:center;font-size:11px;'>"
                 + (function(_idx, _row){
                 if ($rightTable.parent().attr("id").match(/After/g)) {
                     return "&nbsp;";
