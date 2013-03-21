@@ -166,7 +166,7 @@
                     <td rowspan="3" group="title02" id="title02" style="width:100px;font-size:11px;">팀</td>
                     <td rowspan="3" group="title03" id="title03" style="width:100px;font-size:11px;">파트</td>
                     <td rowspan="3" id="titleFREQ" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:30px;font-size:11px;"></td>
+                    <td style="width:30px;font-size:11px;"><i class="icon-signal"></i></td>
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
