@@ -37,9 +37,9 @@ $(document).ready(function(){
         }
     });
 
-/*===============================================================================
- * For 전기간, 후기간 셋팅
- *==============================================================================*/
+    /*===============================================================================
+     * For 전기간, 후기간 셋팅
+     *==============================================================================*/
     var today = new Date();
     var year  = Number(today.getFullYear());
     var month = Number(today.getMonth())+1;
@@ -53,13 +53,13 @@ $(document).ready(function(){
     }
     $("#FROM_MONTH1,#FROM_MONTH2").val(month-1>9?month-1:'0'+(month-1));
     $("#TO_MONTH1,#TO_MONTH2").val(month);
-/*===============================================================================
- * End For 전기간, 후기간 셋팅
- *==============================================================================*/
+    /*===============================================================================
+     * End For 전기간, 후기간 셋팅
+     *==============================================================================*/
 
-/*===============================================================================
- * For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * For GRAPH
+     *==============================================================================*/
     $("#graphDropDown li[name=showCqiModal], #graphDropDown li[name=showThrpGraph]").click(function(){
         var checkedList = $("input[type=checkbox][name!=checkAll]:checked");
         if( checkedList.length === 0 ) {
@@ -71,7 +71,7 @@ $(document).ready(function(){
         //For CQI
         if (name === 'showCqiModal') {
             $('#cqiModal').modal('show');
-        //For 용량그래프
+            //For 용량그래프
         } else if (name === 'showThrpGraph') {
             window.open("downLinkBySTDStatsCompGraph.jsp","",'scrollbars=no,status=no,toolbar=no,resizable=yes,location=no,menu=no,width=1100,height=700');
         }
@@ -94,13 +94,13 @@ $(document).ready(function(){
         });
     });
 
-/*===============================================================================
- * End For GRAPH
- *==============================================================================*/
+    /*===============================================================================
+     * End For GRAPH
+     *==============================================================================*/
 
-/*===============================================================================
- * For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * For EXCEL
+     *==============================================================================*/
     //화면 전체엑셀파일 다운로드
     $("#divSearch button[name=excelDownload]").click(function(){
         var param = parseParam(this);
@@ -156,13 +156,13 @@ $(document).ready(function(){
 
         },"json");
     });
-/*===============================================================================
- * End For EXCEL
- *==============================================================================*/
+    /*===============================================================================
+     * End For EXCEL
+     *==============================================================================*/
 
-/*===============================================================================
- * For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * For SEARCH
+     *==============================================================================*/
     $("#divSearch button[name=search]").click(function(){
 
         if(!$("#SEARCHTYPE").val()) {
@@ -181,7 +181,7 @@ $(document).ready(function(){
         param["FROMYMD"] = param["FROM_YEAR1"]+param["FROM_MONTH1"];
         param["TOYMD"]   = param["TO_YEAR1"]+param["TO_MONTH1"];
         window.result = null;
-        toggleProgress('show','progress_result','340px');
+        toggleProgress('show','progress_result','300px');
         getData(param, $("#tableMiddleLeft tbody"), $("#tableMiddleRight tbody"), function (_result) {
             window.result = _result;
             if(_result.error || _result.rows.length === 0){
@@ -210,13 +210,13 @@ $(document).ready(function(){
         });
 
     });
-/*===============================================================================
- * End For SEARCH
- *==============================================================================*/
+    /*===============================================================================
+     * End For SEARCH
+     *==============================================================================*/
 
-/*===============================================================================
- * For 조회대상
- *==============================================================================*/
+    /*===============================================================================
+     * For 조회대상
+     *==============================================================================*/
     //조회대상 : 본부별
     $("#searchDropDown li[name=bonbuSearch]").click(function(event){
         preventDefault(event);
@@ -355,9 +355,9 @@ $(document).ready(function(){
         setNEList($("#NE_ID"),true,this.value); //true : all 보이도록..); //false : all 보이지 않도록..
     });
 
-/*===============================================================================
- * End For 조회대상
- *==============================================================================*/
+    /*===============================================================================
+     * End For 조회대상
+     *==============================================================================*/
 
 });
 
@@ -366,7 +366,7 @@ $(document).ready(function(){
  *
  *==============================================================================*/
 function setLeft(depth) {
-    var leftWidth = (depth * 100) + 70 + 60; //주파수, 그래프
+    var leftWidth = (depth * 100) + 70 + 30; //주파수, 그래프
 
     $("#tableTopLeft").css("width",leftWidth);
     $("#tableTopLeftAfter").css("width",leftWidth);
@@ -433,9 +433,11 @@ function getData(param, $leftTable, $rightTable, callback) {
             var $tr = $("<tr name='" + row.ROWIDX + "'>"
                 +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title01'>"+isUndifined(row.TITLE01,"-") + "</td>"
                 +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title02'>"+isUndifined(row.TITLE02,"-") + "</td>"
-                +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"+isUndifined(row.TITLE03,"-") +"</td>"
+                +"<td style='width:100px;text-align:center;font-size:11px; display:none;' group='title03'>"
+                +"<div style='text-align:center;margin:0px;padding:0px;height:15px;width:99%;overflow-x:hidden;overflow-y:hidden;'>" + isUndifined(row.TITLE03,"-") + "</div>"
+                +"</td>"
                 +"<td style='width:70px;text-align:center;font-size:11px;'>"+isUndifined(row.FREQ_KIND,"-")+"</td>"
-                +"<td style='width:60px;text-align:center;font-size:11px;'>"
+                +"<td style='width:42px;text-align:center;font-size:11px;'>"
                 + (function(_idx, _row){
                 if ($rightTable.parent().attr("id").match(/After/g)) {
                     return "&nbsp;";

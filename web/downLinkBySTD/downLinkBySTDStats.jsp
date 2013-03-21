@@ -199,18 +199,18 @@
                 <div class="" name="divTopLeft" id="divTopLeft">
                     <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                         <tbody>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="3" id="titleYMD" style="width:70px;font-size:11px;">날짜</td>
                             <td rowspan="3" group="title01" id="title01" style="width:100px;font-size:11px;">본부</td>
                             <td rowspan="3" group="title02" id="title02" style="width:100px;font-size:11px;">팀</td>
                             <td rowspan="3" group="title03" id="title03" style="width:100px;font-size:11px;">파트</td>
                             <td rowspan="3" id="titleFREQ" style="width:70px;font-size:11px;">주파수구분</td>
-                            <td style="width:60px;font-size:11px;">GRAPH</td>
+                            <td style="width:30px;font-size:11px;"><i class="icon-signal"></i></td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
                         </tr>
-                        <tr style="height:30px;" class="info"></tr>
+                        <tr style="height:23px;" class="info"></tr>
                         </tbody>
                     </table>
                 </div>
@@ -233,7 +233,7 @@
                             <col class="col01">
                         </colgroup>
                         <tbody>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td rowspan="3">기준용량<br>(Mbps)</td>
                             <td rowspan="3">CQI 평균</td>
                             <td rowspan="3">CQI0 비율</td>
@@ -243,13 +243,13 @@
                             <td rowspan="3">License<br>초과<br>실패호</td>
                             <td colspan="2">전송로</td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td colspan="2">Total(PUCCH)</td>
                             <td colspan="2">Total(PUSCH)</td>
                             <td rowspan="2">종류</td>
                             <td rowspan="2">갯수</td>
                         </tr>
-                        <tr style="height:30px;" class="info">
+                        <tr style="height:23px;" class="info">
                             <td>최번시</td>
                             <td>최한시</td>
                             <td>최번시</td>
@@ -307,7 +307,7 @@
                             <td group="title02" style="width:100px;font-size:11px;"></td>
                             <td group="title03" style="width:100px;font-size:11px;"></td>
                             <td style="width:70px;font-size:11px;">전체평균</td>
-                            <td style="width:60px;font-size:11px;"></td>
+                            <td style="width:30px;font-size:11px;"></td>
                         </tr>
                         <tr class="info">
                             <td style="width:70px;font-size:11px;"></td>
@@ -315,7 +315,7 @@
                             <td group="title02" style="width:100px;font-size:11px;"></td>
                             <td group="title03" style="width:100px;font-size:11px;"></td>
                             <td style="width:70px;font-size:11px;">최대값</td>
-                            <td style="width:60px;font-size:11px;"></td>
+                            <td style="width:30px;font-size:11px;"></td>
                         </tr>
                         <tr class="info">
                             <td style="width:70px;font-size:11px;"></td>
@@ -323,7 +323,7 @@
                             <td group="title02" style="width:100px;font-size:11px;"></td>
                             <td group="title03" style="width:100px;font-size:11px;"></td>
                             <td style="width:70px;font-size:11px;">최소값</td>
-                            <td style="width:60px;font-size:11px;"></td>
+                            <td style="width:30px;font-size:11px;"></td>
                         </tr>
                         <tr class="info">
                             <td style="width:70px;font-size:11px;"></td>
@@ -331,7 +331,7 @@
                             <td group="title02" style="width:100px;font-size:11px;"></td>
                             <td group="title03" style="width:100px;font-size:11px;"></td>
                             <td style="width:70px;font-size:11px;">표준편차</td>
-                            <td style="width:60px;font-size:11px;"></td>
+                            <td style="width:30px;font-size:11px;"></td>
                         </tr>
                         </tbody>
                     </table>

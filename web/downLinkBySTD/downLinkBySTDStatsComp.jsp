@@ -36,13 +36,6 @@
         </div>
     </div>
     <div id="web_container">
-        <div id="header">
-            <div id="popup_title"  style="vertical-align: top;margin-left:20px;padding-top: 0px;">
-                <img src="/adcaslte/common/bootstrap/img/logoSmall.png" style="vertical-align: top;">
-            </div>
-            <div id="popup_desc">LTE 용량분석 > LTE 기준 용량분석 > DownLink 통계 전후비교</div>
-            <div id="quickmenu_trigger"><img src="/adcaslte/common/bootstrap/img/bt_quickmenu.png"></div>
-        </div>
         <div id="middle">
             <div id='search_table'>
                 <table>
@@ -57,7 +50,7 @@
                             <table width="1240" height="90" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding:0px;border-bottom:2px #ff713a solid;height:10px;" valign="bottom" align="left">
-                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"> SEARCH
+                                        <img src="/adcaslte/common/bootstrap/img/bullet_1.png" border="0" align="absmiddle"><strong>&nbsp;&nbsp;LTE 용량분석 > LTE 기준 용량분석 > DownLink 통계 전후비교</strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -196,17 +189,17 @@
         <div class="" name="divTopLeft" id="divTopLeft">
             <table name="tableTopLeft" id="tableTopLeft" class="table table-bordered table-condensed">
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="3" group="title01" id="title01" style="width:100px;font-size:11px;">본부</td>
                     <td rowspan="3" group="title02" id="title02" style="width:100px;font-size:11px;">팀</td>
                     <td rowspan="3" group="title03" id="title03" style="width:100px;font-size:11px;">파트</td>
                     <td rowspan="3" id="titleFREQ" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:60px;font-size:11px;">GRAPH</td>
+                    <td style="width:42px;font-size:11px;"><i class="icon-signal"></i></td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="2"><input type="checkbox" name="checkAll"/></td>
                 </tr>
-                <tr style="height:30px;" class="info"></tr>
+                <tr style="height:23px;" class="info"></tr>
                 </tbody>
             </table>
         </div>
@@ -229,7 +222,7 @@
                     <col class="col01">
                 </colgroup>
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="3">기준용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -239,13 +232,13 @@
                     <td rowspan="3">License<br/>초과 실패호</td>
                     <td colspan="2">전송로</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
                     <td rowspan="2">종류</td>
                     <td rowspan="2">갯수</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td>최번시</td>
                     <td>최한시</td>
                     <td>최번시</td>
@@ -296,17 +289,17 @@
         <div class="" name="divTopLeft" id="divTopLeftAfter">
             <table name="tableTopLeft" id="tableTopLeftAfter" class="table table-bordered table-condensed">
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="3" group="title01" id="title01After" style="width:100px;font-size:11px;">본부</td>
                     <td rowspan="3" group="title02" id="title02After" style="width:100px;font-size:11px;">팀</td>
                     <td rowspan="3" group="title03" id="title03After" style="width:100px;font-size:11px;">파트</td>
                     <td rowspan="3" id="titleFREQAfter" style="width:70px;font-size:11px;">주파수구분</td>
-                    <td style="width:60px;font-size:11px;">GRAPH</td>
+                    <td style="width:42px;font-size:11px;"><i class="icon-signal"></i></td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="2"></td>
                 </tr>
-                <tr style="height:30px;" class="info"></tr>
+                <tr style="height:23px;" class="info"></tr>
                 </tbody>
             </table>
         </div>
@@ -329,7 +322,7 @@
                     <col class="col01">
                 </colgroup>
                 <tbody>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td rowspan="3">기준용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3">CQI0 비율</td>
@@ -339,13 +332,13 @@
                     <td rowspan="3">License<br/>초과 실패호</td>
                     <td colspan="2">전송로</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
                     <td rowspan="2">종류</td>
                     <td rowspan="2">갯수</td>
                 </tr>
-                <tr style="height:30px;" class="info">
+                <tr style="height:23px;" class="info">
                     <td>최번시</td>
                     <td>최한시</td>
                     <td>최번시</td>
@@ -392,23 +385,18 @@
 </tr>
 
 <tr style="vertical-align: top; margin: 0 0 0 0; padding: 0 0 0 0;">
-    <td><!-- bottom left   -->
+    <td style="height:16px;"><!-- bottom left   -->
         <div class="" name="divBottomLeft" id="divBottomLeft">
             <table name="tableBottomLeft" id="tableBottomLeft" class="table table-condensed">
                 <tbody>
                 <tr>
-                    <td group="title01" style="width:100px;"></td>
-                    <td group="title02" style="width:100px;"></td>
-                    <td group="title03" style="width:100px;"></td>
-                    <td style="width:70px;"></td>
-                    <td style="width:60px;"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </td>
-    <td><!--  top right   -->
-        <div name="divBottomRight" id="divBottomRight" onscroll="javascript:scrollX();">
+    <td style="height:16px;"><!--  top right   -->
+        <div style="height:16px;" name="divBottomRight" id="divBottomRight" onscroll="javascript:scrollX();">
             <table name="tableBottomRight" id="tableBottomRight" class="table table-condensed">
                 <colgroup>
                     <col class="col01">
@@ -425,12 +413,6 @@
                     <col class="col01">
                 </colgroup>
                 <tbody>
-                <tr>
-                    <td/><td/><td/>
-                    <td/><td/><td/>
-                    <td/><td/><td/>
-                    <td/><td/><td/>
-                </tr>
                 </tbody>
             </table>
         </div>
