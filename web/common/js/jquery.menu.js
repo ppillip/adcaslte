@@ -120,17 +120,17 @@
                     "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
                 "</div>";
 
-            quickMenu = quickMenu +
-                "<div style=\"float:left; margin:6px;\">" +
-                    "<dl>" +
-                        "<dt style=\"color:white\">도움말</dt>" +
-                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/manual/index.htm','1280-700','manual')\">도움말 보기</span></dd>" +
-                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/help.zip','100-100','manualBin')\">Download</span></dd>" +
-                    "</dl>" +
-                "</div>" +
-                "<div style=\"float:left; margin:6px;\">" +
-                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
-                "</div>";
+//            quickMenu = quickMenu +
+//                "<div style=\"float:left; margin:6px;\">" +
+//                    "<dl>" +
+//                        "<dt style=\"color:white\">도움말</dt>" +
+//                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/manual/index.htm','1280-700','manual')\">도움말 보기</span></dd>" +
+//                        "<dd><i class=\"icon-minus icon-white\"></i><span style=\"margin-left:5px; color:white; cursor:pointer\" onClick=\"$.openMenu('/adcaslte/help.zip','100-100','manualBin')\">Download</span></dd>" +
+//                    "</dl>" +
+//                "</div>" +
+//                "<div style=\"float:left; margin:6px;\">" +
+//                    "<img src=\"/adcaslte/common/img/verticalLine.jpg\" style=\"width:1px; height:250px;\">" +
+//                "</div>";
 
 
             quickMenu = quickMenu + "</div>";
@@ -218,15 +218,15 @@
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/environment/criticalValue.jsp','520-500','USER')\">임계값 설정</span></li>" +
                         "</ul>" +
                     "</div>" +
-                    "<div class='menu1 depth_1' id='"+i+j+"'>도움말" +
-                        "<div class='arrow'><img src='/adcaslte/common/bootstrap/img/sub_plus_active.jpg'></div>" +
-                    "</div>" +
-                    "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
-                        "<ul>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/manual/index.htm','1280-700','manual')\">도움말 보기</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/help.zip','100-100','manualBin')\">Download</span></li>" +
-                        "</ul>" +
-                    "</div>" +
+//                    "<div class='menu1 depth_1' id='"+i+j+"'>도움말" +
+//                        "<div class='arrow'><img src='/adcaslte/common/bootstrap/img/sub_plus_active.jpg'></div>" +
+//                    "</div>" +
+//                    "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
+//                        "<ul>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/manual/index.htm','1280-700','manual')\">도움말 보기</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcaslte/help.zip','100-100','manualBin')\">Download</span></li>" +
+//                        "</ul>" +
+//                    "</div>" +
                 "</div>" +
             "</div>";
             i++;
@@ -333,15 +333,15 @@
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/criticalValue/main.jsp','650-700')\">임계값 설정</span></li>" +
                         "</ul>" +
                     "</div>" +
-                    "<div class='menu1 depth_1' id='"+i+j+"'>도움말" +
-                        "<div class='arrow'><img src='/adcaslte/common/bootstrap/img/sub_plus_active.jpg'></div>" +
-                    "</div>" +
-                    "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
-                        "<ul>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/helpReading/main.html','1280-1024')\">도움말 보기</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/download.jsp?file=adcas_help_ver3.0.zip')\">Download</span></li>" +
-                        "</ul>" +
-                    "</div>" +
+//                    "<div class='menu1 depth_1' id='"+i+j+"'>도움말" +
+//                        "<div class='arrow'><img src='/adcaslte/common/bootstrap/img/sub_plus_active.jpg'></div>" +
+//                    "</div>" +
+//                    "<div class='depth_2' id='menu_"+i+(j++)+"'>" +
+//                        "<ul>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/helpReading/main.html','1280-1024')\">도움말 보기</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/download.jsp?file=adcas_help_ver3.0.zip')\">Download</span></li>" +
+//                        "</ul>" +
+//                    "</div>" +
                 "</div>" +
             "</div>";
             i++;
