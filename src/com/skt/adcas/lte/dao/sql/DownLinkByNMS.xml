@@ -29,6 +29,8 @@
         ,FREQ_KIND
         ,MFC_CD
         ,MIMO_TYPE
+        ,CHNL_TYPE
+        ,CHNL_COUNT
         ,round( ${MBTYPE + "_THROUGHPUT    "}   ,1) AS THROUGHPUT
         ,round( ${MBTYPE + "_CQI_AVERAGE   "}   ,1) AS CQI_AVERAGE
         ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
@@ -51,6 +53,7 @@
         ,round( ${MBTYPE + "_TRY_CCNT      "}   ,1) AS TRY_CCNT
         ,round( ${MBTYPE + "_CON_RATE      "}   ,1) AS CON_RATE
         ,round( ${MBTYPE + "_CDC_RATE      "}   ,1) AS CDC_RATE
+        ,round( ${MBTYPE + "_DL_FA_USG_RATE"}   ,1) AS DL_FA_USG_RATE
         ,round( ${MBTYPE + "_VOICE_DL_MB   "}   ,1) AS VOICE_DL_MB
         ,round( ${MBTYPE + "_VOICE_DL_PRB  "}   ,1) AS VOICE_DL_PRB
         ,round( ${MBTYPE + "_VOICE_TRY_CCNT"}   ,1) AS VOICE_TRY_CCNT
@@ -189,6 +192,8 @@
     </sql>
 
     <sql id="DownLinkByNMS.sqlFromPartAVG">
+            ,max(ORG.CHNL_TYPE      )             AS CHNL_TYPE
+            ,round(avg(ORG.CHNL_COUNT     )  ,3)  AS CHNL_COUNT
             ,round(avg(ORG.THROUGHPUT     )  ,3)  AS THROUGHPUT
             ,round(avg(ORG.CQI_AVERAGE    )  ,3)  AS CQI_AVERAGE
             ,round(avg(ORG.CQI0_RATE      )  ,3)  AS CQI0_RATE
@@ -211,6 +216,7 @@
             ,round(avg(ORG.TRY_CCNT       )  ,3)  AS TRY_CCNT
             ,round(avg(ORG.CON_RATE       )  ,3)  AS CON_RATE
             ,round(avg(ORG.CDC_RATE       )  ,3)  AS CDC_RATE
+            ,round(avg(ORG.DL_FA_USG_RATE )  ,3)  AS DL_FA_USG_RATE
             ,round(avg(ORG.VOICE_DL_MB    )  ,3)  AS VOICE_DL_MB
             ,round(avg(ORG.VOICE_DL_PRB   )  ,3)  AS VOICE_DL_PRB
             ,round(avg(ORG.VOICE_TRY_CCNT )  ,3)  AS VOICE_TRY_CCNT
@@ -253,41 +259,6 @@
             ,round(avg(ORG.CQI_CDF_14     )  ,1)  AS CQI_CDF_14
             ,round(avg(ORG.CQI_CDF_15     )  ,1)  AS CQI_CDF_15
     </sql>
-
-    <sql id="DownLinkByNMS.sqlFromPartSummary">
-        NUM AS SRT
-        ,DECODE(NUM,1,round(avg(THROUGHPUT     )  ,3),2,round(max(THROUGHPUT     )  ,3),3,round(min(THROUGHPUT     )  ,3),4,round(stddev(THROUGHPUT     )  ,3)) AS THROUGHPUT
-        ,DECODE(NUM,1,round(avg(CQI_AVERAGE    )  ,3),2,round(max(CQI_AVERAGE    )  ,3),3,round(min(CQI_AVERAGE    )  ,3),4,round(stddev(CQI_AVERAGE    )  ,3)) AS CQI_AVERAGE
-        ,DECODE(NUM,1,round(avg(CQI0_RATE      )  ,3),2,round(max(CQI0_RATE      )  ,3),3,round(min(CQI0_RATE      )  ,3),4,round(stddev(CQI0_RATE      )  ,3)) AS CQI0_RATE
-        ,DECODE(NUM,1,round(avg(RI_RATE        )  ,3),2,round(max(RI_RATE        )  ,3),3,round(min(RI_RATE        )  ,3),4,round(stddev(RI_RATE        )  ,3)) AS RI_RATE
-        ,DECODE(NUM,1,round(avg(DL_PRB_RATE    )  ,3),2,round(max(DL_PRB_RATE    )  ,3),3,round(min(DL_PRB_RATE    )  ,3),4,round(stddev(DL_PRB_RATE    )  ,3)) AS DL_PRB_RATE
-        ,DECODE(NUM,1,round(avg(MCS_AVERAGE    )  ,3),2,round(max(MCS_AVERAGE    )  ,3),3,round(min(MCS_AVERAGE    )  ,3),4,round(stddev(MCS_AVERAGE    )  ,3)) AS MCS_AVERAGE             /* ss , nsn */
-        ,DECODE(NUM,1,round(avg(MIMO_RATE      )  ,3),2,round(max(MIMO_RATE      )  ,3),3,round(min(MIMO_RATE      )  ,3),4,round(stddev(MIMO_RATE      )  ,3)) AS MIMO_RATE               /* elg, nsn */
-        ,DECODE(NUM,1,round(avg(RSSI           )  ,3),2,round(max(RSSI           )  ,3),3,round(min(RSSI           )  ,3),4,round(stddev(RSSI           )  ,3)) AS RSSI                    /*ss*/
-        ,DECODE(NUM,1,round(avg(R2_RSSI        )  ,3),2,round(max(R2_RSSI        )  ,3),3,round(min(R2_RSSI        )  ,3),4,round(stddev(R2_RSSI        )  ,3)) AS R2_RSSI                 /*ss*/
-        ,DECODE(NUM,1,round(avg(DL_THROUGHPUT  )  ,3),2,round(max(DL_THROUGHPUT  )  ,3),3,round(min(DL_THROUGHPUT  )  ,3),4,round(stddev(DL_THROUGHPUT  )  ,3)) AS DL_THROUGHPUT           /*elg*/
-        ,DECODE(NUM,1,round(avg(LICENSE_FAIL   )  ,3),2,round(max(LICENSE_FAIL   )  ,3),3,round(min(LICENSE_FAIL   )  ,3),4,round(stddev(LICENSE_FAIL   )  ,3)) AS LICENSE_FAIL            /*elg*/
-        ,DECODE(NUM,1,round(avg(PUCCH_AVG      )  ,3),2,round(max(PUCCH_AVG      )  ,3),3,round(min(PUCCH_AVG      )  ,3),4,round(stddev(PUCCH_AVG      )  ,3)) AS PUCCH_AVG               /*nsn*/
-        ,DECODE(NUM,1,round(avg(R2_PUCCH_AVG   )  ,3),2,round(max(R2_PUCCH_AVG   )  ,3),3,round(min(R2_PUCCH_AVG   )  ,3),4,round(stddev(R2_PUCCH_AVG   )  ,3)) AS R2_PUCCH_AVG            /*nsn*/
-        ,DECODE(NUM,1,round(avg(PUSCH_AVG      )  ,3),2,round(max(PUSCH_AVG      )  ,3),3,round(min(PUSCH_AVG      )  ,3),4,round(stddev(PUSCH_AVG      )  ,3)) AS PUSCH_AVG               /*nsn*/
-        ,DECODE(NUM,1,round(avg(R2_PUSCH_AVG   )  ,3),2,round(max(R2_PUSCH_AVG   )  ,3),3,round(min(R2_PUSCH_AVG   )  ,3),4,round(stddev(R2_PUSCH_AVG   )  ,3)) AS R2_PUSCH_AVG            /*nsn*/
-        ,DECODE(NUM,1,round(avg(PDCP_DL_MB     )  ,3),2,round(max(PDCP_DL_MB     )  ,3),3,round(min(PDCP_DL_MB     )  ,3),4,round(stddev(PDCP_DL_MB     )  ,3)) AS PDCP_DL_MB
-        ,DECODE(NUM,1,round(avg(PRB_USG_RATE   )  ,3),2,round(max(PRB_USG_RATE   )  ,3),3,round(min(PRB_USG_RATE   )  ,3),4,round(stddev(PRB_USG_RATE   )  ,3)) AS PRB_USG_RATE
-        ,DECODE(NUM,1,round(avg(DRB_USG_RATE   )  ,3),2,round(max(DRB_USG_RATE   )  ,3),3,round(min(DRB_USG_RATE   )  ,3),4,round(stddev(DRB_USG_RATE   )  ,3)) AS DRB_USG_RATE
-        ,DECODE(NUM,1,round(avg(CON_TIME       )  ,3),2,round(max(CON_TIME       )  ,3),3,round(min(CON_TIME       )  ,3),4,round(stddev(CON_TIME       )  ,3)) AS CON_TIME
-        ,DECODE(NUM,1,round(avg(TRY_CCNT       )  ,3),2,round(max(TRY_CCNT       )  ,3),3,round(min(TRY_CCNT       )  ,3),4,round(stddev(TRY_CCNT       )  ,3)) AS TRY_CCNT
-        ,DECODE(NUM,1,round(avg(CON_RATE       )  ,3),2,round(max(CON_RATE       )  ,3),3,round(min(CON_RATE       )  ,3),4,round(stddev(CON_RATE       )  ,3)) AS CON_RATE
-        ,DECODE(NUM,1,round(avg(CDC_RATE       )  ,3),2,round(max(CDC_RATE       )  ,3),3,round(min(CDC_RATE       )  ,3),4,round(stddev(CDC_RATE       )  ,3)) AS CDC_RATE
-        ,DECODE(NUM,1,round(avg(VOICE_DL_MB    )  ,3),2,round(max(VOICE_DL_MB    )  ,3),3,round(min(VOICE_DL_MB    )  ,3),4,round(stddev(VOICE_DL_MB    )  ,3)) AS VOICE_DL_MB
-        ,DECODE(NUM,1,round(avg(VOICE_DL_PRB   )  ,3),2,round(max(VOICE_DL_PRB   )  ,3),3,round(min(VOICE_DL_PRB   )  ,3),4,round(stddev(VOICE_DL_PRB   )  ,3)) AS VOICE_DL_PRB
-        ,DECODE(NUM,1,round(avg(VOICE_TRY_CCNT )  ,3),2,round(max(VOICE_TRY_CCNT )  ,3),3,round(min(VOICE_TRY_CCNT )  ,3),4,round(stddev(VOICE_TRY_CCNT )  ,3)) AS VOICE_TRY_CCNT
-        ,DECODE(NUM,1,round(avg(VOICE_TIME     )  ,3),2,round(max(VOICE_TIME     )  ,3),3,round(min(VOICE_TIME     )  ,3),4,round(stddev(VOICE_TIME     )  ,3)) AS VOICE_TIME
-        ,DECODE(NUM,1,round(avg(IMAGE_DL_MB    )  ,3),2,round(max(IMAGE_DL_MB    )  ,3),3,round(min(IMAGE_DL_MB    )  ,3),4,round(stddev(IMAGE_DL_MB    )  ,3)) AS IMAGE_DL_MB
-        ,DECODE(NUM,1,round(avg(IMAGE_DL_PRB   )  ,3),2,round(max(IMAGE_DL_PRB   )  ,3),3,round(min(IMAGE_DL_PRB   )  ,3),4,round(stddev(IMAGE_DL_PRB   )  ,3)) AS IMAGE_DL_PRB
-        ,DECODE(NUM,1,round(avg(IMAGE_TRY_CCNT )  ,3),2,round(max(IMAGE_TRY_CCNT )  ,3),3,round(min(IMAGE_TRY_CCNT )  ,3),4,round(stddev(IMAGE_TRY_CCNT )  ,3)) AS IMAGE_TRY_CCNT
-        ,DECODE(NUM,1,round(avg(IMAGE_TIME     )  ,3),2,round(max(IMAGE_TIME     )  ,3),3,round(min(IMAGE_TIME     )  ,3),4,round(stddev(IMAGE_TIME     )  ,3)) AS IMAGE_TIME
-    </sql>
-
 
     <select id="DownLinkByNMS.selectDailyCellTraffic" parameterType="hashmap" resultType="hashmap">
 
@@ -334,33 +305,7 @@
         order by  data.YMD DESC, data.INGR_ERP_CD asc ,data.C_UID ASC ,data.CELL_ID ,data.MCID ASC
     </select>
 
-    <select id="DownLinkByNMS.selectDailyCellTrafficSummaryAVG" parameterType="hashmap" resultType="hashmap">
 
-        SELECT
-        <include refid="DownLinkByNMS.sqlFromPartSummary"/>
-        FROM (
-            /*copy and paste from core of DownLinkByNMS.selectDailyCellTrafficAVG */
-            SELECT
-            '-'                     AS YMD
-            ,'-'                     AS MB_TIME
-            ,ORG.INGR_ERP_CD          AS INGR_ERP_CD
-            ,ORG.C_UID                AS C_UID
-            ,ORG.CELL_ID              AS CELL_ID
-            ,ORG.MCID                 AS MCID
-            ,ORG.FREQ_KIND            AS FREQ_KIND
-            <include refid="DownLinkByNMS.sqlFromPartAVG"/>
-            FROM (
-            <include refid="DownLinkByNMS.selectDailyCellTrafficORG"/>
-            ) ORG
-            GROUP BY INGR_ERP_CD,C_UID,CELL_ID,MCID,FREQ_KIND
-
-        )  V,
-        <![CDATA[
-        (SELECT LEVEL NUM FROM DUAL CONNECT BY LEVEL <=4) N
-        ]]>
-        GROUP BY NUM
-        order by 1
-    </select>
 
 
 

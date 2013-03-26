@@ -677,8 +677,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - PRB 사용률(%)"
         hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - 시도호수"
         hrow0.createCell(a++).setCellValue("영상통화");             //"영상통화 - 점유시간"
-        hrow0.createCell(a++).setCellValue("전송로");               //"전송로"
-        hrow0.createCell(a++).setCellValue("전송로");               //"전송로"
+//        hrow0.createCell(a++).setCellValue("전송로");               //"전송로"
+//        hrow0.createCell(a++).setCellValue("전송로");               //"전송로"
 
         log.debug("createCellTrafficStatsExcelSheet : hrow0 end");
         log.debug("createCellTrafficStatsExcelSheet : hrow1 start");
@@ -731,8 +731,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         hrow1.createCell(b++).setCellValue("PRB 사용률(%)");   //"영상통화 - PRB 사용률(%)"
         hrow1.createCell(b++).setCellValue("시도호수");        //"영상통화 - 시도호수"
         hrow1.createCell(b++).setCellValue("점유시간");        //"영상통화 - 점유시간"
-        hrow1.createCell(b++).setCellValue("종류");           //"전송로-종류"
-        hrow1.createCell(b++).setCellValue("갯수");           //"전송로-갯수"
+//        hrow1.createCell(b++).setCellValue("종류");           //"전송로-종류"
+//        hrow1.createCell(b++).setCellValue("갯수");           //"전송로-갯수"
 
         log.debug("createCellTrafficStatsExcelSheet : hrow1 end");
 
@@ -786,8 +786,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         hrow2.createCell(c++).setCellValue("");               //"영상통화 - PRB 사용률(%)"
         hrow2.createCell(c++).setCellValue("");               //"영상통화 - 시도호수"
         hrow2.createCell(c++).setCellValue("");               //"영상통화 - 점유시간"
-        hrow2.createCell(c++).setCellValue("");               //"전송로-종류"
-        hrow2.createCell(c++).setCellValue("");               //"전송로-갯수"
+//        hrow2.createCell(c++).setCellValue("");               //"전송로-종류"
+//        hrow2.createCell(c++).setCellValue("");               //"전송로-갯수"
 
         int d = 0;
         sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "날짜"
@@ -843,8 +843,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
         sheet.addMergedRegion(new CellRangeAddress(1,2,d+3,d+3)); //"영상통화 - 점유시간"
         d += 4;
         sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
-        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
-        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
+//        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
+//        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
 
         log.debug("createCellTrafficStatsExcelSheet : hrow2 end");
 
@@ -896,7 +896,7 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"TRY_CCNT");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"CON_RATE");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"CDC_RATE");
-            row.createCell(e++).setCellValue("n/a");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"DL_FA_USG_RATE");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_DL_MB");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_DL_PRB");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"VOICE_TRY_CCNT");
@@ -905,8 +905,8 @@ public class DownLinkByNMSStatsAction extends ActionSupport4lte {
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_DL_PRB");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_TRY_CCNT");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"IMAGE_TIME");
-            row.createCell(e++).setCellValue("n/a");
-            row.createCell(e++).setCellValue("n/a");
+//전송로            row.createCell(e++).setCellValue("n/a");
+//전송로            row.createCell(e++).setCellValue("n/a");
             i++;
         }
 

@@ -248,8 +248,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
@@ -271,7 +271,7 @@
                     <td colspan="4">HD Voice</td>
                     <td colspan="4">영상통화</td>
 
-                    <td colspan="2">전송로</td>
+                    <!-- td colspan="2">전송로</td -->
 
                 </tr>
                 <tr style="height:30px;" class="info">
@@ -295,8 +295,8 @@
                     <td rowspan="2">시도호수</td>
                     <td rowspan="2">점유시간</td>
 
-                    <td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>
+                    <!-- td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td -->
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -354,8 +354,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
 
@@ -420,8 +420,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
@@ -443,7 +443,7 @@
                     <td colspan="4">HD Voice</td>
                     <td colspan="4">영상통화</td>
 
-                    <td colspan="2">전송로</td>
+                    <!-- td colspan="2">전송로</td -->
 
                 </tr>
                 <tr style="height:30px;" class="info">
@@ -467,8 +467,8 @@
                     <td rowspan="2">시도호수</td>
                     <td rowspan="2">점유시간</td>
 
-                    <td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>
+                    <!-- td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td -->
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td>최번시</td>
@@ -526,8 +526,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" -->
                 </colgroup>
                 <tbody>
 
@@ -589,8 +589,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
                 <tr>
@@ -602,7 +602,7 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
+                    <td/><td/><!-- td/><td/ 전송로-->
                 </tr>
                 </tbody>
             </table>

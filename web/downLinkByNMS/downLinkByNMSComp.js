@@ -275,7 +275,7 @@ $(document).ready(function(){
         $("tr ."+param.MFC_CD).show();
 
         //전
-        $progress = $("<div name='t_progress' style='position: absolute;top:340px;left:620px;'><img src='/adcaslte/common/img/ajax-loader.gif'/></div>");
+        $progress = $("<div name='t_progress' style='position: absolute;top:300px;left:620px;'><img src='/adcaslte/common/img/ajax-loader.gif'/></div>");
         $progress.appendTo("body");
         jQuery.post("/adcaslte/svc/DownLinkByNMS-selectDailyCellTraffic",param,function(result,stat){
             //전
@@ -327,7 +327,6 @@ $(document).ready(function(){
                     .appendTo($leftTable);
 
                 $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
                     if(Number(value) && critical != null && eval(value+sign+critical)) {
@@ -402,17 +401,17 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    ) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_FA_USG_RATE    ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CC) + "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CCNT) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME  ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CC) + "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CCNT) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME  ) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+isUndifined(row.CHNL_TYPE,"-") +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
                     +"</tr>")
                     .appendTo($rightTable);
 
@@ -497,17 +496,17 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_FA_USG_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CC) +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CCNT) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME  ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CC) +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CCNT) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME  ) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+isUndifined(row.CHNL_TYPE,"-") +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
                     +"</tr>")
                     .appendTo($rightTable);
             });
@@ -568,7 +567,6 @@ $(document).ready(function(){
                     .appendTo($leftTableAfter);
 
                 $("<tr name='" + row.ROWIDX + "'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.MIMO_TYPE)+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"
                     +(function(value,sign,critical) {
                     if(Number(value) && critical != null && eval(value+sign+critical)) {
@@ -644,17 +642,17 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    ) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_FA_USG_RATE    ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CC) + "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CCNT) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME  ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB ) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CC) + "</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CCNT) + "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME  ) + "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+isUndifined(row.CHNL_TYPE,"-") +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
                     +"</tr>")
                     .appendTo($rightTableAfter);
 
@@ -739,17 +737,17 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_FA_USG_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CC) +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CCNT) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME  ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CC) +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CCNT) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME  ) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+isUndifined(row.CHNL_TYPE,"-") +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
                     +"</tr>")
                     .appendTo($rightTableAfter);
             });

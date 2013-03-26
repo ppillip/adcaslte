@@ -204,7 +204,6 @@
         <div class="" name="divTopRight" id="divTopRight">
             <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
                 <colgroup>
-                    <col class="colMIMO">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -243,7 +242,6 @@
                 </colgroup>
                 <tbody>
                 <tr style="height:23px;" class="info">
-                    <td rowspan="3">MIMO<br>구분</td>
                     <td rowspan="3" name="so">용량(Mbps)</td>
                     <td rowspan="3">CQI 평균</td>
                     <td rowspan="3"><span id="cqi0_rate_text">CQI0</span><br/>비율(%)</td>
@@ -327,7 +325,6 @@
         <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
             <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
                 <colgroup>
-                    <col class="colMIMO">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -422,7 +419,6 @@
         <div class="" name="divBottomRight" id="divBottomRight" onscroll="javascript:scrollX();">
             <table name="tableBottomRight" id="tableBottomRight" class="table table-bordered table-condensed table-striped">
                 <colgroup>
-                    <col class="colMIMO">
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
@@ -463,7 +459,7 @@
                 <tbody>
                 <tr class='info'>
                     <!-- 고정 -->
-                    <td>&nbsp;</td><td/><td/><td/><td/><td/>
+                    <td>&nbsp;</td><td/><td/><td/><td/>
                     <!-- 제조사별 -->
                     <td class='mnf MFC00001'/><td class='mnf MFC00001'/><td class='mnf MFC00001'/>
                     <td class='mnf MFC00002' style="display:none;"/>
@@ -484,7 +480,7 @@
                 </tr>
                 <tr class='info'>
                     <!-- 고정 -->
-                    <td>&nbsp;</td><td/><td/><td/><td/><td/>
+                    <td>&nbsp;</td><td/><td/><td/><td/>
                     <!-- 제조사별 -->
                     <td class='mnf MFC00001'/><td class='mnf MFC00001'/><td class='mnf MFC00001'/>
                     <td class='mnf MFC00002' style="display:none;"/>
@@ -504,7 +500,7 @@
                     <td/><td/><td/>
                 </tr>
                 <tr class='info'>
-                    <td>&nbsp;</td><td/><td/><td/><td/><td/>
+                    <td>&nbsp;</td><td/><td/><td/><td/>
                     <td class='mnf MFC00001'/><td class='mnf MFC00001'/><td class='mnf MFC00001'/>
                     <td class='mnf MFC00002' style="display:none;"/>
                     <td class='mnf MFC00002' style="display:none;"/>
@@ -522,7 +518,7 @@
                     <td/><td/><td/>
                 </tr>
                 <tr class='info'>
-                    <td>&nbsp;</td><td/><td/><td/><td/><td/>
+                    <td>&nbsp;</td><td/><td/><td/><td/>
                     <td class='mnf MFC00001'/><td class='mnf MFC00001'/><td class='mnf MFC00001'/>
                     <td class='mnf MFC00002' style="display:none;"/>
                     <td class='mnf MFC00002' style="display:none;"/>

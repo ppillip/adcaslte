@@ -257,7 +257,7 @@ $(document).ready(function(){
         param["FROMYMD"] = param["FROMYMD"];
         param["TOYMD"]   = param["TOYMD"];
         window.result = null;
-        toggleProgress('show','progress_result','340px');
+        toggleProgress('show','progress_result','300px');
         getData(param, $("#tableMiddleLeft tbody"), $("#tableMiddleRight tbody"), function (_result) {
             window.result = _result;
             if(_result.error || _result.rows.length === 0){
@@ -582,17 +582,18 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    )+ "</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    )+ "</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    )+ "</td>"
-                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_MB */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_DL_PRB*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TRY_CC*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.VOICE_TIME  */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_MB */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_DL_PRB*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TRY_CC*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*row.IMAGE_TIME  */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_FA_USG_RATE    )+ "</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CCNT    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CCNT    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME    ) +"</td>"
+//                +"<td style='text-align: right;font-size:11px;'>"+ isUndifined(row.CHNL_TYPE,"-") +"</td>"
+//                +"<td style='text-align: right;font-size:11px;'>"+ formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
+
                 +"</tr>")
                 .appendTo($rightTable);
 
@@ -654,17 +655,17 @@ function getData(param, $leftTable, $rightTable, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].TRY_CCNT    )+ "</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CON_RATE    )+ "</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CDC_RATE    )+ "</td>"
-                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_DL_MB */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_DL_PRB*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_TRY_CC*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].VOICE_TIME  */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_DL_MB */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_DL_PRB*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_TRY_CC*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*statsArray[i].IMAGE_TIME  */"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_FA_USG_RATE    )+ "</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_DL_MB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_DL_PRB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TRY_CC    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TIME    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_DL_MB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_DL_PRB    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TRY_CC    ) +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TIME    ) +"</td>"
+//                +"<td style='text-align: right;font-size:11px;'>"+ "-" +"</td>"
+//                +"<td style='text-align: right;font-size:11px;'>"+ formatNumber(statsArray[i].CHNL_COUNT ) +"</td>"
                 +"</tr>")
                 .appendTo($rightTable);
         }

@@ -247,8 +247,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로 -->
                 </colgroup>
                 <tbody>
                 <tr style="height:30px;" class="info">
@@ -270,7 +270,7 @@
                     <td colspan="4" style="font-size:11px;">HD Voice</td>
                     <td colspan="4" style="font-size:11px;">영상통화</td>
 
-                    <td colspan="2" style="font-size:11px;">전송로</td>
+                    <!-- td colspan="2" style="font-size:11px;">전송로</td -->
 
                 </tr>
                 <tr style="height:30px;" class="info">
@@ -294,8 +294,8 @@
                     <td rowspan="2" style="font-size:11px;">시도호수</td>
                     <td rowspan="2" style="font-size:11px;">점유시간</td>
 
-                    <td rowspan="2" style="font-size:11px;">종류</td>
-                    <td rowspan="2" style="font-size:11px;">갯수</td>
+                    <!-- td rowspan="2" style="font-size:11px;">종류</td>
+                    <td rowspan="2" style="font-size:11px;">갯수</td 전송로 -->
                 </tr>
                 <tr style="height:30px;" class="info">
                     <td style="font-size:11px;">최번시</td>
@@ -354,8 +354,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로 -->
                 </colgroup>
                 <tbody>
 
@@ -442,8 +442,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로 -->
                 </colgroup>
                 <tbody>
                 <tr class='info'>
@@ -456,7 +456,7 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
+                    <td/><td/><!--td/><td/전송로 -->
                 </tr>
                 <tr class='info'>
                     <!-- 고정 -->
@@ -468,7 +468,7 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
+                    <td/><td/><!--td/><td/전송로 -->
                 </tr>
                 <tr class='info'>
                     <td>&nbsp;</td><td/>
@@ -479,7 +479,7 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
+                    <td/><td/><!--td/><td/전송로 -->
                 </tr>
                 <tr class='info'>
                     <td>&nbsp;</td><td/>
@@ -490,7 +490,7 @@
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
                     <td/><td/><td/><td/>
-                    <td/><td/><td/><td/>
+                    <td/><td/><!--td/><td/ 전송로 -->
                 </tr>
                 </tbody>
             </table>

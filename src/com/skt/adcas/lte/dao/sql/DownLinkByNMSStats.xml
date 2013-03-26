@@ -49,6 +49,7 @@
         ,round( ${MBTYPE + "_TRY_CCNT      "}   ,1) AS TRY_CCNT
         ,round( ${MBTYPE + "_CON_RATE      "}   ,1) AS CON_RATE
         ,round( ${MBTYPE + "_CDC_RATE      "}   ,1) AS CDC_RATE
+        ,round( ${MBTYPE + "_DL_FA_USG_RATE      "}   ,1) AS DL_FA_USG_RATE
         ,round( ${MBTYPE + "_VOICE_DL_MB   "}   ,1) AS VOICE_DL_MB
         ,round( ${MBTYPE + "_VOICE_DL_PRB  "}   ,1) AS VOICE_DL_PRB
         ,round( ${MBTYPE + "_VOICE_TRY_CCNT"}   ,1) AS VOICE_TRY_CCNT
@@ -204,6 +205,7 @@
             ,round(avg(ORG.TRY_CCNT       )  ,3)  AS TRY_CCNT
             ,round(avg(ORG.CON_RATE       )  ,3)  AS CON_RATE
             ,round(avg(ORG.CDC_RATE       )  ,3)  AS CDC_RATE
+            ,round(avg(ORG.DL_FA_USG_RATE       )  ,3)  AS DL_FA_USG_RATE
             ,round(avg(ORG.VOICE_DL_MB    )  ,3)  AS VOICE_DL_MB
             ,round(avg(ORG.VOICE_DL_PRB   )  ,3)  AS VOICE_DL_PRB
             ,round(avg(ORG.VOICE_TRY_CCNT )  ,3)  AS VOICE_TRY_CCNT

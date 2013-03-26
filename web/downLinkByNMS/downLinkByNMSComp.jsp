@@ -228,7 +228,6 @@
                 <div class="" name="divTopRight" id="divTopRight">
                     <table name="tableTopRight" id="tableTopRight" class="table table-bordered table-condensed">
                         <colgroup>
-                            <col class="colMIMO">
                             <col class="col01">
                             <col class="col01">
                             <col class="col01">
@@ -267,7 +266,6 @@
                         </colgroup>
                         <tbody>
                         <tr style="height:23px;" class="info">
-                            <td rowspan="3">MIMO 구분</td>
                             <td rowspan="3" name="so">용량(Mbps)</td>
                             <td rowspan="3">CQI 평균</td>
                             <td rowspan="3"><span id="cqi0_rate_text">CQI0</span><br/>비율(%)</td>
@@ -351,7 +349,7 @@
             <td><!--  middle right   -->
                 <div name="divMiddleRight" id="divMiddleRight" onscroll="javascript:scrollY();">
                     <table name="tableMiddleRight" id="tableMiddleRight" class="table table-bordered table-condensed table-striped">
-                        <colgroup><col class="colMIMO">
+                        <colgroup>
                             <col class="col01">
                             <col class="col01">
                             <col class="col01">
@@ -429,7 +427,6 @@
                 <div class="" name="divTopRightAfter" id="divTopRightAfter">
                     <table name="tableTopRightAfter" id="tableTopRightAfter" class="table table-bordered table-condensed">
                         <colgroup>
-                            <col class="colMIMO">
                             <col class="col01">
                             <col class="col01">
                             <col class="col01">
@@ -468,7 +465,6 @@
                         </colgroup>
                         <tbody>
                         <tr style="height:23px;" class="info">
-                            <td rowspan="3">MIMO 구분</td>
                             <td rowspan="3" name="so">용량(Mbps)</td>
                             <td rowspan="3">CQI 평균</td>
                             <td rowspan="3"><span id="cqi0_rate_text">CQI0</span><br/>비율(%)</td>
@@ -552,7 +548,7 @@
             <td><!--  middle right   -->
                 <div name="divMiddleRightAfter" id="divMiddleRightAfter" onscroll="javascript:scrollYAfter();">
                     <table name="tableMiddleRightAfter" id="tableMiddleRightAfter" class="table table-bordered table-condensed table-striped">
-                        <colgroup><col class="colMIMO">
+                        <colgroup>
                             <col class="col01">
                             <col class="col01">
                             <col class="col01">

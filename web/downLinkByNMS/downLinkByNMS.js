@@ -155,7 +155,6 @@ function appendToTable(callback){
             .appendTo($leftTable);
 
         $("<tr name='" + row.ROWIDX + "'>"
-            +"<td style='text-align: right;font-size:11px;'>"+ (row.MIMO_TYPE||"-") +"</td>"
             +"<td style='text-align: right;font-size:11px;'>"
             +(function(value,sign,critical) {
             if(Number(value) && critical != null && eval(value+sign+critical)) {
@@ -231,17 +230,17 @@ function appendToTable(callback){
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.TRY_CCNT    ) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CON_RATE    ) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CDC_RATE    ) + "</td>"
-            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.DL_FA_USG_RATE    ) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_MB ) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_DL_PRB) + "</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CC) + "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TRY_CCNT) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.VOICE_TIME  ) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_MB ) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_DL_PRB) + "</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CC) + "</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TRY_CCNT) + "</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.IMAGE_TIME  ) + "</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-            +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+isUndifined(row.CHNL_TYPE,"-") +"</td>"
+            +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
             +"</tr>")
             .appendTo($rightTable);
 
@@ -323,7 +322,6 @@ $(document).ready(function(){
             for(var i=0; i < 4; i++) {
                 $("tbody tr:first",$bottomRightTable).remove();
                 $("<tr class='info'>"
-                    +"<td style='text-align: right;font-size:11px;'>"+ "-" +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].THROUGHPUT  )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI_AVERAGE )+"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CQI0_RATE   )+"</td>"
@@ -383,17 +381,19 @@ $(document).ready(function(){
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].TRY_CCNT    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CON_RATE    )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CDC_RATE    )+ "</td>"
-                    +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].DL_FA_USG_RATE )+ "</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_DL_MB ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_DL_PRB) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TRY_CC) +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TRY_CCNT) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].VOICE_TIME  ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_DL_MB ) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_DL_PRB) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TRY_CC) +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TRY_CCNT) +"</td>"
                     +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].IMAGE_TIME  ) +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
-                    +"<td style='text-align: right;font-size:11px;'>"+/*전송로*/"n/a" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+ "-" +"</td>"
+                    +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CHNL_COUNT).replace(".0","") +"</td>"
+
+
                     +"</tr>")
                     .appendTo($bottomRightTable);
             }

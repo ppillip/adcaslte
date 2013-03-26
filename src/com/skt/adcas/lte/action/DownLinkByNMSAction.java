@@ -869,20 +869,18 @@ public class DownLinkByNMSAction extends ActionSupport4lte implements ResultHand
             setCellDoubleIfExistValue(row.createCell(29),jrow,"TRY_CCNT"); // 데이터 시도호수");
             setCellDoubleIfExistValue(row.createCell(30),jrow,"CON_RATE"); // 데이터 접속률(%)");
             setCellDoubleIfExistValue(row.createCell(31),jrow,"CDC_RATE"); // 데이터 CD율(%)");
-            row.createCell(32).setCellValue("");                                                                                      // 데이터 FA사용률(%)");
-
-            setCellDoubleIfExistValue(row.createCell(33),jrow , "VOICE_DL_MB");
+            setCellDoubleIfExistValue(row.createCell(32),jrow,"DL_FA_USG_RATE"); //데이터 FA사용률(%)
 
             setCellDoubleIfExistValue(row.createCell(33),jrow,"VOICE_DL_MB");
             setCellDoubleIfExistValue(row.createCell(34),jrow,"VOICE_DL_PRB"); // HD Voice PRB 사용률(%)");
-            setCellDoubleIfExistValue(row.createCell(35),jrow,"VOICE_TRY_CC"); // HD Voice 시도호수");
+            setCellDoubleIfExistValue(row.createCell(35),jrow,"VOICE_TRY_CCNT"); // HD Voice 시도호수");
             setCellDoubleIfExistValue(row.createCell(36),jrow,"VOICE_TIME"); // HD Voice 점유시간");
             setCellDoubleIfExistValue(row.createCell(37),jrow,"IMAGE_DL_MB"); // 영상통화 트래픽 (MB)");
             setCellDoubleIfExistValue(row.createCell(38),jrow,"IMAGE_DL_PRB"); // 영상통화 PRB사용률(%)");
-            setCellDoubleIfExistValue(row.createCell(39),jrow,"IMAGE_TRY_CC"); // 영상통화 시도호수");
+            setCellDoubleIfExistValue(row.createCell(39),jrow,"IMAGE_TRY_CCNT"); // 영상통화 시도호수");
             setCellDoubleIfExistValue(row.createCell(40),jrow,"IMAGE_TIME"); // 영상통화 점유시간");
-            row.createCell(41).setCellValue("");                                                                                           // 전송로 종류");
-            row.createCell(42).setCellValue("");                                                                                           // 전송로 갯수");
+            row.createCell(41).setCellValue((String) jrow.get("CHNL_TYPE") ); // 전송로 종류");
+            setCellDoubleIfExistValue(row.createCell(42),jrow,"CHNL_COUNT");  // 전송로 갯수");
 
             i++;
 

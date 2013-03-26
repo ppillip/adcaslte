@@ -98,14 +98,20 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                           + "," + nvl(map.get("TRY_CCNT")      ,"") // 데이터 시도호수");
                           + "," + nvl(map.get("CON_RATE")      ,"") // 데이터 접속률(%)");
                           + "," + nvl(map.get("CDC_RATE")      ,"") // 데이터 CD율(%)");
+                          + "," + nvl(map.get("DL_FA_USG_RATE")      ,"") // FA 사용률(%)");
                           + "," + nvl(map.get("VOICE_DL_MB")   ,"") // HD Voice 다운로드
                           + "," + nvl(map.get("VOICE_DL_PRB")  ,"") // HD Voice PRB 사용률(%)");
-                          + "," + nvl(map.get("VOICE_TRY_CC")  ,"") // HD Voice 시도호수");
+                          + "," + nvl(map.get("VOICE_TRY_CCNT")  ,"") // HD Voice 시도호수");
                           + "," + nvl(map.get("VOICE_TIME")    ,"") // HD Voice 점유시간");
                           + "," + nvl(map.get("IMAGE_DL_MB")   ,"") // 영상통화 트래픽 (MB)");
                           + "," + nvl(map.get("IMAGE_DL_PRB")  ,"") // 영상통화 PRB사용률(%)");
-                          + "," + nvl(map.get("IMAGE_TRY_CC")  ,"") // 영상통화 시도호수");
+                          + "," + nvl(map.get("IMAGE_TRY_CCNT")  ,"") // 영상통화 시도호수");
                           + "," + nvl(map.get("IMAGE_TIME")    ,"") // 영상통화 점유시간");
+                          + "," + nvl(map.get("CHNL_TYPE")     ,"")  // 전송로 종류");
+                          + "," + nvl(map.get("CHNL_COUNT")    ,"")   // 전송로 갯수");
+
+
+
                           ;
 
             fileOut.write(txt);
@@ -160,6 +166,7 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                     +"," + "데이터 시도호수"
                     +"," + "데이터 접속률(%)"
                     +"," + "데이터 CD율(%)"
+                    +"," + "FA 사용률 (%)"
                     +"," + "HD Voice 다운로드"
                     +"," + "HD Voice PRB 사용률(%)"
                     +"," + "HD Voice 시도호수"
@@ -168,6 +175,8 @@ public class CSVDownloadAction extends ActionSupport4lte implements ResultHandle
                     +"," + "영상통화 PRB사용률(%)"
                     +"," + "영상통화 시도호수"
                     +"," + "영상통화 점유시간"
+                    +"," + "전송로 종류"
+                    +"," + "전송로 갯수"
             ;
 
             fileOut.write(txt);
