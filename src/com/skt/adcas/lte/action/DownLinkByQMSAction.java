@@ -444,8 +444,8 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("RSSI");                // "RSSI0_PUSCH"
         hrow0.createCell(a++).setCellValue("RSSI");                // "RSSI1_PUSCH"
         hrow0.createCell(a++).setCellValue("License 초과 실패호");  // "LICENSE_FAIL"
-        hrow0.createCell(a++).setCellValue("전송로");               // "전송로"
-        hrow0.createCell(a++).setCellValue("전송로");               // "전송로"
+//        hrow0.createCell(a++).setCellValue("전송로");               // "전송로"
+//        hrow0.createCell(a++).setCellValue("전송로");               // "전송로"
 
         Row hrow1 = sheet.createRow((short) 1 );
         hrow1.setHeightInPoints(20);
@@ -472,8 +472,8 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "RSSI0_PUSCH"
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");  // "RSSI1_PUSCH"
         hrow1.createCell(b++).setCellValue("");              // "LICENSE_FAIL"
-        hrow1.createCell(b++).setCellValue("종류");          // "전송로-종류"
-        hrow1.createCell(b++).setCellValue("갯수");          // "전송로-갯수"
+//        hrow1.createCell(b++).setCellValue("종류");          // "전송로-종류"
+//        hrow1.createCell(b++).setCellValue("갯수");          // "전송로-갯수"
 
         Row hrow2 = sheet.createRow((short) 2 );
         hrow2.setHeightInPoints(20);
@@ -500,8 +500,8 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         hrow2.createCell(c++).setCellValue("최번시");  // "RSSI0_PUSCH"
         hrow2.createCell(c++).setCellValue("최한시");  // "RSSI1_PUSCH"
         hrow2.createCell(c++).setCellValue("");       // "LICENSE_FAIL"
-        hrow2.createCell(c++).setCellValue("");       // "전송로-종류"
-        hrow2.createCell(c++).setCellValue("");       // "전송로-갯수"
+//        hrow2.createCell(c++).setCellValue("");       // "전송로-종류"
+//        hrow2.createCell(c++).setCellValue("");       // "전송로-갯수"
 
         int d = 0;
         sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "YMD"
@@ -526,9 +526,9 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
         sheet.addMergedRegion(new CellRangeAddress(1,1,d+2,d+3)); // "Total(PUSCH)"
         d += 4;
         sheet.addMergedRegion(new CellRangeAddress(0,2,d,d++));   // "LICENSE_FAIL"
-        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
-        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
-        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
+//        sheet.addMergedRegion(new CellRangeAddress(0,0,d,d+1));   // "전송로"
+//        sheet.addMergedRegion(new CellRangeAddress(1,2,d,d));     // "전송로-종류"
+//        sheet.addMergedRegion(new CellRangeAddress(1,2,d+1,d+1)); // "전송로-갯수"
 
         ArrayList list01 = (ArrayList) map.get("rows");
         Iterator iterator = (Iterator) list01.iterator();
@@ -562,8 +562,8 @@ public class DownLinkByQMSAction extends ActionSupport4lte {
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"RSSI0_PUSCH");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"RSSI1_PUSCH");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"LICENSE_FAIL");
-            row.createCell(e++).setCellValue("n/a");
-            row.createCell(e++).setCellValue("n/a");
+//            row.createCell(e++).setCellValue("n/a");
+//            row.createCell(e++).setCellValue("n/a");
             i++;
 
         }
