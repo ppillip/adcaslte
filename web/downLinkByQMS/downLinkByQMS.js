@@ -149,8 +149,8 @@ $(document).ready(function(){
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
                         +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+ "</td>"
-                        +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                        +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+//                        +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+//                        +"<td style='text-align: right;font-size:11px;'>n/a</td>"
                         +"</tr>")
                         .appendTo($bottomRightTable);
                 }
@@ -329,8 +329,8 @@ function appendToTable(callback){
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
             +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
-            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+//            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+//            +"<td style='text-align: right;font-size:11px;'>n/a</td>"
             +"</tr>")
             .appendTo($rightTable);
 

@@ -182,8 +182,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
                 <tr style="height:23px;" class="info">
@@ -201,13 +201,13 @@
                     <td rowspan="3">DL PRB<br>사용율(%)</td>
                     <td colspan="4">RSSI</td>
                     <td rowspan="3">License<br>초과<br>실패호</td>
-                    <td colspan="2">전송로</td>
+                    <!-- td colspan="2">전송로</td -->
                 </tr>
                 <tr style="height:23px;" class="info">
                     <td colspan="2">Total(PUCCH)</td>
                     <td colspan="2">Total(PUSCH)</td>
-                    <td rowspan="2">종류</td>
-                    <td rowspan="2">갯수</td>
+                    <!-- td rowspan="2">종류</td>
+                    <td rowspan="2">갯수</td -->
                 </tr>
                 <tr style="height:23px;" class="info">
                     <td>최번시</td>
@@ -252,8 +252,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
 
@@ -325,8 +325,8 @@
                     <col class="col01">
                     <col class="col01">
                     <col class="col01">
-                    <col class="col01">
-                    <col class="col01">
+                    <!-- col class="col01">
+                    <col class="col01" 전송로-->
                 </colgroup>
                 <tbody>
                 <tr class='info' style="height:25px;">
@@ -334,28 +334,28 @@
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><!-- td></td 전송로-->
                 </tr>
                 <tr  class='info'>
                     <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><!-- td></td 전송로-->
                 </tr>
                 <tr  class='info'>
                     <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><!-- td></td 전송로-->
                 </tr>
                 <tr  class='info'>
                     <td>&nbsp;</td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><!-- td></td 전송로-->
                 </tr>
                 </tbody>
             </table>
