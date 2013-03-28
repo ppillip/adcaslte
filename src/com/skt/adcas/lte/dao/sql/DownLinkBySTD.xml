@@ -11,6 +11,8 @@
         ,CELL_ID
         ,MCID
         ,FREQ_KIND
+        ,CHNL_TYPE
+        ,CHNL_COUNT
         ,round( ${MBTYPE + "_THROUGHPUT    "}   ,1) AS THROUGHPUT
         ,round( ${MBTYPE + "_CQI_AVERAGE   "}   ,1) AS CQI_AVERAGE
         ,round( ${MBTYPE + "_CQI0_RATE     "}   ,1) AS CQI0_RATE
@@ -106,6 +108,8 @@
     </sql>
 
     <sql id="DownLinkBySTD.sqlFromPartAVG">
+        ,max(ORG.CHNL_TYPE      )             AS CHNL_TYPE
+        ,round(avg(ORG.CHNL_COUNT     )  ,3)  AS CHNL_COUNT
         ,round(avg(ORG.THROUGHPUT     )  ,3)  AS THROUGHPUT
         ,round(avg(ORG.CQI_AVERAGE    )  ,3)  AS CQI_AVERAGE
         ,round(avg(ORG.CQI0_RATE      )  ,3)  AS CQI0_RATE

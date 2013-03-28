@@ -263,12 +263,12 @@
                         "<ul>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/nmsmx/main.jsp','1280-1024')\">DownLink</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/dnNmsAddr/main.jsp','1280-1024')\">DownLink 통계</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/qcenterup/main.jsp','1280-1024')\">UpLink</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/upQcenterAddr/main.jsp','1280-1024')\">UpLink통계</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/qcenterup/main.jsp','1280-1024')\">UpLink</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/upQcenterAddr/main.jsp','1280-1024')\">UpLink통계</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/nmsmxCompare/main.jsp','1280-1024')\">DownLink 전후비교</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/dnNmsAddrCompare/main.jsp','1280-1024')\">DownLink통계 전후비교</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/qcenterupCompare/main.jsp','1280-1024')\">UpLink 전후비교</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/upQcenterAddrCompare/main.jsp','1280-1024')\">UpLink통계 전후비교</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/qcenterupCompare/main.jsp','1280-1024')\">UpLink 전후비교</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/upQcenterAddrCompare/main.jsp','1280-1024')\">UpLink통계 전후비교</span></li>" +
                         "</ul>" +
                     "</div>" +
                     "<div class='menu1 depth_1' id='"+i+j+"'>QMS기반 섹터 TP" +
@@ -278,8 +278,8 @@
                         "<ul>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/nodebmx/main.jsp','1280-1024')\">DownLink</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/dnQmsAddr/main.jsp','1280-1024')\">DownLink통계</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/nodebup/main.jsp','1280-1024')\">UpLink</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/upQmsAddr/main.jsp','1280-1024')\">UpLink통계</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/nodebup/main.jsp','1280-1024')\">UpLink</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/upQmsAddr/main.jsp','1280-1024')\">UpLink통계</span></li>" +
                         "</ul>" +
                     "</div>" +
                     "<div class='menu1 depth_1' id='"+i+j+"'>기준용량분석" +
@@ -289,8 +289,8 @@
                         "<ul>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/downlinkcap/main.jsp','1280-1024')\">DownLink 기준 용량분석</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stdDownlinkcapstats/main.jsp','1280-1024')\">DownLink 기준 용량분석 통계</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/uplinkcap/main.jsp','1280-1024')\">UpLink 분기 용량분석</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stuNmsAddr/main.jsp','1280-1024')\">UpLink 분기 용량분석 통계</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/uplinkcap/main.jsp','1280-1024')\">UpLink 분기 용량분석</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stuNmsAddr/main.jsp','1280-1024')\">UpLink 분기 용량분석 통계</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/downlinkcapCompare/main.jsp','1280-1024')\">DownLink 기준 전후비교</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stdDownlinkcapstatsCompare/main.jsp','1280-1024')\">DownLink 기준 통계 전후비교</span></li>" +
                         "</ul>" +
@@ -312,15 +312,15 @@
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/poission/main.jsp','650-700')\">POISSION 임계치</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/cqimpornc/main.jsp','650-700')\">RNC Measurement power offset</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stdthrp/main.jsp','650-700')\">기준 용량 downlink 임계치 설정</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stdupthrp/main.jsp','650-700')\">분기 용량 uplink 임계치 설정</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/stdupthrp/main.jsp','650-700')\">분기 용량 uplink 임계치 설정</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/adjcell/main.jsp','650-700')\">인접셀 loading 용량감소율 설정</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/loading/main.jsp','650-700')\">DOWNLINK LOADING 환산계수</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/voicevar/main.jsp','650-700')\">DOWNLINK 음성환산계수</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/ah04/ah04_010.jsp','650-700')\">CQI vs Throughput Table</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/rscptable/main.jsp','650-700')\">RSCP vs Throughput Table</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/multicellcoe/main.jsp','650-700')\">UPLINK 멀티셀계수</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/uloading/main.jsp','650-700')\">UPLINK LOADING 환산계수</span></li>" +
-                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/uvoicevar/main.jsp','650-700')\">UPLINK 음성환산계수</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/multicellcoe/main.jsp','650-700')\">UPLINK 멀티셀계수</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/uloading/main.jsp','650-700')\">UPLINK LOADING 환산계수</span></li>" +
+//                            "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/uvoicevar/main.jsp','650-700')\">UPLINK 음성환산계수</span></li>" +
                             "<li>·<span style='cursor:pointer; margin-left:5px;' onClick=\"$.openMenu('/adcas/imtable/main.jsp','650-700')\">HSUPA Input Mapping Table 보정계수</span></li>" +
                         "</ul>" +
                     "</div>" +

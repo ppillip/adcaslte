@@ -664,8 +664,9 @@ public class DownLinkBySTDAction extends ActionSupport4lte {
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"RSSI0_PUSCH");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"RSSI1_PUSCH");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"LICENSE_FAIL");
-            row.createCell(e++).setCellValue("n/a");
-            row.createCell(e++).setCellValue("n/a");
+            row.createCell(e++).setCellValue((String) jrow.get("CHNL_TYPE") ); // 전송로 종류");
+            setCellDoubleIfExistValue(row.createCell(e++),jrow,"CHNL_COUNT");  // 전송로 갯수");
+
             i++;
 
         }

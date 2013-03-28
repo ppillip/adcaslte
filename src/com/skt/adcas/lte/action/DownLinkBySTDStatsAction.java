@@ -605,8 +605,8 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
         hrow0.createCell(a++).setCellValue("RSSI");                   // "RSSI0_PUSCH"
         hrow0.createCell(a++).setCellValue("RSSI");                   // "RSSI1_PUSCH"
         hrow0.createCell(a++).setCellValue("License 초과 실패호");     // "LICENSE_FAIL"
-        hrow0.createCell(a++).setCellValue("전송로");                 // "전송로"
-        hrow0.createCell(a++).setCellValue("전송로");                 // "전송로"
+        //hrow0.createCell(a++).setCellValue("전송로");                 // "전송로"
+        //hrow0.createCell(a++).setCellValue("전송로");                 // "전송로"
 
         Row hrow1 = sheet.createRow((short) 1 );
         hrow1.setHeightInPoints(20);
@@ -636,8 +636,8 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");   // "RSSI0_PUSCH"
         hrow1.createCell(b++).setCellValue("Total(PUSCH)");   // "RSSI1_PUSCH"
         hrow1.createCell(b++).setCellValue("");               // "LICENSE_FAIL"
-        hrow1.createCell(b++).setCellValue("종류");           // "전송로"
-        hrow1.createCell(b++).setCellValue("갯수");           // "전송로"
+        //hrow1.createCell(b++).setCellValue("종류");           // "전송로"
+        //hrow1.createCell(b++).setCellValue("갯수");           // "전송로"
 
         Row hrow2 = sheet.createRow((short) 2 );
         hrow2.setHeightInPoints(20);
@@ -735,8 +735,8 @@ public class DownLinkBySTDStatsAction extends ActionSupport4lte {
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"RSSI0_PUSCH");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"RSSI1_PUSCH");
             setCellDoubleIfExistValue(row.createCell(e++),jrow,"LICENSE_FAIL");
-            row.createCell(e++).setCellValue("n/a");
-            row.createCell(e++).setCellValue("n/a");
+           // row.createCell(e++).setCellValue("n/a");
+           // row.createCell(e++).setCellValue("n/a");
             i++;
 
         }

@@ -300,8 +300,9 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI0_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.RSSI1_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.LICENSE_FAIL)+ "</td>"
-                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+isUndifined(row.CHNL_TYPE,"-") +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(row.CHNL_COUNT).replace(".0","") +"</td>"
+
                 +"</tr>")
                 .appendTo($rightTable);
 
@@ -353,8 +354,8 @@ function getData(param, $leftTable, $rightTable, topLeftWidth, callback) {
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI0_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].RSSI1_PUSCH )+"</td>"
                 +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].LICENSE_FAIL)+ "</td>"
-                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
-                +"<td style='text-align: right;font-size:11px;'>n/a</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+ "-" +"</td>"
+                +"<td style='text-align: right;font-size:11px;'>"+formatNumber(statsArray[i].CHNL_COUNT).replace(".0","") +"</td>"
                 +"</tr>")
                 .appendTo($rightTable);
         }
